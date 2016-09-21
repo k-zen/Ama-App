@@ -17,7 +17,6 @@
 		49ECF5621D9317CA003E0359 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5531D9317CA003E0359 /* FirstViewController.swift */; };
 		49ECF5631D9317CA003E0359 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5541D9317CA003E0359 /* SecondViewController.swift */; };
 		49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF5571D9317CA003E0359 /* Assets.xcassets */; };
-		49ECF5651D9317CA003E0359 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF55E1D9317CA003E0359 /* Info.plist */; };
 		D949E3C4129F5FC2DB52A98D /* Pods_Ama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877718A541E64678B753DA50 /* Pods_Ama.framework */; };
 /* End PBXBuildFile section */
 
@@ -280,7 +279,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
-				49ECF5651D9317CA003E0359 /* Info.plist in Resources */,
 				49ECF5601D9317CA003E0359 /* LaunchScreen.storyboard in Resources */,
 				49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */,
 				49E4957E1D93193F00E7822D /* CHANGES.txt in Resources */,
@@ -372,6 +370,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -422,6 +421,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
