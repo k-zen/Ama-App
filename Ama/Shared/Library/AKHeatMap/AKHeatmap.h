@@ -1,35 +1,21 @@
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-static const CGFloat kSBMapRectPadding = 100000;
-static const int kSBZoomZeroDimension = 256;
-static const int kSBMapKitPoints = 536870912;
-static const int kSBZoomLevels = 20;
+@interface AKHeatMap : NSObject
++ (UIImage *)heatMapForMapView:(MKMapView *)mapView
+                         boost:(float)boost
+                     locations:(NSArray *)locations
+                       weights:(NSArray *)weights;
 
-// Alterable constant to change look of heat map
-static const int kSBScalePower = 4;
++ (UIImage *)heatMapWithRect:(CGRect)rect
+                       boost:(float)boost
+                      points:(NSArray *)points
+                     weights:(NSArray *)weights;
 
-// Alterable constant to trade off accuracy with performance
-// Increase for big data sets which draw slowly
-static const int kSBScreenPointsPerBucket = 10;
-
-@class AKColorProvider;
-
-@interface AKHeatmap : NSObject <MKOverlay>
-
-- (NSDictionary *)mapPointsWithHeatInMapRect:(MKMapRect)rect
-                                     atScale:(MKZoomScale)scale;
-- (MKMapRect)boundingMapRect;
-- (void)setData:(NSDictionary *)newHeatMapData;
-
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-
-@property (strong, nonatomic) AKColorProvider *colorProvider;
-
-@property (nonatomic, readonly) double maxValue;
-@property (readonly) double zoomedOutMax;
-@property (nonatomic, readonly) NSDictionary *pointsWithHeat;
-@property (readonly) CLLocationCoordinate2D center;
-@property (readonly) MKMapRect boundingRect;
-
++ (UIImage *)heatMapWithRect:(CGRect)rect
+                       boost:(float)boost
+                      points:(NSArray *)points
+                     weights:(NSArray *)weights
+    weightsAdjustmentEnabled:(BOOL)weightsAdjustmentEnabled
+             groupingEnabled:(BOOL)groupingEnabled;
 @end

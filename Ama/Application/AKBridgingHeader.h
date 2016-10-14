@@ -1,3 +1,2 @@
 #import "AKCustomView.h"
-#import "AKHeatmap.h"
-#import "AKHeatmapRenderer.h"
+#import "AKHeatMap.h"

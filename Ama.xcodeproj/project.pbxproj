@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		498A549A1DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 498A54991DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama */; };
+		498A549D1DB18A6500667525 /* AKHeatMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A549C1DB18A6500667525 /* AKHeatMap.m */; };
 		49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDD1DB121D700149DEE /* AKCustomView.m */; };
 		49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */; };
-		49D0BEFA1DB121D700149DEE /* AKColorProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEE31DB121D700149DEE /* AKColorProvider.m */; };
-		49D0BEFB1DB121D700149DEE /* AKDiffColorProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEE51DB121D700149DEE /* AKDiffColorProvider.m */; };
-		49D0BEFC1DB121D700149DEE /* AKDiffHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEE71DB121D700149DEE /* AKDiffHeatmap.m */; };
-		49D0BEFD1DB121D700149DEE /* AKHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEE91DB121D700149DEE /* AKHeatmap.m */; };
-		49D0BEFE1DB121D700149DEE /* AKHeatmapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEEB1DB121D700149DEE /* AKHeatmapRenderer.m */; };
 		49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEEE1DB121D700149DEE /* AKConstants.swift */; };
 		49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEF21DB121D700149DEE /* AKInputData.swift */; };
 		49E4957F1D93193F00E7822D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 49E4957D1D93193F00E7822D /* Podfile */; };
@@ -27,19 +24,12 @@
 
 /* Begin PBXFileReference section */
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		498A54991DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--00%3A00%3A55,00.ama"; sourceTree = "<group>"; };
+		498A549B1DB18A6500667525 /* AKHeatMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHeatMap.h; sourceTree = "<group>"; };
+		498A549C1DB18A6500667525 /* AKHeatMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHeatMap.m; sourceTree = "<group>"; };
 		49D0BEDC1DB121D700149DEE /* AKCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomView.h; sourceTree = "<group>"; };
 		49D0BEDD1DB121D700149DEE /* AKCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCustomView.m; sourceTree = "<group>"; };
 		49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomViewController.swift; sourceTree = "<group>"; };
-		49D0BEE21DB121D700149DEE /* AKColorProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKColorProvider.h; sourceTree = "<group>"; };
-		49D0BEE31DB121D700149DEE /* AKColorProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKColorProvider.m; sourceTree = "<group>"; };
-		49D0BEE41DB121D700149DEE /* AKDiffColorProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDiffColorProvider.h; sourceTree = "<group>"; };
-		49D0BEE51DB121D700149DEE /* AKDiffColorProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDiffColorProvider.m; sourceTree = "<group>"; };
-		49D0BEE61DB121D700149DEE /* AKDiffHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDiffHeatmap.h; sourceTree = "<group>"; };
-		49D0BEE71DB121D700149DEE /* AKDiffHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDiffHeatmap.m; sourceTree = "<group>"; };
-		49D0BEE81DB121D700149DEE /* AKHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHeatmap.h; sourceTree = "<group>"; };
-		49D0BEE91DB121D700149DEE /* AKHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHeatmap.m; sourceTree = "<group>"; };
-		49D0BEEA1DB121D700149DEE /* AKHeatmapRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHeatmapRenderer.h; sourceTree = "<group>"; };
-		49D0BEEB1DB121D700149DEE /* AKHeatmapRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHeatmapRenderer.m; sourceTree = "<group>"; };
 		49D0BEEE1DB121D700149DEE /* AKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConstants.swift; sourceTree = "<group>"; };
 		49D0BEF21DB121D700149DEE /* AKInputData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKInputData.swift; sourceTree = "<group>"; };
 		49D0BF081DB124E900149DEE /* Ama.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ama.entitlements; sourceTree = "<group>"; };
@@ -121,16 +111,8 @@
 		49D0BEE11DB121D700149DEE /* AKHeatMap */ = {
 			isa = PBXGroup;
 			children = (
-				49D0BEE21DB121D700149DEE /* AKColorProvider.h */,
-				49D0BEE31DB121D700149DEE /* AKColorProvider.m */,
-				49D0BEE41DB121D700149DEE /* AKDiffColorProvider.h */,
-				49D0BEE51DB121D700149DEE /* AKDiffColorProvider.m */,
-				49D0BEE61DB121D700149DEE /* AKDiffHeatmap.h */,
-				49D0BEE71DB121D700149DEE /* AKDiffHeatmap.m */,
-				49D0BEE81DB121D700149DEE /* AKHeatmap.h */,
-				49D0BEE91DB121D700149DEE /* AKHeatmap.m */,
-				49D0BEEA1DB121D700149DEE /* AKHeatmapRenderer.h */,
-				49D0BEEB1DB121D700149DEE /* AKHeatmapRenderer.m */,
+				498A549B1DB18A6500667525 /* AKHeatMap.h */,
+				498A549C1DB18A6500667525 /* AKHeatMap.m */,
 			);
 			path = AKHeatMap;
 			sourceTree = "<group>";
@@ -191,6 +173,7 @@
 		49ECF5591D9317CA003E0359 /* Files */ = {
 			isa = PBXGroup;
 			children = (
+				498A54991DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -312,6 +295,7 @@
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
 				49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */,
 				49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */,
+				498A549A1DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,15 +354,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D0BEFD1DB121D700149DEE /* AKHeatmap.m in Sources */,
-				49D0BEFE1DB121D700149DEE /* AKHeatmapRenderer.m in Sources */,
-				49D0BEFB1DB121D700149DEE /* AKDiffColorProvider.m in Sources */,
+				498A549D1DB18A6500667525 /* AKHeatMap.m in Sources */,
 				49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
-				49D0BEFC1DB121D700149DEE /* AKDiffHeatmap.m in Sources */,
 				49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */,
-				49D0BEFA1DB121D700149DEE /* AKColorProvider.m in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
 				49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */,
