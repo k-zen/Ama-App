@@ -1,9 +1,11 @@
 PODS:
   - HexColors (2.3.0)
+  - Mapbox-iOS-SDK (3.3.4)
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
 
 DEPENDENCIES:
+  - Mapbox-iOS-SDK
   - TSMessages (from `https://github.com/KrauseFx/TSMessages.git`)
 
 EXTERNAL SOURCES:
@@ -17,8 +19,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
+  Mapbox-iOS-SDK: b22da0d9703fcfb0a8b592b6a7f6a21264fe44b0
   TSMessages: 6e403b790139636c15ab4f51946537095e03e79c
 
-PODFILE CHECKSUM: adfc314a883d056835db237b2f2165cd8fe60063
+PODFILE CHECKSUM: 8eb38cbc37050af2025071bd92d66576ea0e4a12
 
 COCOAPODS: 1.0.1

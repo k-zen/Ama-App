@@ -7,30 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		49806A041D931A5100D5E484 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 49806A021D931A5100D5E484 /* LICENSE.txt */; };
-		49806A051D931A5100D5E484 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 49806A031D931A5100D5E484 /* README.txt */; };
-		49E4957E1D93193F00E7822D /* CHANGES.txt in Resources */ = {isa = PBXBuildFile; fileRef = 49E4957C1D93193F00E7822D /* CHANGES.txt */; };
+		49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDD1DB121D700149DEE /* AKCustomView.m */; };
+		49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */; };
+		49D0BEFA1DB121D700149DEE /* AKColorProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEE31DB121D700149DEE /* AKColorProvider.m */; };
+		49D0BEFB1DB121D700149DEE /* AKDiffColorProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEE51DB121D700149DEE /* AKDiffColorProvider.m */; };
+		49D0BEFC1DB121D700149DEE /* AKDiffHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEE71DB121D700149DEE /* AKDiffHeatmap.m */; };
+		49D0BEFD1DB121D700149DEE /* AKHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEE91DB121D700149DEE /* AKHeatmap.m */; };
+		49D0BEFE1DB121D700149DEE /* AKHeatmapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEEB1DB121D700149DEE /* AKHeatmapRenderer.m */; };
+		49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEEE1DB121D700149DEE /* AKConstants.swift */; };
+		49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEF21DB121D700149DEE /* AKInputData.swift */; };
 		49E4957F1D93193F00E7822D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 49E4957D1D93193F00E7822D /* Podfile */; };
-		49ECF55F1D9317CA003E0359 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF54B1D9317CA003E0359 /* AppDelegate.swift */; };
-		49ECF5601D9317CA003E0359 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF54C1D9317CA003E0359 /* LaunchScreen.storyboard */; };
-		49ECF5611D9317CA003E0359 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF54D1D9317CA003E0359 /* Main.storyboard */; };
-		49ECF5621D9317CA003E0359 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5531D9317CA003E0359 /* FirstViewController.swift */; };
-		49ECF5631D9317CA003E0359 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5541D9317CA003E0359 /* SecondViewController.swift */; };
+		49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF54B1D9317CA003E0359 /* AKAppDelegate.swift */; };
+		49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF54D1D9317CA003E0359 /* AKMain.storyboard */; };
+		49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5531D9317CA003E0359 /* AKHeatMapViewController.swift */; };
+		49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */; };
 		49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF5571D9317CA003E0359 /* Assets.xcassets */; };
 		D949E3C4129F5FC2DB52A98D /* Pods_Ama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877718A541E64678B753DA50 /* Pods_Ama.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		49806A021D931A5100D5E484 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		49806A031D931A5100D5E484 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		49E4957C1D93193F00E7822D /* CHANGES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGES.txt; sourceTree = "<group>"; };
+		49D0BEDC1DB121D700149DEE /* AKCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomView.h; sourceTree = "<group>"; };
+		49D0BEDD1DB121D700149DEE /* AKCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCustomView.m; sourceTree = "<group>"; };
+		49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomViewController.swift; sourceTree = "<group>"; };
+		49D0BEE21DB121D700149DEE /* AKColorProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKColorProvider.h; sourceTree = "<group>"; };
+		49D0BEE31DB121D700149DEE /* AKColorProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKColorProvider.m; sourceTree = "<group>"; };
+		49D0BEE41DB121D700149DEE /* AKDiffColorProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDiffColorProvider.h; sourceTree = "<group>"; };
+		49D0BEE51DB121D700149DEE /* AKDiffColorProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDiffColorProvider.m; sourceTree = "<group>"; };
+		49D0BEE61DB121D700149DEE /* AKDiffHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDiffHeatmap.h; sourceTree = "<group>"; };
+		49D0BEE71DB121D700149DEE /* AKDiffHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDiffHeatmap.m; sourceTree = "<group>"; };
+		49D0BEE81DB121D700149DEE /* AKHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHeatmap.h; sourceTree = "<group>"; };
+		49D0BEE91DB121D700149DEE /* AKHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHeatmap.m; sourceTree = "<group>"; };
+		49D0BEEA1DB121D700149DEE /* AKHeatmapRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHeatmapRenderer.h; sourceTree = "<group>"; };
+		49D0BEEB1DB121D700149DEE /* AKHeatmapRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHeatmapRenderer.m; sourceTree = "<group>"; };
+		49D0BEEE1DB121D700149DEE /* AKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConstants.swift; sourceTree = "<group>"; };
+		49D0BEF21DB121D700149DEE /* AKInputData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKInputData.swift; sourceTree = "<group>"; };
+		49D0BF081DB124E900149DEE /* Ama.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ama.entitlements; sourceTree = "<group>"; };
+		49D0BF091DB125DF00149DEE /* AKBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBridgingHeader.h; sourceTree = "<group>"; };
 		49E4957D1D93193F00E7822D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
-		49ECF54B1D9317CA003E0359 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		49ECF54C1D9317CA003E0359 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		49ECF54D1D9317CA003E0359 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		49ECF5531D9317CA003E0359 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		49ECF5541D9317CA003E0359 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		49ECF54B1D9317CA003E0359 /* AKAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppDelegate.swift; sourceTree = "<group>"; };
+		49ECF54D1D9317CA003E0359 /* AKMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AKMain.storyboard; sourceTree = "<group>"; };
+		49ECF5531D9317CA003E0359 /* AKHeatMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapViewController.swift; sourceTree = "<group>"; };
+		49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConfigViewController.swift; sourceTree = "<group>"; };
 		49ECF5571D9317CA003E0359 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49ECF55E1D9317CA003E0359 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E1E5206C4883F3670F3EC77 /* Pods-Ama.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ama.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ama/Pods-Ama.debug.xcconfig"; sourceTree = "<group>"; };
@@ -63,9 +81,6 @@
 			isa = PBXGroup;
 			children = (
 				49E4957D1D93193F00E7822D /* Podfile */,
-				49E4957C1D93193F00E7822D /* CHANGES.txt */,
-				49806A021D931A5100D5E484 /* LICENSE.txt */,
-				49806A031D931A5100D5E484 /* README.txt */,
 				496C1A281D930FDD00E41190 /* Ama */,
 				D116BF51896162D91D060034 /* Frameworks */,
 				3DB4CE83563402215D04895B /* Pods */,
@@ -85,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				49ECF54A1D9317CA003E0359 /* Application */,
-				49ECF54E1D9317CA003E0359 /* iPad */,
 				49ECF5511D9317CA003E0359 /* iPhone */,
 				49ECF5561D9317CA003E0359 /* Resources */,
 				49ECF55B1D9317CA003E0359 /* Shared */,
@@ -94,37 +108,41 @@
 			path = Ama;
 			sourceTree = "<group>";
 		};
+		49D0BEDB1DB121D700149DEE /* AKCustomComponents */ = {
+			isa = PBXGroup;
+			children = (
+				49D0BEDC1DB121D700149DEE /* AKCustomView.h */,
+				49D0BEDD1DB121D700149DEE /* AKCustomView.m */,
+				49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */,
+			);
+			path = AKCustomComponents;
+			sourceTree = "<group>";
+		};
+		49D0BEE11DB121D700149DEE /* AKHeatMap */ = {
+			isa = PBXGroup;
+			children = (
+				49D0BEE21DB121D700149DEE /* AKColorProvider.h */,
+				49D0BEE31DB121D700149DEE /* AKColorProvider.m */,
+				49D0BEE41DB121D700149DEE /* AKDiffColorProvider.h */,
+				49D0BEE51DB121D700149DEE /* AKDiffColorProvider.m */,
+				49D0BEE61DB121D700149DEE /* AKDiffHeatmap.h */,
+				49D0BEE71DB121D700149DEE /* AKDiffHeatmap.m */,
+				49D0BEE81DB121D700149DEE /* AKHeatmap.h */,
+				49D0BEE91DB121D700149DEE /* AKHeatmap.m */,
+				49D0BEEA1DB121D700149DEE /* AKHeatmapRenderer.h */,
+				49D0BEEB1DB121D700149DEE /* AKHeatmapRenderer.m */,
+			);
+			path = AKHeatMap;
+			sourceTree = "<group>";
+		};
 		49ECF54A1D9317CA003E0359 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				49ECF54B1D9317CA003E0359 /* AppDelegate.swift */,
-				49ECF54C1D9317CA003E0359 /* LaunchScreen.storyboard */,
-				49ECF54D1D9317CA003E0359 /* Main.storyboard */,
+				49ECF54B1D9317CA003E0359 /* AKAppDelegate.swift */,
+				49D0BF091DB125DF00149DEE /* AKBridgingHeader.h */,
+				49ECF54D1D9317CA003E0359 /* AKMain.storyboard */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		49ECF54E1D9317CA003E0359 /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-				49ECF54F1D9317CA003E0359 /* Controllers */,
-				49ECF5501D9317CA003E0359 /* Views */,
-			);
-			path = iPad;
-			sourceTree = "<group>";
-		};
-		49ECF54F1D9317CA003E0359 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		49ECF5501D9317CA003E0359 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		49ECF5511D9317CA003E0359 /* iPhone */ = {
@@ -139,8 +157,8 @@
 		49ECF5521D9317CA003E0359 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				49ECF5531D9317CA003E0359 /* FirstViewController.swift */,
-				49ECF5541D9317CA003E0359 /* SecondViewController.swift */,
+				49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */,
+				49ECF5531D9317CA003E0359 /* AKHeatMapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -195,6 +213,10 @@
 		49ECF55C1D9317CA003E0359 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				49D0BEEE1DB121D700149DEE /* AKConstants.swift */,
+				49D0BEF21DB121D700149DEE /* AKInputData.swift */,
+				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
+				49D0BEE11DB121D700149DEE /* AKHeatMap */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -202,6 +224,7 @@
 		49ECF55D1D9317CA003E0359 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				49D0BF081DB124E900149DEE /* Ama.entitlements */,
 				49ECF55E1D9317CA003E0359 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -252,6 +275,14 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 8JQ7MFA6Q2;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -279,12 +310,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
-				49ECF5601D9317CA003E0359 /* LaunchScreen.storyboard in Resources */,
 				49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */,
-				49E4957E1D93193F00E7822D /* CHANGES.txt in Resources */,
-				49ECF5611D9317CA003E0359 /* Main.storyboard in Resources */,
-				49806A051D931A5100D5E484 /* README.txt in Resources */,
-				49806A041D931A5100D5E484 /* LICENSE.txt in Resources */,
+				49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,9 +370,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49ECF5631D9317CA003E0359 /* SecondViewController.swift in Sources */,
-				49ECF55F1D9317CA003E0359 /* AppDelegate.swift in Sources */,
-				49ECF5621D9317CA003E0359 /* FirstViewController.swift in Sources */,
+				49D0BEFD1DB121D700149DEE /* AKHeatmap.m in Sources */,
+				49D0BEFE1DB121D700149DEE /* AKHeatmapRenderer.m in Sources */,
+				49D0BEFB1DB121D700149DEE /* AKDiffColorProvider.m in Sources */,
+				49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */,
+				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
+				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
+				49D0BEFC1DB121D700149DEE /* AKDiffHeatmap.m in Sources */,
+				49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */,
+				49D0BEFA1DB121D700149DEE /* AKColorProvider.m in Sources */,
+				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
+				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
+				49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +410,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -399,7 +434,6 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -425,7 +459,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -442,7 +475,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -452,14 +484,18 @@
 			baseConfigurationReference = 7E1E5206C4883F3670F3EC77 /* Pods-Ama.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andreas P. Koenzen (5GQB46H9ER)";
 				DEVELOPMENT_TEAM = 8JQ7MFA6Q2;
 				INFOPLIST_FILE = "$(SRCROOT)/Ama/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.apkc.projects.ios.Ama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a6268ef1-ce8f-4021-bae0-09a535ccde54";
 				PROVISIONING_PROFILE_SPECIFIER = "Ama (iOS Development)";
+				SWIFT_OBJC_BRIDGING_HEADER = Ama/Application/AKBridgingHeader.h;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -468,7 +504,7 @@
 			baseConfigurationReference = CA3841395D8278F8472F2F04 /* Pods-Ama.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andreas P. Koenzen (8JQ7MFA6Q2)";
 				DEVELOPMENT_TEAM = 8JQ7MFA6Q2;
 				INFOPLIST_FILE = "$(SRCROOT)/Ama/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -476,7 +512,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "34b75e28-3a57-4529-8458-3a674b54d17b";
 				PROVISIONING_PROFILE_SPECIFIER = "Ama (iOS Distribution)";
+				SWIFT_OBJC_BRIDGING_HEADER = Ama/Application/AKBridgingHeader.h;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -1,8 +1,0 @@
-=================== Release 1.0 2016-XX-XX =====================
-Descripción
-    * Primera versión alfa de la App.
-Funcionalidades
-    *
-Cambios
-    * Versión 1.0 Build 01 (XX/XX/2016)
-        * 
