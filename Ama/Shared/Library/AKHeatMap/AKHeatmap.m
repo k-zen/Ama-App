@@ -106,7 +106,7 @@ inline static int isqrt(int x) {
     }
 }
 
-+ (UIImage *)heatMapForMapView:(MKMapView *)mapView
++ (UIImage *)heatMapForMapView:(MGLMapView *)mapView
                          boost:(float)boost
                      locations:(NSArray *)locations
                        weights:(NSArray *)weights

@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49250BDC1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 49250BDB1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama */; };
+		49250BDE1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 49250BDD1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama */; };
 		498A549A1DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 498A54991DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama */; };
 		498A549D1DB18A6500667525 /* AKHeatMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 498A549C1DB18A6500667525 /* AKHeatMap.m */; };
+		498A54A01DB1913F00667525 /* CSwiftV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A549F1DB1913F00667525 /* CSwiftV.swift */; };
 		49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDD1DB121D700149DEE /* AKCustomView.m */; };
 		49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */; };
 		49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEEE1DB121D700149DEE /* AKConstants.swift */; };
@@ -23,10 +26,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49250BDB1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--23%3A59%3A25,00.ama"; sourceTree = "<group>"; };
+		49250BDD1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--09%3A56%3A16,00.ama"; sourceTree = "<group>"; };
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		498A54991DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--00%3A00%3A55,00.ama"; sourceTree = "<group>"; };
 		498A549B1DB18A6500667525 /* AKHeatMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHeatMap.h; sourceTree = "<group>"; };
 		498A549C1DB18A6500667525 /* AKHeatMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHeatMap.m; sourceTree = "<group>"; };
+		498A549F1DB1913F00667525 /* CSwiftV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSwiftV.swift; sourceTree = "<group>"; };
 		49D0BEDC1DB121D700149DEE /* AKCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomView.h; sourceTree = "<group>"; };
 		49D0BEDD1DB121D700149DEE /* AKCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCustomView.m; sourceTree = "<group>"; };
 		49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +102,14 @@
 				49ECF55D1D9317CA003E0359 /* Supporting Files */,
 			);
 			path = Ama;
+			sourceTree = "<group>";
+		};
+		498A549E1DB1913F00667525 /* CSwiftV */ = {
+			isa = PBXGroup;
+			children = (
+				498A549F1DB1913F00667525 /* CSwiftV.swift */,
+			);
+			path = CSwiftV;
 			sourceTree = "<group>";
 		};
 		49D0BEDB1DB121D700149DEE /* AKCustomComponents */ = {
@@ -174,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				498A54991DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama */,
+				49250BDD1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama */,
+				49250BDB1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -200,6 +216,7 @@
 				49D0BEF21DB121D700149DEE /* AKInputData.swift */,
 				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
 				49D0BEE11DB121D700149DEE /* AKHeatMap */,
+				498A549E1DB1913F00667525 /* CSwiftV */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -294,6 +311,8 @@
 			files = (
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
 				49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */,
+				49250BDE1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama in Resources */,
+				49250BDC1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama in Resources */,
 				49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */,
 				498A549A1DB1844200667525 /* 2015-12-04--00%3A00%3A55,00.ama in Resources */,
 			);
@@ -361,6 +380,7 @@
 				49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
+				498A54A01DB1913F00667525 /* CSwiftV.swift in Sources */,
 				49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

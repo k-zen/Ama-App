@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
+#import <Mapbox/Mapbox.h>
 
 @interface AKHeatMap : NSObject
-+ (UIImage *)heatMapForMapView:(MKMapView *)mapView
++ (UIImage *)heatMapForMapView:(MGLMapView *)mapView
                          boost:(float)boost
                      locations:(NSArray *)locations
                        weights:(NSArray *)weights;
