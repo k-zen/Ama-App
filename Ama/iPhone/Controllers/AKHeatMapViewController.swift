@@ -43,7 +43,7 @@ class AKHeatMapViewController: AKCustomViewController, MGLMapViewDelegate
         self.mapView.userTrackingMode = MGLUserTrackingMode.none
         
         // Add radar annotation.
-        //  Radar Coordinates => -25.333079999999999, -57.523449999999997
+        // Radar Coordinates => -25.333079999999999, -57.523449999999997
         let origin = CLLocationCoordinate2DMake(-25.333079999999999, -57.523449999999997)
         if CLLocationCoordinate2DIsValid(origin) {
             self.mapView.setCenter(origin, zoomLevel: 8, animated: true)
@@ -77,9 +77,6 @@ class AKHeatMapViewController: AKCustomViewController, MGLMapViewDelegate
             NSLog("=> ADDING A HEATMAP ANNOTATION.")
             
             let hma = annotation as! AKHeatmapAnnotation
-            
-            NSLog("%f", hma.rainfallIntensity!)
-            
             let color = hma.rainfallIntensity!
             var useColor: UIColor?
             var alpha: Float?
