@@ -28,8 +28,6 @@ extension String
 }
 
 // MARK: Structures
-
-// MARK: Global Constants
 struct GlobalConstants {
     static let AKDebug = true
     static let AKNotificationBarDismissDelay = 4
@@ -49,6 +47,12 @@ struct GlobalConstants {
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
 }
 
+struct AKRainfallIntensityColor {
+    var color: UIColor?
+    var name: String?
+    var alpha: Float?
+}
+
 // MARK: Global Enumerations
 enum ErrorCodes: Int {
     case generic = 1000
@@ -59,6 +63,13 @@ enum Exceptions: Error {
     case emptyData(msg: String)
     case invalidLength(msg: String)
     case notValid(msg: String)
+}
+
+enum HeatMapColorName: String {
+    case purple = "purple"
+    case blue = "blue"
+    case cyan = "cyan"
+    case red = "red"
 }
 
 enum UnitOfLength: Int {
@@ -217,6 +228,29 @@ func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: F
     UIGraphicsEndImageContext()
     
     return image!
+}
+
+/// Returns the associated color for an interval of rainfall intensity.
+///
+/// - Parameter ri: The value of rainfall intensity.
+///
+/// - Returns: A color object.
+func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
+{
+    switch ri {
+    case 1.0..<25.0:
+        var s = AKRainfallIntensityColor(); s.color = UIColor.purple; s.alpha = 0.0; s.name = HeatMapColorName.purple.rawValue
+        return s
+    case 25.0..<50.0:
+        var s = AKRainfallIntensityColor(); s.color = UIColor.blue; s.alpha = 1.0; s.name = HeatMapColorName.blue.rawValue
+        return s
+    case 50.0..<75.0:
+        var s = AKRainfallIntensityColor(); s.color = UIColor.cyan; s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        return s
+    default:
+        var s = AKRainfallIntensityColor(); s.color = UIColor.red; s.alpha = 1.0; s.name = HeatMapColorName.red.rawValue
+        return s
+    }
 }
 
 /// Computes and generates a **UIColor** object based

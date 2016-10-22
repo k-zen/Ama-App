@@ -1,28 +1,48 @@
 import CoreLocation
 import Foundation
-import Mapbox
+import MapKit
 import UIKit
 
-class AKOriginPinAnnotation: MGLPointAnnotation {}
-class AKOriginCircleAnnotation: MGLPointAnnotation {}
-class AKHeatmapAnnotation: MGLPointAnnotation
+class AKOriginAnnotation: MKPointAnnotation {}
+class AKOriginOverlay: NSObject, MKOverlay
+{
+    var coordinate: CLLocationCoordinate2D
+    var boundingMapRect: MKMapRect
+    var radius: CLLocationDistance
+    var title: String?
+    
+    init(center: CLLocationCoordinate2D, radius: CLLocationDistance)
+    {
+        self.coordinate = center
+        
+        // Create rectangle for Paraguay.
+        let pointA = MKMapPointForCoordinate(CLLocationCoordinate2DMake(-19.207429, -63.413086))
+        let pointB = MKMapPointForCoordinate(CLLocationCoordinate2DMake(-27.722436, -52.778320))
+        self.boundingMapRect = MKMapRectMake(fmin(pointA.x, pointB.x), fmin(pointA.y, pointB.y), fabs(pointA.x - pointB.x), fabs(pointA.y - pointB.y))
+        
+        self.radius = radius
+    }
+}
+
+class AKHeatMapAnnotation: MKPointAnnotation
 {
     // MARK: Properties
-    let rainfallIntensity: Double?
+    var rainfallIntensity: Double
     
-    init(rainfallIntensity: Double) {
+    init(rainfallIntensity: Double)
+    {
         self.rainfallIntensity = rainfallIntensity
     }
 }
 
-class AKHeatMapViewController: AKCustomViewController, MGLMapViewDelegate
+class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
-    private let originPinAnnotation = AKOriginPinAnnotation()
-    private let originCircleAnnotation = AKOriginCircleAnnotation()
+    private var originAnnotation: AKOriginAnnotation?
+    private var originOverlay: AKOriginOverlay?
     
     // MARK: Outlets
-    @IBOutlet var mapView: MGLMapView!
+    @IBOutlet weak var mapView: MKMapView!
     
     // MARK: AKCustomViewController Overriding
     override func viewDidLoad()
@@ -36,24 +56,25 @@ class AKHeatMapViewController: AKCustomViewController, MGLMapViewDelegate
         super.viewDidAppear(animated)
         
         // Configure map.
-        self.mapView.zoomLevel = 8
-        // self.mapView.styleURL = MGLStyle.satelliteStreetsStyleURL(withVersion: 9)
-        self.mapView.styleURL = MGLStyle.lightStyleURL(withVersion: 9)
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.mapView.userTrackingMode = MGLUserTrackingMode.none
+        self.mapView.userTrackingMode = MKUserTrackingMode.none
         
         // Add radar annotation.
         // Radar Coordinates => -25.333079999999999, -57.523449999999997
         let origin = CLLocationCoordinate2DMake(-25.333079999999999, -57.523449999999997)
         if CLLocationCoordinate2DIsValid(origin) {
-            self.mapView.setCenter(origin, zoomLevel: 8, animated: true)
+            self.mapView.setCenter(origin, animated: true)
             
-            self.originCircleAnnotation.coordinate = origin
-            self.originCircleAnnotation.title = "Cobertura Radar"
-            self.mapView.addAnnotation(self.originCircleAnnotation)
+            let span = MKCoordinateSpanMake(0.5, 0.5)
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: origin.latitude, longitude: origin.longitude), span: span)
+            self.mapView.setRegion(region, animated: true)
+            
+            self.originOverlay = AKOriginOverlay(center: origin, radius: 50000)
+            self.originOverlay?.title = "Cobertura Radar"
+            // self.mapView.add(self.originOverlay!, level: MKOverlayLevel.aboveRoads)
             
             // Add PIN for user location.
-            let annotation = MGLPointAnnotation()
+            let annotation = MKPointAnnotation()
             annotation.coordinate = origin
             annotation.title = "Radar"
             annotation.subtitle = String(format: "Lat: %f, Lng: %f", origin.latitude, origin.longitude)
@@ -61,64 +82,58 @@ class AKHeatMapViewController: AKCustomViewController, MGLMapViewDelegate
         }
     }
     
-    // MARK: MGLMapViewDelegate Implementation
-    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        if annotation.isKind(of: AKOriginCircleAnnotation.self) {
-            NSLog("=> ADDING A CIRCLE ANNOTATION.")
-            
-            let customView = MGLAnnotationImage(
-                image: AKCircleImageWithRadius(100, strokeColor: UIColor.red, strokeAlpha: 1.0, fillColor: UIColor.red, fillAlpha: 0.15),
-                reuseIdentifier: annotation.title!!
-            )
-            
-            return customView
-        }
-        else if annotation.isKind(of: AKHeatmapAnnotation.self) {
-            NSLog("=> ADDING A HEATMAP ANNOTATION.")
-            
-            let hma = annotation as! AKHeatmapAnnotation
-            let color = hma.rainfallIntensity!
-            var useColor: UIColor?
-            var alpha: Float?
-            var radius: Int?
-            switch color {
-            case 1.0..<25.0:
-                useColor = UIColor.purple
-                alpha = 0.0
-                radius = 4
-                break
-            case 25.0..<50.0:
-                useColor = UIColor.blue
-                alpha = 1.0
-                radius = 4
-                break
-            case 50.0..<75.0:
-                useColor = UIColor.cyan
-                alpha = 1.0
-                radius = 4
-                break
-            default:
-                useColor = UIColor.red
-                alpha = 1.0
-                radius = 4
-                break
+    // MARK: MKMapViewDelegate Implementation
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
+    {
+        if annotation.isKind(of: AKHeatMapAnnotation.self) {
+            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.title!!) {
+                NSLog("=> DEQUEUEING HEATMAP ANNOTATION.")
+                return annotationView
             }
-            
-            let customView = MGLAnnotationImage(
-                image: AKCircleImageWithRadius(radius!, strokeColor: UIColor.clear, strokeAlpha: 0.0, fillColor: useColor!, fillAlpha: alpha!),
-                reuseIdentifier: annotation.title!!
-            )
-            
-            return customView
+            else {
+                NSLog("=> NEW HEATMAP ANNOTATION.")
+                
+                let ann = annotation as! AKHeatMapAnnotation
+                let hmc = AKGetInfoForRainfallIntensity(ri: ann.rainfallIntensity)
+                let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.title!!)
+                customView.image = AKCircleImageWithRadius(
+                    5,
+                    strokeColor: UIColor.clear,
+                    strokeAlpha: 0.0,
+                    fillColor: hmc.color!,
+                    fillAlpha: hmc.alpha!
+                )
+                
+                return customView
+            }
         }
         else {
-            NSLog("=> ADDING A DEFAULT ANNOTATION.")
-            
             return nil
         }
     }
     
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool { return true }
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer
+    {
+        if overlay.isKind(of: AKOriginOverlay.self) {
+            NSLog("=> NEW CIRCLE OVERLAY.")
+            
+            let ol = overlay as! AKOriginOverlay
+            
+            let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
+            customView.fillColor = UIColor.red
+            customView.alpha = 0.15
+            customView.strokeColor = UIColor.red
+            customView.lineWidth = 2.0
+            
+            return customView
+        }
+        else {
+            NSLog("=> NEW DEFAULT OVERLAY.")
+            return MKOverlayRenderer(overlay: overlay)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationCanShowCallout annotation: MKAnnotation) -> Bool { return true }
     
     // MARK: Observers
     func locationUpdated()
@@ -146,52 +161,47 @@ class AKHeatMapViewController: AKCustomViewController, MGLMapViewDelegate
         )
         
         // Add HeatMap
-        let content: String?
-        let data: [[String]]?
-        var annotations: [AKHeatmapAnnotation] = []
-        do {
-            NSLog("=> READING WEATHER DATA FILE!")
-            content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A56%3A16,00", ofType:"ama")!, encoding: String.Encoding.utf8)
-            data = CSwiftV(String: content!).rows
-            
-            var locations = [CLLocation]()
-            var rainfallIntensities = [NSNumber]()
-            for item in data! {
-                let latitude = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
-                let longitude = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[1])!)
-                let location = CLLocation(latitude: latitude, longitude: longitude)
-                locations.append(location)
+        AKDelay(0.0, task: { Void -> Void in
+            let content: String?
+            let data: [[String]]?
+            var annotations: [AKHeatMapAnnotation] = []
+            do {
+                NSLog("=> READING WEATHER DATA FILE!")
+                content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A56%3A16,00", ofType:"ama")!, encoding: String.Encoding.utf8)
+                data = CSwiftV(String: content!).rows
                 
-                let rainfallIntensity = Double(item[0])!
-                rainfallIntensities.append(NSNumber(value: rainfallIntensity))
+                var locations = [CLLocation]()
+                var rainfallIntensities = [NSNumber]()
+                for item in data! {
+                    let latitude = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
+                    let longitude = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[1])!)
+                    let location = CLLocation(latitude: latitude, longitude: longitude)
+                    locations.append(location)
+                    
+                    let rainfallIntensity = Double(item[0])!
+                    rainfallIntensities.append(NSNumber(value: rainfallIntensity))
+                    
+                    // Add annotation for each rainfall intensity.
+                    let annotation = AKHeatMapAnnotation(rainfallIntensity: rainfallIntensity)
+                    annotation.coordinate = location.coordinate
+                    annotation.title = AKGetInfoForRainfallIntensity(ri: rainfallIntensity).name!
+                    
+                    annotations.append(annotation)
+                }
                 
-                // DEBUG:
-                // NSLog("=> Latitude: \(latitude)\tLongitude: \(longitude)\tRI: \(weight)")
-                
-                // Add PIN for each dbZ.
-                let annotation = AKHeatmapAnnotation(rainfallIntensity: rainfallIntensity)
-                annotation.coordinate = location.coordinate
-                annotation.title = String(format: "%f", rainfallIntensity)
-                annotations.append(annotation)
+                self.mapView.addAnnotations(annotations)
             }
-            
-            self.mapView.addAnnotations(annotations)
-            
-            // let imageView = UIImageView(frame: self.mapView.frame)
-            // imageView.contentMode = UIViewContentMode.center
-            // imageView.image = AKHeatMap.heatMap(for: self.mapView, boost: 1.0, locations: locations, weights: weights)
-            // self.mapView.addSubview(imageView)
-        }
-        catch {
-            content = ""
-            NSLog("=> ERROR READING *ATM.csv* FILE!", content!)
-        }
+            catch {
+                content = ""
+                NSLog("=> ERROR READING *ATM.csv* FILE!", content!)
+            }
+        })
     }
     
     func clearMap()
     {
-        if (self.mapView.annotations?.count)! > 0 {
-            self.mapView.removeAnnotations(self.mapView.annotations!)
+        if self.mapView.annotations.count > 0 {
+            self.mapView.removeAnnotations(self.mapView.annotations)
         }
     }
 }
