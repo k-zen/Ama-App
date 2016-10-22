@@ -65,7 +65,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         if CLLocationCoordinate2DIsValid(origin) {
             self.mapView.setCenter(origin, animated: true)
             
-            let span = MKCoordinateSpanMake(0.5, 0.5)
+            let span = MKCoordinateSpanMake(0.25, 0.25)
             let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: origin.latitude, longitude: origin.longitude), span: span)
             self.mapView.setRegion(region, animated: true)
             
@@ -96,13 +96,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 let ann = annotation as! AKHeatMapAnnotation
                 let hmc = AKGetInfoForRainfallIntensity(ri: ann.rainfallIntensity)
                 let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.title!!)
-                customView.image = AKCircleImageWithRadius(
-                    5,
-                    strokeColor: UIColor.clear,
-                    strokeAlpha: 0.0,
-                    fillColor: hmc.color!,
-                    fillAlpha: hmc.alpha!
-                )
+                customView.image = AKSquareImage(0.75, strokeColor: UIColor.clear, strokeAlpha: 0.0, fillColor: hmc.color!, fillAlpha: hmc.alpha!)
                 
                 return customView
             }
@@ -168,7 +162,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             do {
                 NSLog("=> READING WEATHER DATA FILE!")
                 content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A56%3A16,00", ofType:"ama")!, encoding: String.Encoding.utf8)
-                data = CSwiftV(String: content!).rows
+                data = CSwiftV(String: content!).rows.sorted(by: { Float($0[0])! < Float($1[0])! })
                 
                 var locations = [CLLocation]()
                 var rainfallIntensities = [NSNumber]()
@@ -187,6 +181,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     annotation.title = AKGetInfoForRainfallIntensity(ri: rainfallIntensity).name!
                     
                     annotations.append(annotation)
+                    
+                    // DEBUG:
+                    // NSLog("=> RI: %f", rainfallIntensity)
                 }
                 
                 self.mapView.addAnnotations(annotations)

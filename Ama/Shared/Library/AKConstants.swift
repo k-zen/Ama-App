@@ -65,6 +65,19 @@ enum Exceptions: Error {
     case notValid(msg: String)
 }
 
+enum HeatMapColor: UInt {
+    case C01 = 0x5e4fa2
+    case C02 = 0x3288bd
+    case C03 = 0x66c2a5
+    case C04 = 0xabdda4
+    case C05 = 0xe6f598
+    case C06 = 0xfee08b
+    case C07 = 0xfdae61
+    case C08 = 0xf46d43
+    case C09 = 0xd53e4f
+    case C10 = 0x9e0142
+}
+
 enum HeatMapColorName: String {
     case purple = "purple"
     case blue = "blue"
@@ -230,6 +243,36 @@ func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: F
     return image!
 }
 
+/// Create an image with the form of a square.
+///
+/// - Parameter side:        The length of the side.
+/// - Parameter strokeColor: The color of the stroke.
+/// - Parameter strokeAlpha: The alpha factor of the stroke.
+/// - Parameter fillColor:   The color of the fill.
+/// - Parameter fillAlpha:   The alpha factor of the fill.
+///
+/// - Returns: An image object in the form of a square.
+func AKSquareImage(_ sideLength: Double, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float) -> UIImage
+{
+    let buffer = 2.0
+    let rect = CGRect(x: 0, y: 0, width: sideLength * 2.0 + buffer, height: sideLength * 2.0 + buffer)
+    
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.main.scale)
+    
+    let context = UIGraphicsGetCurrentContext()
+    context?.setFillColor(fillColor.withAlphaComponent(CGFloat(fillAlpha)).cgColor)
+    context?.setStrokeColor(strokeColor.withAlphaComponent(CGFloat(strokeAlpha)).cgColor)
+    context?.setLineWidth(1)
+    context?.fill(rect)
+    context?.stroke(rect)
+    
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    
+    UIGraphicsEndImageContext()
+    
+    return image!
+}
+
 /// Returns the associated color for an interval of rainfall intensity.
 ///
 /// - Parameter ri: The value of rainfall intensity.
@@ -239,16 +282,37 @@ func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
 {
     switch ri {
     case 1.0..<25.0:
-        var s = AKRainfallIntensityColor(); s.color = UIColor.purple; s.alpha = 0.0; s.name = HeatMapColorName.purple.rawValue
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C01.rawValue); s.alpha = 0.25; s.name = HeatMapColorName.purple.rawValue
         return s
     case 25.0..<50.0:
-        var s = AKRainfallIntensityColor(); s.color = UIColor.blue; s.alpha = 1.0; s.name = HeatMapColorName.blue.rawValue
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C02.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.blue.rawValue
         return s
     case 50.0..<75.0:
-        var s = AKRainfallIntensityColor(); s.color = UIColor.cyan; s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C03.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        return s
+    case 75.0..<100.0:
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C04.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        return s
+    case 100.0..<125.0:
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C05.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        return s
+    case 125.0..<150.0:
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C06.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        return s
+    case 150.0..<175.0:
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C07.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        return s
+    case 175.0..<200.0:
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C08.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        return s
+    case 200.0..<225.0:
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C09.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
+        return s
+    case 225.0..<250.0:
+        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C10.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
         return s
     default:
-        var s = AKRainfallIntensityColor(); s.color = UIColor.red; s.alpha = 1.0; s.name = HeatMapColorName.red.rawValue
+        var s = AKRainfallIntensityColor(); s.color = UIColor.clear; s.alpha = 0.0; s.name = HeatMapColorName.red.rawValue
         return s
     }
 }
