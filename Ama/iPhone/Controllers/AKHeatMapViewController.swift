@@ -18,8 +18,8 @@ class AKRadarOverlay: NSObject, MKOverlay
         self.coordinate = center
         
         // Create rectangle for Paraguay.
-        let pointA = MKMapPointForCoordinate(CLLocationCoordinate2DMake(-19.207429, -63.413086))
-        let pointB = MKMapPointForCoordinate(CLLocationCoordinate2DMake(-27.722436, -52.778320))
+        let pointA = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointA)
+        let pointB = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointB)
         self.boundingMapRect = MKMapRectMake(fmin(pointA.x, pointB.x), fmin(pointA.y, pointB.y), fabs(pointA.x - pointB.x), fabs(pointA.y - pointB.y))
         
         self.radius = radius
@@ -61,7 +61,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Properties
     private let addRadarOverlay = false
     private let addRadarPin = false
-    private let addUserOverlay = false
+    private let addUserOverlay = true
     private let addUserPin = true
     private let radarAnnotation: AKRadarAnnotation = AKRadarAnnotation()
     private let userAnnotation: AKUserAnnotation = AKUserAnnotation()
@@ -153,7 +153,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             customView.fillColor = UIColor.red
             customView.alpha = 0.05
             customView.strokeColor = UIColor.red
-            customView.lineWidth = 2.0
+            customView.lineWidth = 1.0
             
             return customView
         }
@@ -161,10 +161,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             let ol = overlay as! AKUserOverlay
             
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
-            customView.fillColor = UIColor.blue
-            customView.alpha = 0.50
-            customView.strokeColor = UIColor.blue
-            customView.lineWidth = 2.0
+            customView.fillColor = AKHexColor(0x4DBCE9)
+            customView.alpha = 0.45
+            customView.strokeColor = AKHexColor(0x4DBCE9)
+            customView.lineWidth = 1.0
             
             return customView
         }

@@ -66,8 +66,10 @@ struct GlobalConstants {
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
     static let AKRadarLatitude = -25.333079999999999
     static let AKRadarLongitude = -57.523449999999997
-    static let AKDefaultLatitudeDelta = 0.95
-    static let AKDefaultLongitudeDelta = 0.95
+    static let AKDefaultLatitudeDelta = 0.35
+    static let AKDefaultLongitudeDelta = 0.35
+    static let AKPYBoundsPointA = CLLocationCoordinate2DMake(-19.207429, -63.413086)
+    static let AKPYBoundsPointB = CLLocationCoordinate2DMake(-27.722436, -52.778320)
 }
 
 struct AKRainfallIntensityColor {
