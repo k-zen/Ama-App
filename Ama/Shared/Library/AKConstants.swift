@@ -19,6 +19,25 @@ extension Int
     }
 }
 
+extension UIImage
+{
+    static func fromColor(color: UIColor, frame: CGRect) -> UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
+        
+        let context = UIGraphicsGetCurrentContext()
+        context?.setFillColor(color.withAlphaComponent(CGFloat(1.0)).cgColor)
+        context?.setLineWidth(0)
+        context?.fill(frame)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return image!
+    }
+}
+
 extension String
 {
     func splitOnNewLine () -> [String]
@@ -43,8 +62,12 @@ struct GlobalConstants {
     static let AKDefaultBorderThickness = 2.0
     static let AKHeatMapTab = 1
     static let AKConfigTab = 2
-    static let AKLocationUpdateInterval = 2
+    static let AKLocationUpdateInterval = 30
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
+    static let AKRadarLatitude = -25.333079999999999
+    static let AKRadarLongitude = -57.523449999999997
+    static let AKDefaultLatitudeDelta = 0.95
+    static let AKDefaultLongitudeDelta = 0.95
 }
 
 struct AKRainfallIntensityColor {
