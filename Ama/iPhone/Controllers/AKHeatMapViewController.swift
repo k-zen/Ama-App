@@ -37,8 +37,8 @@ class AKUserOverlay: NSObject, MKOverlay
         self.coordinate = center
         
         // Create rectangle for Paraguay.
-        let pointA = MKMapPointForCoordinate(CLLocationCoordinate2DMake(-19.207429, -63.413086))
-        let pointB = MKMapPointForCoordinate(CLLocationCoordinate2DMake(-27.722436, -52.778320))
+        let pointA = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointA)
+        let pointB = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointB)
         self.boundingMapRect = MKMapRectMake(fmin(pointA.x, pointB.x), fmin(pointA.y, pointB.y), fabs(pointA.x - pointB.x), fabs(pointA.y - pointB.y))
         
         self.radius = radius

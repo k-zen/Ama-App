@@ -1,10 +1,9 @@
-platform :ios, '9.0'
+platform :ios, '9.3'
 use_frameworks!
 
 workspace 'Ama'
 
 target "Ama" do
-    # pod 'DeviceKit'
-    pod 'Mapbox-iOS-SDK'
+    pod 'DeviceKit'
 	pod 'TSMessages', :git => 'https://github.com/KrauseFx/TSMessages.git'
 end
