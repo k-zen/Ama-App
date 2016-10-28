@@ -227,7 +227,7 @@
                                     <constraint firstItem="3fm-c6-P2s" firstAttribute="centerY" secondItem="Lc2-pe-r70" secondAttribute="centerY" id="xwZ-oA-Fts"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsPointsOfInterest="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCB-aN-Tyx" userLabel="Map_View"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCB-aN-Tyx" userLabel="Map_View"/>
                         </subviews>
                         <color key="backgroundColor" red="0.21176470588235294" green="0.24705882352941178" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>

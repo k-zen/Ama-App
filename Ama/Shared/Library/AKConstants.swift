@@ -96,16 +96,16 @@ enum Exceptions: Error {
 }
 
 enum HeatMapColor: UInt {
-    case C01 = 0x5e4fa2
-    case C02 = 0x3288bd
-    case C03 = 0x66c2a5
-    case C04 = 0xabdda4
-    case C05 = 0xe6f598
-    case C06 = 0xfee08b
-    case C07 = 0xfdae61
-    case C08 = 0xf46d43
-    case C09 = 0xd53e4f
-    case C10 = 0x9e0142
+    case C01 = 0x053061
+    case C02 = 0x2166ac
+    case C03 = 0x4393c3
+    case C04 = 0x92c5de
+    case C05 = 0xd1e5f0
+    case C06 = 0xfddbc7
+    case C07 = 0xf4a582
+    case C08 = 0xd6604d
+    case C09 = 0xb2182b
+    case C10 = 0x67001f
 }
 
 enum HeatMapColorName: String {
@@ -333,7 +333,7 @@ func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
 {
     switch ri {
     case 1.0..<25.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.50)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.75)
     case 25.0..<50.0:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
     case 50.0..<75.0:
