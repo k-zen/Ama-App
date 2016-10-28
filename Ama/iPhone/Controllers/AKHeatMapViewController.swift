@@ -6,56 +6,6 @@ import UIKit
 class AKRadarAnnotation: MKPointAnnotation {}
 class AKUserAnnotation: MKPointAnnotation {}
 
-class AKRadarOverlay: NSObject, MKOverlay
-{
-    var coordinate: CLLocationCoordinate2D
-    var boundingMapRect: MKMapRect
-    var radius: CLLocationDistance
-    var title: String?
-    
-    init(center: CLLocationCoordinate2D, radius: CLLocationDistance)
-    {
-        self.coordinate = center
-        
-        // Create rectangle for Paraguay.
-        let pointA = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointA)
-        let pointB = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointB)
-        self.boundingMapRect = MKMapRectMake(fmin(pointA.x, pointB.x), fmin(pointA.y, pointB.y), fabs(pointA.x - pointB.x), fabs(pointA.y - pointB.y))
-        
-        self.radius = radius
-    }
-}
-class AKUserOverlay: NSObject, MKOverlay
-{
-    var coordinate: CLLocationCoordinate2D
-    var boundingMapRect: MKMapRect
-    var radius: CLLocationDistance
-    var title: String?
-    
-    init(center: CLLocationCoordinate2D, radius: CLLocationDistance)
-    {
-        self.coordinate = center
-        
-        // Create rectangle for Paraguay.
-        let pointA = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointA)
-        let pointB = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointB)
-        self.boundingMapRect = MKMapRectMake(fmin(pointA.x, pointB.x), fmin(pointA.y, pointB.y), fabs(pointA.x - pointB.x), fabs(pointA.y - pointB.y))
-        
-        self.radius = radius
-    }
-}
-
-class AKHeatMapAnnotation: MKPointAnnotation
-{
-    // MARK: Properties
-    var rainfallIntensity: Double
-    
-    init(rainfallIntensity: Double)
-    {
-        self.rainfallIntensity = rainfallIntensity
-    }
-}
-
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
@@ -65,8 +15,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private let addUserPin = true
     private let radarAnnotation: AKRadarAnnotation = AKRadarAnnotation()
     private let userAnnotation: AKUserAnnotation = AKUserAnnotation()
-    private var radarOverlay: AKRadarOverlay?
-    private var userOverlay: AKUserOverlay?
+    private var radarOverlay: AKRadarSpanOverlay?
+    private var userOverlay: AKUserAreaOverlay?
     
     // MARK: Outlets
     @IBOutlet weak var img01: UIImageView!
@@ -106,7 +56,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             self.mapView.setRegion(region, animated: true)
             
             if addRadarOverlay {
-                self.radarOverlay = AKRadarOverlay(center: origin, radius: 50000)
+                self.radarOverlay = AKRadarSpanOverlay(center: origin, radius: 50000)
                 self.radarOverlay?.title = "Cobertura Radar"
                 self.mapView.add(self.radarOverlay!, level: MKOverlayLevel.aboveRoads)
             }
@@ -123,31 +73,13 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: MKMapViewDelegate Implementation
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
     {
-        if annotation.isKind(of: AKHeatMapAnnotation.self) {
-            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.title!!) {
-                // NSLog("=> DEQUEUEING HEATMAP ANNOTATION.")
-                return annotationView
-            }
-            else {
-                // NSLog("=> NEW HEATMAP ANNOTATION.")
-                
-                let ann = annotation as! AKHeatMapAnnotation
-                let hmc = AKGetInfoForRainfallIntensity(ri: ann.rainfallIntensity)
-                let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.title!!)
-                customView.image = AKSquareImage(0.75, strokeColor: UIColor.clear, strokeAlpha: 0.0, fillColor: hmc.color!, fillAlpha: hmc.alpha!)
-                
-                return customView
-            }
-        }
-        else {
-            return nil
-        }
+        return nil
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer
     {
-        if overlay.isKind(of: AKRadarOverlay.self) {
-            let ol = overlay as! AKRadarOverlay
+        if overlay.isKind(of: AKRadarSpanOverlay.self) {
+            let ol = overlay as! AKRadarSpanOverlay
             
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
             customView.fillColor = UIColor.red
@@ -157,16 +89,20 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             
             return customView
         }
-        else if overlay.isKind(of: AKUserOverlay.self) {
-            let ol = overlay as! AKUserOverlay
+        else if overlay.isKind(of: AKUserAreaOverlay.self) {
+            let ol = overlay as! AKUserAreaOverlay
             
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
             customView.fillColor = AKHexColor(0x4DBCE9)
-            customView.alpha = 0.45
+            customView.alpha = 0.25
             customView.strokeColor = AKHexColor(0x4DBCE9)
-            customView.lineWidth = 1.0
+            customView.lineWidth = 2.0
             
             return customView
+        }
+        else if overlay.isKind(of: AKRainOverlay.self) {
+            let ol = overlay as! AKRainOverlay
+            return AKRainOverlayRenderer(overlay: overlay, rainfallPoints: ol.rainfallPoints as! [AKRainfallPoint])
         }
         else {
             // NSLog("=> NEW DEFAULT OVERLAY.")
@@ -194,7 +130,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 if let overlay = self.userOverlay {
                     self.mapView.remove(overlay)
                 }
-                self.userOverlay = AKUserOverlay(center: coordinate, radius: 5000)
+                self.userOverlay = AKUserAreaOverlay(center: coordinate, radius: 5000)
                 self.userOverlay?.title = "Cobertura Usuario"
                 self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
             }
@@ -234,35 +170,22 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         AKDelay(0.0, task: { Void -> Void in
             let content: String?
             let data: [[String]]?
-            var annotations: [AKHeatMapAnnotation] = []
+            let rainfallPoints: NSMutableArray = NSMutableArray()
             do {
                 NSLog("=> READING WEATHER DATA FILE!")
                 content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A56%3A16,00", ofType:"ama")!, encoding: String.Encoding.utf8)
                 data = CSwiftV(String: content!).rows.sorted(by: { Float($0[0])! < Float($1[0])! })
-                
-                var locations = [CLLocation]()
-                var rainfallIntensities = [NSNumber]()
                 for item in data! {
-                    let latitude = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
-                    let longitude = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[1])!)
-                    let location = CLLocation(latitude: latitude, longitude: longitude)
-                    locations.append(location)
+                    let lat = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
+                    let lon = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[1])!)
+                    let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                     
                     let rainfallIntensity = Double(item[0])!
-                    rainfallIntensities.append(NSNumber(value: rainfallIntensity))
                     
-                    // Add annotation for each rainfall intensity.
-                    let annotation = AKHeatMapAnnotation(rainfallIntensity: rainfallIntensity)
-                    annotation.coordinate = location.coordinate
-                    annotation.title = AKGetInfoForRainfallIntensity(ri: rainfallIntensity).name!
-                    
-                    annotations.append(annotation)
-                    
-                    // DEBUG:
-                    // NSLog("=> RI: %f", rainfallIntensity)
+                    rainfallPoints.add(AKRainfallPoint.init(center: location, intensity: rainfallIntensity))
                 }
                 
-                self.mapView.addAnnotations(annotations)
+                self.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
             }
             catch {
                 content = ""

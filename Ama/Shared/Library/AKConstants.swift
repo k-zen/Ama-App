@@ -70,12 +70,17 @@ struct GlobalConstants {
     static let AKDefaultLongitudeDelta = 0.35
     static let AKPYBoundsPointA = CLLocationCoordinate2DMake(-19.207429, -63.413086)
     static let AKPYBoundsPointB = CLLocationCoordinate2DMake(-27.722436, -52.778320)
+    static let AKRaindropSize: Float = 200.0 // This is the square side length in meters.
 }
 
 struct AKRainfallIntensityColor {
-    var color: UIColor?
-    var name: String?
-    var alpha: Float?
+    let color: UIColor
+    let alpha: Float
+    
+    init(color: UIColor, alpha: Float) {
+        self.color = color
+        self.alpha = alpha
+    }
 }
 
 // MARK: Global Enumerations
@@ -298,6 +303,27 @@ func AKSquareImage(_ sideLength: Double, strokeColor: UIColor, strokeAlpha: Floa
     return image!
 }
 
+/// Returns a geographic location (lat, long) from an original location with bearing and the
+/// distance computed in meters from the original location.
+///
+/// - Parameter bearing: The bearing in radians.
+/// - Parameter distanceMeters: The distance from point A to Z in meters.
+/// - Parameter origin: The original location. (Point A)
+///
+/// - Returns: A location object (Point Z).
+func AKLocationWithBearing(bearing:Double, distanceMeters:Double, origin:CLLocationCoordinate2D) -> CLLocationCoordinate2D
+{
+    let distRadians = distanceMeters / (6372797.6)
+    
+    let lat1 = origin.latitude * M_PI / 180
+    let lon1 = origin.longitude * M_PI / 180
+    
+    let lat2 = asin(sin(lat1) * cos(distRadians) + cos(lat1) * sin(distRadians) * cos(bearing))
+    let lon2 = lon1 + atan2(sin(bearing) * sin(distRadians) * cos(lat1), cos(distRadians) - sin(lat1) * sin(lat2))
+    
+    return CLLocationCoordinate2D(latitude: lat2 * 180 / M_PI, longitude: lon2 * 180 / M_PI)
+}
+
 /// Returns the associated color for an interval of rainfall intensity.
 ///
 /// - Parameter ri: The value of rainfall intensity.
@@ -307,38 +333,27 @@ func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
 {
     switch ri {
     case 1.0..<25.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C01.rawValue); s.alpha = 0.25; s.name = HeatMapColorName.purple.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.50)
     case 25.0..<50.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C02.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.blue.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
     case 50.0..<75.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C03.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
     case 75.0..<100.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C04.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
     case 100.0..<125.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C05.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
     case 125.0..<150.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C06.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
     case 150.0..<175.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C07.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
     case 175.0..<200.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C08.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
     case 200.0..<225.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C09.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
     case 225.0..<250.0:
-        var s = AKRainfallIntensityColor(); s.color = AKHexColor(HeatMapColor.C10.rawValue); s.alpha = 1.0; s.name = HeatMapColorName.cyan.rawValue
-        return s
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
     default:
-        var s = AKRainfallIntensityColor(); s.color = UIColor.clear; s.alpha = 0.0; s.name = HeatMapColorName.red.rawValue
-        return s
+        return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
     }
 }
 

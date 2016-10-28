@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4905E7E01DC151E8007A2BB2 /* AKRadarSpanOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */; };
+		4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */; };
+		4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */; };
+		4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */; };
+		4905E7E81DC1C8C8007A2BB2 /* AKRainfallPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */; };
 		49250BDC1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 49250BDB1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama */; };
 		49250BDE1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 49250BDD1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama */; };
 		492FF7531DBE8AFE009B4CDD /* 0001-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7501DBE8AFE009B4CDD /* 0001-030px.png */; };
@@ -30,6 +35,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRadarSpanOverlay.swift; sourceTree = "<group>"; };
+		4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAreaOverlay.swift; sourceTree = "<group>"; };
+		4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainOverlay.swift; sourceTree = "<group>"; };
+		4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainOverlayRenderer.swift; sourceTree = "<group>"; };
+		4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainfallPoint.swift; sourceTree = "<group>"; };
 		49250BDB1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--23%3A59%3A25,00.ama"; sourceTree = "<group>"; };
 		49250BDD1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--09%3A56%3A16,00.ama"; sourceTree = "<group>"; };
 		492FF7501DBE8AFE009B4CDD /* 0001-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0001-030px.png"; sourceTree = "<group>"; };
@@ -126,6 +136,10 @@
 				49D0BEDC1DB121D700149DEE /* AKCustomView.h */,
 				49D0BEDD1DB121D700149DEE /* AKCustomView.m */,
 				49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */,
+				4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */,
+				4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */,
+				4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */,
+				4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */,
 			);
 			path = AKCustomComponents;
 			sourceTree = "<group>";
@@ -226,6 +240,7 @@
 			children = (
 				49D0BEEE1DB121D700149DEE /* AKConstants.swift */,
 				49D0BEF21DB121D700149DEE /* AKInputData.swift */,
+				4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */,
 				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
 				49D0BEE11DB121D700149DEE /* AKHeatMap */,
 				498A549E1DB1913F00667525 /* CSwiftV */,
@@ -390,13 +405,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				498A549D1DB18A6500667525 /* AKHeatMap.m in Sources */,
+				4905E7E01DC151E8007A2BB2 /* AKRadarSpanOverlay.swift in Sources */,
 				49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */,
+				4905E7E81DC1C8C8007A2BB2 /* AKRainfallPoint.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
 				49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */,
+				4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
+				4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
 				498A54A01DB1913F00667525 /* CSwiftV.swift in Sources */,
+				4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */,
 				49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
