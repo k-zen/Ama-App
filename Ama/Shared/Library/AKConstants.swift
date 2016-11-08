@@ -70,7 +70,7 @@ struct GlobalConstants {
     static let AKDefaultLongitudeDelta = 0.35
     static let AKPYBoundsPointA = CLLocationCoordinate2DMake(-19.207429, -63.413086)
     static let AKPYBoundsPointB = CLLocationCoordinate2DMake(-27.722436, -52.778320)
-    static let AKRaindropSize: Float = 200.0 // This is the square side length in meters.
+    static let AKRaindropSize: Float = 175.0 // This is the square side length in meters.
 }
 
 struct AKRainfallIntensityColor {
@@ -96,16 +96,16 @@ enum Exceptions: Error {
 }
 
 enum HeatMapColor: UInt {
-    case C01 = 0x053061
-    case C02 = 0x2166ac
-    case C03 = 0x4393c3
-    case C04 = 0x92c5de
-    case C05 = 0xd1e5f0
-    case C06 = 0xfddbc7
-    case C07 = 0xf4a582
-    case C08 = 0xd6604d
-    case C09 = 0xb2182b
-    case C10 = 0x67001f
+    case C01 = 0x1ec65a
+    case C02 = 0x17a44a
+    case C03 = 0x11863b
+    case C04 = 0xfee934
+    case C05 = 0xf8b82b
+    case C06 = 0xfd8c37
+    case C07 = 0xf3641f
+    case C08 = 0xe30b17
+    case C09 = 0xe8168c
+    case C10 = 0xa81dca
 }
 
 enum HeatMapColorName: String {
@@ -140,6 +140,28 @@ enum CustomBorderDecorationPosition: Int {
 }
 
 // MARK: Global Functions
+func AKAddBorderDeco(_ component: UIView, color: CGColor, thickness: Double, position: CustomBorderDecorationPosition) -> Void
+{
+    let border = CALayer()
+    border.backgroundColor = color
+    switch position {
+    case .top:
+        border.frame = CGRect(x: 0, y: 0, width: component.frame.width, height: CGFloat(thickness))
+        break
+    case .right:
+        border.frame = CGRect(x: (component.frame.width - CGFloat(thickness)), y: 0, width: CGFloat(thickness), height: component.frame.height)
+        break
+    case .bottom:
+        border.frame = CGRect(x: 0, y: (component.frame.height - CGFloat(thickness)), width: component.frame.width, height: CGFloat(thickness))
+        break
+    case .left:
+        border.frame = CGRect(x: 0, y: 0, width: CGFloat(thickness), height: component.frame.height)
+        break
+    }
+    
+    component.layer.addSublayer(border)
+}
+
 /// Computes the App's build version.
 ///
 /// - Returns: The App's build version.
@@ -333,7 +355,7 @@ func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
 {
     switch ri {
     case 1.0..<25.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.75)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
     case 25.0..<50.0:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
     case 50.0..<75.0:
@@ -434,24 +456,19 @@ func AKRangeFromNSRange(_ nsRange: NSRange, forString str: String) -> Range<Stri
     return nil
 }
 
-func AKAddBorderDeco(_ component: UIView, color: CGColor, thickness: Double, position: CustomBorderDecorationPosition) -> Void
+/// Converts the zoom scale provided by MapKit to a
+/// standard scale.
+///
+/// - Parameter zoomScale: The zoom value as provided by MapKit.
+/// - Parameter debug: Show debug info.
+///
+/// - Returns: A zoom level.
+func AKZoomScaleConvert(zoomScale: MKZoomScale, debug: Bool) -> Int
 {
-    let border = CALayer()
-    border.backgroundColor = color
-    switch position {
-    case .top:
-        border.frame = CGRect(x: 0, y: 0, width: component.frame.width, height: CGFloat(thickness))
-        break
-    case .right:
-        border.frame = CGRect(x: (component.frame.width - CGFloat(thickness)), y: 0, width: CGFloat(thickness), height: component.frame.height)
-        break
-    case .bottom:
-        border.frame = CGRect(x: 0, y: (component.frame.height - CGFloat(thickness)), width: component.frame.width, height: CGFloat(thickness))
-        break
-    case .left:
-        border.frame = CGRect(x: 0, y: 0, width: CGFloat(thickness), height: component.frame.height)
-        break
-    }
+    let maxZoom: Int = Int(log2(MKMapSizeWorld.width / 256.0))
+    if debug { NSLog("=> INFO: MAX ZOOM: %i", maxZoom) }
+    let currZoom: Int = Int(log2f(Float(zoomScale)))
+    if debug { NSLog("=> INFO: CURRENT ZOOM: %i", currZoom) }
     
-    component.layer.addSublayer(border)
+    return max(1, maxZoom + currZoom)
 }

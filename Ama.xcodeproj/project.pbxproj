@@ -35,10 +35,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRadarSpanOverlay.swift; sourceTree = "<group>"; };
-		4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAreaOverlay.swift; sourceTree = "<group>"; };
-		4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainOverlay.swift; sourceTree = "<group>"; };
-		4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainOverlayRenderer.swift; sourceTree = "<group>"; };
+		4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRadarSpanOverlay.swift; path = AKCustomComponents/AKRadarSpanOverlay.swift; sourceTree = "<group>"; };
+		4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKUserAreaOverlay.swift; path = AKCustomComponents/AKUserAreaOverlay.swift; sourceTree = "<group>"; };
+		4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRainOverlay.swift; path = AKCustomComponents/AKRainOverlay.swift; sourceTree = "<group>"; };
+		4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRainOverlayRenderer.swift; path = AKCustomComponents/AKRainOverlayRenderer.swift; sourceTree = "<group>"; };
 		4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainfallPoint.swift; sourceTree = "<group>"; };
 		49250BDB1DB1CF6300A0A770 /* 2015-12-04--23%3A59%3A25,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--23%3A59%3A25,00.ama"; sourceTree = "<group>"; };
 		49250BDD1DB1D13000A0A770 /* 2015-12-04--09%3A56%3A16,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--09%3A56%3A16,00.ama"; sourceTree = "<group>"; };
@@ -136,10 +136,6 @@
 				49D0BEDC1DB121D700149DEE /* AKCustomView.h */,
 				49D0BEDD1DB121D700149DEE /* AKCustomView.m */,
 				49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */,
-				4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */,
-				4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */,
-				4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */,
-				4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */,
 			);
 			path = AKCustomComponents;
 			sourceTree = "<group>";
@@ -240,7 +236,11 @@
 			children = (
 				49D0BEEE1DB121D700149DEE /* AKConstants.swift */,
 				49D0BEF21DB121D700149DEE /* AKInputData.swift */,
+				4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */,
 				4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */,
+				4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */,
+				4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */,
+				4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */,
 				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
 				49D0BEE11DB121D700149DEE /* AKHeatMap */,
 				498A549E1DB1913F00667525 /* CSwiftV */,

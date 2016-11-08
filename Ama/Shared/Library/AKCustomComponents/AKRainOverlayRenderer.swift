@@ -24,31 +24,59 @@ class AKRainOverlayRenderer: MKOverlayRenderer
     // MARK: MKOverlayRenderer Overriding
     override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext)
     {
-        // NSLog("=> ZOOM SCALE: %f", zoomScale)
+        let tileRect = self.rect(for: mapRect)
+        let zoomLevel = AKZoomScaleConvert(zoomScale: zoomScale, debug: false)
         
-        for point in self.rainfallPoints {
-            // Get raindrop characteristics.
-            let chars = AKGetInfoForRainfallIntensity(ri: point.intensity)
-            // Increase rectangle according to zoom scale.
-            // PROTOTYPE!
-            let oldRect = self.rect(for: point.mapRect)
-            // let newRect = oldRect.insetBy(
-            //     dx: CGFloat(GlobalConstants.AKRaindropSize) / ((zoomScale - self.lastZoomScale) > 0 ? zoomScale : -zoomScale),
-            //     dy: CGFloat(GlobalConstants.AKRaindropSize) / ((zoomScale - self.lastZoomScale) > 0 ? zoomScale : -zoomScale)
-            // )
-            
-            // NSLog("=> OLD RECT: %f,%f", oldRect.size.width, oldRect.size.height)
-            // NSLog("=> NEW RECT: %f,%f", newRect.size.width, newRect.size.height)
-            // NSLog("\t=> DX: %f", CGFloat(GlobalConstants.AKRaindropSize) / (zoomScale - self.lastZoomScale))
-            
+        // Mark map rectangle tiles.
+        if debug {
             context.saveGState();
-            context.setFillColor(chars.color.cgColor);
-            context.setAlpha(CGFloat(chars.alpha))
-            context.setBlendMode(CGBlendMode.color);
-            context.fill(oldRect)
+            context.setStrokeColor(AKHexColor(0x222222).cgColor);
+            context.stroke(tileRect, width: CGFloat(1000 / zoomLevel))
             context.restoreGState();
         }
         
+        if debug {
+            NSLog("=> INFO: ZOOM (SCALE, LEVEL): %f,%i", zoomScale, zoomLevel)
+            NSLog("=> INFO: MAP RECT: (x:%f,y:%f),(w:%f,h:%f)",
+                  mapRect.origin.x,
+                  mapRect.origin.y,
+                  mapRect.size.width,
+                  mapRect.size.height
+            )
+        }
+        
+        var counter: Int = 0
+        for point in self.rainfallPoints {
+            // Draw only the rainfall points that are inside the map rectangle.
+            if MKMapRectContainsRect(mapRect, point.mapRect) {
+                // Get raindrop characteristics.
+                let chars = AKGetInfoForRainfallIntensity(ri: point.intensity)
+                let raindropPointRect = self.rect(for: point.mapRect)
+                
+                if debug {
+                    NSLog("=> INFO: POINT MAP RECT: (x:%f,y:%f),(w:%f,h:%f)",
+                          point.mapRect.origin.x,
+                          point.mapRect.origin.y,
+                          point.mapRect.size.width,
+                          point.mapRect.size.height
+                    )
+                }
+                
+                context.saveGState();
+                context.setFillColor(chars.color.cgColor);
+                context.setAlpha(CGFloat(chars.alpha))
+                context.setBlendMode(CGBlendMode.color);
+                context.fill(raindropPointRect)
+                context.restoreGState();
+                
+                counter += 1
+            }
+            if debug {
+                if counter > 100 { break }
+            }
+        }
+        
+        NSLog("=> INFO: DRAWED POINTS: %i", counter)
         self.lastZoomScale = zoomScale
         
         super.draw(mapRect, zoomScale: zoomScale, in: context)
