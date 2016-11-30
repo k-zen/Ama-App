@@ -56,9 +56,11 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             self.mapView.setRegion(region, animated: true)
             
             if addRadarOverlay {
-                self.radarOverlay = AKRadarSpanOverlay(center: origin, radius: 50000)
-                self.radarOverlay?.title = "Cobertura Radar"
-                self.mapView.add(self.radarOverlay!, level: MKOverlayLevel.aboveRoads)
+                for k in 1...10 {
+                    self.radarOverlay = AKRadarSpanOverlay(center: origin, radius: CLLocationDistance(5000 * k))
+                    self.radarOverlay?.title = "Cobertura Radar"
+                    self.mapView.add(self.radarOverlay!, level: MKOverlayLevel.aboveRoads)
+                }
             }
             
             if addRadarPin {
@@ -73,25 +75,42 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: MKMapViewDelegate Implementation
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
     {
-        return nil
+        if annotation.isKind(of: AKRadarAnnotation.self) {
+            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.title!!) {
+                return annotationView
+            }
+            else {
+                let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.title!!)
+                customView.canShowCallout = true
+                customView.layer.backgroundColor = UIColor.clear.cgColor
+                customView.layer.cornerRadius = 6.0
+                customView.layer.borderWidth = 0.0
+                customView.layer.masksToBounds = true
+                customView.image = AKCircleImageWithRadius(10, strokeColor: UIColor.black, strokeAlpha: 1.0, fillColor: UIColor.red, fillAlpha: 1.0, lineWidth: CGFloat(1.4))
+                customView.clipsToBounds = false
+                
+                return customView
+            }
+        }
+        else {
+            return nil
+        }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer
     {
         if overlay.isKind(of: AKRadarSpanOverlay.self) {
             let ol = overlay as! AKRadarSpanOverlay
-            
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
-            customView.fillColor = UIColor.red
-            customView.alpha = 0.05
-            customView.strokeColor = UIColor.red
-            customView.lineWidth = 1.0
+            customView.fillColor = UIColor.clear
+            customView.alpha = 1.0
+            customView.strokeColor = AKHexColor(0x666666)
+            customView.lineWidth = 0.5
             
             return customView
         }
         else if overlay.isKind(of: AKUserAreaOverlay.self) {
             let ol = overlay as! AKUserAreaOverlay
-            
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
             customView.fillColor = AKHexColor(0x4DBCE9)
             customView.alpha = 0.25

@@ -66,8 +66,8 @@ struct GlobalConstants {
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
     static let AKRadarLatitude = -25.333079999999999
     static let AKRadarLongitude = -57.523449999999997
-    static let AKDefaultLatitudeDelta = 0.35
-    static let AKDefaultLongitudeDelta = 0.35
+    static let AKDefaultLatitudeDelta = 0.25 // In degrees. 1 degree equals 111kms.
+    static let AKDefaultLongitudeDelta = 0.25 // In degrees.
     static let AKPYBoundsPointA = CLLocationCoordinate2DMake(-19.207429, -63.413086)
     static let AKPYBoundsPointB = CLLocationCoordinate2DMake(-27.722436, -52.778320)
     static let AKRaindropSize: Float = 175.0 // This is the square side length in meters.
@@ -274,7 +274,7 @@ func AKCreateCircleForCoordinate(_ title: String, coordinate: CLLocationCoordina
 /// - Parameter fillAlpha:   The alpha factor of the fill.
 ///
 /// - Returns: An image object in the form of a circle.
-func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float) -> UIImage
+func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float, lineWidth: CGFloat = 1) -> UIImage
 {
     let buffer = 2
     let rect = CGRect(x: 0, y: 0, width: radius * 2 + buffer, height: radius * 2 + buffer)
@@ -284,7 +284,7 @@ func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: F
     let context = UIGraphicsGetCurrentContext()
     context?.setFillColor(fillColor.withAlphaComponent(CGFloat(fillAlpha)).cgColor)
     context?.setStrokeColor(strokeColor.withAlphaComponent(CGFloat(strokeAlpha)).cgColor)
-    context?.setLineWidth(1)
+    context?.setLineWidth(lineWidth)
     context?.fillEllipse(in: rect.insetBy(dx: CGFloat(buffer * 2), dy: CGFloat(buffer * 2)))
     context?.strokeEllipse(in: rect.insetBy(dx: CGFloat(buffer * 2), dy: CGFloat(buffer * 2)))
     
