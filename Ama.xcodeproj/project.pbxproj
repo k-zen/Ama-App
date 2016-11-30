@@ -176,18 +176,10 @@
 			isa = PBXGroup;
 			children = (
 				49ECF5571D9317CA003E0359 /* Assets.xcassets */,
-				49ECF5581D9317CA003E0359 /* Certificates */,
 				49ECF5591D9317CA003E0359 /* Files */,
 				49ECF55A1D9317CA003E0359 /* Images */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		49ECF5581D9317CA003E0359 /* Certificates */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Certificates;
 			sourceTree = "<group>";
 		};
 		49ECF5591D9317CA003E0359 /* Files */ = {

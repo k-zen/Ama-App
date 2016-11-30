@@ -70,7 +70,7 @@ struct GlobalConstants {
     static let AKDefaultLongitudeDelta = 0.25 // In degrees.
     static let AKPYBoundsPointA = CLLocationCoordinate2DMake(-19.207429, -63.413086)
     static let AKPYBoundsPointB = CLLocationCoordinate2DMake(-27.722436, -52.778320)
-    static let AKRaindropSize: Float = 175.0 // This is the square side length in meters.
+    static let AKRaindropSize: Float = 150.0 // This is the square side length in meters.
 }
 
 struct AKRainfallIntensityColor {
@@ -355,19 +355,19 @@ func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
 {
     switch ri {
     case 1.0..<25.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.35)
     case 25.0..<50.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 0.35)
     case 50.0..<75.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 0.35)
     case 75.0..<100.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 0.85)
     case 100.0..<125.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 0.85)
     case 125.0..<150.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 0.85)
     case 150.0..<175.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 0.85)
     case 175.0..<200.0:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
     case 200.0..<225.0:

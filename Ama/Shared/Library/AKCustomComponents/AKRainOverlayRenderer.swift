@@ -30,10 +30,8 @@ class AKRainOverlayRenderer: MKOverlayRenderer
         
         // Mark map rectangle tiles.
         if debug {
-            context.saveGState();
             context.setStrokeColor(AKHexColor(0x222222).cgColor);
             context.stroke(tileRect, width: CGFloat(1000 / zoomLevel))
-            context.restoreGState();
         }
         
         if debug {
@@ -63,12 +61,13 @@ class AKRainOverlayRenderer: MKOverlayRenderer
                     )
                 }
                 
-                context.saveGState();
                 context.setFillColor(chars.color.cgColor);
                 context.setAlpha(CGFloat(chars.alpha))
                 context.setBlendMode(CGBlendMode.color);
                 context.fill(raindropPointRect)
-                context.restoreGState();
+                context.setStrokeColor(UIColor.black.cgColor);
+                context.setAlpha(CGFloat(1.0))
+                context.stroke(raindropPointRect, width: CGFloat(1000 / zoomLevel))
                 
                 counter += 1
             }
@@ -77,7 +76,9 @@ class AKRainOverlayRenderer: MKOverlayRenderer
             }
         }
         
-        NSLog("=> INFO: DRAWED POINTS: %i", counter)
+        if debug {
+            NSLog("=> INFO: DRAWED POINTS: %i", counter)
+        }
         self.lastZoomScale = zoomScale
         
         super.draw(mapRect, zoomScale: zoomScale, in: context)
