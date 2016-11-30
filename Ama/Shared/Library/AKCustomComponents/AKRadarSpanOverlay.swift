@@ -1,3 +1,4 @@
+import MapKit
 import UIKit
 
 class AKRadarSpanOverlay: NSObject, MKOverlay

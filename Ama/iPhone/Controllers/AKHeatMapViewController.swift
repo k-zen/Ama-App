@@ -9,8 +9,8 @@ class AKUserAnnotation: MKPointAnnotation {}
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
-    private let addRadarOverlay = false
-    private let addRadarPin = false
+    private let addRadarOverlay = true
+    private let addRadarPin = true
     private let addUserOverlay = true
     private let addUserPin = true
     private let radarAnnotation: AKRadarAnnotation = AKRadarAnnotation()

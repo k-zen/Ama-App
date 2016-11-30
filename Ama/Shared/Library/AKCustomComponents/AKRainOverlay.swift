@@ -1,3 +1,4 @@
+import MapKit
 import UIKit
 
 class AKRainOverlay: NSObject, MKOverlay
