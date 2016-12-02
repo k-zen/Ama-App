@@ -11,7 +11,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Properties
     private let addRadarOverlay = true
     private let addRadarPin = true
-    private let addUserOverlay = true
+    private let addUserOverlay = false
     private let addUserPin = true
     private let radarAnnotation: AKRadarAnnotation = AKRadarAnnotation()
     private let userAnnotation: AKUserAnnotation = AKUserAnnotation()
@@ -105,7 +105,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             customView.fillColor = UIColor.clear
             customView.alpha = 1.0
             customView.strokeColor = AKHexColor(0x666666)
-            customView.lineWidth = 0.5
+            customView.lineWidth = 0.15
             
             return customView
         }

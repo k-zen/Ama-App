@@ -65,7 +65,7 @@ class AKRainOverlayRenderer: MKOverlayRenderer
                 context.setAlpha(CGFloat(chars.alpha))
                 context.setBlendMode(CGBlendMode.color);
                 context.fill(raindropPointRect)
-                context.setStrokeColor(UIColor.black.cgColor);
+                context.setStrokeColor(chars.color.cgColor);
                 context.setAlpha(CGFloat(1.0))
                 context.stroke(raindropPointRect, width: CGFloat(1000 / zoomLevel))
                 
