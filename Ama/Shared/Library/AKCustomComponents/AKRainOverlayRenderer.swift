@@ -47,6 +47,7 @@ class AKRainOverlayRenderer: MKOverlayRenderer
         var counter: Int = 0
         for point in self.rainfallPoints {
             // Draw only the rainfall points that are inside the map rectangle.
+            // MARK TODO: Add tolerance.
             if MKMapRectContainsRect(mapRect, point.mapRect) {
                 // Get raindrop characteristics.
                 let chars = AKGetInfoForRainfallIntensity(ri: point.intensity)
@@ -61,13 +62,14 @@ class AKRainOverlayRenderer: MKOverlayRenderer
                     )
                 }
                 
-                context.setFillColor(chars.color.cgColor);
+                context.setFillColor(chars.color.cgColor)
                 context.setAlpha(CGFloat(chars.alpha))
-                context.setBlendMode(CGBlendMode.color);
-                context.fill(raindropPointRect)
-                context.setStrokeColor(chars.color.cgColor);
-                context.setAlpha(CGFloat(1.0))
-                context.stroke(raindropPointRect, width: CGFloat(1000 / zoomLevel))
+                context.setBlendMode(CGBlendMode.normal)
+                context.fillEllipse(in: raindropPointRect)
+                // context.setStrokeColor(chars.color.cgColor)
+                // context.setAlpha(CGFloat(1.0))
+                // context.setLineWidth(100.0)
+                // context.strokeEllipse(in: raindropPointRect)
                 
                 counter += 1
             }
@@ -80,7 +82,5 @@ class AKRainOverlayRenderer: MKOverlayRenderer
             NSLog("=> INFO: DRAWED POINTS: %i", counter)
         }
         self.lastZoomScale = zoomScale
-        
-        super.draw(mapRect, zoomScale: zoomScale, in: context)
     }
 }
