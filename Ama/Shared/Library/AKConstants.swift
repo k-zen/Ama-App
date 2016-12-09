@@ -66,11 +66,11 @@ struct GlobalConstants {
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
     static let AKRadarLatitude = -25.333079999999999
     static let AKRadarLongitude = -57.523449999999997
-    static let AKDefaultLatitudeDelta = 0.25 // In degrees. 1 degree equals 111kms.
-    static let AKDefaultLongitudeDelta = 0.25 // In degrees.
+    static let AKDefaultLatitudeDelta = 0.45 // In degrees. 1 degree equals 111kms.
+    static let AKDefaultLongitudeDelta = 0.45 // In degrees.
     static let AKPYBoundsPointA = CLLocationCoordinate2DMake(-19.207429, -63.413086)
     static let AKPYBoundsPointB = CLLocationCoordinate2DMake(-27.722436, -52.778320)
-    static let AKRaindropSize: Float = 150.0 // This is the square side length in meters.
+    static let AKRaindropSize: Float = 50.0 // This is the square side length in meters.
 }
 
 struct AKRainfallIntensityColor {
@@ -96,23 +96,16 @@ enum Exceptions: Error {
 }
 
 enum HeatMapColor: UInt {
-    case C01 = 0x1ec65a
-    case C02 = 0x17a44a
-    case C03 = 0x11863b
-    case C04 = 0xfee934
-    case C05 = 0xf8b82b
-    case C06 = 0xfd8c37
-    case C07 = 0xf3641f
-    case C08 = 0xe30b17
-    case C09 = 0xe8168c
-    case C10 = 0xa81dca
-}
-
-enum HeatMapColorName: String {
-    case purple = "purple"
-    case blue = "blue"
-    case cyan = "cyan"
-    case red = "red"
+    case C01 = 0x053061
+    case C02 = 0x2166ac
+    case C03 = 0x4393c3
+    case C04 = 0x92c5de
+    case C05 = 0xd1e5f0
+    case C06 = 0xfddbc7
+    case C07 = 0xf4a582
+    case C08 = 0xd6604d
+    case C09 = 0xb2182b
+    case C10 = 0x67001f
 }
 
 enum UnitOfLength: Int {
@@ -355,19 +348,19 @@ func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
 {
     switch ri {
     case 1.0..<25.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.35)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
     case 25.0..<50.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 0.35)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
     case 50.0..<75.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 0.35)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
     case 75.0..<100.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 0.85)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
     case 100.0..<125.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 0.85)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
     case 125.0..<150.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 0.85)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
     case 150.0..<175.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 0.85)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
     case 175.0..<200.0:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
     case 200.0..<225.0:
