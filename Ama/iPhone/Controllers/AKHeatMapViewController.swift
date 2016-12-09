@@ -9,7 +9,7 @@ class AKUserAnnotation: MKPointAnnotation {}
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
-    private let addRadarOverlay = true
+    private let addRadarOverlay = false
     private let addRadarPin = true
     private let addUserOverlay = false
     private let addUserPin = true
@@ -193,7 +193,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             let rainfallPoints: NSMutableArray = NSMutableArray()
             do {
                 NSLog("=> READING WEATHER DATA FILE!")
-                content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A56%3A16,00", ofType:"ama")!, encoding: String.Encoding.utf8)
+                content = try String(contentsOfFile: Bundle.main.path(forResource: String(format: "%d", 1), ofType:"ama")!, encoding: String.Encoding.utf8)
                 data = CSwiftV(String: content!).rows.sorted(by: { Float($0[0])! < Float($1[0])! })
                 for item in data! {
                     let lat = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
@@ -202,7 +202,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     
                     let rainfallIntensity = Double(item[0])!
                     
-                    rainfallPoints.add(AKRainfallPoint.init(center: location, intensity: rainfallIntensity))
+                    rainfallPoints.add(AKRainfallPoint(center: location, intensity: rainfallIntensity))
                 }
                 
                 self.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
