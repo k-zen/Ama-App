@@ -11,12 +11,6 @@ class AKRainOverlayRenderer: MKOverlayRenderer
     init(overlay: MKOverlay, rainfallPoints: [AKRainfallPoint])
     {
         self.rainfallPoints = rainfallPoints
-        if debug {
-            NSLog("=> INIT RAINFALL POINTS STRUCTURE.")
-            for point in self.rainfallPoints {
-                NSLog("\t=> RI: %.2f", point.intensity)
-            }
-        }
         self.lastZoomScale = MKZoomScale(0.0)
         
         super.init(overlay: overlay)
@@ -31,7 +25,12 @@ class AKRainOverlayRenderer: MKOverlayRenderer
         // Mark map rectangle tiles.
         if debug {
             context.setStrokeColor(AKHexColor(0x222222).cgColor);
-            context.stroke(tileRect, width: CGFloat(1000 / zoomLevel))
+            context.stroke(tileRect, width: CGFloat(5000 / zoomLevel))
+            
+            let reducedTile = MKMapRectInset(mapRect, GlobalConstants.AKMapTileTolerance.x, GlobalConstants.AKMapTileTolerance.y)
+            context.setFillColor(UIColor.green.cgColor)
+            context.setAlpha(0.5)
+            context.fill(self.rect(for: reducedTile))
         }
         
         if debug {
@@ -46,9 +45,9 @@ class AKRainOverlayRenderer: MKOverlayRenderer
         
         var counter: Int = 0
         for point in self.rainfallPoints {
-            // Draw only the rainfall points that are inside the map rectangle.
-            // MARK TODO: Add tolerance.
-            if MKMapRectContainsRect(mapRect, point.mapRect) {
+            // Draw only the rainfall points that are inside the map rectangle with tolerance.
+            let tileTolerance = MKMapRectInset(mapRect, -GlobalConstants.AKMapTileTolerance.x, -GlobalConstants.AKMapTileTolerance.y)
+            if MKMapRectContainsRect(tileTolerance, point.mapRect) {
                 // Get raindrop characteristics.
                 let chars = AKGetInfoForRainfallIntensity(ri: point.intensity)
                 let raindropPointRect = self.rect(for: point.mapRect)
@@ -65,11 +64,12 @@ class AKRainOverlayRenderer: MKOverlayRenderer
                 context.setFillColor(chars.color.cgColor)
                 context.setAlpha(CGFloat(chars.alpha))
                 context.setBlendMode(CGBlendMode.normal)
-                context.fillEllipse(in: raindropPointRect)
-                // context.setStrokeColor(chars.color.cgColor)
-                // context.setAlpha(CGFloat(1.0))
-                // context.setLineWidth(100.0)
-                // context.strokeEllipse(in: raindropPointRect)
+                context.fill(raindropPointRect)
+                context.setStrokeColor(chars.color.cgColor)
+                context.setAlpha(CGFloat(1.0))
+                context.setLineWidth(100.0)
+                context.setBlendMode(CGBlendMode.colorDodge)
+                context.stroke(raindropPointRect)
                 
                 counter += 1
             }

@@ -24,7 +24,7 @@ class AKRainfallPoint: NSObject
         )
         let pointB = MKMapPointForCoordinate(
             AKLocationWithBearing(
-                bearing: (7 * M_PI) / 4,
+                bearing: (3 * M_PI) / 2,
                 distanceMeters: bubbleRadius,
                 origin: center
             )
