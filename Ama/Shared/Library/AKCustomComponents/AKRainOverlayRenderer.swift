@@ -29,21 +29,15 @@ class AKRainOverlayRenderer: MKOverlayRenderer
             
             let reducedTile = MKMapRectInset(mapRect, GlobalConstants.AKMapTileTolerance.x, GlobalConstants.AKMapTileTolerance.y)
             context.setFillColor(UIColor.green.cgColor)
-            context.setAlpha(0.5)
+            context.setAlpha(0.25)
             context.fill(self.rect(for: reducedTile))
         }
         
         if debug {
             NSLog("=> INFO: ZOOM (SCALE, LEVEL): %f,%i", zoomScale, zoomLevel)
-            NSLog("=> INFO: MAP RECT: (x:%f,y:%f),(w:%f,h:%f)",
-                  mapRect.origin.x,
-                  mapRect.origin.y,
-                  mapRect.size.width,
-                  mapRect.size.height
-            )
+            NSLog("=> INFO: TILE WIDTH: (w:%f,h:%f)", tileRect.size.width, tileRect.size.height)
         }
         
-        var counter: Int = 0
         for point in self.rainfallPoints {
             // Draw only the rainfall points that are inside the map rectangle with tolerance.
             let tileTolerance = MKMapRectInset(mapRect, -GlobalConstants.AKMapTileTolerance.x, -GlobalConstants.AKMapTileTolerance.y)
@@ -51,15 +45,6 @@ class AKRainOverlayRenderer: MKOverlayRenderer
                 // Get raindrop characteristics.
                 let chars = AKGetInfoForRainfallIntensity(ri: point.intensity)
                 let raindropPointRect = self.rect(for: point.mapRect)
-                
-                if debug {
-                    NSLog("=> INFO: POINT MAP RECT: (x:%f,y:%f),(w:%f,h:%f)",
-                          point.mapRect.origin.x,
-                          point.mapRect.origin.y,
-                          point.mapRect.size.width,
-                          point.mapRect.size.height
-                    )
-                }
                 
                 context.setFillColor(chars.color.cgColor)
                 context.setAlpha(CGFloat(chars.alpha))
@@ -70,17 +55,9 @@ class AKRainOverlayRenderer: MKOverlayRenderer
                 context.setLineWidth(100.0)
                 context.setBlendMode(CGBlendMode.colorDodge)
                 context.stroke(raindropPointRect)
-                
-                counter += 1
-            }
-            if debug {
-                if counter > 100 { break }
             }
         }
         
-        if debug {
-            NSLog("=> INFO: DRAWED POINTS: %i", counter)
-        }
         self.lastZoomScale = zoomScale
     }
 }
