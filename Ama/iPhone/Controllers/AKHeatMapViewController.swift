@@ -193,7 +193,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             let rainfallPoints: NSMutableArray = NSMutableArray()
             do {
                 NSLog("=> READING WEATHER DATA FILE!")
-                content = try String(contentsOfFile: Bundle.main.path(forResource: String(format: "%d", 1), ofType:"ama")!, encoding: String.Encoding.utf8)
+                content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A44%3A11,00", ofType:"ama")!, encoding: String.Encoding.utf8)
                 data = CSwiftV(String: content!).rows.sorted(by: { Float($0[0])! < Float($1[0])! })
                 for item in data! {
                     let lat = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
