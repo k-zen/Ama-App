@@ -15,12 +15,14 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private let addUserPin = true
     private let hmInfoOverlayViewContainer: AKHeatMapInfoOverlayView = AKHeatMapInfoOverlayView()
     private let hmActionsOverlayViewContainer: AKHeatMapActionsOverlayView = AKHeatMapActionsOverlayView()
+    private let hmAlertsOverlayViewContainer: AKHeatMapAlertsOverlayView = AKHeatMapAlertsOverlayView()
     private let radarAnnotation: AKRadarAnnotation = AKRadarAnnotation()
     private let userAnnotation: AKUserAnnotation = AKUserAnnotation()
     private var radarOverlay: AKRadarSpanOverlay?
     private var userOverlay: AKUserAreaOverlay?
     private var hmInfoOverlayViewSubView: UIView!
     private var hmActionsOverlayViewSubView: UIView!
+    private var hmAlertsOverlayViewSubView: UIView!
     private var totalRainfallIntensity: Double = 0.0
     
     // MARK: Closures
@@ -53,6 +55,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
                 controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (controller.totalRainfallIntensity / Double(counter)))
                 controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
+                controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "Estado del Tiempo: ☔️")
             }
             catch {
                 content = ""
@@ -114,7 +117,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         // Add map overlay for heatmap actions.
         self.hmActionsOverlayViewSubView = self.hmActionsOverlayViewContainer.customView
         self.hmActionsOverlayViewContainer.controller = self
-        self.hmActionsOverlayViewSubView.frame = CGRect(x: 0, y: 0, width: self.mapView.bounds.width, height: 40)
+        self.hmActionsOverlayViewSubView.frame = CGRect(x: 0, y: 30, width: self.mapView.bounds.width, height: 40)
         self.hmActionsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
         self.hmActionsOverlayViewSubView.clipsToBounds = true
         self.hmActionsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -122,6 +125,25 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.mapView.addSubview(self.hmActionsOverlayViewSubView)
         self.mapView.addConstraint(NSLayoutConstraint(
             item: self.hmActionsOverlayViewSubView,
+            attribute: NSLayoutAttribute.width,
+            relatedBy: NSLayoutRelation.equal,
+            toItem: self.mapView,
+            attribute: NSLayoutAttribute.width,
+            multiplier: 1.0,
+            constant: 0.0
+        ))
+        
+        // Add map overlay for heatmap alerts.
+        self.hmAlertsOverlayViewSubView = self.hmAlertsOverlayViewContainer.customView
+        self.hmAlertsOverlayViewContainer.controller = self
+        self.hmAlertsOverlayViewSubView.frame = CGRect(x: 0, y: 0, width: self.mapView.bounds.width, height: 30)
+        self.hmAlertsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmAlertsOverlayViewSubView.clipsToBounds = true
+        self.hmAlertsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        self.mapView.addSubview(self.hmAlertsOverlayViewSubView)
+        self.mapView.addConstraint(NSLayoutConstraint(
+            item: self.hmAlertsOverlayViewSubView,
             attribute: NSLayoutAttribute.width,
             relatedBy: NSLayoutRelation.equal,
             toItem: self.mapView,
@@ -158,6 +180,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         // Custom L&F
         self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
         self.hmInfoOverlayViewSubView.alpha = 0.75
+        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultBg
+        self.hmAlertsOverlayViewSubView.alpha = 0.75
         
         AKAddBorderDeco(
             self.hmInfoOverlayViewSubView,

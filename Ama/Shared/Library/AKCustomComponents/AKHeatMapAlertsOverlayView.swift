@@ -1,6 +1,6 @@
 import UIKit
 
-class AKHeatMapInfoOverlayView: AKCustomView
+class AKHeatMapAlertsOverlayView: AKCustomView
 {
     // MARK: Properties
     let animation: CABasicAnimation = CABasicAnimation(keyPath: "opacity")
@@ -8,10 +8,7 @@ class AKHeatMapInfoOverlayView: AKCustomView
     
     // MARK: Outlets
     @IBOutlet var container: UIView!
-    @IBOutlet weak var avgRITitle: UILabel!
-    @IBOutlet weak var avgRIValue: UILabel!
-    @IBOutlet weak var reflectivityPointsTitle: UILabel!
-    @IBOutlet weak var reflectivityPointsValue: UILabel!
+    @IBOutlet weak var alertValue: UILabel!
     
     // MARK: UIView Overriding
     convenience init()
@@ -36,7 +33,7 @@ class AKHeatMapInfoOverlayView: AKCustomView
     // MARK: Miscellaneous
     func setup()
     {
-        NSLog("=> ENTERING SETUP ON FRAME: AKHeatMapInfoOverlayView")
+        NSLog("=> ENTERING SETUP ON FRAME: AKHeatMapAlertsOverlayView")
         
         self.animation.fromValue = 0.85
         self.animation.toValue = 0.65
