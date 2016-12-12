@@ -12,6 +12,8 @@
 		4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */; };
 		4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */; };
 		4905E7E81DC1C8C8007A2BB2 /* AKRainfallPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */; };
+		49223BF21DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */; };
+		49223BF41DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */; };
 		492FF7531DBE8AFE009B4CDD /* 0001-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7501DBE8AFE009B4CDD /* 0001-030px.png */; };
 		492FF7541DBE8AFE009B4CDD /* 0002-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7511DBE8AFE009B4CDD /* 0002-030px.png */; };
 		492FF7551DBE8AFE009B4CDD /* 0003-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7521DBE8AFE009B4CDD /* 0003-030px.png */; };
@@ -37,6 +39,8 @@
 		4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRainOverlay.swift; path = AKCustomComponents/AKRainOverlay.swift; sourceTree = "<group>"; };
 		4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRainOverlayRenderer.swift; path = AKCustomComponents/AKRainOverlayRenderer.swift; sourceTree = "<group>"; };
 		4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainfallPoint.swift; sourceTree = "<group>"; };
+		49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKHeatMapInfoOverlayView.xib; sourceTree = "<group>"; };
+		49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapInfoOverlayView.swift; sourceTree = "<group>"; };
 		492FF7501DBE8AFE009B4CDD /* 0001-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0001-030px.png"; sourceTree = "<group>"; };
 		492FF7511DBE8AFE009B4CDD /* 0002-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0002-030px.png"; sourceTree = "<group>"; };
 		492FF7521DBE8AFE009B4CDD /* 0003-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0003-030px.png"; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				49D0BEDC1DB121D700149DEE /* AKCustomView.h */,
 				49D0BEDD1DB121D700149DEE /* AKCustomView.m */,
 				49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */,
+				49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */,
 			);
 			path = AKCustomComponents;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 		49ECF5551D9317CA003E0359 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				496707FD1DFB904100888E25 /* 2015-12-04--09%3A44%3A11,00.ama in Resources */,
+				49223BF21DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib in Resources */,
 				492FF7531DBE8AFE009B4CDD /* 0001-030px.png in Resources */,
 				492FF7571DBE8BE9009B4CDD /* 0004-030px.png in Resources */,
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
@@ -377,6 +384,7 @@
 			files = (
 				4905E7E01DC151E8007A2BB2 /* AKRadarSpanOverlay.swift in Sources */,
 				49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */,
+				49223BF41DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift in Sources */,
 				4905E7E81DC1C8C8007A2BB2 /* AKRainfallPoint.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,

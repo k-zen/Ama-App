@@ -52,6 +52,9 @@ struct GlobalConstants {
     static let AKNotificationBarDismissDelay = 4
     static let AKNotificationBarSound = 1057
     static let AKDefaultFont = "HelveticaNeue-CondensedBold"
+    static let AKDefaultBg = AKHexColor(0x2A2C31)
+    static let AKTabBarBg = UIColor.black
+    static let AKDefaultViewBorderBg = AKHexColor(0xCC3917) // Rust Red http://www.colourlovers.com/color/CC3917/Hallows_Eve
     static let AKDisabledButtonBg = AKHexColor(0xEEEEEE)
     static let AKEnabledButtonBg = AKHexColor(0x030C22)
     static let AKTableHeaderCellBg = AKHexColor(0x333333)
@@ -349,25 +352,25 @@ func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
 {
     switch ri {
     case 1.0..<25.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.85)
     case 25.0..<50.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
     case 50.0..<75.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
     case 75.0..<100.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
     case 100.0..<125.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
     case 125.0..<150.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
     case 150.0..<175.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
     case 175.0..<200.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C08.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
     case 200.0..<225.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C09.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
     case 225.0..<250.0:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C10.rawValue), alpha: 0.9)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
     default:
         return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
     }

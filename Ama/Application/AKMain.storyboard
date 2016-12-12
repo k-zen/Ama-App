@@ -31,7 +31,7 @@
                                             <constraint firstAttribute="height" constant="22" id="0uy-4E-9RM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="18"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3fm-c6-P2s" userLabel="C01">
@@ -256,7 +256,7 @@
                                 <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                             </mapView>
                         </subviews>
-                        <color key="backgroundColor" red="0.21176470588235294" green="0.24705882352941178" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.16470588235294117" green="0.17254901960784313" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Lc2-pe-r70" firstAttribute="trailing" secondItem="fCB-aN-Tyx" secondAttribute="trailing" id="Epe-AO-vlu"/>
                             <constraint firstItem="Lc2-pe-r70" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="I5s-wD-Qp7"/>
@@ -279,6 +279,7 @@
                         <outlet property="img08" destination="kWA-Rf-ioW" id="gcs-Tq-PdN"/>
                         <outlet property="img09" destination="g4k-wh-fmz" id="aEo-Kk-Vxj"/>
                         <outlet property="img10" destination="z8E-hj-Y8z" id="FHY-ZT-gRd"/>
+                        <outlet property="legendView" destination="Lc2-pe-r70" id="xiN-NU-XtF"/>
                         <outlet property="mapView" destination="fCB-aN-Tyx" id="l4E-mZ-Por"/>
                     </connections>
                 </viewController>
@@ -313,7 +314,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>

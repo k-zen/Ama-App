@@ -26,6 +26,16 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     // MARK: UIApplicationDelegate Implementation
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool
     {
+        // Configure TabBar
+        UITabBar.appearance().barTintColor = GlobalConstants.AKTabBarBg
+        UITabBar.appearance().tintColor = GlobalConstants.AKDefaultViewBorderBg
+        UITabBarItem.appearance().setTitleTextAttributes(
+            [
+                NSFontAttributeName: UIFont(name: GlobalConstants.AKDefaultFont, size: 12.0) ?? UIFont.systemFont(ofSize: 12),
+                NSForegroundColorAttributeName: UIColor.white
+            ], for: UIControlState.normal
+        )
+        
         // Manage Location Services
         if CLLocationManager.locationServicesEnabled() {
             // Configure Location Services
