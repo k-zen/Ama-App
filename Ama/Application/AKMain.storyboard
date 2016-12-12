@@ -252,11 +252,11 @@
                                     <constraint firstItem="3fm-c6-P2s" firstAttribute="centerY" secondItem="Lc2-pe-r70" secondAttribute="centerY" id="xwZ-oA-Fts"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCB-aN-Tyx" userLabel="Map_View">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsPointsOfInterest="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCB-aN-Tyx" userLabel="Map_View">
                                 <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                             </mapView>
                         </subviews>
-                        <color key="backgroundColor" red="0.16470588235294117" green="0.17254901960784313" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.078431372549019607" green="0.078431372549019607" blue="0.078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Lc2-pe-r70" firstAttribute="trailing" secondItem="fCB-aN-Tyx" secondAttribute="trailing" id="Epe-AO-vlu"/>
                             <constraint firstItem="Lc2-pe-r70" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="I5s-wD-Qp7"/>

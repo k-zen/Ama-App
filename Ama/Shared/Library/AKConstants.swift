@@ -52,7 +52,7 @@ struct GlobalConstants {
     static let AKNotificationBarDismissDelay = 4
     static let AKNotificationBarSound = 1057
     static let AKDefaultFont = "HelveticaNeue-CondensedBold"
-    static let AKDefaultBg = AKHexColor(0x2A2C31)
+    static let AKDefaultBg = AKHexColor(0x141414)
     static let AKTabBarBg = UIColor.black
     static let AKDefaultViewBorderBg = AKHexColor(0xCC3917) // Rust Red http://www.colourlovers.com/color/CC3917/Hallows_Eve
     static let AKDisabledButtonBg = AKHexColor(0xEEEEEE)
