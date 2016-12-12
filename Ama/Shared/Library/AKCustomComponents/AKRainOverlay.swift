@@ -10,10 +10,6 @@ class AKRainOverlay: NSObject, MKOverlay
     
     init(rainfallPoints: NSArray)
     {
-        // Create rectangle for raindrop.
-        // A raindrop is computed like:
-        //      Center Coordinate + 2mts. radius
-        // MARK: TODO Add support for only making the rectangle as stated above.
         let pointA = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointA)
         let pointB = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointB)
         self.boundingMapRect = MKMapRectMake(

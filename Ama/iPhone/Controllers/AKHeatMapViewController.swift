@@ -14,12 +14,54 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private let addUserOverlay = false
     private let addUserPin = true
     private let hmInfoOverlayViewContainer: AKHeatMapInfoOverlayView = AKHeatMapInfoOverlayView()
+    private let hmActionsOverlayViewContainer: AKHeatMapActionsOverlayView = AKHeatMapActionsOverlayView()
     private let radarAnnotation: AKRadarAnnotation = AKRadarAnnotation()
     private let userAnnotation: AKUserAnnotation = AKUserAnnotation()
     private var radarOverlay: AKRadarSpanOverlay?
     private var userOverlay: AKUserAreaOverlay?
     private var hmInfoOverlayViewSubView: UIView!
+    private var hmActionsOverlayViewSubView: UIView!
     private var totalRainfallIntensity: Double = 0.0
+    
+    // MARK: Closures
+    public let loadHeatMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
+        AKDelay(0.0, task: { Void -> Void in
+            controller.clearMap()
+            
+            controller.mapView.add(AKDIMOverlay(mapView: controller.mapView), level: MKOverlayLevel.aboveRoads)
+            
+            let content: String?
+            let data: [[String]]?
+            let rainfallPoints: NSMutableArray = NSMutableArray()
+            var counter: Int = 0
+            do {
+                NSLog("=> READING WEATHER DATA FILE!")
+                content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A44%3A11,00", ofType:"ama")!, encoding: String.Encoding.utf8)
+                data = CSwiftV(String: content!).rows.sorted(by: { Float($0[0])! < Float($1[0])! })
+                for item in data! {
+                    let lat = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
+                    let lon = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[1])!)
+                    let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                    
+                    let rainfallIntensity = Double(item[0])!
+                    controller.totalRainfallIntensity += rainfallIntensity
+                    counter += 1
+                    
+                    rainfallPoints.add(AKRainfallPoint(center: location, intensity: rainfallIntensity))
+                }
+                
+                controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
+                controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (controller.totalRainfallIntensity / Double(counter)))
+                controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
+            }
+            catch {
+                content = ""
+                NSLog("=> ERROR READING *ATM.csv* FILE!", content!)
+            }
+            
+            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
+        })
+    }
     
     // MARK: Outlets
     @IBOutlet weak var legendView: UIView!
@@ -50,7 +92,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.mapView.userTrackingMode = MKUserTrackingMode.none
         
-        // Add map overlay for travel information.
+        // Add map overlay for heatmap information.
         self.hmInfoOverlayViewSubView = self.hmInfoOverlayViewContainer.customView
         self.hmInfoOverlayViewContainer.controller = self
         self.hmInfoOverlayViewSubView.frame = CGRect(x: 0, y: self.mapView.bounds.height - 60, width: self.mapView.bounds.width, height: 60)
@@ -59,8 +101,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.hmInfoOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         self.mapView.addSubview(self.hmInfoOverlayViewSubView)
-        
-        let constraintWidth = NSLayoutConstraint(
+        self.mapView.addConstraint(NSLayoutConstraint(
             item: self.hmInfoOverlayViewSubView,
             attribute: NSLayoutAttribute.width,
             relatedBy: NSLayoutRelation.equal,
@@ -68,8 +109,26 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             attribute: NSLayoutAttribute.width,
             multiplier: 1.0,
             constant: 0.0
-        )
-        self.mapView.addConstraint(constraintWidth)
+        ))
+        
+        // Add map overlay for heatmap actions.
+        self.hmActionsOverlayViewSubView = self.hmActionsOverlayViewContainer.customView
+        self.hmActionsOverlayViewContainer.controller = self
+        self.hmActionsOverlayViewSubView.frame = CGRect(x: 0, y: 0, width: self.mapView.bounds.width, height: 40)
+        self.hmActionsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmActionsOverlayViewSubView.clipsToBounds = true
+        self.hmActionsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        self.mapView.addSubview(self.hmActionsOverlayViewSubView)
+        self.mapView.addConstraint(NSLayoutConstraint(
+            item: self.hmActionsOverlayViewSubView,
+            attribute: NSLayoutAttribute.width,
+            relatedBy: NSLayoutRelation.equal,
+            toItem: self.mapView,
+            attribute: NSLayoutAttribute.width,
+            multiplier: 1.0,
+            constant: 0.0
+        ))
         
         // Add radar annotation.
         let origin = CLLocationCoordinate2DMake(GlobalConstants.AKRadarLatitude, GlobalConstants.AKRadarLongitude)
@@ -177,6 +236,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             let ol = overlay as! AKRainOverlay
             return AKRainOverlayRenderer(overlay: overlay, rainfallPoints: ol.rainfallPoints as! [AKRainfallPoint])
         }
+        else if overlay.isKind(of: AKDIMOverlay.self) {
+            return AKDIMOverlayRenderer(overlay: overlay, mapView: self.mapView)
+        }
         else {
             // NSLog("=> NEW DEFAULT OVERLAY.")
             return MKOverlayRenderer(overlay: overlay)
@@ -241,42 +303,15 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.img10.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
         
         // Add HeatMap
-        AKDelay(0.0, task: { Void -> Void in
-            let content: String?
-            let data: [[String]]?
-            let rainfallPoints: NSMutableArray = NSMutableArray()
-            var counter: Int = 0
-            do {
-                NSLog("=> READING WEATHER DATA FILE!")
-                content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A44%3A11,00", ofType:"ama")!, encoding: String.Encoding.utf8)
-                data = CSwiftV(String: content!).rows.sorted(by: { Float($0[0])! < Float($1[0])! })
-                for item in data! {
-                    let lat = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
-                    let lon = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[1])!)
-                    let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                    
-                    let rainfallIntensity = Double(item[0])!
-                    self.totalRainfallIntensity += rainfallIntensity
-                    counter += 1
-                    
-                    rainfallPoints.add(AKRainfallPoint(center: location, intensity: rainfallIntensity))
-                }
-                
-                self.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
-                self.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (self.totalRainfallIntensity / Double(counter)))
-                self.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
-            }
-            catch {
-                content = ""
-                NSLog("=> ERROR READING *ATM.csv* FILE!", content!)
-            }
-        })
+        self.loadHeatMap(self)
     }
     
     func clearMap()
     {
-        if self.mapView.annotations.count > 0 {
-            self.mapView.removeAnnotations(self.mapView.annotations)
+        if self.mapView.overlays.count > 0 {
+            self.mapView.removeOverlays(self.mapView.overlays)
         }
+        
+        NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
     }
 }

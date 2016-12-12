@@ -32,9 +32,6 @@ class AKRainOverlayRenderer: MKOverlayRenderer
             context.setAlpha(0.25)
             context.fill(self.rect(for: reducedTile))
         }
-        context.setFillColor(AKHexColor(0x000000).cgColor)
-        context.setAlpha(0.60)
-        context.fill(self.rect(for: mapRect))
         
         if debug {
             NSLog("=> INFO: ZOOM (SCALE, LEVEL): %f,%i", zoomScale, zoomLevel)

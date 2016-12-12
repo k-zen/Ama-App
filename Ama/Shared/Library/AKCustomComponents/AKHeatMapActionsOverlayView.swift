@@ -1,6 +1,6 @@
 import UIKit
 
-class AKHeatMapInfoOverlayView: AKCustomView
+class AKHeatMapActionsOverlayView: AKCustomView
 {
     // MARK: Properties
     let animation: CABasicAnimation = CABasicAnimation(keyPath: "opacity")
@@ -8,10 +8,15 @@ class AKHeatMapInfoOverlayView: AKCustomView
     
     // MARK: Outlets
     @IBOutlet var container: UIView!
-    @IBOutlet weak var avgRITitle: UILabel!
-    @IBOutlet weak var avgRIValue: UILabel!
-    @IBOutlet weak var reflectivityPointsTitle: UILabel!
-    @IBOutlet weak var reflectivityPointsValue: UILabel!
+    @IBOutlet weak var refresh: UIButton!
+    
+    // MARK: Actions
+    @IBAction func refresh(_ sender: Any)
+    {
+        if let c: AKHeatMapViewController = self.controller as! AKHeatMapViewController? {
+            c.loadHeatMap(c)
+        }
+    }
     
     // MARK: UIView Overriding
     convenience init()
@@ -36,7 +41,7 @@ class AKHeatMapInfoOverlayView: AKCustomView
     // MARK: Miscellaneous
     func setup()
     {
-        NSLog("=> ENTERING SETUP ON FRAME: AKHeatMapInfoOverlayView")
+        NSLog("=> ENTERING SETUP ON FRAME: AKHeatMapActionsOverlayView")
         
         self.animation.fromValue = 0.85
         self.animation.toValue = 0.65
@@ -46,8 +51,8 @@ class AKHeatMapInfoOverlayView: AKCustomView
         self.animation.repeatCount = 20000
         
         // Custom L&F.
-        // self.distance.layer.cornerRadius = 4.0
-        // self.distance.layer.masksToBounds = true
+        self.refresh.layer.cornerRadius = 4.0
+        self.refresh.layer.masksToBounds = true
     }
     
     func startAnimation()

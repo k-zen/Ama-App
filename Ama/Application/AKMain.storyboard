@@ -252,7 +252,7 @@
                                     <constraint firstItem="3fm-c6-P2s" firstAttribute="centerY" secondItem="Lc2-pe-r70" secondAttribute="centerY" id="xwZ-oA-Fts"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsPointsOfInterest="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCB-aN-Tyx" userLabel="Map_View">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCB-aN-Tyx" userLabel="Map_View">
                                 <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                             </mapView>
                         </subviews>
