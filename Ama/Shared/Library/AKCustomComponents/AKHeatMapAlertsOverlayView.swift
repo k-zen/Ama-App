@@ -35,9 +35,9 @@ class AKHeatMapAlertsOverlayView: AKCustomView
     {
         NSLog("=> ENTERING SETUP ON FRAME: AKHeatMapAlertsOverlayView")
         
-        self.animation.fromValue = 0.85
-        self.animation.toValue = 0.65
-        self.animation.duration = 2.0
+        self.animation.fromValue = 0.75
+        self.animation.toValue = 0.35
+        self.animation.duration = 1.0
         self.animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         self.animation.autoreverses = true
         self.animation.repeatCount = 20000

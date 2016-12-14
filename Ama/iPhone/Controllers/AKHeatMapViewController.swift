@@ -53,8 +53,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 }
                 
                 controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
+                
                 controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (controller.totalRainfallIntensity / Double(counter)))
                 controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
+                
                 controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "Estado del Tiempo: ☔️")
             }
             catch {
@@ -180,7 +182,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         // Custom L&F
         self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
         self.hmInfoOverlayViewSubView.alpha = 0.75
-        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultBg
+        
+        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
         self.hmAlertsOverlayViewSubView.alpha = 0.75
         
         AKAddBorderDeco(
@@ -207,6 +210,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.bottom
         )
+        
+        self.hmAlertsOverlayViewContainer.startAnimation()
     }
     
     // MARK: MKMapViewDelegate Implementation
