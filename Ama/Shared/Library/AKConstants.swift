@@ -71,10 +71,13 @@ struct GlobalConstants {
     static let AKRadarLongitude = -57.523449999999997
     static let AKDefaultLatitudeDelta = 0.45 // In degrees. 1 degree equals 111kms.
     static let AKDefaultLongitudeDelta = 0.45 // In degrees.
+    static let AKLatitudeDegreeInKilometers = 111.0 // http://gis.stackexchange.com/questions/142326/calculating-longitude-length-in-miles
     static let AKPYBoundsPointA = CLLocationCoordinate2DMake(-19.207429, -63.413086)
     static let AKPYBoundsPointB = CLLocationCoordinate2DMake(-27.722436, -52.778320)
     static let AKRaindropSize: Float = 50.0 // This is the square side length in meters.
     static let AKMapTileTolerance: MKMapPoint = MKMapPointMake(5000.0, 5000.0)
+    static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
+    static let AKRadarOrigin = CLLocationCoordinate2DMake(GlobalConstants.AKRadarLatitude, GlobalConstants.AKRadarLongitude)
 }
 
 struct AKRainfallIntensityColor {
@@ -110,6 +113,30 @@ enum HeatMapColor: UInt {
     case C08 = 0xd6604d
     case C09 = 0xb2182b
     case C10 = 0x67001f
+}
+
+/// Zoom level in kilometers of span/viewport.
+enum ZoomLevel: Double {
+    /// 90Km
+    case L01 = 90.0
+    /// 80Km
+    case L02 = 80.0
+    /// 70Km
+    case L03 = 70.0
+    /// 60Km
+    case L04 = 60.0
+    /// 50Km
+    case L05 = 50.0
+    /// 40Km
+    case L06 = 40.0
+    /// 30Km
+    case L07 = 30.0
+    /// 20Km
+    case L08 = 20.0
+    /// 10Km
+    case L09 = 10.0
+    /// 01Km
+    case L10 = 1.0
 }
 
 enum UnitOfLength: Int {
@@ -199,18 +226,26 @@ func AKDelay(_ delay: Double, task: @escaping (Void) -> Void)
 /// - Returns: The App's delegate object.
 func AKDelegate() -> AKAppDelegate { return UIApplication.shared.delegate as! AKAppDelegate }
 
-/// Returns the App's delegate object.
+/// Centers a map on a given coordinate and sets the viewport according to a radius.
 ///
-/// - Parameter mapView:  The mapview object.
-/// - Parameter location: The coordinates.
-/// - Parameter radius:   The region radius.
-func AKCenterMapOnLocation(mapView: MKMapView, location: CLLocationCoordinate2D, radius: Double)
+/// - Parameter mapView:   The mapview object.
+/// - Parameter location:  The coordinates.
+/// - Parameter zoomLevel: The zoom level to use.
+func AKCenterMapOnLocation(mapView: MKMapView, location: CLLocationCoordinate2D, zoomLevel: ZoomLevel)
 {
-    let factor = 2.0
-    let rad = radius * factor
+    let span = MKCoordinateSpanMake(
+        zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers,
+        zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers
+    )
     
-    let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, rad, rad)
-    mapView.setRegion(coordinateRegion, animated: true)
+    mapView.setCenter(location, animated: true)
+    mapView.setRegion(
+        MKCoordinateRegion(
+            center: location,
+            span: span
+        ),
+        animated: true
+    )
 }
 
 /// Computes the distance between two points and returns the distance in meters.
@@ -239,18 +274,18 @@ func AKCreateCircleForCoordinate(_ title: String, coordinate: CLLocationCoordina
 {
     let degreesBetweenPoints = 8.0
     let numberOfPoints = floor(360.0 / degreesBetweenPoints)
-    let distRadians: Double = withMeterRadius / 6371000.0
-    let centerLatRadians: Double = coordinate.latitude * M_PI / 180
-    let centerLonRadians: Double = coordinate.longitude * M_PI / 180
+    let distRadians: Double = withMeterRadius / GlobalConstants.AKEarthRadius
+    let centerLatRadians: Double = coordinate.latitude * (M_PI / 180)
+    let centerLonRadians: Double = coordinate.longitude * (M_PI / 180)
     var coordinates = [CLLocationCoordinate2D]()
     
     for index in 0 ..< Int(numberOfPoints) {
         let degrees: Double = Double(index) * Double(degreesBetweenPoints)
-        let degreeRadians: Double = degrees * M_PI / 180
+        let degreeRadians: Double = degrees * (M_PI / 180)
         let pointLatRadians: Double = asin(sin(centerLatRadians) * cos(distRadians) + cos(centerLatRadians) * sin(distRadians) * cos(degreeRadians))
         let pointLonRadians: Double = centerLonRadians + atan2(sin(degreeRadians) * sin(distRadians) * cos(centerLatRadians), cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians))
-        let pointLat: Double = pointLatRadians * 180 / M_PI
-        let pointLon: Double = pointLonRadians * 180 / M_PI
+        let pointLat: Double = pointLatRadians * (180 / M_PI)
+        let pointLon: Double = pointLonRadians * (180 / M_PI)
         let point: CLLocationCoordinate2D = CLLocationCoordinate2DMake(pointLat, pointLon)
         
         coordinates.append(point)
@@ -330,12 +365,12 @@ func AKSquareImage(_ sideLength: Double, strokeColor: UIColor, strokeAlpha: Floa
 /// - Parameter origin: The original location. (Point A)
 ///
 /// - Returns: A location object (Point Z).
-func AKLocationWithBearing(bearing:Double, distanceMeters:Double, origin:CLLocationCoordinate2D) -> CLLocationCoordinate2D
+func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: CLLocationCoordinate2D) -> CLLocationCoordinate2D
 {
-    let distRadians = distanceMeters / 6372797.6
+    let distRadians: Double = distanceMeters / GlobalConstants.AKEarthRadius
     
-    let lat1 = origin.latitude * (M_PI / 180)
-    let lon1 = origin.longitude * (M_PI / 180)
+    let lat1: Double = origin.latitude * (M_PI / 180)
+    let lon1: Double = origin.longitude * (M_PI / 180)
     
     let lat2 = asin(sin(lat1) * cos(distRadians) + cos(lat1) * sin(distRadians) * cos(bearing))
     let lon2 = lon1 + atan2(sin(bearing) * sin(distRadians) * cos(lat1), cos(distRadians) - sin(lat1) * sin(lat2))

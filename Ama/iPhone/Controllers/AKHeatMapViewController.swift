@@ -13,6 +13,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private let addRadarPin = true
     private let addUserOverlay = false
     private let addUserPin = true
+    private let addDIMOverlay = true
     private let hmInfoOverlayViewContainer: AKHeatMapInfoOverlayView = AKHeatMapInfoOverlayView()
     private let hmActionsOverlayViewContainer: AKHeatMapActionsOverlayView = AKHeatMapActionsOverlayView()
     private let hmAlertsOverlayViewContainer: AKHeatMapAlertsOverlayView = AKHeatMapAlertsOverlayView()
@@ -29,8 +30,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     public let loadHeatMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
         AKDelay(0.0, task: { Void -> Void in
             controller.clearMap()
-            
-            controller.mapView.add(AKDIMOverlay(mapView: controller.mapView), level: MKOverlayLevel.aboveRoads)
             
             let content: String?
             let data: [[String]]?
@@ -92,6 +91,142 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
+        AKCenterMapOnLocation(mapView: self.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+    }
+    
+    // MARK: MKMapViewDelegate Implementation
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
+    {
+        if annotation.isKind(of: AKRadarAnnotation.self) {
+            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.title!!) {
+                return annotationView
+            }
+            else {
+                let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.title!!)
+                customView.canShowCallout = true
+                customView.layer.backgroundColor = UIColor.clear.cgColor
+                customView.layer.cornerRadius = 6.0
+                customView.layer.borderWidth = 0.0
+                customView.layer.masksToBounds = true
+                customView.image = AKCircleImageWithRadius(
+                    10,
+                    strokeColor: UIColor.black,
+                    strokeAlpha: 1.0,
+                    fillColor: UIColor.red,
+                    fillAlpha: 1.0,
+                    lineWidth: CGFloat(1.4)
+                )
+                customView.clipsToBounds = false
+                
+                return customView
+            }
+        }
+        else {
+            return nil
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer
+    {
+        if overlay.isKind(of: AKRadarSpanOverlay.self) {
+            let ol = overlay as! AKRadarSpanOverlay
+            let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
+            customView.fillColor = UIColor.clear
+            customView.alpha = 1.0
+            customView.strokeColor = UIColor.white
+            customView.lineWidth = 0.25
+            customView.lineDashPattern = [4, 4]
+            
+            return customView
+        }
+        else if overlay.isKind(of: AKUserAreaOverlay.self) {
+            let ol = overlay as! AKUserAreaOverlay
+            let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
+            customView.fillColor = AKHexColor(0x4DBCE9)
+            customView.alpha = 0.25
+            customView.strokeColor = AKHexColor(0x4DBCE9)
+            customView.lineWidth = 2.0
+            
+            return customView
+        }
+        else if overlay.isKind(of: AKRainOverlay.self) {
+            let ol = overlay as! AKRainOverlay
+            return AKRainOverlayRenderer(overlay: overlay, rainfallPoints: ol.rainfallPoints as! [AKRainfallPoint])
+        }
+        else if overlay.isKind(of: AKDIMOverlay.self) {
+            return AKDIMOverlayRenderer(overlay: overlay, mapView: self.mapView)
+        }
+        else if overlay.isKind(of: AKRadarSpanLinesOverlay.self) {
+            let ol = overlay as! AKRadarSpanLinesOverlay
+            let customView = MKPolylineRenderer(overlay: ol)
+            customView.alpha = 1.0
+            customView.strokeColor = UIColor.white
+            customView.lineWidth = 0.25
+            customView.lineDashPattern = [4, 4]
+            
+            return customView
+        }
+        else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationCanShowCallout annotation: MKAnnotation) -> Bool { return true }
+    
+    // MARK: Observers
+    func locationUpdated()
+    {
+        OperationQueue.main.addOperation({ () -> Void in
+            let coordinate = AKDelegate().currentPosition
+            
+            if self.addUserPin {
+                self.userAnnotation.coordinate = coordinate
+                self.userAnnotation.title = "Usuario"
+                self.userAnnotation.subtitle = String(format: "Lat: %f, Lng: %f", coordinate.latitude, coordinate.longitude)
+                self.mapView.addAnnotation(self.userAnnotation)
+            }
+            
+            if self.addUserOverlay {
+                // Remove and add overlay.
+                if let overlay = self.userOverlay {
+                    self.mapView.remove(overlay)
+                }
+                self.userOverlay = AKUserAreaOverlay(center: coordinate, radius: 5000)
+                self.userOverlay?.title = "Cobertura Usuario"
+                self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
+            }
+        })
+    }
+    
+    // MARK: Miscellaneous
+    func customSetup()
+    {
+        super.shouldCheckLoggedUser = false
+        super.setup()
+        
+        // Delegates
+        self.mapView.delegate = self
+        
+        // Custom notifications.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(AKHeatMapViewController.locationUpdated),
+            name: NSNotification.Name(GlobalConstants.AKLocationUpdateNotificationName),
+            object: nil
+        )
+        
+        // Create Legend
+        let frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        self.img01.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
+        self.img02.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
+        self.img03.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C03.rawValue), frame: frame)
+        self.img04.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C04.rawValue), frame: frame)
+        self.img05.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C05.rawValue), frame: frame)
+        self.img06.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C06.rawValue), frame: frame)
+        self.img07.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C07.rawValue), frame: frame)
+        self.img08.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C08.rawValue), frame: frame)
+        self.img09.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C09.rawValue), frame: frame)
+        self.img10.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
         
         // Configure map.
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -155,35 +290,53 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         ))
         
         // Add radar annotation.
-        let origin = CLLocationCoordinate2DMake(GlobalConstants.AKRadarLatitude, GlobalConstants.AKRadarLongitude)
-        if CLLocationCoordinate2DIsValid(origin) {
-            self.mapView.setCenter(origin, animated: true)
-            
-            let span = MKCoordinateSpanMake(GlobalConstants.AKDefaultLatitudeDelta, GlobalConstants.AKDefaultLongitudeDelta)
-            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: origin.latitude, longitude: origin.longitude), span: span)
-            self.mapView.setRegion(region, animated: true)
-            
-            if addRadarOverlay {
-                for k in 1...10 {
-                    self.radarOverlay = AKRadarSpanOverlay(center: origin, radius: CLLocationDistance(5000 * k))
-                    self.radarOverlay?.title = "Cobertura Radar"
-                    self.mapView.add(self.radarOverlay!, level: MKOverlayLevel.aboveRoads)
-                }
+        if addDIMOverlay {
+            self.mapView.add(
+                AKDIMOverlay(mapView: self.mapView),
+                level: MKOverlayLevel.aboveRoads
+            )
+        }
+        
+        if addRadarOverlay {
+            for k in 1...10 {
+                self.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(5000 * k))
+                self.radarOverlay?.title = "Cobertura Radar"
+                self.mapView.add(self.radarOverlay!, level: MKOverlayLevel.aboveRoads)
             }
             
-            if addRadarPin {
-                self.radarAnnotation.coordinate = origin
-                self.radarAnnotation.title = "Radar"
-                self.radarAnnotation.subtitle = String(format: "Lat: %f, Lng: %f", origin.latitude, origin.longitude)
-                self.mapView.addAnnotation(self.radarAnnotation)
+            for k in 1...12 {
+                self.mapView.add(
+                    AKRadarSpanLinesOverlay(
+                        coordinates: [
+                            GlobalConstants.AKRadarOrigin,
+                            AKLocationWithBearing(
+                                bearing: Double(k * 30) * (M_PI / 180),
+                                distanceMeters: 50000,
+                                origin: GlobalConstants.AKRadarOrigin
+                            )
+                        ],
+                        count: 2
+                    )
+                )
             }
+        }
+        
+        if addRadarPin {
+            self.radarAnnotation.coordinate = GlobalConstants.AKRadarOrigin
+            self.radarAnnotation.title = "Radar"
+            self.radarAnnotation.subtitle = String(
+                format: "Lat: %f, Lng: %f",
+                GlobalConstants.AKRadarOrigin.latitude,
+                GlobalConstants.AKRadarOrigin.longitude
+            )
+            self.mapView.addAnnotation(self.radarAnnotation)
         }
         
         // Custom L&F
         self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
         self.hmInfoOverlayViewSubView.alpha = 0.75
         
-        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
+        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultBg
         self.hmAlertsOverlayViewSubView.alpha = 0.75
         
         AKAddBorderDeco(
@@ -212,124 +365,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         )
         
         self.hmAlertsOverlayViewContainer.startAnimation()
-    }
-    
-    // MARK: MKMapViewDelegate Implementation
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
-    {
-        if annotation.isKind(of: AKRadarAnnotation.self) {
-            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.title!!) {
-                return annotationView
-            }
-            else {
-                let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.title!!)
-                customView.canShowCallout = true
-                customView.layer.backgroundColor = UIColor.clear.cgColor
-                customView.layer.cornerRadius = 6.0
-                customView.layer.borderWidth = 0.0
-                customView.layer.masksToBounds = true
-                customView.image = AKCircleImageWithRadius(10, strokeColor: UIColor.black, strokeAlpha: 1.0, fillColor: UIColor.red, fillAlpha: 1.0, lineWidth: CGFloat(1.4))
-                customView.clipsToBounds = false
-                
-                return customView
-            }
-        }
-        else {
-            return nil
-        }
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer
-    {
-        if overlay.isKind(of: AKRadarSpanOverlay.self) {
-            let ol = overlay as! AKRadarSpanOverlay
-            let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
-            customView.fillColor = UIColor.clear
-            customView.alpha = 1.0
-            customView.strokeColor = AKHexColor(0x666666)
-            customView.lineWidth = 0.15
-            
-            return customView
-        }
-        else if overlay.isKind(of: AKUserAreaOverlay.self) {
-            let ol = overlay as! AKUserAreaOverlay
-            let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
-            customView.fillColor = AKHexColor(0x4DBCE9)
-            customView.alpha = 0.25
-            customView.strokeColor = AKHexColor(0x4DBCE9)
-            customView.lineWidth = 2.0
-            
-            return customView
-        }
-        else if overlay.isKind(of: AKRainOverlay.self) {
-            let ol = overlay as! AKRainOverlay
-            return AKRainOverlayRenderer(overlay: overlay, rainfallPoints: ol.rainfallPoints as! [AKRainfallPoint])
-        }
-        else if overlay.isKind(of: AKDIMOverlay.self) {
-            return AKDIMOverlayRenderer(overlay: overlay, mapView: self.mapView)
-        }
-        else {
-            // NSLog("=> NEW DEFAULT OVERLAY.")
-            return MKOverlayRenderer(overlay: overlay)
-        }
-    }
-    
-    func mapView(_ mapView: MKMapView, annotationCanShowCallout annotation: MKAnnotation) -> Bool { return true }
-    
-    // MARK: Observers
-    func locationUpdated()
-    {
-        OperationQueue.main.addOperation({ () -> Void in
-            let coordinate = AKDelegate().currentPosition
-            
-            if self.addUserPin {
-                self.userAnnotation.coordinate = coordinate
-                self.userAnnotation.title = "Usuario"
-                self.userAnnotation.subtitle = String(format: "Lat: %f, Lng: %f", coordinate.latitude, coordinate.longitude)
-                self.mapView.addAnnotation(self.userAnnotation)
-            }
-            
-            if self.addUserOverlay {
-                // Remove and add overlay.
-                if let overlay = self.userOverlay {
-                    self.mapView.remove(overlay)
-                }
-                self.userOverlay = AKUserAreaOverlay(center: coordinate, radius: 5000)
-                self.userOverlay?.title = "Cobertura Usuario"
-                self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
-            }
-        })
-    }
-    
-    // MARK: Miscellaneous
-    func customSetup()
-    {
-        super.shouldCheckLoggedUser = false
-        super.setup()
-        
-        // Delegates
-        self.mapView.delegate = self
-        
-        // Custom notifications.
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(AKHeatMapViewController.locationUpdated),
-            name: NSNotification.Name(GlobalConstants.AKLocationUpdateNotificationName),
-            object: nil
-        )
-        
-        // Create Legend
-        let frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        self.img01.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
-        self.img02.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
-        self.img03.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C03.rawValue), frame: frame)
-        self.img04.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C04.rawValue), frame: frame)
-        self.img05.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C05.rawValue), frame: frame)
-        self.img06.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C06.rawValue), frame: frame)
-        self.img07.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C07.rawValue), frame: frame)
-        self.img08.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C08.rawValue), frame: frame)
-        self.img09.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C09.rawValue), frame: frame)
-        self.img10.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
         
         // Add HeatMap
         self.loadHeatMap(self)
@@ -338,7 +373,15 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     func clearMap()
     {
         if self.mapView.overlays.count > 0 {
-            self.mapView.removeOverlays(self.mapView.overlays)
+            let overlaysToRemove = self.mapView.overlays.filter({ (overlay) -> Bool in
+                if overlay.isKind(of: AKRainOverlay.self) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            })
+            self.mapView.removeOverlays(overlaysToRemove)
         }
         
         NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)

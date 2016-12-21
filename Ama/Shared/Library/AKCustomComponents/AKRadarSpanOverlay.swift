@@ -25,3 +25,5 @@ class AKRadarSpanOverlay: NSObject, MKOverlay
         )
     }
 }
+
+class AKRadarSpanLinesOverlay: MKPolyline {}
