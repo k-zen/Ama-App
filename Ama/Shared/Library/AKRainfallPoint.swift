@@ -5,15 +5,15 @@ class AKRainfallPoint: NSObject
 {
     // MARK: Properties
     let center: CLLocationCoordinate2D
-    let intensity: Double
+    let intensity: Int
     let mapRect: MKMapRect
     
-    init(center: CLLocationCoordinate2D, intensity: Double)
+    init(center: CLLocationCoordinate2D, intensity: Int)
     {
         self.center = center
         self.intensity = intensity
         
-        let bubbleRadius: Double = (Double(GlobalConstants.AKRaindropSize) * log2(intensity))
+        let bubbleRadius: Double = (Double(GlobalConstants.AKRaindropSize) * log2(Double(intensity)))
         
         let pointA = MKMapPointForCoordinate(
             AKLocationWithBearing(

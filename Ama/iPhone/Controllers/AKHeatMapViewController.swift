@@ -24,7 +24,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private var hmInfoOverlayViewSubView: UIView!
     private var hmActionsOverlayViewSubView: UIView!
     private var hmAlertsOverlayViewSubView: UIView!
-    private var totalRainfallIntensity: Double = 0.0
+    private var totalRainfallIntensity: Int = 0
     
     // MARK: Closures
     public let loadHeatMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
@@ -44,7 +44,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     let lon = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[1])!)
                     let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                     
-                    let rainfallIntensity = Double(item[0])!
+                    let rainfallIntensity = Int(item[0])!
                     controller.totalRainfallIntensity += rainfallIntensity
                     counter += 1
                     
@@ -53,7 +53,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 
                 controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
                 
-                controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (controller.totalRainfallIntensity / Double(counter)))
+                controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
                 controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
                 
                 controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "Estado del Tiempo: ☔️")

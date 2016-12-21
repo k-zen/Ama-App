@@ -383,28 +383,28 @@ func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: CLLo
 /// - Parameter ri: The value of rainfall intensity.
 ///
 /// - Returns: A color object.
-func AKGetInfoForRainfallIntensity(ri: Double) -> AKRainfallIntensityColor
+func AKGetInfoForRainfallIntensity(ri: Int) -> AKRainfallIntensityColor
 {
     switch ri {
-    case 1.0..<25.0:
+    case 1 ..< 25:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.85)
-    case 25.0..<50.0:
+    case 25 ..< 50:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
-    case 50.0..<75.0:
+    case 50 ..< 75:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
-    case 75.0..<100.0:
+    case 75 ..< 100:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
-    case 100.0..<125.0:
+    case 100 ..< 125:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
-    case 125.0..<150.0:
+    case 125 ..< 150:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
-    case 150.0..<175.0:
+    case 150 ..< 175:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
-    case 175.0..<200.0:
+    case 175 ..< 200:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
-    case 200.0..<225.0:
+    case 200 ..< 225:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
-    case 225.0..<250.0:
+    case 225 ..< Int.max:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
     default:
         return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
