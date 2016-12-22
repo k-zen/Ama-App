@@ -387,7 +387,7 @@ func AKGetInfoForRainfallIntensity(ri: Int) -> AKRainfallIntensityColor
 {
     switch ri {
     case 1 ..< 25:
-        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.85)
+        return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
     case 25 ..< 50:
         return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
     case 50 ..< 75:

@@ -12,7 +12,7 @@ class AKDIMOverlayRenderer: MKOverlayRenderer
     override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext)
     {
         context.setFillColor(AKHexColor(0x000000).cgColor)
-        context.setAlpha(0.60)
+        context.setAlpha(0.90)
         context.fill(self.rect(for: MKMapRectWorld))
     }
 }

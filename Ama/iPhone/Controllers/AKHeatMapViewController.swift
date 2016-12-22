@@ -11,7 +11,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Properties
     private let addRadarOverlay = true
     private let addRadarPin = true
-    private let addUserOverlay = false
+    private let addUserOverlay = true
     private let addUserPin = true
     private let addDIMOverlay = true
     private let hmInfoOverlayViewContainer: AKHeatMapInfoOverlayView = AKHeatMapInfoOverlayView()
@@ -31,6 +31,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         AKDelay(0.0, task: { Void -> Void in
             AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
                 controller.clearMap()
+                AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
                 
                 let rainfallPoints = NSMutableArray()
                 var counter: Int = 0
@@ -57,8 +58,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "Estado del Tiempo: ☔️")
                 
                 NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
-                
-                AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
             })
         })
     }
@@ -129,18 +128,18 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
             customView.fillColor = UIColor.clear
             customView.alpha = 1.0
-            customView.strokeColor = UIColor.white
-            customView.lineWidth = 0.25
+            customView.strokeColor = UIColor.green
+            customView.lineWidth = 0.175
             
             return customView
         }
         else if overlay.isKind(of: AKUserAreaOverlay.self) {
             let ol = overlay as! AKUserAreaOverlay
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
-            customView.fillColor = AKHexColor(0x4DBCE9)
+            customView.fillColor = UIColor.cyan
             customView.alpha = 0.25
-            customView.strokeColor = AKHexColor(0x4DBCE9)
-            customView.lineWidth = 2.0
+            customView.strokeColor = UIColor.cyan
+            customView.lineWidth = 3.0
             
             return customView
         }
@@ -155,8 +154,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             let ol = overlay as! AKRadarSpanLinesOverlay
             let customView = MKPolylineRenderer(overlay: ol)
             customView.alpha = 1.0
-            customView.strokeColor = UIColor.white
-            customView.lineWidth = 0.25
+            customView.strokeColor = UIColor.green
+            customView.lineWidth = 0.175
             
             return customView
         }
