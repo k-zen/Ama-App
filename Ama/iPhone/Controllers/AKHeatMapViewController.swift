@@ -9,7 +9,7 @@ class AKUserAnnotation: MKPointAnnotation {}
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
-    private let addRadarOverlay = false
+    private let addRadarOverlay = true
     private let addRadarPin = true
     private let addUserOverlay = false
     private let addUserPin = true
@@ -29,22 +29,21 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Closures
     public let loadHeatMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
         AKDelay(0.0, task: { Void -> Void in
-            controller.clearMap()
-            
-            let content: String?
-            let data: [[String]]?
-            let rainfallPoints: NSMutableArray = NSMutableArray()
-            var counter: Int = 0
-            do {
+            AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
+                controller.clearMap()
+                
+                let rainfallPoints = NSMutableArray()
+                var counter: Int = 0
                 NSLog("=> READING WEATHER DATA FILE!")
-                content = try String(contentsOfFile: Bundle.main.path(forResource: "2015-12-04--09%3A44%3A11,00", ofType:"ama")!, encoding: String.Encoding.utf8)
-                data = CSwiftV(String: content!).rows.sorted(by: { Float($0[0])! < Float($1[0])! })
-                for item in data! {
-                    let lat = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[0])!)
-                    let lon = CLLocationDegrees(Double(item[1].components(separatedBy: ":")[1])!)
+                let reader = AKStreamReader(path: Bundle.main.path(forResource: "2015-12-04--09%3A44%3A11,00", ofType:"ama")!)!
+                for line in reader {
+                    let components = line.components(separatedBy: ",")
+                    
+                    let lat = CLLocationDegrees(Double(components[1].components(separatedBy: ":")[0])!)
+                    let lon = CLLocationDegrees(Double(components[1].components(separatedBy: ":")[1])!)
                     let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                     
-                    let rainfallIntensity = Int(item[0])!
+                    let rainfallIntensity = Int(components[0])!
                     controller.totalRainfallIntensity += rainfallIntensity
                     counter += 1
                     
@@ -55,15 +54,12 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 
                 controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
                 controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
-                
                 controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "Estado del Tiempo: ☔️")
-            }
-            catch {
-                content = ""
-                NSLog("=> ERROR READING *ATM.csv* FILE!", content!)
-            }
-            
-            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
+                
+                NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
+                
+                AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+            })
         })
     }
     
@@ -135,7 +131,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             customView.alpha = 1.0
             customView.strokeColor = UIColor.white
             customView.lineWidth = 0.25
-            customView.lineDashPattern = [4, 4]
             
             return customView
         }
@@ -162,7 +157,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             customView.alpha = 1.0
             customView.strokeColor = UIColor.white
             customView.lineWidth = 0.25
-            customView.lineDashPattern = [4, 4]
             
             return customView
         }

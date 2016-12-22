@@ -476,6 +476,18 @@ func AKPresentMessageFromError(_ errorMessage: String = "", controller: UIViewCo
     }
 }
 
+/// Executes code and measures the execution time.
+///
+/// - Parameter title: The title of the operation.
+/// - Parameter operation: The code to be executed in a closure.
+func AKPrintTimeElapsedWhenRunningCode(title: String, operation: () -> ())
+{
+    let startTime = CFAbsoluteTimeGetCurrent()
+    operation()
+    let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+    NSLog("=> INFO: TIME ELAPSED FOR \(title): %.4f seconds.", timeElapsed)
+}
+
 func AKRangeFromNSRange(_ nsRange: NSRange, forString str: String) -> Range<String.Index>?
 {
     let fromUTF16 = str.utf16.startIndex.advanced(by: nsRange.location)

@@ -25,8 +25,10 @@
 		492FF7541DBE8AFE009B4CDD /* 0002-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7511DBE8AFE009B4CDD /* 0002-030px.png */; };
 		492FF7551DBE8AFE009B4CDD /* 0003-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7521DBE8AFE009B4CDD /* 0003-030px.png */; };
 		492FF7571DBE8BE9009B4CDD /* 0004-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7561DBE8BE9009B4CDD /* 0004-030px.png */; };
+		4960A4331E0C37EC0076E50C /* AmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A42C1E0C37EC0076E50C /* AmaTests.swift */; };
 		496707FD1DFB904100888E25 /* 2015-12-04--09%3A44%3A11,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */; };
-		498A54A01DB1913F00667525 /* CSwiftV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A549F1DB1913F00667525 /* CSwiftV.swift */; };
+		49B46A3F1E0C3CCC0052F75E /* AKFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B46A3E1E0C3CCC0052F75E /* AKFileIO.swift */; };
+		49B46A411E0C3F280052F75E /* AKFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B46A401E0C3F280052F75E /* AKFileIO.swift */; };
 		49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDD1DB121D700149DEE /* AKCustomView.m */; };
 		49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */; };
 		49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEEE1DB121D700149DEE /* AKConstants.swift */; };
@@ -39,6 +41,16 @@
 		49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF5571D9317CA003E0359 /* Assets.xcassets */; };
 		D949E3C4129F5FC2DB52A98D /* Pods_Ama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877718A541E64678B753DA50 /* Pods_Ama.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4960A4261E0C28140076E50C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 496C1A1E1D930FDD00E41190 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 496C1A251D930FDD00E41190;
+			remoteInfo = Ama;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRadarSpanOverlay.swift; path = AKCustomComponents/AKRadarSpanOverlay.swift; sourceTree = "<group>"; };
@@ -59,9 +71,13 @@
 		492FF7511DBE8AFE009B4CDD /* 0002-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0002-030px.png"; sourceTree = "<group>"; };
 		492FF7521DBE8AFE009B4CDD /* 0003-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0003-030px.png"; sourceTree = "<group>"; };
 		492FF7561DBE8BE9009B4CDD /* 0004-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0004-030px.png"; sourceTree = "<group>"; };
+		4960A4211E0C28140076E50C /* AmaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4960A42C1E0C37EC0076E50C /* AmaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmaTests.swift; sourceTree = "<group>"; };
+		4960A4321E0C37EC0076E50C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--09%3A44%3A11,00.ama"; sourceTree = "<group>"; };
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		498A549F1DB1913F00667525 /* CSwiftV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSwiftV.swift; sourceTree = "<group>"; };
+		49B46A3E1E0C3CCC0052F75E /* AKFileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileIO.swift; sourceTree = "<group>"; };
+		49B46A401E0C3F280052F75E /* AKFileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileIO.swift; sourceTree = "<group>"; };
 		49D0BEDC1DB121D700149DEE /* AKCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomView.h; sourceTree = "<group>"; };
 		49D0BEDD1DB121D700149DEE /* AKCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCustomView.m; sourceTree = "<group>"; };
 		49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +98,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4960A41E1E0C28140076E50C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496C1A231D930FDD00E41190 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -102,11 +125,54 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4960A4221E0C28140076E50C /* AmaTests */ = {
+			isa = PBXGroup;
+			children = (
+				4960A42B1E0C37EC0076E50C /* Application */,
+				4960A42D1E0C37EC0076E50C /* Shared */,
+				4960A4311E0C37EC0076E50C /* Supporting Files */,
+			);
+			path = AmaTests;
+			sourceTree = "<group>";
+		};
+		4960A42B1E0C37EC0076E50C /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				4960A42C1E0C37EC0076E50C /* AmaTests.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		4960A42D1E0C37EC0076E50C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4960A42E1E0C37EC0076E50C /* Library */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		4960A42E1E0C37EC0076E50C /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				49B46A401E0C3F280052F75E /* AKFileIO.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		4960A4311E0C37EC0076E50C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4960A4321E0C37EC0076E50C /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		496C1A1D1D930FDD00E41190 = {
 			isa = PBXGroup;
 			children = (
 				49E4957D1D93193F00E7822D /* Podfile */,
 				496C1A281D930FDD00E41190 /* Ama */,
+				4960A4221E0C28140076E50C /* AmaTests */,
 				D116BF51896162D91D060034 /* Frameworks */,
 				3DB4CE83563402215D04895B /* Pods */,
 				496C1A271D930FDD00E41190 /* Products */,
@@ -117,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				496C1A261D930FDD00E41190 /* Ama.app */,
+				4960A4211E0C28140076E50C /* AmaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,14 +198,6 @@
 				49ECF55D1D9317CA003E0359 /* Supporting Files */,
 			);
 			path = Ama;
-			sourceTree = "<group>";
-		};
-		498A549E1DB1913F00667525 /* CSwiftV */ = {
-			isa = PBXGroup;
-			children = (
-				498A549F1DB1913F00667525 /* CSwiftV.swift */,
-			);
-			path = CSwiftV;
 			sourceTree = "<group>";
 		};
 		49D0BEDB1DB121D700149DEE /* AKCustomComponents */ = {
@@ -236,6 +295,7 @@
 				49D0BEEE1DB121D700149DEE /* AKConstants.swift */,
 				49223BFD1DFF3D2100C8CB61 /* AKDIMOverlay.swift */,
 				49223BFB1DFF3CEE00C8CB61 /* AKDIMOverlayRenderer.swift */,
+				49B46A3E1E0C3CCC0052F75E /* AKFileIO.swift */,
 				49D0BEF21DB121D700149DEE /* AKInputData.swift */,
 				4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */,
 				4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */,
@@ -243,7 +303,6 @@
 				4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */,
 				4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */,
 				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
-				498A549E1DB1913F00667525 /* CSwiftV */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -268,6 +327,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4960A4201E0C28140076E50C /* AmaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4960A42A1E0C28140076E50C /* Build configuration list for PBXNativeTarget "AmaTests" */;
+			buildPhases = (
+				4960A41D1E0C28140076E50C /* Sources */,
+				4960A41E1E0C28140076E50C /* Frameworks */,
+				4960A41F1E0C28140076E50C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4960A4271E0C28140076E50C /* PBXTargetDependency */,
+			);
+			name = AmaTests;
+			productName = AmaTests;
+			productReference = 4960A4211E0C28140076E50C /* AmaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		496C1A251D930FDD00E41190 /* Ama */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 496C1A3A1D930FDD00E41190 /* Build configuration list for PBXNativeTarget "Ama" */;
@@ -294,10 +371,16 @@
 		496C1A1E1D930FDD00E41190 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = APKC.net;
 				TargetAttributes = {
+					4960A4201E0C28140076E50C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 8JQ7MFA6Q2;
+						ProvisioningStyle = Manual;
+						TestTargetID = 496C1A251D930FDD00E41190;
+					};
 					496C1A251D930FDD00E41190 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 8JQ7MFA6Q2;
@@ -327,11 +410,19 @@
 			projectRoot = "";
 			targets = (
 				496C1A251D930FDD00E41190 /* Ama */,
+				4960A4201E0C28140076E50C /* AmaTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4960A41F1E0C28140076E50C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496C1A241D930FDD00E41190 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -402,6 +493,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4960A41D1E0C28140076E50C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4960A4331E0C37EC0076E50C /* AmaTests.swift in Sources */,
+				49B46A411E0C3F280052F75E /* AKFileIO.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496C1A221D930FDD00E41190 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -413,13 +513,13 @@
 				49223C021DFF42C600C8CB61 /* AKHeatMapAlertsOverlayView.swift in Sources */,
 				49223BFC1DFF3CEE00C8CB61 /* AKDIMOverlayRenderer.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
+				49B46A3F1E0C3CCC0052F75E /* AKFileIO.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
 				49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */,
 				4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
 				4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
-				498A54A01DB1913F00667525 /* CSwiftV.swift in Sources */,
 				4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */,
 				49223BFE1DFF3D2100C8CB61 /* AKDIMOverlay.swift in Sources */,
 				49223BFA1DFF2F3A00C8CB61 /* AKHeatMapActionsOverlayView.swift in Sources */,
@@ -429,7 +529,47 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4960A4271E0C28140076E50C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 496C1A251D930FDD00E41190 /* Ama */;
+			targetProxy = 4960A4261E0C28140076E50C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		4960A4281E0C28140076E50C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8JQ7MFA6Q2;
+				INFOPLIST_FILE = "AmaTests/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.apkc.projects.ios.AmaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ama.app/Ama";
+			};
+			name = Debug;
+		};
+		4960A4291E0C28140076E50C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 8JQ7MFA6Q2;
+				INFOPLIST_FILE = "AmaTests/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.apkc.projects.ios.AmaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ama.app/Ama";
+			};
+			name = Release;
+		};
 		496C1A381D930FDD00E41190 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -563,6 +703,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4960A42A1E0C28140076E50C /* Build configuration list for PBXNativeTarget "AmaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4960A4281E0C28140076E50C /* Debug */,
+				4960A4291E0C28140076E50C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		496C1A211D930FDD00E41190 /* Build configuration list for PBXProject "Ama" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
