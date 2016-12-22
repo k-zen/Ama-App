@@ -51,7 +51,7 @@ class AKHeatMapActionsOverlayView: AKCustomView
         self.animation.repeatCount = 20000
         
         // Custom L&F.
-        self.refresh.layer.cornerRadius = 4.0
+        self.refresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
         self.refresh.layer.masksToBounds = true
     }
     

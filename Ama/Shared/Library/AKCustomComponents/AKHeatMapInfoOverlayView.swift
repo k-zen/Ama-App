@@ -12,6 +12,8 @@ class AKHeatMapInfoOverlayView: AKCustomView
     @IBOutlet weak var avgRIValue: UILabel!
     @IBOutlet weak var reflectivityPointsTitle: UILabel!
     @IBOutlet weak var reflectivityPointsValue: UILabel!
+    @IBOutlet weak var separator1: UIView!
+    @IBOutlet weak var separator2: UIView!
     
     // MARK: UIView Overriding
     convenience init()
@@ -44,6 +46,10 @@ class AKHeatMapInfoOverlayView: AKCustomView
         self.animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         self.animation.autoreverses = true
         self.animation.repeatCount = 20000
+        
+        // Custom L&F.
+        self.separator1.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
+        self.separator2.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
     }
     
     func startAnimation()

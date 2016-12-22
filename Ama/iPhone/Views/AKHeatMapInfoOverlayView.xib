@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +16,8 @@
                 <outlet property="container" destination="iN0-l3-epB" id="m7z-7B-ugu"/>
                 <outlet property="reflectivityPointsTitle" destination="XC5-dc-4AP" id="NAl-sp-daK"/>
                 <outlet property="reflectivityPointsValue" destination="u4L-vQ-K7T" id="iip-dk-as6"/>
+                <outlet property="separator1" destination="Yh3-ug-Ldj" id="cU7-41-p7U"/>
+                <outlet property="separator2" destination="HCL-Lh-Zcy" id="9oe-bT-D7z"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -30,7 +32,7 @@
                         <constraint firstAttribute="height" constant="30" id="Jmw-Qy-KPF"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00mm/h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYG-xG-m8m" userLabel="Avg_Rain_Intensity_Value">
@@ -40,7 +42,7 @@
                         <constraint firstAttribute="width" constant="150" id="Woo-gj-LNf"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puntos de Reflectividad:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XC5-dc-4AP" userLabel="Reflectivity_Points">
@@ -50,7 +52,7 @@
                         <constraint firstAttribute="width" constant="150" id="hfd-sx-OBI"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4L-vQ-K7T" userLabel="Reflectivity_Points_Value">
@@ -60,12 +62,12 @@
                         <constraint firstAttribute="height" constant="30" id="otl-GY-5lu"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-ug-Ldj" userLabel="Separator">
                     <rect key="frame" x="159" y="0.0" width="2" height="30"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="2" id="Zmb-Wi-YE5"/>
                         <constraint firstAttribute="height" constant="30" id="xow-JP-mSh"/>
@@ -73,14 +75,13 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCL-Lh-Zcy" userLabel="Separator">
                     <rect key="frame" x="159" y="30" width="2" height="30"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Eja-tG-dBK"/>
                         <constraint firstAttribute="width" constant="2" id="dCm-kc-7Ez"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.078431372549019607" green="0.078431372549019607" blue="0.078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="duv-Qb-pDY" firstAttribute="leading" secondItem="XC5-dc-4AP" secondAttribute="leading" id="9g5-TU-RbQ"/>
                 <constraint firstItem="duv-Qb-pDY" firstAttribute="top" secondItem="Yh3-ug-Ldj" secondAttribute="top" id="D4K-nZ-gT2"/>

@@ -107,7 +107,31 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     10,
                     strokeColor: UIColor.black,
                     strokeAlpha: 1.0,
-                    fillColor: UIColor.red,
+                    fillColor: GlobalConstants.AKRadarAnnotationBg,
+                    fillAlpha: 1.0,
+                    lineWidth: CGFloat(1.4)
+                )
+                customView.clipsToBounds = false
+                
+                return customView
+            }
+        }
+        if annotation.isKind(of: AKUserAnnotation.self) {
+            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.title!!) {
+                return annotationView
+            }
+            else {
+                let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.title!!)
+                customView.canShowCallout = true
+                customView.layer.backgroundColor = UIColor.clear.cgColor
+                customView.layer.cornerRadius = 6.0
+                customView.layer.borderWidth = 0.0
+                customView.layer.masksToBounds = true
+                customView.image = AKCircleImageWithRadius(
+                    10,
+                    strokeColor: UIColor.black,
+                    strokeAlpha: 1.0,
+                    fillColor: GlobalConstants.AKUserAnnotationBg,
                     fillAlpha: 1.0,
                     lineWidth: CGFloat(1.4)
                 )
@@ -136,10 +160,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         else if overlay.isKind(of: AKUserAreaOverlay.self) {
             let ol = overlay as! AKUserAreaOverlay
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
-            customView.fillColor = UIColor.cyan
+            customView.fillColor = GlobalConstants.AKUserOverlayBg
             customView.alpha = 0.25
-            customView.strokeColor = UIColor.cyan
-            customView.lineWidth = 3.0
+            customView.strokeColor = GlobalConstants.AKUserOverlayBg
+            customView.lineWidth = 1.5
             
             return customView
         }
@@ -326,15 +350,15 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
         
         // Custom L&F
-        self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
+        self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
         self.hmInfoOverlayViewSubView.alpha = 0.75
         
-        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKDefaultBg
+        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
         self.hmAlertsOverlayViewSubView.alpha = 0.75
         
         AKAddBorderDeco(
             self.hmInfoOverlayViewSubView,
-            color: UIColor.black.cgColor,
+            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.bottom
         )
@@ -346,13 +370,13 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         )
         AKAddBorderDeco(
             self.hmInfoOverlayViewContainer.avgRITitle,
-            color: UIColor.black.cgColor,
+            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.bottom
         )
         AKAddBorderDeco(
             self.hmInfoOverlayViewContainer.avgRIValue,
-            color: UIColor.black.cgColor,
+            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.bottom
         )

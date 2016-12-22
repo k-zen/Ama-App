@@ -28,11 +28,11 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     {
         // Configure TabBar
         UITabBar.appearance().barTintColor = GlobalConstants.AKTabBarBg
-        UITabBar.appearance().tintColor = GlobalConstants.AKDefaultViewBorderBg
+        UITabBar.appearance().tintColor = GlobalConstants.AKTabBarTint
         UITabBarItem.appearance().setTitleTextAttributes(
             [
                 NSFontAttributeName: UIFont(name: GlobalConstants.AKDefaultFont, size: 12.0) ?? UIFont.systemFont(ofSize: 12),
-                NSForegroundColorAttributeName: UIColor.white
+                NSForegroundColorAttributeName: GlobalConstants.AKDefaultFg
             ], for: UIControlState.normal
         )
         
