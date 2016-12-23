@@ -55,7 +55,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 
                 controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
                 controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
-                controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "Estado del Tiempo: ☔️")
+                controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "En tu zona: ☔️")
                 
                 NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
             })
