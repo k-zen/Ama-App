@@ -57,7 +57,7 @@ struct GlobalConstants {
     static let AKDefaultFg = AKHexColor(0xA89984)
     static let AKTabBarBg = AKHexColor(0x1D2021)
     static let AKTabBarTint = AKHexColor(0xD65D0E)
-    static let AKOverlaysBg = AKHexColor(0x282828)
+    static let AKOverlaysBg = AKHexColor(0x458588)
     static let AKDefaultViewBorderBg = AKHexColor(0x83A598)
     static let AKUserAnnotationBg = AKHexColor(0x458588)
     static let AKUserOverlayBg = AKHexColor(0x689D6A)

@@ -32,7 +32,7 @@
                         <constraint firstAttribute="height" constant="30" id="Jmw-Qy-KPF"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.92156862750000001" green="0.85882352939999995" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00mm/h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYG-xG-m8m" userLabel="Avg_Rain_Intensity_Value">
@@ -42,7 +42,7 @@
                         <constraint firstAttribute="width" constant="150" id="Woo-gj-LNf"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.92156862750000001" green="0.85882352939999995" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puntos de Reflectividad:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XC5-dc-4AP" userLabel="Reflectivity_Points">
@@ -52,7 +52,7 @@
                         <constraint firstAttribute="width" constant="150" id="hfd-sx-OBI"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.92156862750000001" green="0.85882352939999995" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4L-vQ-K7T" userLabel="Reflectivity_Points_Value">
@@ -62,12 +62,11 @@
                         <constraint firstAttribute="height" constant="30" id="otl-GY-5lu"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.92156862750000001" green="0.85882352939999995" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-ug-Ldj" userLabel="Separator">
                     <rect key="frame" x="159" y="0.0" width="2" height="30"/>
-                    <color key="backgroundColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="2" id="Zmb-Wi-YE5"/>
                         <constraint firstAttribute="height" constant="30" id="xow-JP-mSh"/>
@@ -75,7 +74,6 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCL-Lh-Zcy" userLabel="Separator">
                     <rect key="frame" x="159" y="30" width="2" height="30"/>
-                    <color key="backgroundColor" red="0.6588235294117647" green="0.59999999999999998" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Eja-tG-dBK"/>
                         <constraint firstAttribute="width" constant="2" id="dCm-kc-7Ez"/>
