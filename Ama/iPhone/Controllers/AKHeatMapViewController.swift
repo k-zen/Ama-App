@@ -381,8 +381,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             position: CustomBorderDecorationPosition.bottom
         )
         
-        self.hmAlertsOverlayViewContainer.startAnimation()
-        
         // Add HeatMap
         self.loadHeatMap(self)
     }

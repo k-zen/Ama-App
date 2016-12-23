@@ -55,7 +55,7 @@ struct GlobalConstants {
     // Colors: https://github.com/morhetz/gruvbox
     static let AKDefaultBg = AKHexColor(0x1D2021)
     static let AKDefaultFg = AKHexColor(0xA89984)
-    static let AKTabBarBg = AKHexColor(0x1D2021)
+    static let AKTabBarBg = AKHexColor(0x101010)
     static let AKTabBarTint = AKHexColor(0xD65D0E)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
     static let AKDefaultViewBorderBg = AKHexColor(0x3C3836)
@@ -108,16 +108,16 @@ enum Exceptions: Error {
 }
 
 enum HeatMapColor: UInt {
-    case C01 = 0x053061
-    case C02 = 0x2166ac
-    case C03 = 0x4393c3
-    case C04 = 0x92c5de
-    case C05 = 0xd1e5f0
-    case C06 = 0xfddbc7
-    case C07 = 0xf4a582
-    case C08 = 0xd6604d
-    case C09 = 0xb2182b
-    case C10 = 0x67001f
+    case C01 = 0x118CF3
+    case C02 = 0x0000F3
+    case C03 = 0x22FF06
+    case C04 = 0x19C204
+    case C05 = 0x118102
+    case C06 = 0xFFFF0B
+    case C07 = 0xE0B508
+    case C08 = 0xFD7C08
+    case C09 = 0xFB0007
+    case C10 = 0xCA0005
 }
 
 /// Zoom level in kilometers of span/viewport.
