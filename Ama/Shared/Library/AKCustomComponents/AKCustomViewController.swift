@@ -73,7 +73,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
-            AKDelegate().locationManager.requestWhenInUseAuthorization()
+            GlobalFunctions.AKDelegate().locationManager.requestWhenInUseAuthorization()
             break
         case .restricted, .denied:
             let alertController = UIAlertController(
@@ -81,10 +81,10 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
                 message: "The App cannot be used if \"Location Access\" is disabled. Please enabled it in \"Settings\".",
                 preferredStyle: .alert)
             
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in AKDelegate().applicationActive = false }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in GlobalFunctions.AKDelegate().applicationActive = false }))
             alertController.addAction(UIAlertAction(title: "Open Settings", style: .default) { (action) in
                 if let url = URL(string:UIApplicationOpenSettingsURLString) {
-                    AKDelay(0.0, task: { () in UIApplication.shared.openURL(url) })
+                    GlobalFunctions.AKDelay(0.0, task: { () in UIApplication.shared.openURL(url) })
                 }})
             
             self.present(alertController, animated: true, completion: nil)

@@ -7,6 +7,7 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
 {
     // MARK: Properties
     let locationManager: CLLocationManager! = CLLocationManager()
+    var masterFile: AKMasterFile = AKMasterFile()
     var window: UIWindow?
     // ### USER POSITION ### //
     var currentPosition: CLLocationCoordinate2D = CLLocationCoordinate2D()
@@ -24,6 +25,17 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     }
     
     // MARK: UIApplicationDelegate Implementation
+    func applicationWillResignActive(_ application: UIApplication)
+    {
+        do {
+            NSLog("=> SAVING *MASTER FILE* TO FILE.")
+            try AKFileUtils.write(GlobalConstants.AKMasterFileName, newData: self.masterFile)
+        }
+        catch {
+            NSLog("=> ERROR: \(error)")
+        }
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool
     {
         // Configure TabBar
@@ -35,6 +47,14 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
                 NSForegroundColorAttributeName: GlobalConstants.AKDefaultFg
             ], for: UIControlState.normal
         )
+        
+        do {
+            NSLog("=> READING *MASTER FILE* FROM FILE.")
+            self.masterFile = try AKFileUtils.read(GlobalConstants.AKMasterFileName)
+        }
+        catch {
+            NSLog("=> ERROR: \(error)")
+        }
         
         // Manage Location Services
         if CLLocationManager.locationServicesEnabled() {

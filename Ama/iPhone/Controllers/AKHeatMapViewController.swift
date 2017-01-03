@@ -28,10 +28,23 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     
     // MARK: Closures
     public let loadHeatMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
-        AKDelay(0.0, task: { Void -> Void in
-            AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
+        GlobalFunctions.AKDelay(0.0, task: { Void -> Void in
+            GlobalFunctions.AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
                 controller.clearMap()
-                AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+                GlobalFunctions.AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+                
+                let requestBody = ""
+                let url = String(format: "%@/app/ultimodato", "http://devel.apkc.net:9011")
+                
+                AKWSUtils.makeRESTRequest(
+                    controller: controller,
+                    endpoint: url,
+                    httpMethod: "GET",
+                    headerValues: [ "Content-Type" : "application/json" ],
+                    bodyValue: requestBody,
+                    completionTask: { (jsonDocument) -> Void in print(jsonDocument) },
+                    failureTask: {}
+                )
                 
                 let rainfallPoints = NSMutableArray()
                 var counter: Int = 0
@@ -86,7 +99,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
-        AKCenterMapOnLocation(mapView: self.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+        GlobalFunctions.AKCenterMapOnLocation(mapView: self.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
     }
     
     // MARK: MKMapViewDelegate Implementation
@@ -103,7 +116,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 customView.layer.cornerRadius = 6.0
                 customView.layer.borderWidth = 0.0
                 customView.layer.masksToBounds = true
-                customView.image = AKCircleImageWithRadius(
+                customView.image = GlobalFunctions.AKCircleImageWithRadius(
                     10,
                     strokeColor: UIColor.black,
                     strokeAlpha: 1.0,
@@ -127,7 +140,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 customView.layer.cornerRadius = 6.0
                 customView.layer.borderWidth = 0.0
                 customView.layer.masksToBounds = true
-                customView.image = AKCircleImageWithRadius(
+                customView.image = GlobalFunctions.AKCircleImageWithRadius(
                     10,
                     strokeColor: UIColor.black,
                     strokeAlpha: 1.0,
@@ -194,7 +207,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     func locationUpdated()
     {
         OperationQueue.main.addOperation({ () -> Void in
-            let coordinate = AKDelegate().currentPosition
+            let coordinate = GlobalFunctions.AKDelegate().currentPosition
             
             if self.addUserPin {
                 self.userAnnotation.coordinate = coordinate
@@ -234,16 +247,16 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         
         // Create Legend
         let frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        self.img01.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
-        self.img02.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
-        self.img03.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C03.rawValue), frame: frame)
-        self.img04.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C04.rawValue), frame: frame)
-        self.img05.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C05.rawValue), frame: frame)
-        self.img06.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C06.rawValue), frame: frame)
-        self.img07.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C07.rawValue), frame: frame)
-        self.img08.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C08.rawValue), frame: frame)
-        self.img09.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C09.rawValue), frame: frame)
-        self.img10.image = UIImage.fromColor(color: AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
+        self.img01.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
+        self.img02.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
+        self.img03.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C03.rawValue), frame: frame)
+        self.img04.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C04.rawValue), frame: frame)
+        self.img05.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C05.rawValue), frame: frame)
+        self.img06.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C06.rawValue), frame: frame)
+        self.img07.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C07.rawValue), frame: frame)
+        self.img08.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C08.rawValue), frame: frame)
+        self.img09.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C09.rawValue), frame: frame)
+        self.img10.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
         
         // Configure map.
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -326,7 +339,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     AKRadarSpanLinesOverlay(
                         coordinates: [
                             GlobalConstants.AKRadarOrigin,
-                            AKLocationWithBearing(
+                            GlobalFunctions.AKLocationWithBearing(
                                 bearing: Double(k * 30) * (M_PI / 180),
                                 distanceMeters: 50000,
                                 origin: GlobalConstants.AKRadarOrigin
@@ -356,26 +369,14 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
         self.hmAlertsOverlayViewSubView.alpha = 0.75
         
-        AKAddBorderDeco(
+        GlobalFunctions.AKAddBorderDeco(
             self.hmInfoOverlayViewSubView,
             color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.bottom
         )
-        AKAddBorderDeco(
+        GlobalFunctions.AKAddBorderDeco(
             self.legendView,
-            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
-        AKAddBorderDeco(
-            self.hmInfoOverlayViewContainer.avgRITitle,
-            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
-        AKAddBorderDeco(
-            self.hmInfoOverlayViewContainer.avgRIValue,
             color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.bottom

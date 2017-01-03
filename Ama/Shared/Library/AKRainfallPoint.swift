@@ -16,14 +16,14 @@ class AKRainfallPoint: NSObject
         let bubbleRadius: Double = (Double(GlobalConstants.AKRaindropSize) * log2(Double(intensity)))
         
         let pointA = MKMapPointForCoordinate(
-            AKLocationWithBearing(
+            GlobalFunctions.AKLocationWithBearing(
                 bearing: (3 * M_PI) / 4,
                 distanceMeters: bubbleRadius,
                 origin: center
             )
         )
         let pointB = MKMapPointForCoordinate(
-            AKLocationWithBearing(
+            GlobalFunctions.AKLocationWithBearing(
                 bearing: (3 * M_PI) / 2,
                 distanceMeters: bubbleRadius,
                 origin: center

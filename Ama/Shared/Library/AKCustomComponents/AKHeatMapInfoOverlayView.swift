@@ -50,6 +50,19 @@ class AKHeatMapInfoOverlayView: AKCustomView
         // Custom L&F.
         self.separator1.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
         self.separator2.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
+        
+        GlobalFunctions.AKAddBorderDeco(
+            self.avgRITitle,
+            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
+            thickness: GlobalConstants.AKDefaultBorderThickness,
+            position: CustomBorderDecorationPosition.bottom
+        )
+        GlobalFunctions.AKAddBorderDeco(
+            self.avgRIValue,
+            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
+            thickness: GlobalConstants.AKDefaultBorderThickness,
+            position: CustomBorderDecorationPosition.bottom
+        )
     }
     
     func startAnimation()

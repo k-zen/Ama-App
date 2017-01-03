@@ -11,7 +11,7 @@ class AKDIMOverlayRenderer: MKOverlayRenderer
     // MARK: MKOverlayRenderer Overriding
     override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext)
     {
-        context.setFillColor(AKHexColor(0x000000).cgColor)
+        context.setFillColor(GlobalFunctions.AKHexColor(0x000000).cgColor)
         context.setAlpha(0.90)
         context.fill(self.rect(for: MKMapRectWorld))
     }

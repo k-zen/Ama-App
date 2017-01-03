@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490048191E1ADB4800EA8132 /* AKWSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490048181E1ADB4800EA8132 /* AKWSUtils.swift */; };
 		4905E7E01DC151E8007A2BB2 /* AKRadarSpanOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */; };
 		4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */; };
 		4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */; };
@@ -29,10 +30,13 @@
 		496707FD1DFB904100888E25 /* 2015-12-04--09%3A44%3A11,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */; };
 		49B46A3F1E0C3CCC0052F75E /* AKFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B46A3E1E0C3CCC0052F75E /* AKFileIO.swift */; };
 		49B46A411E0C3F280052F75E /* AKFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B46A401E0C3F280052F75E /* AKFileIO.swift */; };
+		49C423221E1AC60900728DF0 /* AKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C423211E1AC60900728DF0 /* AKUser.swift */; };
 		49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDD1DB121D700149DEE /* AKCustomView.m */; };
 		49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */; };
 		49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEEE1DB121D700149DEE /* AKConstants.swift */; };
 		49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEF21DB121D700149DEE /* AKInputData.swift */; };
+		49D621BF1E12E65D004388AF /* AKFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D621B91E12E65D004388AF /* AKFileUtils.swift */; };
+		49D621C01E12E65D004388AF /* AKMasterFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D621BA1E12E65D004388AF /* AKMasterFile.swift */; };
 		49E4957F1D93193F00E7822D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 49E4957D1D93193F00E7822D /* Podfile */; };
 		49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF54B1D9317CA003E0359 /* AKAppDelegate.swift */; };
 		49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF54D1D9317CA003E0359 /* AKMain.storyboard */; };
@@ -53,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		490048181E1ADB4800EA8132 /* AKWSUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWSUtils.swift; sourceTree = "<group>"; };
 		4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRadarSpanOverlay.swift; path = AKCustomComponents/AKRadarSpanOverlay.swift; sourceTree = "<group>"; };
 		4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKUserAreaOverlay.swift; path = AKCustomComponents/AKUserAreaOverlay.swift; sourceTree = "<group>"; };
 		4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRainOverlay.swift; path = AKCustomComponents/AKRainOverlay.swift; sourceTree = "<group>"; };
@@ -78,6 +83,7 @@
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B46A3E1E0C3CCC0052F75E /* AKFileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileIO.swift; sourceTree = "<group>"; };
 		49B46A401E0C3F280052F75E /* AKFileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileIO.swift; sourceTree = "<group>"; };
+		49C423211E1AC60900728DF0 /* AKUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUser.swift; sourceTree = "<group>"; };
 		49D0BEDC1DB121D700149DEE /* AKCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomView.h; sourceTree = "<group>"; };
 		49D0BEDD1DB121D700149DEE /* AKCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCustomView.m; sourceTree = "<group>"; };
 		49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +91,8 @@
 		49D0BEF21DB121D700149DEE /* AKInputData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKInputData.swift; sourceTree = "<group>"; };
 		49D0BF081DB124E900149DEE /* Ama.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ama.entitlements; sourceTree = "<group>"; };
 		49D0BF091DB125DF00149DEE /* AKBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBridgingHeader.h; sourceTree = "<group>"; };
+		49D621B91E12E65D004388AF /* AKFileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileUtils.swift; sourceTree = "<group>"; };
+		49D621BA1E12E65D004388AF /* AKMasterFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMasterFile.swift; sourceTree = "<group>"; };
 		49E4957D1D93193F00E7822D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		49ECF54B1D9317CA003E0359 /* AKAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppDelegate.swift; sourceTree = "<group>"; };
 		49ECF54D1D9317CA003E0359 /* AKMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AKMain.storyboard; sourceTree = "<group>"; };
@@ -293,16 +301,20 @@
 			isa = PBXGroup;
 			children = (
 				49D0BEEE1DB121D700149DEE /* AKConstants.swift */,
+				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
 				49223BFD1DFF3D2100C8CB61 /* AKDIMOverlay.swift */,
 				49223BFB1DFF3CEE00C8CB61 /* AKDIMOverlayRenderer.swift */,
 				49B46A3E1E0C3CCC0052F75E /* AKFileIO.swift */,
+				49D621B91E12E65D004388AF /* AKFileUtils.swift */,
 				49D0BEF21DB121D700149DEE /* AKInputData.swift */,
+				49D621BA1E12E65D004388AF /* AKMasterFile.swift */,
 				4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */,
 				4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */,
 				4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */,
 				4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */,
+				49C423211E1AC60900728DF0 /* AKUser.swift */,
 				4905E7E11DC15231007A2BB2 /* AKUserAreaOverlay.swift */,
-				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
+				490048181E1ADB4800EA8132 /* AKWSUtils.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -506,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D621BF1E12E65D004388AF /* AKFileUtils.swift in Sources */,
 				4905E7E01DC151E8007A2BB2 /* AKRadarSpanOverlay.swift in Sources */,
 				49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */,
 				49223BF41DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift in Sources */,
@@ -514,10 +527,13 @@
 				49223BFC1DFF3CEE00C8CB61 /* AKDIMOverlayRenderer.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
 				49B46A3F1E0C3CCC0052F75E /* AKFileIO.swift in Sources */,
+				490048191E1ADB4800EA8132 /* AKWSUtils.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
 				49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */,
 				4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */,
+				49C423221E1AC60900728DF0 /* AKUser.swift in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
+				49D621C01E12E65D004388AF /* AKMasterFile.swift in Sources */,
 				4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
 				4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */,
