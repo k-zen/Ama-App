@@ -84,6 +84,7 @@ struct GlobalConstants {
     static let AKMapTileTolerance: MKMapPoint = MKMapPointMake(5000.0, 5000.0)
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
     static let AKRadarOrigin = CLLocationCoordinate2DMake(GlobalConstants.AKRadarLatitude, GlobalConstants.AKRadarLongitude)
+    static let AKInvalidIntensity: Int = -1
 }
 
 struct AKRainfallIntensityColor {
@@ -98,7 +99,9 @@ struct AKRainfallIntensityColor {
 
 // MARK: Global Enumerations
 enum ErrorCodes: Int {
-    case generic = 1000
+    case ConnectionToBackEndError = -1000
+    case InvalidMIMEType = -1001
+    case JSONProcessingError = -1002
 }
 
 enum Exceptions: Error {
@@ -106,6 +109,7 @@ enum Exceptions: Error {
     case emptyData(msg: String)
     case invalidLength(msg: String)
     case notValid(msg: String)
+    case invalidJSON(msg: String)
 }
 
 enum HeatMapColor: UInt {
@@ -334,55 +338,10 @@ class GlobalFunctions {
         return image!
     }
     
-    /// Create an image with the form of a square.
-    ///
-    /// - Parameter side:        The length of the side.
-    /// - Parameter strokeColor: The color of the stroke.
-    /// - Parameter strokeAlpha: The alpha factor of the stroke.
-    /// - Parameter fillColor:   The color of the fill.
-    /// - Parameter fillAlpha:   The alpha factor of the fill.
-    ///
-    /// - Returns: An image object in the form of a square.
-    static func AKSquareImage(_ sideLength: Double, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float) -> UIImage
-    {
-        let buffer = 2.0
-        let rect = CGRect(x: 0, y: 0, width: sideLength * 2.0 + buffer, height: sideLength * 2.0 + buffer)
-        
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.main.scale)
-        
-        let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(fillColor.withAlphaComponent(CGFloat(fillAlpha)).cgColor)
-        context?.setStrokeColor(strokeColor.withAlphaComponent(CGFloat(strokeAlpha)).cgColor)
-        context?.setLineWidth(1)
-        context?.fill(rect)
-        context?.stroke(rect)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return image!
-    }
     
-    /// Returns a geographic location (lat, long) from an original location with bearing and the
-    /// distance computed in meters from the original location.
-    ///
-    /// - Parameter bearing: The bearing in radians.
-    /// - Parameter distanceMeters: The distance from point A to Z in meters.
-    /// - Parameter origin: The original location. (Point A)
-    ///
-    /// - Returns: A location object (Point Z).
-    static func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: CLLocationCoordinate2D) -> CLLocationCoordinate2D
+    static func AKExecuteInMainThread(code: @escaping (Void) -> Void)
     {
-        let distRadians: Double = distanceMeters / GlobalConstants.AKEarthRadius
-        
-        let lat1: Double = origin.latitude * (M_PI / 180)
-        let lon1: Double = origin.longitude * (M_PI / 180)
-        
-        let lat2 = asin(sin(lat1) * cos(distRadians) + cos(lat1) * sin(distRadians) * cos(bearing))
-        let lon2 = lon1 + atan2(sin(bearing) * sin(distRadians) * cos(lat1), cos(distRadians) - sin(lat1) * sin(lat2))
-        
-        return CLLocationCoordinate2D(latitude: lat2 * (180 / M_PI), longitude: lon2 * (180 / M_PI))
+        OperationQueue.main.addOperation({ () -> Void in code() })
     }
     
     /// Returns the associated color for an interval of rainfall intensity.
@@ -433,6 +392,27 @@ class GlobalFunctions {
         return UIColor.init(red: red, green: green, blue: blue, alpha: 1)
     }
     
+    /// Returns a geographic location (lat, long) from an original location with bearing and the
+    /// distance computed in meters from the original location.
+    ///
+    /// - Parameter bearing: The bearing in radians.
+    /// - Parameter distanceMeters: The distance from point A to Z in meters.
+    /// - Parameter origin: The original location. (Point A)
+    ///
+    /// - Returns: A location object (Point Z).
+    static func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: CLLocationCoordinate2D) -> CLLocationCoordinate2D
+    {
+        let distRadians: Double = distanceMeters / GlobalConstants.AKEarthRadius
+        
+        let lat1: Double = origin.latitude * (M_PI / 180)
+        let lon1: Double = origin.longitude * (M_PI / 180)
+        
+        let lat2 = asin(sin(lat1) * cos(distRadians) + cos(lat1) * sin(distRadians) * cos(bearing))
+        let lon2 = lon1 + atan2(sin(bearing) * sin(distRadians) * cos(lat1), cos(distRadians) - sin(lat1) * sin(lat2))
+        
+        return CLLocationCoordinate2D(latitude: lat2 * (180 / M_PI), longitude: lon2 * (180 / M_PI))
+    }
+    
     /// Returns the App's master file object.
     ///
     /// - Returns The App's master file.
@@ -443,7 +423,7 @@ class GlobalFunctions {
     
     static func AKPresentTopMessage(_ presenter: UIViewController!, type: TSMessageNotificationType, message: String!)
     {
-        OperationQueue.main.addOperation {
+        GlobalFunctions.AKExecuteInMainThread {
             let title: String
             switch type {
             case .message:
@@ -495,6 +475,36 @@ class GlobalFunctions {
         }
         
         return nil
+    }
+    
+    /// Create an image with the form of a square.
+    ///
+    /// - Parameter side:        The length of the side.
+    /// - Parameter strokeColor: The color of the stroke.
+    /// - Parameter strokeAlpha: The alpha factor of the stroke.
+    /// - Parameter fillColor:   The color of the fill.
+    /// - Parameter fillAlpha:   The alpha factor of the fill.
+    ///
+    /// - Returns: An image object in the form of a square.
+    static func AKSquareImage(_ sideLength: Double, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float) -> UIImage
+    {
+        let buffer = 2.0
+        let rect = CGRect(x: 0, y: 0, width: sideLength * 2.0 + buffer, height: sideLength * 2.0 + buffer)
+        
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.main.scale)
+        
+        let context = UIGraphicsGetCurrentContext()
+        context?.setFillColor(fillColor.withAlphaComponent(CGFloat(fillAlpha)).cgColor)
+        context?.setStrokeColor(strokeColor.withAlphaComponent(CGFloat(strokeAlpha)).cgColor)
+        context?.setLineWidth(1)
+        context?.fill(rect)
+        context?.stroke(rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return image!
     }
     
     /// Converts the zoom scale provided by MapKit to a

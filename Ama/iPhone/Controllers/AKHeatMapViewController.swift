@@ -1,6 +1,7 @@
 import CoreLocation
 import Foundation
 import MapKit
+import TSMessages
 import UIKit
 
 class AKRadarAnnotation: MKPointAnnotation {}
@@ -28,50 +29,89 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     
     // MARK: Closures
     public let loadHeatMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
-        GlobalFunctions.AKDelay(0.0, task: { Void -> Void in
-            GlobalFunctions.AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
-                controller.clearMap()
-                GlobalFunctions.AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
-                
-                let requestBody = ""
-                let url = String(format: "%@/app/ultimodato", "http://devel.apkc.net:9011")
-                
-                AKWSUtils.makeRESTRequest(
-                    controller: controller,
-                    endpoint: url,
-                    httpMethod: "GET",
-                    headerValues: [ "Content-Type" : "application/json" ],
-                    bodyValue: requestBody,
-                    completionTask: { (jsonDocument) -> Void in print(jsonDocument) },
-                    failureTask: {}
-                )
-                
-                let rainfallPoints = NSMutableArray()
-                var counter: Int = 0
-                NSLog("=> READING WEATHER DATA FILE!")
-                let reader = AKStreamReader(path: Bundle.main.path(forResource: "2015-12-04--09%3A44%3A11,00", ofType:"ama")!)!
-                for line in reader {
-                    let components = line.components(separatedBy: ",")
-                    
-                    let lat = CLLocationDegrees(Double(components[1].components(separatedBy: ":")[0])!)
-                    let lon = CLLocationDegrees(Double(components[1].components(separatedBy: ":")[1])!)
-                    let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                    
-                    let rainfallIntensity = Int(components[0])!
-                    controller.totalRainfallIntensity += rainfallIntensity
-                    counter += 1
-                    
-                    rainfallPoints.add(AKRainfallPoint(center: location, intensity: rainfallIntensity))
+        GlobalFunctions.AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
+            let rainfallPoints = NSMutableArray()
+            var counter: Int = 0
+            
+            controller.clearMap()
+            controller.totalRainfallIntensity = 0
+            GlobalFunctions.AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+            
+            let requestBody = ""
+            let url = String(format: "%@/app/ultimodato", "http://devel.apkc.net:9001")
+            let completionTask: (Any) -> Void = { (json) -> Void in
+                GlobalFunctions.AKDelay(0.0, task: { Void -> Void in
+                    // Always check that its a valid JSON document.
+                    if let dictionary = json as? [String : Any] {
+                        if let array = dictionary["arrayDatos"] as? [Any] {
+                            for element in array {
+                                if let e = element as? [String : Any] {
+                                    let intensity = e["intensidad"] as? Int ?? GlobalConstants.AKInvalidIntensity
+                                    let coordinates = e["coordenadas"] as? [String] ?? []
+                                    for coordinate in coordinates {
+                                        let lat = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[0])!)
+                                        let lon = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[1])!)
+                                        let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                                        
+                                        controller.totalRainfallIntensity += intensity
+                                        counter += 1
+                                        
+                                        rainfallPoints.add(AKRainfallPoint(center: location, intensity: intensity))
+                                    }
+                                }
+                            }
+                            
+                            controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
+                            controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
+                            controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
+                            controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "En tu zona: ☔️")
+                            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
+                        }
+                    }
+                })
+            }
+            let failureTask: (Int, String) -> Void = { (code, message) -> Void in
+                switch code {
+                case ErrorCodes.ConnectionToBackEndError.rawValue:
+                    GlobalFunctions.AKPresentTopMessage(
+                        controller,
+                        type: TSMessageNotificationType.error,
+                        message: message
+                    )
+                    break
+                case ErrorCodes.InvalidMIMEType.rawValue:
+                    GlobalFunctions.AKPresentTopMessage(
+                        controller,
+                        type: TSMessageNotificationType.error,
+                        message: "El servicio devolvió una respuesta inválida. Reportando..."
+                    )
+                    break
+                case ErrorCodes.JSONProcessingError.rawValue:
+                    GlobalFunctions.AKPresentTopMessage(
+                        controller,
+                        type: TSMessageNotificationType.error,
+                        message: "Error procesando respuesta. Reportando..."
+                    )
+                    break
+                default:
+                    GlobalFunctions.AKPresentTopMessage(
+                        controller,
+                        type: TSMessageNotificationType.error,
+                        message: String(format: "%d: Error genérico.", code)
+                    )
+                    break
                 }
-                
-                controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
-                
-                controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
-                controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
-                controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "En tu zona: ☔️")
-                
-                NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
-            })
+            }
+            
+            AKWSUtils.makeRESTRequest(
+                controller: controller,
+                endpoint: url,
+                httpMethod: "GET",
+                headerValues: [ "Content-Type" : "application/json" ],
+                bodyValue: requestBody,
+                completionTask: { (jsonDocument) -> Void in completionTask(jsonDocument) },
+                failureTask: { (code, message) -> Void in failureTask(code, message!) }
+            )
         })
     }
     
@@ -206,7 +246,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Observers
     func locationUpdated()
     {
-        OperationQueue.main.addOperation({ () -> Void in
+        GlobalFunctions.AKExecuteInMainThread {
             let coordinate = GlobalFunctions.AKDelegate().currentPosition
             
             if self.addUserPin {
@@ -225,7 +265,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 self.userOverlay?.title = "Cobertura Usuario"
                 self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
             }
-        })
+        }
     }
     
     // MARK: Miscellaneous

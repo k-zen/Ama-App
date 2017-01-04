@@ -1,5 +1,4 @@
 import Foundation
-import TSMessages
 import UIKit
 
 class AKWSUtils
@@ -13,14 +12,7 @@ class AKWSUtils
     /// - Parameter bodyValue      The HTTP payload.
     /// - Parameter completionTask A Block with the task to perform after the request.
     /// - Parameter failureTask    A Block with the task to perform if failure.
-    static func makeRESTRequest(
-        controller: UIViewController,
-        endpoint: String,
-        httpMethod: String,
-        headerValues: Dictionary<String, String>,
-        bodyValue: String,
-        completionTask: @escaping (Any) -> Void,
-        failureTask: (Void) -> Void)
+    static func makeRESTRequest(controller: UIViewController, endpoint: String, httpMethod: String, headerValues: Dictionary<String, String>, bodyValue: String, completionTask: @escaping (Any) -> Void, failureTask: @escaping (Int, String?) -> Void)
     {
         // Make the call synchronously, but with a small timeout.
         var request = URLRequest(url: NSURL(string: endpoint) as! URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10.0)
@@ -29,52 +21,56 @@ class AKWSUtils
         // Header:
         for (key, value) in headerValues {
             request.setValue(value, forHTTPHeaderField: key)
-            NSLog("=> HEADER ==> %@ : %@", key, value)
+            if GlobalConstants.AKDebug {
+                NSLog("=> HEADER ==> %@ : %@", key, value)
+            }
         }
         // Body:
         request.httpBody = bodyValue.data(using: String.Encoding.utf8)
         // Completion Block:
         let completionBlock: (Data?, URLResponse?, Error?) -> Void = { (data, response, error) -> Void in
             if error != nil {
-                GlobalFunctions.AKPresentTopMessage(controller, type: TSMessageNotificationType.error, message: error!.localizedDescription.capitalized)
+                failureTask(ErrorCodes.ConnectionToBackEndError.rawValue, error!.localizedDescription.capitalized)
             }
             else {
                 if (response?.isKind(of: HTTPURLResponse.self))! {
                     // Check the response.
                     let httpResponse = response as! HTTPURLResponse;
                     // Only JSON responses are allowed. (Check MIMEType!)
-                    if httpResponse.mimeType?.compare("application/json") == ComparisonResult.orderedSame {
+                    if httpResponse.mimeType?.compare("application/json", options: String.CompareOptions.caseInsensitive) == ComparisonResult.orderedSame {
                         do {
-                            let jsonDocument = try JSONSerialization.jsonObject(with: data!)
+                            let json = try JSONSerialization.jsonObject(with: data!, options: [])
                             switch httpResponse.statusCode {
                             case 200 ... 299:  // If it's any of 2XX is valid, let it through.
-                                completionTask(jsonDocument) // Execute the completion task block!
+                                completionTask(json) // Execute the completion task block!
                                 break
                             default:
-                                GlobalFunctions.AKPresentTopMessage(controller, type: TSMessageNotificationType.error, message: String(format: "%d: Error genérico.", httpResponse.statusCode))
+                                failureTask(httpResponse.statusCode, nil)
                                 break
                             }
                         }
                         catch {
-                            GlobalFunctions.AKPresentTopMessage(controller, type: TSMessageNotificationType.error, message: "Error procesando respuesta. Reportando...")
-                            return
+                            failureTask(ErrorCodes.JSONProcessingError.rawValue, nil)
                         }
                     }
                     else {
-                        GlobalFunctions.AKPresentTopMessage(controller, type: TSMessageNotificationType.error, message: "El servicio devolvió una respuesta inválida. Reportando...")
-                        NSLog("=> EL SERVICIO DEVOLVIO UNA RESPUESTA INVÁLIDA. REPORTANDO...")
+                        failureTask(ErrorCodes.InvalidMIMEType.rawValue, nil)
                     }
                     
-                    NSLog("=> RESPONSE HTTP *Status Code* ==> %ld\n", Int64(httpResponse.statusCode))
-                    NSLog("=> RESPONSE HTTP *Headers* ==>\n%@\n", httpResponse.allHeaderFields)
-                    NSLog("=> RESPONSE *Body* ==>\n%@\n", String(data: data!, encoding: String.Encoding.utf8)!)
+                    if GlobalConstants.AKDebug {
+                        NSLog("=> RESPONSE HTTP *Status Code* ==> %ld\n", Int64(httpResponse.statusCode))
+                        NSLog("=> RESPONSE HTTP *Headers* ==>\n%@\n", httpResponse.allHeaderFields)
+                        NSLog("=> RESPONSE *Body* ==>\n%@\n", String(data: data!, encoding: String.Encoding.utf8)!)
+                    }
                 }
             }
         }
         
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: completionBlock)
-        NSLog("=> REQUEST ==> %@", request.description)
+        if GlobalConstants.AKDebug {
+            NSLog("=> REQUEST ==> %@", request.description)
+        }
         task.resume() // Make the request.
     }
 }
