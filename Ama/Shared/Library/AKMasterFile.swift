@@ -21,28 +21,28 @@ class AKMasterFile: NSObject, NSCoding
         self.user = user
     }
     
+    // MARK: Utilities
+    func printObject(_ padding: String = "") -> String
+    {
+        let string: NSMutableString = NSMutableString()
+        
+        string.append("\n")
+        string.appendFormat("%@****** MASTER FILE ******\n", padding)
+        string.appendFormat("%@", self.user.printObject("  "))
+        string.appendFormat("%@****** MASTER FILE ******\n", padding)
+        
+        return string as String
+    }
+    
     // MARK: NSCoding Implementation
     required convenience init(coder aDecoder: NSCoder)
     {
         let user = aDecoder.decodeObject(forKey: Keys.user) as! AKUser
-        
-        if GlobalConstants.AKDebug {
-            NSLog("=> ### READING MASTER FILE FROM FILE")
-            NSLog("%@", user.printObject("=> "))
-            NSLog("=> ### READING MASTER FILE FROM FILE")
-        }
-        
         self.init(user: user)
     }
     
     func encode(with aCoder: NSCoder)
     {
         aCoder.encode(self.user, forKey: Keys.user)
-        
-        if GlobalConstants.AKDebug {
-            NSLog("=> ### WRITING MASTER FILE TO FILE")
-            NSLog("%@", user.printObject("=> "))
-            NSLog("=> ### WRITING MASTER FILE TO FILE")
-        }
     }
 }

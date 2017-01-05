@@ -12,7 +12,15 @@ class AKWSUtils
     /// - Parameter bodyValue      The HTTP payload.
     /// - Parameter completionTask A Block with the task to perform after the request.
     /// - Parameter failureTask    A Block with the task to perform if failure.
-    static func makeRESTRequest(controller: UIViewController, endpoint: String, httpMethod: String, headerValues: Dictionary<String, String>, bodyValue: String, completionTask: @escaping (Any) -> Void, failureTask: @escaping (Int, String?) -> Void)
+    static func makeRESTRequest(
+        controller: UIViewController,
+        endpoint: String,
+        httpMethod: String,
+        headerValues: Dictionary<String, String>,
+        bodyValue: String,
+        showDebugInfo: Bool = false,
+        completionTask: @escaping (Any) -> Void,
+        failureTask: @escaping (Int, String?) -> Void)
     {
         // Make the call synchronously, but with a small timeout.
         var request = URLRequest(url: NSURL(string: endpoint) as! URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10.0)
@@ -21,7 +29,7 @@ class AKWSUtils
         // Header:
         for (key, value) in headerValues {
             request.setValue(value, forHTTPHeaderField: key)
-            if GlobalConstants.AKDebug {
+            if showDebugInfo {
                 NSLog("=> HEADER ==> %@ : %@", key, value)
             }
         }
@@ -57,7 +65,7 @@ class AKWSUtils
                         failureTask(ErrorCodes.InvalidMIMEType.rawValue, nil)
                     }
                     
-                    if GlobalConstants.AKDebug {
+                    if showDebugInfo {
                         NSLog("=> RESPONSE HTTP *Status Code* ==> %ld\n", Int64(httpResponse.statusCode))
                         NSLog("=> RESPONSE HTTP *Headers* ==>\n%@\n", httpResponse.allHeaderFields)
                         NSLog("=> RESPONSE *Body* ==>\n%@\n", String(data: data!, encoding: String.Encoding.utf8)!)
@@ -68,9 +76,9 @@ class AKWSUtils
         
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: completionBlock)
-        if GlobalConstants.AKDebug {
+        if showDebugInfo {
             NSLog("=> REQUEST ==> %@", request.description)
         }
-        task.resume() // Make the request.
+        task.resume()
     }
 }

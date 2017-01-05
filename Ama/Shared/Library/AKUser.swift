@@ -8,13 +8,13 @@ class AKUser: NSObject, NSCoding
     }
     
     // MARK: Properties
-    private let AKEmptyPhoneNumber = "000000"
-    private var phoneNumber: String
+    static let AKEmptyPhoneNumber = "000000"
+    var phoneNumber: String
     
     // MARK: Initializers
     override init()
     {
-        self.phoneNumber = AKEmptyPhoneNumber
+        self.phoneNumber = AKUser.AKEmptyPhoneNumber
     }
     
     init(phoneNumber: String)
@@ -28,9 +28,8 @@ class AKUser: NSObject, NSCoding
     {
         let string: NSMutableString = NSMutableString()
         
-        string.append("\n")
         string.appendFormat("%@****** USER ******\n", padding)
-        string.appendFormat("%@\t>>> Phone Number = %s\n", padding, self.phoneNumber)
+        string.appendFormat("%@\t>>> Phone Number = %@\n", padding, self.phoneNumber)
         string.appendFormat("%@****** USER ******\n", padding)
         
         return string as String
