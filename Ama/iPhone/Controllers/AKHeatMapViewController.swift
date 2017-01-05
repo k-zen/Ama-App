@@ -28,7 +28,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private var totalRainfallIntensity: Int = 0
     
     // MARK: Closures
-    public let loadHeatMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
+    internal let loadRainMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
         GlobalFunctions.AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
             let rainfallPoints = NSMutableArray()
             var counter: Int = 0
@@ -64,11 +64,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                             controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
                             controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
                             controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
-                            controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "En tu zona: ☔️")
-                            
-                            if GlobalConstants.AKDebug {
-                                NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
-                            }
                         }
                     }
                 })
@@ -117,6 +112,18 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             )
         })
     }
+    private let updateWeatherStatus: (AKHeatMapViewController) -> Void = { (controller) -> Void in
+        if GlobalFunctions.AKDelegate().applicationActive {
+            controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "En tu zona: Lluvioso")
+        }
+        else {
+            controller.hmAlertsOverlayViewContainer.alertValue.text = "Deshabilitado"
+        }
+        
+        if GlobalConstants.AKDebug {
+            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
+        }
+    }
     
     // MARK: Outlets
     @IBOutlet weak var legendView: UIView!
@@ -143,6 +150,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     {
         super.viewDidAppear(animated)
         GlobalFunctions.AKCenterMapOnLocation(mapView: self.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+        updateWeatherStatus(self)
     }
     
     // MARK: MKMapViewDelegate Implementation
@@ -250,23 +258,25 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     func locationUpdated()
     {
         GlobalFunctions.AKExecuteInMainThread {
-            let coordinate = GlobalFunctions.AKDelegate().currentPosition
-            
-            if self.addUserPin {
-                self.userAnnotation.coordinate = coordinate
-                self.userAnnotation.title = "Usuario"
-                self.userAnnotation.subtitle = String(format: "Lat: %f, Lng: %f", coordinate.latitude, coordinate.longitude)
-                self.mapView.addAnnotation(self.userAnnotation)
-            }
-            
-            if self.addUserOverlay {
-                // Remove and add overlay.
-                if let overlay = self.userOverlay {
-                    self.mapView.remove(overlay)
+            if GlobalFunctions.AKDelegate().applicationActive {
+                let coordinate = GlobalFunctions.AKDelegate().currentPosition
+                
+                if self.addUserPin {
+                    self.userAnnotation.coordinate = coordinate
+                    self.userAnnotation.title = "Usuario"
+                    self.userAnnotation.subtitle = String(format: "Lat: %f, Lng: %f", coordinate.latitude, coordinate.longitude)
+                    self.mapView.addAnnotation(self.userAnnotation)
                 }
-                self.userOverlay = AKUserAreaOverlay(center: coordinate, radius: 5000)
-                self.userOverlay?.title = "Cobertura Usuario"
-                self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
+                
+                if self.addUserOverlay {
+                    // Remove and add overlay.
+                    if let overlay = self.userOverlay {
+                        self.mapView.remove(overlay)
+                    }
+                    self.userOverlay = AKUserAreaOverlay(center: coordinate, radius: 5000)
+                    self.userOverlay?.title = "Cobertura Usuario"
+                    self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
+                }
             }
         }
     }
@@ -275,6 +285,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     func customSetup()
     {
         super.shouldCheckLoggedUser = false
+        super.inhibitLocationServiceMessage = false
         super.setup()
         
         // Delegates
@@ -426,7 +437,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         )
         
         // Add HeatMap
-        self.loadHeatMap(self)
+        self.loadRainMap(self)
     }
     
     func clearMap()
@@ -443,6 +454,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             self.mapView.removeOverlays(overlaysToRemove)
         }
         
-        NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
+        if GlobalConstants.AKDebug {
+            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
+        }
     }
 }

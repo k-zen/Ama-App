@@ -14,7 +14,7 @@ class AKHeatMapActionsOverlayView: AKCustomView
     @IBAction func refresh(_ sender: Any)
     {
         if let c: AKHeatMapViewController = self.controller as! AKHeatMapViewController? {
-            c.loadHeatMap(c)
+            c.loadRainMap(c)
         }
     }
     
