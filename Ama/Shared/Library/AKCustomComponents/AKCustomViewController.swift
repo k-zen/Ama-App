@@ -7,15 +7,15 @@ import UIKit
 /// throughout the App.
 ///
 /// Functionalities:
-/// 1. Handle logged in/out events.
-/// 2. Handle of **Tap** gestures.
-/// 3. Handle of **Pinch** gestures.
-/// 4. Handle of **Rotation** gestures.
-/// 5. Handle of **Swipe** gestures.
-/// 6. Handle of **Pan** gestures.
-/// 7. Handle of **Screen Edge Pan** gestures.
-/// 8. Handle of **Long Press** gestures.
-/// 9. Bottom menu.
+/// 01. Handle logged in/out events.
+/// 02. Handle of **Tap** gestures.
+/// 03. Handle of **Pinch** gestures.
+/// 04. Handle of **Rotation** gestures.
+/// 05. Handle of **Swipe** gestures.
+/// 06. Handle of **Pan** gestures.
+/// 07. Handle of **Screen Edge Pan** gestures.
+/// 08. Handle of **Long Press** gestures.
+/// 09. Bottom menu.
 /// 10. Handle localisation events.
 ///
 /// - Author: Andreas P. Koenzen <akc@apkc.net>
