@@ -373,7 +373,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             constant: 0.0
         ))
         
-        // Add radar annotation.
         if addDIMOverlay {
             self.mapView.add(
                 AKDIMOverlay(mapView: self.mapView),
@@ -381,6 +380,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             )
         }
         
+        // Add radar annotation & overlay.
         if addRadarOverlay {
             for k in 1...10 {
                 self.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(5000 * k))
@@ -404,7 +404,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 )
             }
         }
-        
         if addRadarPin {
             self.radarAnnotation.coordinate = GlobalConstants.AKRadarOrigin
             self.radarAnnotation.title = "Radar"
