@@ -54,12 +54,12 @@ struct GlobalConstants {
     static let AKNotificationBarSound = 1057
     static let AKDefaultFont = "HelveticaNeue-CondensedBold"
     // Colors: https://github.com/morhetz/gruvbox
-    static let AKDefaultBg = GlobalFunctions.AKHexColor(0x1D2021)
-    static let AKDefaultFg = GlobalFunctions.AKHexColor(0xA89984)
-    static let AKTabBarBg = GlobalFunctions.AKHexColor(0x101010)
-    static let AKTabBarTint = GlobalFunctions.AKHexColor(0xD65D0E)
+    static let AKDefaultBg = GlobalFunctions.AKHexColor(0x29282D)
+    static let AKDefaultFg = GlobalFunctions.AKHexColor(0xFFFFFF)
+    static let AKTabBarBg = GlobalConstants.AKDefaultBg
+    static let AKTabBarTint = GlobalFunctions.AKHexColor(0xFFFFFF)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
-    static let AKDefaultViewBorderBg = GlobalFunctions.AKHexColor(0x3C3836)
+    static let AKDefaultViewBorderBg = GlobalFunctions.AKHexColor(0x8F8C87)
     static let AKUserAnnotationBg = GlobalFunctions.AKHexColor(0x458588)
     static let AKUserOverlayBg = GlobalFunctions.AKHexColor(0x689D6A)
     static let AKRadarAnnotationBg = GlobalFunctions.AKHexColor(0xD65D0E)

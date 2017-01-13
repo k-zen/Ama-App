@@ -28,8 +28,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private var totalRainfallIntensity: Int = 0
     
     // MARK: Closures
-    internal let loadRainMap: (AKHeatMapViewController) -> Void = { (controller) -> Void in
+    internal let loadRainMap: (AKHeatMapViewController, UIActivityIndicatorView?) -> Void = { (controller, spinner) -> Void in
         GlobalFunctions.AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
+            spinner?.startAnimating()
+            
             let rainfallPoints = NSMutableArray()
             var counter: Int = 0
             
@@ -66,6 +68,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                             controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
                         }
                     }
+                    
+                    spinner?.stopAnimating()
                 })
             }
             let failureTask: (Int, String) -> Void = { (code, message) -> Void in
@@ -99,6 +103,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     )
                     break
                 }
+                
+                spinner?.stopAnimating()
             }
             
             AKWSUtils.makeRESTRequest(
@@ -417,10 +423,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         
         // Custom L&F
         self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
-        self.hmInfoOverlayViewSubView.alpha = 0.75
-        
         self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
-        self.hmAlertsOverlayViewSubView.alpha = 0.75
         
         GlobalFunctions.AKAddBorderDeco(
             self.hmInfoOverlayViewSubView,
@@ -436,7 +439,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         )
         
         // Add HeatMap
-        self.loadRainMap(self)
+        self.loadRainMap(self, nil)
     }
     
     func clearMap()

@@ -12,8 +12,6 @@ class AKHeatMapInfoOverlayView: AKCustomView
     @IBOutlet weak var avgRIValue: UILabel!
     @IBOutlet weak var reflectivityPointsTitle: UILabel!
     @IBOutlet weak var reflectivityPointsValue: UILabel!
-    @IBOutlet weak var separator1: UIView!
-    @IBOutlet weak var separator2: UIView!
     
     // MARK: UIView Overriding
     convenience init()
@@ -48,21 +46,14 @@ class AKHeatMapInfoOverlayView: AKCustomView
         self.animation.repeatCount = 20000
         
         // Custom L&F.
-        self.separator1.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
-        self.separator2.backgroundColor = GlobalConstants.AKDefaultViewBorderBg
-        
-        GlobalFunctions.AKAddBorderDeco(
-            self.avgRITitle,
-            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
-        GlobalFunctions.AKAddBorderDeco(
-            self.avgRIValue,
-            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
+        self.avgRITitle.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+        self.avgRITitle.layer.masksToBounds = true
+        self.avgRIValue.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+        self.avgRIValue.layer.masksToBounds = true
+        self.reflectivityPointsTitle.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+        self.reflectivityPointsTitle.layer.masksToBounds = true
+        self.reflectivityPointsValue.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+        self.reflectivityPointsValue.layer.masksToBounds = true
     }
     
     func startAnimation()

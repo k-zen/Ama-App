@@ -9,12 +9,13 @@ class AKHeatMapActionsOverlayView: AKCustomView
     // MARK: Outlets
     @IBOutlet var container: UIView!
     @IBOutlet weak var refresh: UIButton!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     // MARK: Actions
     @IBAction func refresh(_ sender: Any)
     {
         if let c: AKHeatMapViewController = self.controller as! AKHeatMapViewController? {
-            c.loadRainMap(c)
+            c.loadRainMap(c, self.spinner)
         }
     }
     
