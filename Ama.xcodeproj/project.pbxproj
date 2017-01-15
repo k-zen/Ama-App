@@ -26,6 +26,10 @@
 		492FF7541DBE8AFE009B4CDD /* 0002-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7511DBE8AFE009B4CDD /* 0002-030px.png */; };
 		492FF7551DBE8AFE009B4CDD /* 0003-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7521DBE8AFE009B4CDD /* 0003-030px.png */; };
 		492FF7571DBE8BE9009B4CDD /* 0004-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7561DBE8BE9009B4CDD /* 0004-030px.png */; };
+		494609F41E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */; };
+		494609F61E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */; };
+		494609F91E2B155000FC3AEA /* 0007-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F71E2B155000FC3AEA /* 0007-032px.png */; };
+		494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F81E2B155000FC3AEA /* 0008-032px.png */; };
 		4960A4331E0C37EC0076E50C /* AmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A42C1E0C37EC0076E50C /* AmaTests.swift */; };
 		496707FD1DFB904100888E25 /* 2015-12-04--09%3A44%3A11,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */; };
 		49B46A411E0C3F280052F75E /* AKFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B46A401E0C3F280052F75E /* AKFileIO.swift */; };
@@ -93,6 +97,10 @@
 		492FF7511DBE8AFE009B4CDD /* 0002-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0002-030px.png"; sourceTree = "<group>"; };
 		492FF7521DBE8AFE009B4CDD /* 0003-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0003-030px.png"; sourceTree = "<group>"; };
 		492FF7561DBE8BE9009B4CDD /* 0004-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0004-030px.png"; sourceTree = "<group>"; };
+		494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKHeatMapLayersOverlayView.xib; sourceTree = "<group>"; };
+		494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapLayersOverlayView.swift; sourceTree = "<group>"; };
+		494609F71E2B155000FC3AEA /* 0007-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0007-032px.png"; sourceTree = "<group>"; };
+		494609F81E2B155000FC3AEA /* 0008-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0008-032px.png"; sourceTree = "<group>"; };
 		4960A4211E0C28140076E50C /* AmaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4960A42C1E0C37EC0076E50C /* AmaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmaTests.swift; sourceTree = "<group>"; };
 		4960A4321E0C37EC0076E50C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -251,6 +259,7 @@
 				49223BF91DFF2F3A00C8CB61 /* AKHeatMapActionsOverlayView.swift */,
 				49223C011DFF42C600C8CB61 /* AKHeatMapAlertsOverlayView.swift */,
 				49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */,
+				494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */,
 			);
 			path = AKCustomComponents;
 			sourceTree = "<group>";
@@ -289,6 +298,7 @@
 				49223BF71DFF2E7200C8CB61 /* AKHeatMapActionsOverlayView.xib */,
 				49223BFF1DFF41FE00C8CB61 /* AKHeatMapAlertsOverlayView.xib */,
 				49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */,
+				494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -320,6 +330,8 @@
 				492FF7561DBE8BE9009B4CDD /* 0004-030px.png */,
 				49223BF51DFF2B1100C8CB61 /* 0005-030px.png */,
 				49B96A001E1DA56C00F33829 /* 0006-512px.png */,
+				494609F71E2B155000FC3AEA /* 0007-032px.png */,
+				494609F81E2B155000FC3AEA /* 0008-032px.png */,
 				49B96A1E1E1DA9B900F33829 /* AppIcon-20@1x.png */,
 				49B96A1F1E1DA9B900F33829 /* AppIcon-20@2x.png */,
 				49B96A201E1DA9B900F33829 /* AppIcon-20@3x.png */,
@@ -492,6 +504,7 @@
 			files = (
 				49B96A171E1DA56C00F33829 /* AppIcon-60@2x.png in Resources */,
 				49B96A151E1DA56C00F33829 /* AppIcon-40@3x.png in Resources */,
+				494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */,
 				49223BF81DFF2E7200C8CB61 /* AKHeatMapActionsOverlayView.xib in Resources */,
 				49B96A1D1E1DA56C00F33829 /* AppIcon-1024@1x.png in Resources */,
 				49B96A121E1DA56C00F33829 /* AppIcon-29@3x.png in Resources */,
@@ -506,7 +519,9 @@
 				49B96A1B1E1DA56C00F33829 /* AppIcon-76@3x.png in Resources */,
 				49B96A1A1E1DA56C00F33829 /* AppIcon-76@2x.png in Resources */,
 				49B96A211E1DA9B900F33829 /* AppIcon-20@1x.png in Resources */,
+				494609F41E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib in Resources */,
 				492FF7571DBE8BE9009B4CDD /* 0004-030px.png in Resources */,
+				494609F91E2B155000FC3AEA /* 0007-032px.png in Resources */,
 				49B96A101E1DA56C00F33829 /* AppIcon-29@1x.png in Resources */,
 				49B96A181E1DA56C00F33829 /* AppIcon-60@3x.png in Resources */,
 				49B96A141E1DA56C00F33829 /* AppIcon-40@2x.png in Resources */,
@@ -603,6 +618,7 @@
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
 				49D621C01E12E65D004388AF /* AKMasterFile.swift in Sources */,
 				4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */,
+				494609F61E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
 				4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */,
 				49223BFE1DFF3D2100C8CB61 /* AKDIMOverlay.swift in Sources */,

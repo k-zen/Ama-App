@@ -60,11 +60,11 @@ struct GlobalConstants {
     static let AKTabBarTint = GlobalFunctions.AKHexColor(0xFFFFFF)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
     static let AKDefaultViewBorderBg = GlobalFunctions.AKHexColor(0x8F8C87)
-    static let AKUserAnnotationBg = GlobalFunctions.AKHexColor(0x458588)
-    static let AKUserOverlayBg = GlobalFunctions.AKHexColor(0x689D6A)
-    static let AKRadarAnnotationBg = GlobalFunctions.AKHexColor(0xD65D0E)
-    // static let AKDisabledButtonBg = GlobalFunctions.AKHexColor(0xEEEEEE)
-    // static let AKEnabledButtonBg = GlobalFunctions.AKHexColor(0x030C22)
+    static let AKUserAnnotationBg = GlobalFunctions.AKHexColor(0xDF3732)
+    static let AKUserOverlayBg = GlobalFunctions.AKHexColor(0xDF3732)
+    static let AKRadarAnnotationBg = UIColor.green
+    static let AKDisabledButtonBg = GlobalFunctions.AKHexColor(0x999999)
+    static let AKEnabledButtonBg = GlobalFunctions.AKHexColor(0xDF3732)
     // static let AKTableHeaderCellBg = GlobalFunctions.AKHexColor(0x333333)
     // static let AKTableHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x72BF44)
     // static let AKHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x555555)

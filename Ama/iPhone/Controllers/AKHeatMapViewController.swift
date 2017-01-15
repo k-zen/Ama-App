@@ -11,20 +11,23 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
     private let addRadarOverlay = true
-    private let addRadarPin = true
-    private let addUserOverlay = true
+    private let addRadarPin = false
+    private let addUserOverlay = false
     private let addUserPin = true
     private let addDIMOverlay = true
-    private let hmInfoOverlayViewContainer: AKHeatMapInfoOverlayView = AKHeatMapInfoOverlayView()
-    private let hmActionsOverlayViewContainer: AKHeatMapActionsOverlayView = AKHeatMapActionsOverlayView()
-    private let hmAlertsOverlayViewContainer: AKHeatMapAlertsOverlayView = AKHeatMapAlertsOverlayView()
-    private let radarAnnotation: AKRadarAnnotation = AKRadarAnnotation()
-    private let userAnnotation: AKUserAnnotation = AKUserAnnotation()
+    private let hmInfoOverlayViewContainer = AKHeatMapInfoOverlayView()
+    private let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
+    private let hmAlertsOverlayViewContainer = AKHeatMapAlertsOverlayView()
+    private let hmLayersOverlayViewContainer = AKHeatMapLayersOverlayView()
+    private let radarAnnotation = AKRadarAnnotation()
+    private let userAnnotation = AKUserAnnotation()
     private var radarOverlay: AKRadarSpanOverlay?
     private var userOverlay: AKUserAreaOverlay?
+    private var dimOverlay: AKDIMOverlay?
     private var hmInfoOverlayViewSubView: UIView!
     private var hmActionsOverlayViewSubView: UIView!
     private var hmAlertsOverlayViewSubView: UIView!
+    private var hmLayersOverlayViewSubView: UIView!
     private var totalRainfallIntensity: Int = 0
     
     // MARK: Closures
@@ -32,13 +35,14 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         GlobalFunctions.AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
             spinner?.startAnimating()
             
-            let rainfallPoints = NSMutableArray()
-            var counter: Int = 0
-            
             controller.clearMap()
+            controller.addDefaultOverlays()
             controller.totalRainfallIntensity = 0
+            
             GlobalFunctions.AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
             
+            let rainfallPoints = NSMutableArray()
+            var counter: Int = 0
             let requestBody = ""
             let url = String(format: "%@/app/ultimodato", "http://devel.apkc.net:9001")
             let completionTask: (Any) -> Void = { (json) -> Void in
@@ -68,6 +72,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                             controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
                         }
                     }
+                    
+                    controller.locationUpdated()
                     
                     spinner?.stopAnimating()
                 })
@@ -174,8 +180,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 customView.layer.borderWidth = 0.0
                 customView.layer.masksToBounds = true
                 customView.image = GlobalFunctions.AKCircleImageWithRadius(
-                    10,
-                    strokeColor: UIColor.black,
+                    4,
+                    strokeColor: UIColor.green,
                     strokeAlpha: 1.0,
                     fillColor: GlobalConstants.AKRadarAnnotationBg,
                     fillAlpha: 1.0,
@@ -198,8 +204,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 customView.layer.borderWidth = 0.0
                 customView.layer.masksToBounds = true
                 customView.image = GlobalFunctions.AKCircleImageWithRadius(
-                    10,
-                    strokeColor: UIColor.black,
+                    8,
+                    strokeColor: UIColor.white,
                     strokeAlpha: 1.0,
                     fillColor: GlobalConstants.AKUserAnnotationBg,
                     fillAlpha: 1.0,
@@ -231,7 +237,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             let ol = overlay as! AKUserAreaOverlay
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
             customView.fillColor = GlobalConstants.AKUserOverlayBg
-            customView.alpha = 0.25
+            customView.alpha = 0.50
             customView.strokeColor = GlobalConstants.AKUserOverlayBg
             customView.lineWidth = 1.5
             
@@ -379,37 +385,27 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             constant: 0.0
         ))
         
-        if addDIMOverlay {
-            self.mapView.add(
-                AKDIMOverlay(mapView: self.mapView),
-                level: MKOverlayLevel.aboveRoads
-            )
-        }
+        // Add map overlay for heatmap layers.
+        self.hmLayersOverlayViewSubView = self.hmLayersOverlayViewContainer.customView
+        self.hmLayersOverlayViewContainer.controller = self
+        self.hmLayersOverlayViewSubView.frame = CGRect(x: self.mapView.bounds.width - 40, y: (self.mapView.bounds.height / 2) - 40, width: 40, height: 80)
+        self.hmLayersOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmLayersOverlayViewSubView.clipsToBounds = true
+        self.hmLayersOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        // Add radar annotation & overlay.
-        if addRadarOverlay {
-            for k in 1...10 {
-                self.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(5000 * k))
-                self.radarOverlay?.title = "Cobertura Radar"
-                self.mapView.add(self.radarOverlay!, level: MKOverlayLevel.aboveRoads)
-            }
-            
-            for k in 1...12 {
-                self.mapView.add(
-                    AKRadarSpanLinesOverlay(
-                        coordinates: [
-                            GlobalConstants.AKRadarOrigin,
-                            GlobalFunctions.AKLocationWithBearing(
-                                bearing: Double(k * 30) * (M_PI / 180),
-                                distanceMeters: 50000,
-                                origin: GlobalConstants.AKRadarOrigin
-                            )
-                        ],
-                        count: 2
-                    )
-                )
-            }
-        }
+        self.mapView.addSubview(self.hmLayersOverlayViewSubView)
+        self.mapView.addConstraint(NSLayoutConstraint(
+            item: self.hmLayersOverlayViewSubView,
+            attribute: NSLayoutAttribute.width,
+            relatedBy: NSLayoutRelation.equal,
+            toItem: self.mapView,
+            attribute: NSLayoutAttribute.width,
+            multiplier: 1.0,
+            constant: 0.0
+        ))
+        
+        self.addDefaultOverlays()
+        
         if addRadarPin {
             self.radarAnnotation.coordinate = GlobalConstants.AKRadarOrigin
             self.radarAnnotation.title = "Radar"
@@ -446,7 +442,24 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     {
         if self.mapView.overlays.count > 0 {
             let overlaysToRemove = self.mapView.overlays.filter({ (overlay) -> Bool in
+                return true
+            })
+            self.mapView.removeOverlays(overlaysToRemove)
+        }
+        
+        if GlobalConstants.AKDebug {
+            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
+        }
+    }
+    
+    func hideLayers()
+    {
+        if self.mapView.overlays.count > 0 {
+            let overlaysToRemove = self.mapView.overlays.filter({ (overlay) -> Bool in
                 if overlay.isKind(of: AKRainOverlay.self) {
+                    return true
+                }
+                else if overlay.isKind(of: AKDIMOverlay.self) {
                     return true
                 }
                 else {
@@ -458,6 +471,37 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         
         if GlobalConstants.AKDebug {
             NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
+        }
+    }
+    
+    func addDefaultOverlays()
+    {
+        if addDIMOverlay {
+            self.dimOverlay = AKDIMOverlay(mapView: self.mapView)
+            self.mapView.add(self.dimOverlay!, level: MKOverlayLevel.aboveRoads)
+        }
+        if addRadarOverlay {
+            for k in 1...10 {
+                self.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(5000 * k))
+                self.radarOverlay?.title = "Cobertura Radar"
+                self.mapView.add(self.radarOverlay!, level: MKOverlayLevel.aboveRoads)
+            }
+            
+            for k in 1...12 {
+                self.mapView.add(
+                    AKRadarSpanLinesOverlay(
+                        coordinates: [
+                            GlobalConstants.AKRadarOrigin,
+                            GlobalFunctions.AKLocationWithBearing(
+                                bearing: Double(k * 30) * (M_PI / 180),
+                                distanceMeters: 50000,
+                                origin: GlobalConstants.AKRadarOrigin
+                            )
+                        ],
+                        count: 2
+                    )
+                )
+            }
         }
     }
 }
