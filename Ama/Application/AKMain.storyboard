@@ -263,12 +263,12 @@
                         </subviews>
                         <color key="backgroundColor" red="0.16078431372549018" green="0.15686274509803921" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Lc2-pe-r70" firstAttribute="trailing" secondItem="fCB-aN-Tyx" secondAttribute="trailing" id="Epe-AO-vlu"/>
                             <constraint firstItem="Lc2-pe-r70" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="I5s-wD-Qp7"/>
+                            <constraint firstItem="fCB-aN-Tyx" firstAttribute="trailing" secondItem="Lc2-pe-r70" secondAttribute="trailing" id="MUZ-a9-pkx"/>
                             <constraint firstItem="fCB-aN-Tyx" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="NF7-u2-fDR"/>
                             <constraint firstItem="Lc2-pe-r70" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="8" symbolic="YES" id="bHV-X4-V1d"/>
+                            <constraint firstItem="fCB-aN-Tyx" firstAttribute="leading" secondItem="Lc2-pe-r70" secondAttribute="leading" id="cfE-Fd-A2O"/>
                             <constraint firstItem="fCB-aN-Tyx" firstAttribute="top" secondItem="Lc2-pe-r70" secondAttribute="bottom" id="ole-rH-cql"/>
-                            <constraint firstItem="Lc2-pe-r70" firstAttribute="leading" secondItem="fCB-aN-Tyx" secondAttribute="leading" id="vtG-fI-GlE"/>
                             <constraint firstAttribute="trailing" secondItem="Lc2-pe-r70" secondAttribute="trailing" id="zdX-gg-vmu"/>
                         </constraints>
                     </view>
@@ -290,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-712"/>
+            <point key="canvasLocation" x="193" y="-741"/>
         </scene>
         <!--Configuraciones-->
         <scene sceneID="wg7-f3-ORb">
@@ -305,30 +305,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="2" title="Configuraciones" image="0004-030px.png" id="cPa-gy-q4n"/>
+                    <navigationItem key="navigationItem" title="Configuraciones" id="wvw-so-rs3"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="0.0"/>
-        </scene>
-        <!--Ayuda-->
-        <scene sceneID="xs1-8A-xlG">
-            <objects>
-                <viewController title="Ayuda" id="10G-IF-vJ6" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="c75-m4-5Xw"/>
-                        <viewControllerLayoutGuide type="bottom" id="POJ-4f-Uet"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="e1B-wP-L7w" userLabel="Main_Container">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Ayuda" image="0005-030px.png" id="8oH-lx-pmx"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Iyc-ub-F4v" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="750" y="718"/>
+            <point key="canvasLocation" x="1020" y="0.0"/>
         </scene>
         <!--Ama-->
         <scene sceneID="yl2-sM-qoP">
@@ -341,18 +322,41 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="10G-IF-vJ6" kind="relationship" relationship="viewControllers" id="Wpd-nI-gSN"/>
+                        <segue destination="F7e-91-uiN" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-658" y="0.0"/>
         </scene>
+        <!--Configuraciones-->
+        <scene sceneID="eXV-M6-pCQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F7e-91-uiN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" tag="2" title="Configuraciones" image="0004-030px.png" id="cPa-gy-q4n"/>
+                    <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="tQs-kX-Eoq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="pgW-jR-diu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8eo-pU-ZUk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="192.80000000000001" y="-0.44977511244377816"/>
+        </scene>
     </scenes>
     <resources>
         <image name="0002-030px.png" width="30" height="30"/>
         <image name="0004-030px.png" width="30" height="30"/>
-        <image name="0005-030px.png" width="30" height="30"/>
     </resources>
 </document>

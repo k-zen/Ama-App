@@ -36,7 +36,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             spinner?.startAnimating()
             
             controller.clearMap()
-            controller.addDefaultOverlays()
+            controller.addDefaultMapOverlays()
             controller.totalRainfallIntensity = 0
             
             GlobalFunctions.AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
@@ -161,8 +161,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
+        self.addDefaultViewOverlays()
         GlobalFunctions.AKCenterMapOnLocation(mapView: self.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
-        updateWeatherStatus(self)
+        self.updateWeatherStatus(self)
     }
     
     // MARK: MKMapViewDelegate Implementation
@@ -328,83 +329,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.mapView.userTrackingMode = MKUserTrackingMode.none
         
-        // Add map overlay for heatmap information.
-        self.hmInfoOverlayViewSubView = self.hmInfoOverlayViewContainer.customView
-        self.hmInfoOverlayViewContainer.controller = self
-        self.hmInfoOverlayViewSubView.frame = CGRect(x: 0, y: self.mapView.bounds.height - 60, width: self.mapView.bounds.width, height: 60)
-        self.hmInfoOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmInfoOverlayViewSubView.clipsToBounds = true
-        self.hmInfoOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        self.mapView.addSubview(self.hmInfoOverlayViewSubView)
-        self.mapView.addConstraint(NSLayoutConstraint(
-            item: self.hmInfoOverlayViewSubView,
-            attribute: NSLayoutAttribute.width,
-            relatedBy: NSLayoutRelation.equal,
-            toItem: self.mapView,
-            attribute: NSLayoutAttribute.width,
-            multiplier: 1.0,
-            constant: 0.0
-        ))
-        
-        // Add map overlay for heatmap actions.
-        self.hmActionsOverlayViewSubView = self.hmActionsOverlayViewContainer.customView
-        self.hmActionsOverlayViewContainer.controller = self
-        self.hmActionsOverlayViewSubView.frame = CGRect(x: 0, y: 30, width: self.mapView.bounds.width, height: 40)
-        self.hmActionsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmActionsOverlayViewSubView.clipsToBounds = true
-        self.hmActionsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        self.mapView.addSubview(self.hmActionsOverlayViewSubView)
-        self.mapView.addConstraint(NSLayoutConstraint(
-            item: self.hmActionsOverlayViewSubView,
-            attribute: NSLayoutAttribute.width,
-            relatedBy: NSLayoutRelation.equal,
-            toItem: self.mapView,
-            attribute: NSLayoutAttribute.width,
-            multiplier: 1.0,
-            constant: 0.0
-        ))
-        
-        // Add map overlay for heatmap alerts.
-        self.hmAlertsOverlayViewSubView = self.hmAlertsOverlayViewContainer.customView
-        self.hmAlertsOverlayViewContainer.controller = self
-        self.hmAlertsOverlayViewSubView.frame = CGRect(x: 0, y: 0, width: self.mapView.bounds.width, height: 30)
-        self.hmAlertsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmAlertsOverlayViewSubView.clipsToBounds = true
-        self.hmAlertsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        self.mapView.addSubview(self.hmAlertsOverlayViewSubView)
-        self.mapView.addConstraint(NSLayoutConstraint(
-            item: self.hmAlertsOverlayViewSubView,
-            attribute: NSLayoutAttribute.width,
-            relatedBy: NSLayoutRelation.equal,
-            toItem: self.mapView,
-            attribute: NSLayoutAttribute.width,
-            multiplier: 1.0,
-            constant: 0.0
-        ))
-        
-        // Add map overlay for heatmap layers.
-        self.hmLayersOverlayViewSubView = self.hmLayersOverlayViewContainer.customView
-        self.hmLayersOverlayViewContainer.controller = self
-        self.hmLayersOverlayViewSubView.frame = CGRect(x: self.mapView.bounds.width - 40, y: (self.mapView.bounds.height / 2) - 40, width: 40, height: 80)
-        self.hmLayersOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmLayersOverlayViewSubView.clipsToBounds = true
-        self.hmLayersOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        self.mapView.addSubview(self.hmLayersOverlayViewSubView)
-        self.mapView.addConstraint(NSLayoutConstraint(
-            item: self.hmLayersOverlayViewSubView,
-            attribute: NSLayoutAttribute.width,
-            relatedBy: NSLayoutRelation.equal,
-            toItem: self.mapView,
-            attribute: NSLayoutAttribute.width,
-            multiplier: 1.0,
-            constant: 0.0
-        ))
-        
-        self.addDefaultOverlays()
+        self.addDefaultMapOverlays()
         
         if addRadarPin {
             self.radarAnnotation.coordinate = GlobalConstants.AKRadarOrigin
@@ -416,23 +341,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             )
             self.mapView.addAnnotation(self.radarAnnotation)
         }
-        
-        // Custom L&F
-        self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
-        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
-        
-        GlobalFunctions.AKAddBorderDeco(
-            self.hmInfoOverlayViewSubView,
-            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
-        GlobalFunctions.AKAddBorderDeco(
-            self.legendView,
-            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
         
         // Add HeatMap
         self.loadRainMap(self, nil)
@@ -474,7 +382,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
     }
     
-    func addDefaultOverlays()
+    func addDefaultMapOverlays()
     {
         if addDIMOverlay {
             self.dimOverlay = AKDIMOverlay(mapView: self.mapView)
@@ -503,5 +411,61 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 )
             }
         }
+    }
+    
+    func addDefaultViewOverlays()
+    {
+        // Add map overlay for heatmap information.
+        self.hmInfoOverlayViewSubView = self.hmInfoOverlayViewContainer.customView
+        self.hmInfoOverlayViewContainer.controller = self
+        self.hmInfoOverlayViewSubView.frame = CGRect(x: 0, y: self.mapView.bounds.height - 60, width: self.mapView.bounds.width, height: 60)
+        self.hmInfoOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmInfoOverlayViewSubView.clipsToBounds = true
+        self.hmInfoOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.mapView.addSubview(self.hmInfoOverlayViewSubView)
+        
+        // Add map overlay for heatmap actions.
+        self.hmActionsOverlayViewSubView = self.hmActionsOverlayViewContainer.customView
+        self.hmActionsOverlayViewContainer.controller = self
+        self.hmActionsOverlayViewSubView.frame = CGRect(x: 0, y: 30, width: self.mapView.bounds.width, height: 40)
+        self.hmActionsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmActionsOverlayViewSubView.clipsToBounds = true
+        self.hmActionsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.mapView.addSubview(self.hmActionsOverlayViewSubView)
+        
+        // Add map overlay for heatmap alerts.
+        self.hmAlertsOverlayViewSubView = self.hmAlertsOverlayViewContainer.customView
+        self.hmAlertsOverlayViewContainer.controller = self
+        self.hmAlertsOverlayViewSubView.frame = CGRect(x: 0, y: 0, width: self.mapView.bounds.width, height: 30)
+        self.hmAlertsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmAlertsOverlayViewSubView.clipsToBounds = true
+        self.hmAlertsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.mapView.addSubview(self.hmAlertsOverlayViewSubView)
+        
+        // Add map overlay for heatmap layers.
+        self.hmLayersOverlayViewSubView = self.hmLayersOverlayViewContainer.customView
+        self.hmLayersOverlayViewContainer.controller = self
+        self.hmLayersOverlayViewSubView.frame = CGRect(x: self.mapView.bounds.width - 40, y: (self.mapView.bounds.height / 2) - 40, width: 40, height: 80)
+        self.hmLayersOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmLayersOverlayViewSubView.clipsToBounds = true
+        self.hmLayersOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.mapView.addSubview(self.hmLayersOverlayViewSubView)
+        
+        // Custom L&F
+        self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
+        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
+        
+        GlobalFunctions.AKAddBorderDeco(
+            self.hmInfoOverlayViewSubView,
+            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
+            thickness: GlobalConstants.AKDefaultBorderThickness,
+            position: CustomBorderDecorationPosition.bottom
+        )
+        GlobalFunctions.AKAddBorderDeco(
+            self.legendView,
+            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
+            thickness: GlobalConstants.AKDefaultBorderThickness,
+            position: CustomBorderDecorationPosition.bottom
+        )
     }
 }
