@@ -8,16 +8,7 @@ class AKHeatMapActionsOverlayView: AKCustomView
     
     // MARK: Outlets
     @IBOutlet var container: UIView!
-    @IBOutlet weak var refresh: UIButton!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
-    // MARK: Actions
-    @IBAction func refresh(_ sender: Any)
-    {
-        if let c: AKHeatMapViewController = self.controller as! AKHeatMapViewController? {
-            c.loadRainMap(c, self.spinner)
-        }
-    }
+    @IBOutlet weak var progress: UIProgressView!
     
     // MARK: UIView Overriding
     convenience init()
@@ -50,10 +41,6 @@ class AKHeatMapActionsOverlayView: AKCustomView
         self.animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         self.animation.autoreverses = true
         self.animation.repeatCount = 20000
-        
-        // Custom L&F.
-        self.refresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.refresh.layer.masksToBounds = true
     }
     
     func startAnimation()

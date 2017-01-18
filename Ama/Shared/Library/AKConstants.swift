@@ -59,7 +59,7 @@ struct GlobalConstants {
     static let AKTabBarBg = GlobalConstants.AKDefaultBg
     static let AKTabBarTint = GlobalFunctions.AKHexColor(0xFFFFFF)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
-    static let AKDefaultViewBorderBg = GlobalFunctions.AKHexColor(0x8F8C87)
+    static let AKDefaultViewBorderBg = GlobalFunctions.AKHexColor(0x000000)
     static let AKUserAnnotationBg = GlobalFunctions.AKHexColor(0xDF3732)
     static let AKUserOverlayBg = GlobalFunctions.AKHexColor(0xDF3732)
     static let AKRadarAnnotationBg = UIColor.green
@@ -70,7 +70,7 @@ struct GlobalConstants {
     // static let AKHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x555555)
     // static let AKHeaderTopBorderBg = GlobalFunctions.AKHexColor(0x72BF44)
     static let AKButtonCornerRadius: CGFloat = 4.0
-    static let AKDefaultBorderThickness = 2.0
+    static let AKDefaultBorderThickness = 1.5
     static let AKLocationUpdateInterval = 30
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
     static let AKRadarLatitude = -25.333079999999999

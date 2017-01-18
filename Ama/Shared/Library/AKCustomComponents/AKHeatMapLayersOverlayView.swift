@@ -16,14 +16,16 @@ class AKHeatMapLayersOverlayView: AKCustomView
     {
         if let c: AKHeatMapViewController = self.controller as! AKHeatMapViewController? {
             if self.layersState {
-                c.hideLayers()
                 self.layersState = false
                 self.layers.layer.backgroundColor = GlobalConstants.AKDisabledButtonBg.cgColor
+                c.hideLayers()
+                c.hideLegend()
             }
             else {
-                c.loadRainMap(c, nil)
                 self.layersState = true
                 self.layers.layer.backgroundColor = GlobalConstants.AKEnabledButtonBg.cgColor
+                c.loadRainMapFunction()
+                c.showLegend()
             }
         }
     }

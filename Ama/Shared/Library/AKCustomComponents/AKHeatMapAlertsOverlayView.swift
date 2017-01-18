@@ -9,6 +9,13 @@ class AKHeatMapAlertsOverlayView: AKCustomView
     // MARK: Outlets
     @IBOutlet var container: UIView!
     @IBOutlet weak var alertValue: UILabel!
+    @IBOutlet weak var pauseRefresh: UIButton!
+    
+    // MARK: Actions
+    @IBAction func pauseRefresh(_ sender: Any)
+    {
+        NSLog("=> PAUSED!")
+    }
     
     // MARK: UIView Overriding
     convenience init()
@@ -41,6 +48,9 @@ class AKHeatMapAlertsOverlayView: AKCustomView
         self.animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         self.animation.autoreverses = true
         self.animation.repeatCount = 20000
+        
+        // Custom L&F.
+        self.pauseRefresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
     }
     
     func startAnimation()

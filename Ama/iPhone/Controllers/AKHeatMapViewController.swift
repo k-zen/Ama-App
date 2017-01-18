@@ -16,9 +16,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private let addUserPin = true
     private let addDIMOverlay = true
     private let hmInfoOverlayViewContainer = AKHeatMapInfoOverlayView()
-    private let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
+    internal let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
     private let hmAlertsOverlayViewContainer = AKHeatMapAlertsOverlayView()
     private let hmLayersOverlayViewContainer = AKHeatMapLayersOverlayView()
+    private let hmLegendOverlayViewContainer = AKHeatMapLegendOverlayView()
     private let radarAnnotation = AKRadarAnnotation()
     private let userAnnotation = AKUserAnnotation()
     private var radarOverlay: AKRadarSpanOverlay?
@@ -28,12 +29,20 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private var hmActionsOverlayViewSubView: UIView!
     private var hmAlertsOverlayViewSubView: UIView!
     private var hmLayersOverlayViewSubView: UIView!
+    private var hmLegendOverlayViewSubView: UIView!
     private var totalRainfallIntensity: Int = 0
+    private var refreshTimer: Timer?
     
     // MARK: Closures
-    internal let loadRainMap: (AKHeatMapViewController, UIActivityIndicatorView?) -> Void = { (controller, spinner) -> Void in
+    private let loadRainMap: (AKHeatMapViewController, UIProgressView?, UIButton) -> Void = { (controller, progress, caller) -> Void in
         GlobalFunctions.AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
-            spinner?.startAnimating()
+            if !controller.hmLayersOverlayViewContainer.layersState {
+                return
+            }
+            
+            caller.isEnabled = false
+            UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKDisabledButtonBg })
+            progress?.setProgress(0.25, animated: false)
             
             controller.clearMap()
             controller.addDefaultMapOverlays()
@@ -47,6 +56,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             let url = String(format: "%@/app/ultimodato", "http://devel.apkc.net:9001")
             let completionTask: (Any) -> Void = { (json) -> Void in
                 GlobalFunctions.AKDelay(0.0, task: { Void -> Void in
+                    progress?.setProgress(0.50, animated: true)
+                    
                     // Always check that its a valid JSON document.
                     if let dictionary = json as? [String : Any] {
                         if let array = dictionary["arrayDatos"] as? [Any] {
@@ -64,18 +75,26 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                                         
                                         rainfallPoints.add(AKRainfallPoint(center: location, intensity: intensity))
                                     }
+                                    
+                                    progress?.setProgress(0.75, animated: true)
                                 }
                             }
                             
                             controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
                             controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
                             controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
+                            
+                            progress?.setProgress(1.0, animated: true)
                         }
                     }
                     
                     controller.locationUpdated()
                     
-                    spinner?.stopAnimating()
+                    GlobalFunctions.AKDelay(2.0, task: { Void -> Void in
+                        progress?.setProgress(0.0, animated: false)
+                        caller.isEnabled = true
+                        UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
+                    })
                 })
             }
             let failureTask: (Int, String) -> Void = { (code, message) -> Void in
@@ -110,7 +129,11 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     break
                 }
                 
-                spinner?.stopAnimating()
+                GlobalFunctions.AKDelay(2.0, task: { Void -> Void in
+                    progress?.setProgress(0.0, animated: false)
+                    caller.isEnabled = true
+                    UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
+                })
             }
             
             AKWSUtils.makeRESTRequest(
@@ -126,7 +149,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     }
     private let updateWeatherStatus: (AKHeatMapViewController) -> Void = { (controller) -> Void in
         if GlobalFunctions.AKDelegate().applicationActive {
-            controller.hmAlertsOverlayViewContainer.alertValue.text = String(format: "En tu zona: Lluvioso")
+            controller.hmAlertsOverlayViewContainer.alertValue.text = "Lluvioso"
         }
         else {
             controller.hmAlertsOverlayViewContainer.alertValue.text = "Deshabilitado"
@@ -139,16 +162,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     
     // MARK: Outlets
     @IBOutlet weak var legendView: UIView!
-    @IBOutlet weak var img01: UIImageView!
-    @IBOutlet weak var img02: UIImageView!
-    @IBOutlet weak var img03: UIImageView!
-    @IBOutlet weak var img04: UIImageView!
-    @IBOutlet weak var img05: UIImageView!
-    @IBOutlet weak var img06: UIImageView!
-    @IBOutlet weak var img07: UIImageView!
-    @IBOutlet weak var img08: UIImageView!
-    @IBOutlet weak var img09: UIImageView!
-    @IBOutlet weak var img10: UIImageView!
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: AKCustomViewController Overriding
@@ -312,19 +325,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             object: nil
         )
         
-        // Create Legend
-        let frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        self.img01.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
-        self.img02.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
-        self.img03.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C03.rawValue), frame: frame)
-        self.img04.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C04.rawValue), frame: frame)
-        self.img05.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C05.rawValue), frame: frame)
-        self.img06.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C06.rawValue), frame: frame)
-        self.img07.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C07.rawValue), frame: frame)
-        self.img08.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C08.rawValue), frame: frame)
-        self.img09.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C09.rawValue), frame: frame)
-        self.img10.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
-        
         // Configure map.
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.mapView.userTrackingMode = MKUserTrackingMode.none
@@ -342,8 +342,15 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             self.mapView.addAnnotation(self.radarAnnotation)
         }
         
-        // Add HeatMap
-        self.loadRainMap(self, nil)
+        // Add RainMap
+        self.loadRainMap(self, self.hmActionsOverlayViewContainer.progress, self.hmLayersOverlayViewContainer.layers)
+        self.refreshTimer = Timer.scheduledTimer(
+            timeInterval: 30.0,
+            target: self,
+            selector: #selector(AKHeatMapViewController.loadRainMapFunction),
+            userInfo: nil,
+            repeats: true
+        )
     }
     
     func clearMap()
@@ -416,56 +423,82 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     func addDefaultViewOverlays()
     {
         // Add map overlay for heatmap information.
-        self.hmInfoOverlayViewSubView = self.hmInfoOverlayViewContainer.customView
-        self.hmInfoOverlayViewContainer.controller = self
-        self.hmInfoOverlayViewSubView.frame = CGRect(x: 0, y: self.mapView.bounds.height - 60, width: self.mapView.bounds.width, height: 60)
-        self.hmInfoOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmInfoOverlayViewSubView.clipsToBounds = true
-        self.hmInfoOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.mapView.addSubview(self.hmInfoOverlayViewSubView)
-        
-        // Add map overlay for heatmap actions.
-        self.hmActionsOverlayViewSubView = self.hmActionsOverlayViewContainer.customView
-        self.hmActionsOverlayViewContainer.controller = self
-        self.hmActionsOverlayViewSubView.frame = CGRect(x: 0, y: 30, width: self.mapView.bounds.width, height: 40)
-        self.hmActionsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmActionsOverlayViewSubView.clipsToBounds = true
-        self.hmActionsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.mapView.addSubview(self.hmActionsOverlayViewSubView)
+        // self.hmInfoOverlayViewSubView = self.hmInfoOverlayViewContainer.customView
+        // self.hmInfoOverlayViewContainer.controller = self
+        // self.hmInfoOverlayViewSubView.frame = CGRect(x: 0, y: self.mapView.bounds.height - 60, width: self.mapView.bounds.width, height: 60)
+        // self.hmInfoOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        // self.hmInfoOverlayViewSubView.clipsToBounds = true
+        // self.hmInfoOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        // self.mapView.addSubview(self.hmInfoOverlayViewSubView)
         
         // Add map overlay for heatmap alerts.
         self.hmAlertsOverlayViewSubView = self.hmAlertsOverlayViewContainer.customView
         self.hmAlertsOverlayViewContainer.controller = self
-        self.hmAlertsOverlayViewSubView.frame = CGRect(x: 0, y: 0, width: self.mapView.bounds.width, height: 30)
+        self.hmAlertsOverlayViewSubView.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: self.view.bounds.width,
+            height: self.hmAlertsOverlayViewSubView.bounds.height
+        )
         self.hmAlertsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
         self.hmAlertsOverlayViewSubView.clipsToBounds = true
-        self.hmAlertsOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.mapView.addSubview(self.hmAlertsOverlayViewSubView)
+        self.view.addSubview(self.hmAlertsOverlayViewSubView)
+        
+        // Add map overlay for heatmap actions.
+        self.hmActionsOverlayViewSubView = self.hmActionsOverlayViewContainer.customView
+        self.hmActionsOverlayViewContainer.controller = self
+        self.hmActionsOverlayViewSubView.frame = CGRect(
+            x: 0,
+            y: self.hmAlertsOverlayViewSubView.bounds.height + 1,
+            width: self.view.bounds.width,
+            height: self.hmActionsOverlayViewSubView.bounds.height
+        )
+        self.hmActionsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmActionsOverlayViewSubView.clipsToBounds = true
+        self.view.addSubview(self.hmActionsOverlayViewSubView)
         
         // Add map overlay for heatmap layers.
         self.hmLayersOverlayViewSubView = self.hmLayersOverlayViewContainer.customView
         self.hmLayersOverlayViewContainer.controller = self
-        self.hmLayersOverlayViewSubView.frame = CGRect(x: self.mapView.bounds.width - 40, y: (self.mapView.bounds.height / 2) - 40, width: 40, height: 80)
+        self.hmLayersOverlayViewSubView.frame = CGRect(
+            x: self.mapView.bounds.width - self.hmLayersOverlayViewSubView.bounds.width,
+            y: (self.mapView.bounds.height / 2.0) - (self.hmLayersOverlayViewSubView.bounds.height / 2.0),
+            width: self.hmLayersOverlayViewSubView.bounds.width,
+            height: self.hmLayersOverlayViewSubView.bounds.height
+        )
         self.hmLayersOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
         self.hmLayersOverlayViewSubView.clipsToBounds = true
-        self.hmLayersOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.mapView.addSubview(self.hmLayersOverlayViewSubView)
         
+        // Add map overlay for heatmap legend.
+        self.hmLegendOverlayViewSubView = self.hmLegendOverlayViewContainer.customView
+        self.hmLegendOverlayViewContainer.controller = self
+        self.hmLegendOverlayViewSubView.frame = CGRect(
+            x: 0,
+            y: (self.mapView.bounds.height / 2.0) - (self.hmLegendOverlayViewSubView.bounds.height / 2.0),
+            width: self.hmLegendOverlayViewSubView.bounds.width,
+            height: self.hmLegendOverlayViewSubView.bounds.height
+        )
+        self.hmLegendOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
+        self.hmLegendOverlayViewSubView.clipsToBounds = true
+        self.mapView.addSubview(self.hmLegendOverlayViewSubView)
+        
         // Custom L&F
-        self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
+        // self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
         self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
+        self.hmLegendOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
         
         GlobalFunctions.AKAddBorderDeco(
-            self.hmInfoOverlayViewSubView,
-            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
-        GlobalFunctions.AKAddBorderDeco(
-            self.legendView,
+            self.hmAlertsOverlayViewSubView,
             color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.bottom
         )
     }
+    
+    func loadRainMapFunction() { self.loadRainMap(self, self.hmActionsOverlayViewContainer.progress, self.hmLayersOverlayViewContainer.layers) }
+    
+    func hideLegend() { self.hmLegendOverlayViewSubView.isHidden = true }
+    
+    func showLegend() { self.hmLegendOverlayViewSubView.isHidden = false }
 }

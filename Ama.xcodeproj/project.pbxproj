@@ -26,6 +26,10 @@
 		492FF7541DBE8AFE009B4CDD /* 0002-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7511DBE8AFE009B4CDD /* 0002-030px.png */; };
 		492FF7551DBE8AFE009B4CDD /* 0003-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7521DBE8AFE009B4CDD /* 0003-030px.png */; };
 		492FF7571DBE8BE9009B4CDD /* 0004-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7561DBE8BE9009B4CDD /* 0004-030px.png */; };
+		49447D3F1E2FF17A00BE59D0 /* AKHeatMapLegendOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49447D3E1E2FF17A00BE59D0 /* AKHeatMapLegendOverlayView.xib */; };
+		49447D411E2FF65500BE59D0 /* AKHeatMapLegendOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49447D401E2FF65500BE59D0 /* AKHeatMapLegendOverlayView.swift */; };
+		49447D431E2FFD5D00BE59D0 /* 0009-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49447D421E2FFD5D00BE59D0 /* 0009-030px.png */; };
+		49447D451E301A9100BE59D0 /* 0010-024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49447D441E301A9100BE59D0 /* 0010-024px.png */; };
 		494609F41E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */; };
 		494609F61E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */; };
 		494609F91E2B155000FC3AEA /* 0007-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F71E2B155000FC3AEA /* 0007-032px.png */; };
@@ -97,6 +101,10 @@
 		492FF7511DBE8AFE009B4CDD /* 0002-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0002-030px.png"; sourceTree = "<group>"; };
 		492FF7521DBE8AFE009B4CDD /* 0003-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0003-030px.png"; sourceTree = "<group>"; };
 		492FF7561DBE8BE9009B4CDD /* 0004-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0004-030px.png"; sourceTree = "<group>"; };
+		49447D3E1E2FF17A00BE59D0 /* AKHeatMapLegendOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKHeatMapLegendOverlayView.xib; sourceTree = "<group>"; };
+		49447D401E2FF65500BE59D0 /* AKHeatMapLegendOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapLegendOverlayView.swift; sourceTree = "<group>"; };
+		49447D421E2FFD5D00BE59D0 /* 0009-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0009-030px.png"; sourceTree = "<group>"; };
+		49447D441E301A9100BE59D0 /* 0010-024px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0010-024px.png"; sourceTree = "<group>"; };
 		494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKHeatMapLayersOverlayView.xib; sourceTree = "<group>"; };
 		494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapLayersOverlayView.swift; sourceTree = "<group>"; };
 		494609F71E2B155000FC3AEA /* 0007-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0007-032px.png"; sourceTree = "<group>"; };
@@ -260,6 +268,7 @@
 				49223C011DFF42C600C8CB61 /* AKHeatMapAlertsOverlayView.swift */,
 				49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */,
 				494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */,
+				49447D401E2FF65500BE59D0 /* AKHeatMapLegendOverlayView.swift */,
 			);
 			path = AKCustomComponents;
 			sourceTree = "<group>";
@@ -299,6 +308,7 @@
 				49223BFF1DFF41FE00C8CB61 /* AKHeatMapAlertsOverlayView.xib */,
 				49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */,
 				494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */,
+				49447D3E1E2FF17A00BE59D0 /* AKHeatMapLegendOverlayView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -332,6 +342,8 @@
 				49B96A001E1DA56C00F33829 /* 0006-512px.png */,
 				494609F71E2B155000FC3AEA /* 0007-032px.png */,
 				494609F81E2B155000FC3AEA /* 0008-032px.png */,
+				49447D421E2FFD5D00BE59D0 /* 0009-030px.png */,
+				49447D441E301A9100BE59D0 /* 0010-024px.png */,
 				49B96A1E1E1DA9B900F33829 /* AppIcon-20@1x.png */,
 				49B96A1F1E1DA9B900F33829 /* AppIcon-20@2x.png */,
 				49B96A201E1DA9B900F33829 /* AppIcon-20@3x.png */,
@@ -515,6 +527,7 @@
 				49B96A1C1E1DA56C00F33829 /* AppIcon-83.5@2x.png in Resources */,
 				49B96A161E1DA56C00F33829 /* AppIcon-60@1x.png in Resources */,
 				49223BF21DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib in Resources */,
+				49447D451E301A9100BE59D0 /* 0010-024px.png in Resources */,
 				492FF7531DBE8AFE009B4CDD /* 0001-030px.png in Resources */,
 				49B96A1B1E1DA56C00F33829 /* AppIcon-76@3x.png in Resources */,
 				49B96A1A1E1DA56C00F33829 /* AppIcon-76@2x.png in Resources */,
@@ -531,9 +544,11 @@
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
 				49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */,
 				49B96A131E1DA56C00F33829 /* AppIcon-40@1x.png in Resources */,
+				49447D3F1E2FF17A00BE59D0 /* AKHeatMapLegendOverlayView.xib in Resources */,
 				49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */,
 				492FF7541DBE8AFE009B4CDD /* 0002-030px.png in Resources */,
 				492FF7551DBE8AFE009B4CDD /* 0003-030px.png in Resources */,
+				49447D431E2FFD5D00BE59D0 /* 0009-030px.png in Resources */,
 				49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -606,6 +621,7 @@
 				4905E7E01DC151E8007A2BB2 /* AKRadarSpanOverlay.swift in Sources */,
 				49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */,
 				49223BF41DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift in Sources */,
+				49447D411E2FF65500BE59D0 /* AKHeatMapLegendOverlayView.swift in Sources */,
 				4905E7E81DC1C8C8007A2BB2 /* AKRainfallPoint.swift in Sources */,
 				49223C021DFF42C600C8CB61 /* AKHeatMapAlertsOverlayView.swift in Sources */,
 				49223BFC1DFF3CEE00C8CB61 /* AKDIMOverlayRenderer.swift in Sources */,

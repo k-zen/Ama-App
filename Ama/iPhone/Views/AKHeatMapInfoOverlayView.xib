@@ -30,7 +30,6 @@
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Media Intensidad:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duv-Qb-pDY" userLabel="Avg_Rain_Intensity">
                     <rect key="frame" x="9" y="7" width="150" height="22"/>
-                    <color key="backgroundColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="39L-50-85v"/>
                         <constraint firstAttribute="height" constant="22" id="3C2-kC-01q"/>
@@ -41,7 +40,6 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00mm/h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYG-xG-m8m" userLabel="Avg_Rain_Intensity_Value">
                     <rect key="frame" x="162" y="7" width="150" height="22"/>
-                    <color key="backgroundColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="Q4s-lc-UVc"/>
                         <constraint firstAttribute="width" constant="150" id="wo3-B5-vEX"/>
@@ -52,7 +50,6 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puntos de Reflectividad:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XC5-dc-4AP" userLabel="Reflectivity_Points">
                     <rect key="frame" x="9" y="31" width="150" height="22"/>
-                    <color key="backgroundColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="81K-Q8-Cwr"/>
                         <constraint firstAttribute="width" constant="150" id="tbJ-wc-mH2"/>
@@ -63,7 +60,6 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4L-vQ-K7T" userLabel="Reflectivity_Points_Value">
                     <rect key="frame" x="162" y="31" width="150" height="22"/>
-                    <color key="backgroundColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="8nL-w0-nTB"/>
                         <constraint firstAttribute="height" constant="22" id="9gU-Hn-I1q"/>
