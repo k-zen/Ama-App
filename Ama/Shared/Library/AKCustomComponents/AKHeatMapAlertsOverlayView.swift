@@ -14,7 +14,18 @@ class AKHeatMapAlertsOverlayView: AKCustomView
     // MARK: Actions
     @IBAction func pauseRefresh(_ sender: Any)
     {
-        NSLog("=> PAUSED!")
+        if let controller = controller as? AKHeatMapViewController {
+            if controller.stateRefreshTimer() {
+                controller.stopRefreshTimer()
+                self.pauseRefresh.setImage(UIImage(named: "0011-024px.png"), for: UIControlState.normal)
+                NSLog("=> PAUSED!")
+            }
+            else {
+                controller.startRefreshTimer()
+                self.pauseRefresh.setImage(UIImage(named: "0010-024px.png"), for: UIControlState.normal)
+                NSLog("=> RESUMED!")
+            }
+        }
     }
     
     // MARK: UIView Overriding

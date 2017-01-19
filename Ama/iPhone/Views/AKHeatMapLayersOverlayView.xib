@@ -34,7 +34,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTt-PS-1X8">
                     <rect key="frame" x="4" y="42" width="32" height="32"/>
-                    <color key="backgroundColor" red="0.27450980392156865" green="0.28235294117647058" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.87450980389999999" green="0.2156862745" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="UK1-Sh-4D5"/>
                         <constraint firstAttribute="width" constant="32" id="a2F-HS-YJm"/>

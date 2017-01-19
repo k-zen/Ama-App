@@ -1,3 +1,4 @@
+import AudioToolbox
 import CoreLocation
 import Foundation
 import MapKit
@@ -16,7 +17,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private let addUserPin = true
     private let addDIMOverlay = true
     private let hmInfoOverlayViewContainer = AKHeatMapInfoOverlayView()
-    internal let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
+    private let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
     private let hmAlertsOverlayViewContainer = AKHeatMapAlertsOverlayView()
     private let hmLayersOverlayViewContainer = AKHeatMapLayersOverlayView()
     private let hmLegendOverlayViewContainer = AKHeatMapLegendOverlayView()
@@ -39,6 +40,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             if !controller.hmLayersOverlayViewContainer.layersState {
                 return
             }
+            
+            AudioServicesPlaySystemSound(1057)
             
             caller.isEnabled = false
             UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKDisabledButtonBg })
@@ -343,14 +346,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
         
         // Add RainMap
-        self.loadRainMap(self, self.hmActionsOverlayViewContainer.progress, self.hmLayersOverlayViewContainer.layers)
-        self.refreshTimer = Timer.scheduledTimer(
-            timeInterval: 30.0,
-            target: self,
-            selector: #selector(AKHeatMapViewController.loadRainMapFunction),
-            userInfo: nil,
-            repeats: true
-        )
+        self.startRefreshTimer()
     }
     
     func clearMap()
@@ -501,4 +497,34 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     func hideLegend() { self.hmLegendOverlayViewSubView.isHidden = true }
     
     func showLegend() { self.hmLegendOverlayViewSubView.isHidden = false }
+    
+    func startRefreshTimer()
+    {
+        self.loadRainMapFunction()
+        self.refreshTimer = Timer.scheduledTimer(
+            timeInterval: 30.0,
+            target: self,
+            selector: #selector(AKHeatMapViewController.loadRainMapFunction),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+    
+    func stopRefreshTimer()
+    {
+        if let timer = self.refreshTimer {
+            if timer.isValid {
+                timer.invalidate()
+            }
+        }
+    }
+    
+    func stateRefreshTimer() -> Bool
+    {
+        if let timer = self.refreshTimer {
+            return timer.isValid
+        }
+        
+        return false
+    }
 }

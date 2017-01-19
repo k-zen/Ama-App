@@ -13,6 +13,7 @@
 		4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */; };
 		4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */; };
 		4905E7E81DC1C8C8007A2BB2 /* AKRainfallPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */; };
+		491A09A91E305E5A008953AE /* 0011-024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 491A09A81E305E5A008953AE /* 0011-024px.png */; };
 		49223BF21DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */; };
 		49223BF41DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */; };
 		49223BF61DFF2B1100C8CB61 /* 0005-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF51DFF2B1100C8CB61 /* 0005-030px.png */; };
@@ -88,6 +89,7 @@
 		4905E7E31DC15265007A2BB2 /* AKRainOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRainOverlay.swift; path = AKCustomComponents/AKRainOverlay.swift; sourceTree = "<group>"; };
 		4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRainOverlayRenderer.swift; path = AKCustomComponents/AKRainOverlayRenderer.swift; sourceTree = "<group>"; };
 		4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainfallPoint.swift; sourceTree = "<group>"; };
+		491A09A81E305E5A008953AE /* 0011-024px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0011-024px.png"; sourceTree = "<group>"; };
 		49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKHeatMapInfoOverlayView.xib; sourceTree = "<group>"; };
 		49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapInfoOverlayView.swift; sourceTree = "<group>"; };
 		49223BF51DFF2B1100C8CB61 /* 0005-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0005-030px.png"; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				494609F81E2B155000FC3AEA /* 0008-032px.png */,
 				49447D421E2FFD5D00BE59D0 /* 0009-030px.png */,
 				49447D441E301A9100BE59D0 /* 0010-024px.png */,
+				491A09A81E305E5A008953AE /* 0011-024px.png */,
 				49B96A1E1E1DA9B900F33829 /* AppIcon-20@1x.png */,
 				49B96A1F1E1DA9B900F33829 /* AppIcon-20@2x.png */,
 				49B96A201E1DA9B900F33829 /* AppIcon-20@3x.png */,
@@ -540,6 +543,7 @@
 				49B96A141E1DA56C00F33829 /* AppIcon-40@2x.png in Resources */,
 				49B96A111E1DA56C00F33829 /* AppIcon-29@2x.png in Resources */,
 				49B96A191E1DA56C00F33829 /* AppIcon-76@1x.png in Resources */,
+				491A09A91E305E5A008953AE /* 0011-024px.png in Resources */,
 				49B96A221E1DA9B900F33829 /* AppIcon-20@2x.png in Resources */,
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
 				49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */,
