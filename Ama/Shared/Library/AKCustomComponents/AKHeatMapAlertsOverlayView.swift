@@ -11,7 +11,6 @@ class AKHeatMapAlertsOverlayView: AKCustomView
     @IBOutlet weak var alertValue: UILabel!
     @IBOutlet weak var pauseRefresh: UIButton!
     @IBOutlet weak var location: UILabel!
-    @IBOutlet weak var locationIcon: UIImageView!
     
     // MARK: Actions
     @IBAction func pauseRefresh(_ sender: Any)
@@ -64,7 +63,6 @@ class AKHeatMapAlertsOverlayView: AKCustomView
         
         // Custom L&F.
         self.pauseRefresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.locationIcon.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
     }
     
     func startAnimation()

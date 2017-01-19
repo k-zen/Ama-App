@@ -5,6 +5,9 @@ import MapKit
 import TSMessages
 import UIKit
 
+// MARK: Typealias
+typealias ViewBlock = (_ view : UIView) -> Bool
+
 // MARK: Extensions
 extension Int
 {
@@ -43,6 +46,18 @@ extension String
     func splitOnNewLine () -> [String]
     {
         return self.components(separatedBy: CharacterSet.newlines)
+    }
+}
+
+extension UIView
+{
+    func loopViewHierarchy(block : ViewBlock?)
+    {
+        if block?(self) ?? true {
+            for subview in subviews {
+                subview.loopViewHierarchy(block: block)
+            }
+        }
     }
 }
 

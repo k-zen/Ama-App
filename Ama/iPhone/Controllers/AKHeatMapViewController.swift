@@ -5,9 +5,6 @@ import MapKit
 import TSMessages
 import UIKit
 
-class AKRadarAnnotation: MKPointAnnotation {}
-class AKUserAnnotation: MKPointAnnotation {}
-
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
@@ -21,8 +18,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     private let hmAlertsOverlayViewContainer = AKHeatMapAlertsOverlayView()
     private let hmLayersOverlayViewContainer = AKHeatMapLayersOverlayView()
     private let hmLegendOverlayViewContainer = AKHeatMapLegendOverlayView()
-    private let radarAnnotation = AKRadarAnnotation()
-    private let userAnnotation = AKUserAnnotation()
+    private var radarAnnotation: AKRadarAnnotation?
+    private var userAnnotation: AKUserAnnotation?
+    private var userAnnotationView: AKUserAnnotationView?
     private var radarOverlay: AKRadarSpanOverlay?
     private var userOverlay: AKUserAreaOverlay?
     private var dimOverlay: AKDIMOverlay?
@@ -191,7 +189,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                                     duration: 1.00,
                                     options: [UIViewAnimationOptions.transitionFlipFromTop],
                                     animations: {
-                                        controller.hmAlertsOverlayViewContainer.location.text = String(format: "%@, %@", p[0].locality ?? "---", p[0].country ?? "---") },
+                                        controller.hmAlertsOverlayViewContainer.location.text = String(format: "➤  %@, %@", p[0].locality ?? "---", p[0].country ?? "---") },
                                     completion: nil
                                 )
                             }
@@ -235,7 +233,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 customView.layer.borderWidth = 0.0
                 customView.layer.masksToBounds = true
                 customView.image = GlobalFunctions.AKCircleImageWithRadius(
-                    4,
+                    8,
                     strokeColor: UIColor.green,
                     strokeAlpha: 1.0,
                     fillColor: GlobalConstants.AKRadarAnnotationBg,
@@ -247,28 +245,33 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 return customView
             }
         }
-        if annotation.isKind(of: AKUserAnnotation.self) {
-            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotation.title!!) {
-                return annotationView
+        else if annotation.isKind(of: AKUserAnnotation.self) {
+            if let custom = annotation as? AKUserAnnotation {
+                if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: custom.titleLabel) {
+                    return annotationView
+                }
+                else {
+                    let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: custom.titleLabel)
+                    customView.canShowCallout = false
+                    customView.layer.backgroundColor = UIColor.clear.cgColor
+                    customView.layer.cornerRadius = 6.0
+                    customView.layer.borderWidth = 0.0
+                    customView.layer.masksToBounds = true
+                    customView.image = GlobalFunctions.AKCircleImageWithRadius(
+                        8,
+                        strokeColor: UIColor.white,
+                        strokeAlpha: 1.0,
+                        fillColor: GlobalConstants.AKUserAnnotationBg,
+                        fillAlpha: 1.0,
+                        lineWidth: CGFloat(1.4)
+                    )
+                    customView.clipsToBounds = false
+                    
+                    return customView
+                }
             }
             else {
-                let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotation.title!!)
-                customView.canShowCallout = true
-                customView.layer.backgroundColor = UIColor.clear.cgColor
-                customView.layer.cornerRadius = 6.0
-                customView.layer.borderWidth = 0.0
-                customView.layer.masksToBounds = true
-                customView.image = GlobalFunctions.AKCircleImageWithRadius(
-                    8,
-                    strokeColor: UIColor.white,
-                    strokeAlpha: 1.0,
-                    fillColor: GlobalConstants.AKUserAnnotationBg,
-                    fillAlpha: 1.0,
-                    lineWidth: CGFloat(1.4)
-                )
-                customView.clipsToBounds = false
-                
-                return customView
+                return nil
             }
         }
         else {
@@ -319,7 +322,45 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
     }
     
-    func mapView(_ mapView: MKMapView, annotationCanShowCallout annotation: MKAnnotation) -> Bool { return true }
+    func mapView(_ mapView: MKMapView, annotationCanShowCallout annotation: MKAnnotation) -> Bool
+    {
+        if annotation.isKind(of: AKUserAnnotation.self) {
+            return true
+        }
+        else if annotation.isKind(of: AKRadarAnnotation.self) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
+    {
+        if let annotation = view.annotation as? AKUserAnnotation {
+            if let v = (Bundle.main.loadNibNamed("AKUserAnnotationView", owner: self, options: nil))?[0] as? AKUserAnnotationView {
+                var newFrame = v.frame
+                newFrame.origin = CGPoint(x: -newFrame.size.width/2 + 10, y: -newFrame.size.height - 4)
+                v.frame = newFrame
+                
+                v.titleLabel.text = annotation.titleLabel
+                v.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                v.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
+                v.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
+                
+                self.userAnnotationView = v
+                
+                view.addSubview(self.userAnnotationView!)
+            }
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView)
+    {
+        if (view.annotation?.isKind(of: AKUserAnnotation.self))! {
+            self.userAnnotationView?.removeFromSuperview()
+        }
+    }
     
     // MARK: Observers
     func locationUpdated()
@@ -329,10 +370,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 let coordinate = GlobalFunctions.AKDelegate().currentPosition
                 
                 if self.addUserPin {
-                    self.userAnnotation.coordinate = coordinate
-                    self.userAnnotation.title = "Usuario"
-                    self.userAnnotation.subtitle = String(format: "Lat: %f, Lng: %f", coordinate.latitude, coordinate.longitude)
-                    self.mapView.addAnnotation(self.userAnnotation)
+                    self.userAnnotation = AKUserAnnotation(titleLabel: "Mi ubicación ahora...")
+                    self.userAnnotation?.coordinate = coordinate
+                    self.mapView.addAnnotation(self.userAnnotation!)
+                    self.mapView.selectAnnotation(self.userAnnotation!, animated: true)
                 }
                 
                 if self.addUserOverlay {
@@ -375,14 +416,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.addDefaultMapOverlays()
         
         if addRadarPin {
-            self.radarAnnotation.coordinate = GlobalConstants.AKRadarOrigin
-            self.radarAnnotation.title = "Radar"
-            self.radarAnnotation.subtitle = String(
-                format: "Lat: %f, Lng: %f",
-                GlobalConstants.AKRadarOrigin.latitude,
-                GlobalConstants.AKRadarOrigin.longitude
-            )
-            self.mapView.addAnnotation(self.radarAnnotation)
+            self.radarAnnotation = AKRadarAnnotation()
+            self.radarAnnotation?.coordinate = GlobalConstants.AKRadarOrigin
+            self.radarAnnotation?.title = "Radar"
+            self.mapView.addAnnotation(self.radarAnnotation!)
         }
         
         // Add RainMap
