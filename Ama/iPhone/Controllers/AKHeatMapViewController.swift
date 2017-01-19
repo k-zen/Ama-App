@@ -41,7 +41,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 return
             }
             
-            AudioServicesPlaySystemSound(1057)
+            // AudioServicesPlaySystemSound(1057)
             
             caller.isEnabled = false
             UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKDisabledButtonBg })
@@ -152,15 +152,53 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     }
     private let updateWeatherStatus: (AKHeatMapViewController) -> Void = { (controller) -> Void in
         if GlobalFunctions.AKDelegate().applicationActive {
-            controller.hmAlertsOverlayViewContainer.alertValue.text = "Lluvioso"
+            UIView.transition(
+                with: controller.hmAlertsOverlayViewContainer.alertValue,
+                duration: 1.00,
+                options: [.transitionCrossDissolve],
+                animations: {
+                    controller.hmAlertsOverlayViewContainer.alertValue.text = "Lluvioso" },
+                completion: nil
+            )
         }
         else {
-            controller.hmAlertsOverlayViewContainer.alertValue.text = "Deshabilitado"
+            UIView.transition(
+                with: controller.hmAlertsOverlayViewContainer.alertValue,
+                duration: 1.00,
+                options: [.transitionCrossDissolve],
+                animations: {
+                    controller.hmAlertsOverlayViewContainer.alertValue.text = "Deshabilitado" },
+                completion: nil
+            )
         }
         
         if GlobalConstants.AKDebug {
             NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
         }
+        
+        GlobalFunctions.AKDelay(2.0, task: {
+            CLGeocoder().reverseGeocodeLocation(
+                CLLocation(
+                    latitude: GlobalFunctions.AKDelegate().currentPosition.latitude,
+                    longitude: GlobalFunctions.AKDelegate().currentPosition.longitude
+                ),
+                completionHandler: { (placemarks, error) in
+                    if error == nil {
+                        if let p = placemarks {
+                            if p.count > 0 {
+                                UIView.transition(
+                                    with: controller.hmAlertsOverlayViewContainer.location,
+                                    duration: 1.00,
+                                    options: [UIViewAnimationOptions.transitionFlipFromTop],
+                                    animations: {
+                                        controller.hmAlertsOverlayViewContainer.location.text = String(format: "%@, %@", p[0].locality ?? "---", p[0].country ?? "---") },
+                                    completion: nil
+                                )
+                            }
+                        }
+                    }}
+            )
+        })
     }
     
     // MARK: Outlets
@@ -306,6 +344,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     self.userOverlay?.title = "Cobertura Usuario"
                     self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
                 }
+                
+                self.updateWeatherStatus(self)
             }
         }
     }

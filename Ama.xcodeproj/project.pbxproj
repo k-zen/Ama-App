@@ -37,6 +37,7 @@
 		494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F81E2B155000FC3AEA /* 0008-032px.png */; };
 		4960A4331E0C37EC0076E50C /* AmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A42C1E0C37EC0076E50C /* AmaTests.swift */; };
 		496707FD1DFB904100888E25 /* 2015-12-04--09%3A44%3A11,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */; };
+		4984220E1E310DF900DCF99B /* 0012-020px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4984220D1E310DF900DCF99B /* 0012-020px.png */; };
 		49B46A411E0C3F280052F75E /* AKFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B46A401E0C3F280052F75E /* AKFileIO.swift */; };
 		49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A001E1DA56C00F33829 /* 0006-512px.png */; };
 		49B96A101E1DA56C00F33829 /* AppIcon-29@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A011E1DA56C00F33829 /* AppIcon-29@1x.png */; };
@@ -116,6 +117,7 @@
 		4960A4321E0C37EC0076E50C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--09%3A44%3A11,00.ama"; sourceTree = "<group>"; };
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4984220D1E310DF900DCF99B /* 0012-020px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0012-020px.png"; sourceTree = "<group>"; };
 		49B46A401E0C3F280052F75E /* AKFileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileIO.swift; sourceTree = "<group>"; };
 		49B96A001E1DA56C00F33829 /* 0006-512px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0006-512px.png"; sourceTree = "<group>"; };
 		49B96A011E1DA56C00F33829 /* AppIcon-29@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-29@1x.png"; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				49447D421E2FFD5D00BE59D0 /* 0009-030px.png */,
 				49447D441E301A9100BE59D0 /* 0010-024px.png */,
 				491A09A81E305E5A008953AE /* 0011-024px.png */,
+				4984220D1E310DF900DCF99B /* 0012-020px.png */,
 				49B96A1E1E1DA9B900F33829 /* AppIcon-20@1x.png */,
 				49B96A1F1E1DA9B900F33829 /* AppIcon-20@2x.png */,
 				49B96A201E1DA9B900F33829 /* AppIcon-20@3x.png */,
@@ -550,6 +553,7 @@
 				49B96A131E1DA56C00F33829 /* AppIcon-40@1x.png in Resources */,
 				49447D3F1E2FF17A00BE59D0 /* AKHeatMapLegendOverlayView.xib in Resources */,
 				49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */,
+				4984220E1E310DF900DCF99B /* 0012-020px.png in Resources */,
 				492FF7541DBE8AFE009B4CDD /* 0002-030px.png in Resources */,
 				492FF7551DBE8AFE009B4CDD /* 0003-030px.png in Resources */,
 				49447D431E2FFD5D00BE59D0 /* 0009-030px.png in Resources */,
