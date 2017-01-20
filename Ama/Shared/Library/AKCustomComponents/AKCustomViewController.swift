@@ -230,16 +230,16 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
-            GlobalFunctions.AKDelegate().locationManager.requestWhenInUseAuthorization()
+            GlobalFunctions.instance(false).AKDelegate().locationManager.requestWhenInUseAuthorization()
             break
         case .authorizedWhenInUse:
             NSLog("=> LOCATION SERVICES ==> AUTHORIZED WHEN IN USE")
-            GlobalFunctions.AKDelegate().locationManager.startUpdatingLocation()
-            GlobalFunctions.AKDelegate().locationManager.startUpdatingHeading()
+            GlobalFunctions.instance(false).AKDelegate().locationManager.startUpdatingLocation()
+            GlobalFunctions.instance(false).AKDelegate().locationManager.startUpdatingHeading()
             break
         case .restricted, .denied:
             // Mark the App as inactive!
-            GlobalFunctions.AKDelegate().applicationActive = false
+            GlobalFunctions.instance(false).AKDelegate().applicationActive = false
             
             let alertController = UIAlertController(
                 title: "Acceso a Ubicación Deshabilitado",
@@ -249,7 +249,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
             alertController.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in }))
             alertController.addAction(UIAlertAction(title: "Abrir Configuraciones", style: .default) { (action) in
                 if let url = URL(string:UIApplicationOpenSettingsURLString) {
-                    GlobalFunctions.AKDelay(0.0, task: { () in UIApplication.shared.openURL(url) })
+                    GlobalFunctions.instance(false).AKDelay(0.0, task: { () in UIApplication.shared.openURL(url) })
                 }})
             self.present(alertController, animated: true, completion: nil)
             break

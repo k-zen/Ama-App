@@ -34,7 +34,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     
     // MARK: Closures
     private let loadRainMap: (AKHeatMapViewController, UIProgressView?, UIButton) -> Void = { (controller, progress, caller) -> Void in
-        GlobalFunctions.AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
+        GlobalFunctions.instance(false).AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
             if !controller.hmLayersOverlayViewContainer.layersState {
                 return
             }
@@ -49,38 +49,42 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             controller.addDefaultMapOverlays()
             controller.totalRainfallIntensity = 0
             
-            GlobalFunctions.AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+            GlobalFunctions.instance(false).AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
             
             let rainfallPoints = NSMutableArray()
             var counter: Int = 0
             let requestBody = ""
             let url = String(format: "%@/app/ultimodato", "http://devel.apkc.net:9001")
             let completionTask: (Any) -> Void = { (json) -> Void in
-                GlobalFunctions.AKDelay(0.0, task: { Void -> Void in
+                GlobalFunctions.instance(false).AKExecuteInMainThread {
                     progress?.setProgress(0.50, animated: true)
-                    
-                    // Always check that its a valid JSON document.
-                    if let dictionary = json as? [String : Any] {
-                        if let array = dictionary["arrayDatos"] as? [Any] {
-                            for element in array {
-                                if let e = element as? [String : Any] {
-                                    let intensity = e["intensidad"] as? Int ?? GlobalConstants.AKInvalidIntensity
-                                    let coordinates = e["coordenadas"] as? [String] ?? []
-                                    for coordinate in coordinates {
-                                        let lat = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[0])!)
-                                        let lon = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[1])!)
-                                        let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                                        
-                                        controller.totalRainfallIntensity += intensity
-                                        counter += 1
-                                        
-                                        rainfallPoints.add(AKRainfallPoint(center: location, intensity: intensity))
-                                    }
+                }
+                
+                // Always check that its a valid JSON document.
+                if let dictionary = json as? [String : Any] {
+                    if let array = dictionary["arrayDatos"] as? [Any] {
+                        for element in array {
+                            if let e = element as? [String : Any] {
+                                let intensity = e["intensidad"] as? Int ?? GlobalConstants.AKInvalidIntensity
+                                let coordinates = e["coordenadas"] as? [String] ?? []
+                                for coordinate in coordinates {
+                                    let lat = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[0])!)
+                                    let lon = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[1])!)
+                                    let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                                     
+                                    controller.totalRainfallIntensity += intensity
+                                    counter += 1
+                                    
+                                    rainfallPoints.add(AKRainfallPoint(center: location, intensity: intensity))
+                                }
+                                
+                                GlobalFunctions.instance(false).AKExecuteInMainThread {
                                     progress?.setProgress(0.75, animated: true)
                                 }
                             }
-                            
+                        }
+                        
+                        GlobalFunctions.instance(false).AKExecuteInMainThread {
                             controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
                             controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
                             controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
@@ -88,41 +92,43 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                             progress?.setProgress(1.0, animated: true)
                         }
                     }
-                    
+                }
+                
+                GlobalFunctions.instance(false).AKExecuteInMainThread {
                     controller.locationUpdated()
-                    
-                    GlobalFunctions.AKDelay(2.0, task: { Void -> Void in
-                        progress?.setProgress(0.0, animated: false)
-                        caller.isEnabled = true
-                        UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
-                    })
+                }
+                
+                GlobalFunctions.instance(false).AKDelay(2.0, task: { Void -> Void in
+                    progress?.setProgress(0.0, animated: false)
+                    caller.isEnabled = true
+                    UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
                 })
             }
             let failureTask: (Int, String) -> Void = { (code, message) -> Void in
                 switch code {
                 case ErrorCodes.ConnectionToBackEndError.rawValue:
-                    GlobalFunctions.AKPresentTopMessage(
+                    GlobalFunctions.instance(false).AKPresentTopMessage(
                         controller,
                         type: TSMessageNotificationType.error,
                         message: message
                     )
                     break
                 case ErrorCodes.InvalidMIMEType.rawValue:
-                    GlobalFunctions.AKPresentTopMessage(
+                    GlobalFunctions.instance(false).AKPresentTopMessage(
                         controller,
                         type: TSMessageNotificationType.error,
                         message: "El servicio devolvió una respuesta inválida. Reportando..."
                     )
                     break
                 case ErrorCodes.JSONProcessingError.rawValue:
-                    GlobalFunctions.AKPresentTopMessage(
+                    GlobalFunctions.instance(false).AKPresentTopMessage(
                         controller,
                         type: TSMessageNotificationType.error,
                         message: "Error procesando respuesta. Reportando..."
                     )
                     break
                 default:
-                    GlobalFunctions.AKPresentTopMessage(
+                    GlobalFunctions.instance(false).AKPresentTopMessage(
                         controller,
                         type: TSMessageNotificationType.error,
                         message: String(format: "%d: Error genérico.", code)
@@ -130,26 +136,28 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     break
                 }
                 
-                GlobalFunctions.AKDelay(2.0, task: { Void -> Void in
+                GlobalFunctions.instance(false).AKDelay(2.0, task: { Void -> Void in
                     progress?.setProgress(0.0, animated: false)
                     caller.isEnabled = true
                     UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
                 })
             }
             
-            AKWSUtils.makeRESTRequest(
-                controller: controller,
-                endpoint: url,
-                httpMethod: "GET",
-                headerValues: [ "Content-Type" : "application/json" ],
-                bodyValue: requestBody,
-                completionTask: { (jsonDocument) -> Void in completionTask(jsonDocument) },
-                failureTask: { (code, message) -> Void in failureTask(code, message!) }
-            )
+            GlobalFunctions.instance(false).AKDelay(0.0, isMain: false, task: { Void -> Void in
+                AKWSUtils.makeRESTRequest(
+                    controller: controller,
+                    endpoint: url,
+                    httpMethod: "GET",
+                    headerValues: [ "Content-Type" : "application/json" ],
+                    bodyValue: requestBody,
+                    completionTask: { (jsonDocument) -> Void in completionTask(jsonDocument) },
+                    failureTask: { (code, message) -> Void in failureTask(code, message!) }
+                )
+            })
         })
     }
     private let updateWeatherStatus: (AKHeatMapViewController) -> Void = { (controller) -> Void in
-        if GlobalFunctions.AKDelegate().applicationActive {
+        if GlobalFunctions.instance(false).AKDelegate().applicationActive {
             UIView.transition(
                 with: controller.hmAlertsOverlayViewContainer.alertValue,
                 duration: 1.00,
@@ -174,11 +182,11 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
         }
         
-        GlobalFunctions.AKDelay(2.0, task: {
+        GlobalFunctions.instance(false).AKDelay(2.0, task: {
             CLGeocoder().reverseGeocodeLocation(
                 CLLocation(
-                    latitude: GlobalFunctions.AKDelegate().currentPosition.latitude,
-                    longitude: GlobalFunctions.AKDelegate().currentPosition.longitude
+                    latitude: GlobalFunctions.instance(false).AKDelegate().currentPosition.latitude,
+                    longitude: GlobalFunctions.instance(false).AKDelegate().currentPosition.longitude
                 ),
                 completionHandler: { (placemarks, error) in
                     if error == nil {
@@ -214,7 +222,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     {
         super.viewDidAppear(animated)
         self.addDefaultViewOverlays()
-        GlobalFunctions.AKCenterMapOnLocation(mapView: self.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
+        GlobalFunctions.instance(false).AKCenterMapOnLocation(mapView: self.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
         self.updateWeatherStatus(self)
     }
     
@@ -232,7 +240,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 customView.layer.cornerRadius = 6.0
                 customView.layer.borderWidth = 0.0
                 customView.layer.masksToBounds = true
-                customView.image = GlobalFunctions.AKCircleImageWithRadius(
+                customView.image = GlobalFunctions.instance(false).AKCircleImageWithRadius(
                     8,
                     strokeColor: UIColor.green,
                     strokeAlpha: 1.0,
@@ -257,7 +265,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     customView.layer.cornerRadius = 6.0
                     customView.layer.borderWidth = 0.0
                     customView.layer.masksToBounds = true
-                    customView.image = GlobalFunctions.AKCircleImageWithRadius(
+                    customView.image = GlobalFunctions.instance(false).AKCircleImageWithRadius(
                         8,
                         strokeColor: UIColor.white,
                         strokeAlpha: 1.0,
@@ -365,9 +373,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Observers
     func locationUpdated()
     {
-        GlobalFunctions.AKExecuteInMainThread {
-            if GlobalFunctions.AKDelegate().applicationActive {
-                let coordinate = GlobalFunctions.AKDelegate().currentPosition
+        GlobalFunctions.instance(false).AKExecuteInMainThread {
+            if GlobalFunctions.instance(false).AKDelegate().applicationActive {
+                let coordinate = GlobalFunctions.instance(false).AKDelegate().currentPosition
                 
                 if self.addUserPin {
                     self.userAnnotation = AKUserAnnotation(titleLabel: "Mi ubicación ahora...")
@@ -480,7 +488,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     AKRadarSpanLinesOverlay(
                         coordinates: [
                             GlobalConstants.AKRadarOrigin,
-                            GlobalFunctions.AKLocationWithBearing(
+                            GlobalFunctions.instance(false).AKLocationWithBearing(
                                 bearing: Double(k * 30) * (M_PI / 180),
                                 distanceMeters: 50000,
                                 origin: GlobalConstants.AKRadarOrigin
@@ -561,7 +569,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
         self.hmLegendOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
         
-        GlobalFunctions.AKAddBorderDeco(
+        GlobalFunctions.instance(false).AKAddBorderDeco(
             self.hmAlertsOverlayViewSubView,
             color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,

@@ -69,17 +69,17 @@ struct GlobalConstants {
     static let AKNotificationBarSound = 1057
     static let AKDefaultFont = "HelveticaNeue-CondensedBold"
     // Colors: https://github.com/morhetz/gruvbox
-    static let AKDefaultBg = GlobalFunctions.AKHexColor(0x29282D)
-    static let AKDefaultFg = GlobalFunctions.AKHexColor(0xFFFFFF)
+    static let AKDefaultBg = GlobalFunctions.instance(false).AKHexColor(0x29282D)
+    static let AKDefaultFg = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
     static let AKTabBarBg = GlobalConstants.AKDefaultBg
-    static let AKTabBarTint = GlobalFunctions.AKHexColor(0xFFFFFF)
+    static let AKTabBarTint = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
-    static let AKDefaultViewBorderBg = GlobalFunctions.AKHexColor(0x000000)
-    static let AKUserAnnotationBg = GlobalFunctions.AKHexColor(0xDF3732)
-    static let AKUserOverlayBg = GlobalFunctions.AKHexColor(0xDF3732)
+    static let AKDefaultViewBorderBg = GlobalFunctions.instance(false).AKHexColor(0x000000)
+    static let AKUserAnnotationBg = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
+    static let AKUserOverlayBg = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
     static let AKRadarAnnotationBg = UIColor.green
-    static let AKDisabledButtonBg = GlobalFunctions.AKHexColor(0x999999)
-    static let AKEnabledButtonBg = GlobalFunctions.AKHexColor(0xDF3732)
+    static let AKDisabledButtonBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
+    static let AKEnabledButtonBg = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
     // static let AKTableHeaderCellBg = GlobalFunctions.AKHexColor(0x333333)
     // static let AKTableHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x72BF44)
     // static let AKHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x555555)
@@ -190,7 +190,29 @@ enum CustomBorderDecorationPosition: Int {
 
 // MARK: Global Functions
 class GlobalFunctions {
-    static func AKAddBorderDeco(_ component: UIView, color: CGColor, thickness: Double, position: CustomBorderDecorationPosition) -> Void
+    private var showDebugInformation = false
+    
+    ///
+    /// Creates and configures a new instance of the class. Use this method for
+    /// calling all other functions.
+    ///
+    static func instance(_ showDebugInformation: Bool) -> GlobalFunctions
+    {
+        let instance = GlobalFunctions()
+        instance.showDebugInformation = showDebugInformation
+        
+        return instance
+    }
+    
+    ///
+    /// Adds a border line decoration to any UIView or descendant of UIView.
+    ///
+    /// - Parameter component: The view where to add the border.
+    /// - Parameter color: The color of the border.
+    /// - Parameter thickness: The thickness of the border.
+    /// - Parameter position: It can be 4 types: top, bottom, left, right.
+    ///
+    func AKAddBorderDeco(_ component: UIView, color: CGColor, thickness: Double, position: CustomBorderDecorationPosition)
     {
         let border = CALayer()
         border.backgroundColor = color
@@ -212,10 +234,12 @@ class GlobalFunctions {
         component.layer.addSublayer(border)
     }
     
+    ///
     /// Computes the App's build version.
     ///
     /// - Returns: The App's build version.
-    static func AKAppBuild() -> String
+    ///
+    func AKAppBuild() -> String
     {
         if let b = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             return b
@@ -225,10 +249,12 @@ class GlobalFunctions {
         }
     }
     
+    ///
     /// Computes the App's version.
     ///
     /// - Returns: The App's version.
-    static func AKAppVersion() -> String
+    ///
+    func AKAppVersion() -> String
     {
         if let v = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return v
@@ -238,26 +264,38 @@ class GlobalFunctions {
         }
     }
     
+    ///
     /// Executes a function with a delay.
     ///
     /// - Parameter delay: The delay.
+    /// - Parameter isMain: Should we launch the task in the main thread...?
     /// - Parameter task:  The function to execute.
-    static func AKDelay(_ delay: Double, task: @escaping (Void) -> Void)
+    ///
+    func AKDelay(_ delay: Double, isMain: Bool = true, task: @escaping (Void) -> Void)
     {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: task)
+        if isMain {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: task)
+        }
+        else {
+            DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: task)
+        }
     }
     
+    ///
     /// Returns the App's delegate object.
     ///
     /// - Returns: The App's delegate object.
-    static func AKDelegate() -> AKAppDelegate { return UIApplication.shared.delegate as! AKAppDelegate }
+    ///
+    func AKDelegate() -> AKAppDelegate { return UIApplication.shared.delegate as! AKAppDelegate }
     
+    ///
     /// Centers a map on a given coordinate and sets the viewport according to a radius.
     ///
     /// - Parameter mapView:   The mapview object.
     /// - Parameter location:  The coordinates.
     /// - Parameter zoomLevel: The zoom level to use.
-    static func AKCenterMapOnLocation(mapView: MKMapView, location: CLLocationCoordinate2D, zoomLevel: ZoomLevel)
+    ///
+    func AKCenterMapOnLocation(mapView: MKMapView, location: CLLocationCoordinate2D, zoomLevel: ZoomLevel)
     {
         let span = MKCoordinateSpanMake(
             zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers,
@@ -274,14 +312,15 @@ class GlobalFunctions {
         )
     }
     
+    ///
     /// Computes the distance between two points and returns the distance in meters.
     ///
     /// - Parameter pointA: Point A location.
     /// - Parameter pointB: Point B location.
     ///
     /// - Returns: TRUE if within range, FALSE otherwise.
-    static func AKComputeDistanceBetweenTwoPoints(pointA: CLLocationCoordinate2D,
-                                                  pointB: CLLocationCoordinate2D) -> CLLocationDistance
+    ///
+    func AKComputeDistanceBetweenTwoPoints(pointA: CLLocationCoordinate2D, pointB: CLLocationCoordinate2D) -> CLLocationDistance
     {
         let pointA = CLLocation(latitude: pointA.latitude, longitude: pointA.longitude)
         let pointB = CLLocation(latitude: pointB.latitude, longitude: pointB.longitude)
@@ -289,6 +328,7 @@ class GlobalFunctions {
         return pointA.distance(from: pointB)
     }
     
+    ///
     /// Create a polygon with the form of a circle.
     ///
     /// - Parameter title:           The title of the polygon.
@@ -296,7 +336,8 @@ class GlobalFunctions {
     /// - Parameter withMeterRadius: The radius of the circle.
     ///
     /// - Returns: A polygon object in the form of a circle.
-    static func AKCreateCircleForCoordinate(_ title: String, coordinate: CLLocationCoordinate2D, withMeterRadius: Double) -> MKPolygon
+    ///
+    func AKCreateCircleForCoordinate(_ title: String, coordinate: CLLocationCoordinate2D, withMeterRadius: Double) -> MKPolygon
     {
         let degreesBetweenPoints = 8.0
         let numberOfPoints = floor(360.0 / degreesBetweenPoints)
@@ -323,6 +364,7 @@ class GlobalFunctions {
         return polygon
     }
     
+    ///
     /// Create an image with the form of a circle.
     ///
     /// - Parameter radius:      The radius of the circle.
@@ -332,7 +374,8 @@ class GlobalFunctions {
     /// - Parameter fillAlpha:   The alpha factor of the fill.
     ///
     /// - Returns: An image object in the form of a circle.
-    static func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float, lineWidth: CGFloat = 1) -> UIImage
+    ///
+    func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float, lineWidth: CGFloat = 1) -> UIImage
     {
         let buffer = 2
         let rect = CGRect(x: 0, y: 0, width: radius * 2 + buffer, height: radius * 2 + buffer)
@@ -353,52 +396,60 @@ class GlobalFunctions {
         return image!
     }
     
-    
-    static func AKExecuteInMainThread(code: @escaping (Void) -> Void)
+    ///
+    /// Executes some code inside a closure but in the main thread.
+    ///
+    /// - Parameter code: The code to be executed in the main thread.
+    ///
+    func AKExecuteInMainThread(code: @escaping (Void) -> Void)
     {
         OperationQueue.main.addOperation({ () -> Void in code() })
     }
     
+    ///
     /// Returns the associated color for an interval of rainfall intensity.
     ///
     /// - Parameter ri: The value of rainfall intensity.
     ///
     /// - Returns: A color object.
-    static func AKGetInfoForRainfallIntensity(ri: Int) -> AKRainfallIntensityColor
+    ///
+    func AKGetInfoForRainfallIntensity(ri: Int) -> AKRainfallIntensityColor
     {
         switch ri {
         case 1 ..< 25:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
         case 25 ..< 50:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
         case 50 ..< 75:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
         case 75 ..< 100:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
         case 100 ..< 125:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
         case 125 ..< 150:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
         case 150 ..< 175:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
         case 175 ..< 200:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
         case 200 ..< 225:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
         case 225 ..< Int.max:
-            return AKRainfallIntensityColor(color: AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
         default:
             return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
         }
     }
     
+    ///
     /// Computes and generates a **UIColor** object based
     /// on it's hexadecimal representation.
     ///
     /// - Parameter hex: The hexadecimal representation of the color.
     ///
     /// - Returns: A **UIColor** object.
-    static func AKHexColor(_ hex: UInt) -> UIColor
+    ///
+    func AKHexColor(_ hex: UInt) -> UIColor
     {
         let red = CGFloat((hex >> 16) & 0xFF) / 255.0
         let green = CGFloat((hex >> 8) & 0xFF) / 255.0
@@ -407,6 +458,7 @@ class GlobalFunctions {
         return UIColor.init(red: red, green: green, blue: blue, alpha: 1)
     }
     
+    ///
     /// Returns a geographic location (lat, long) from an original location with bearing and the
     /// distance computed in meters from the original location.
     ///
@@ -415,8 +467,13 @@ class GlobalFunctions {
     /// - Parameter origin: The original location. (Point A)
     ///
     /// - Returns: A location object (Point Z).
-    static func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: CLLocationCoordinate2D) -> CLLocationCoordinate2D
+    ///
+    func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: CLLocationCoordinate2D) -> CLLocationCoordinate2D
     {
+        if self.showDebugInformation {
+            NSLog("=> INFO: LocationWithBearing: Origin(lat:%f,lon:%f)", origin.latitude, origin.longitude)
+        }
+        
         let distRadians: Double = distanceMeters / GlobalConstants.AKEarthRadius
         
         let lat1: Double = origin.latitude * (M_PI / 180)
@@ -425,20 +482,27 @@ class GlobalFunctions {
         let lat2 = asin(sin(lat1) * cos(distRadians) + cos(lat1) * sin(distRadians) * cos(bearing))
         let lon2 = lon1 + atan2(sin(bearing) * sin(distRadians) * cos(lat1), cos(distRadians) - sin(lat1) * sin(lat2))
         
-        return CLLocationCoordinate2D(latitude: lat2 * (180 / M_PI), longitude: lon2 * (180 / M_PI))
+        let pointZ = CLLocationCoordinate2D(latitude: lat2 * (180 / M_PI), longitude: lon2 * (180 / M_PI))
+        if self.showDebugInformation {
+            NSLog("=> INFO: LocationWithBearing: Point.Z(lat:%f,lon:%f)", pointZ.latitude, pointZ.longitude)
+        }
+        
+        return pointZ
     }
     
+    ///
     /// Returns the App's master file object.
     ///
-    /// - Returns The App's master file.
-    static func AKObtainMasterFile() -> AKMasterFile
+    /// - Returns: The App's master file.
+    ///
+    func AKObtainMasterFile() -> AKMasterFile
     {
-        return GlobalFunctions.AKDelegate().masterFile
+        return GlobalFunctions.instance(false).AKDelegate().masterFile
     }
     
-    static func AKPresentTopMessage(_ presenter: UIViewController!, type: TSMessageNotificationType, message: String!)
+    func AKPresentTopMessage(_ presenter: UIViewController!, type: TSMessageNotificationType, message: String!)
     {
-        GlobalFunctions.AKExecuteInMainThread {
+        GlobalFunctions.instance(false).AKExecuteInMainThread {
             let title: String
             switch type {
             case .message:
@@ -468,11 +532,13 @@ class GlobalFunctions {
         }
     }
     
+    ///
     /// Executes code and measures the execution time.
     ///
     /// - Parameter title: The title of the operation.
     /// - Parameter operation: The code to be executed in a closure.
-    static func AKPrintTimeElapsedWhenRunningCode(title: String, operation: () -> ())
+    ///
+    func AKPrintTimeElapsedWhenRunningCode(title: String, operation: () -> ())
     {
         let startTime = CFAbsoluteTimeGetCurrent()
         operation()
@@ -480,7 +546,7 @@ class GlobalFunctions {
         NSLog("=> INFO: TIME ELAPSED FOR \(title): %.4f seconds.", timeElapsed)
     }
     
-    static func AKRangeFromNSRange(_ nsRange: NSRange, forString str: String) -> Range<String.Index>?
+    func AKRangeFromNSRange(_ nsRange: NSRange, forString str: String) -> Range<String.Index>?
     {
         let fromUTF16 = str.utf16.startIndex.advanced(by: nsRange.location)
         let toUTF16 = fromUTF16.advanced(by: nsRange.length)
@@ -492,6 +558,7 @@ class GlobalFunctions {
         return nil
     }
     
+    ///
     /// Create an image with the form of a square.
     ///
     /// - Parameter side:        The length of the side.
@@ -501,7 +568,8 @@ class GlobalFunctions {
     /// - Parameter fillAlpha:   The alpha factor of the fill.
     ///
     /// - Returns: An image object in the form of a square.
-    static func AKSquareImage(_ sideLength: Double, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float) -> UIImage
+    ///
+    func AKSquareImage(_ sideLength: Double, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float) -> UIImage
     {
         let buffer = 2.0
         let rect = CGRect(x: 0, y: 0, width: sideLength * 2.0 + buffer, height: sideLength * 2.0 + buffer)
@@ -522,6 +590,7 @@ class GlobalFunctions {
         return image!
     }
     
+    ///
     /// Converts the zoom scale provided by MapKit to a
     /// standard scale.
     ///
@@ -529,7 +598,8 @@ class GlobalFunctions {
     /// - Parameter debug: Show debug info.
     ///
     /// - Returns: A zoom level.
-    static func AKZoomScaleConvert(zoomScale: MKZoomScale, debug: Bool) -> Int
+    ///
+    func AKZoomScaleConvert(zoomScale: MKZoomScale, debug: Bool) -> Int
     {
         let maxZoom: Int = Int(log2(MKMapSizeWorld.width / 256.0))
         if debug { NSLog("=> INFO: MAX ZOOM: %i", maxZoom) }

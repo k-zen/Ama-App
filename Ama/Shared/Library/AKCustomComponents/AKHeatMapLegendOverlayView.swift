@@ -45,16 +45,16 @@ class AKHeatMapLegendOverlayView: AKCustomView
         
         // Create Legend
         let frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        self.img01.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
-        self.img02.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
-        self.img03.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C03.rawValue), frame: frame)
-        self.img04.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C04.rawValue), frame: frame)
-        self.img05.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C05.rawValue), frame: frame)
-        self.img06.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C06.rawValue), frame: frame)
-        self.img07.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C07.rawValue), frame: frame)
-        self.img08.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C08.rawValue), frame: frame)
-        self.img09.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C09.rawValue), frame: frame)
-        self.img10.image = UIImage.fromColor(color: GlobalFunctions.AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
+        self.img01.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
+        self.img02.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
+        self.img03.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C03.rawValue), frame: frame)
+        self.img04.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C04.rawValue), frame: frame)
+        self.img05.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C05.rawValue), frame: frame)
+        self.img06.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C06.rawValue), frame: frame)
+        self.img07.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C07.rawValue), frame: frame)
+        self.img08.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C08.rawValue), frame: frame)
+        self.img09.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C09.rawValue), frame: frame)
+        self.img10.image = UIImage.fromColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
         
         self.animation.fromValue = 0.85
         self.animation.toValue = 0.65
