@@ -378,6 +378,11 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 let coordinate = GlobalFunctions.instance(false).AKDelegate().currentPosition
                 
                 if self.addUserPin {
+                    if self.userAnnotation != nil {
+                        self.mapView.deselectAnnotation(self.userAnnotation!, animated: true)
+                        self.mapView.removeAnnotation(self.userAnnotation!)
+                    }
+                    
                     self.userAnnotation = AKUserAnnotation(titleLabel: "Mi ubicación ahora...")
                     self.userAnnotation?.coordinate = coordinate
                     self.mapView.addAnnotation(self.userAnnotation!)
