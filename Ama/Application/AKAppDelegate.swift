@@ -36,6 +36,7 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
         // Persist data.
         do {
             NSLog("=> SAVING *MASTER FILE* TO FILE.")
+            NSLog("%@", self.masterFile.printObject())
             try AKFileUtils.write(GlobalConstants.AKMasterFileName, newData: self.masterFile)
         }
         catch {
