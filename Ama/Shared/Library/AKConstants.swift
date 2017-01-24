@@ -65,7 +65,7 @@ extension UIView
 struct GlobalConstants {
     static let AKDebug = true
     static let AKMasterFileName = "MasterFile.dat"
-    static let AKNotificationBarDismissDelay = 4
+    static let AKNotificationBarDismissDelay = 2.0
     static let AKNotificationBarSound = 1057
     static let AKDefaultFont = "HelveticaNeue-CondensedBold"
     // Colors: https://github.com/morhetz/gruvbox
@@ -75,7 +75,8 @@ struct GlobalConstants {
     static let AKTabBarTint = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
     static let AKDefaultViewBorderBg = GlobalFunctions.instance(false).AKHexColor(0x000000)
-    static let AKUserAnnotationBg = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
+    static let AKUserAnnotationBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
+    static let AKAlertAnnotationBg = GlobalFunctions.instance(false).AKHexColor(0x555555)
     static let AKUserOverlayBg = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
     static let AKRadarAnnotationBg = UIColor.green
     static let AKDisabledButtonBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
@@ -100,6 +101,7 @@ struct GlobalConstants {
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
     static let AKRadarOrigin = CLLocationCoordinate2DMake(GlobalConstants.AKRadarLatitude, GlobalConstants.AKRadarLongitude)
     static let AKInvalidIntensity: Int = -1
+    static let AKMaxUserDefinedAlerts: Int = 3
 }
 
 struct AKRainfallIntensityColor {

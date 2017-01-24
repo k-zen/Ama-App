@@ -37,6 +37,9 @@
 		494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F81E2B155000FC3AEA /* 0008-032px.png */; };
 		4960A4331E0C37EC0076E50C /* AmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A42C1E0C37EC0076E50C /* AmaTests.swift */; };
 		496707FD1DFB904100888E25 /* 2015-12-04--09%3A44%3A11,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */; };
+		497DCA5B1E3640CE00EBF3C4 /* AKAlertAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497DCA5A1E3640CE00EBF3C4 /* AKAlertAnnotation.swift */; };
+		497DCA5D1E36413700EBF3C4 /* AKAlertAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497DCA5C1E36413700EBF3C4 /* AKAlertAnnotationView.swift */; };
+		497DCA5F1E36417F00EBF3C4 /* AKAlertAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497DCA5E1E36417F00EBF3C4 /* AKAlertAnnotationView.xib */; };
 		4984220E1E310DF900DCF99B /* 0012-020px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4984220D1E310DF900DCF99B /* 0012-020px.png */; };
 		498422101E31331500DCF99B /* AKUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4984220F1E31331500DCF99B /* AKUserAnnotation.swift */; };
 		498422121E3133BA00DCF99B /* AKUserAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498422111E3133BA00DCF99B /* AKUserAnnotationView.swift */; };
@@ -74,6 +77,9 @@
 		49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5531D9317CA003E0359 /* AKHeatMapViewController.swift */; };
 		49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */; };
 		49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF5571D9317CA003E0359 /* Assets.xcassets */; };
+		49FEC27B1E36D3DE00328467 /* AKHeatMapClosures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEC27A1E36D3DE00328467 /* AKHeatMapClosures.swift */; };
+		49FEC27D1E37026200328467 /* AKHeatMapUtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEC27C1E37026200328467 /* AKHeatMapUtilityFunctions.swift */; };
+		49FEC27F1E37029500328467 /* AKAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEC27E1E37029500328467 /* AKAlert.swift */; };
 		D949E3C4129F5FC2DB52A98D /* Pods_Ama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877718A541E64678B753DA50 /* Pods_Ama.framework */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +127,9 @@
 		4960A4321E0C37EC0076E50C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--09%3A44%3A11,00.ama"; sourceTree = "<group>"; };
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		497DCA5A1E3640CE00EBF3C4 /* AKAlertAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertAnnotation.swift; sourceTree = "<group>"; };
+		497DCA5C1E36413700EBF3C4 /* AKAlertAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertAnnotationView.swift; sourceTree = "<group>"; };
+		497DCA5E1E36417F00EBF3C4 /* AKAlertAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertAnnotationView.xib; sourceTree = "<group>"; };
 		4984220D1E310DF900DCF99B /* 0012-020px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0012-020px.png"; sourceTree = "<group>"; };
 		4984220F1E31331500DCF99B /* AKUserAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAnnotation.swift; sourceTree = "<group>"; };
 		498422111E3133BA00DCF99B /* AKUserAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAnnotationView.swift; sourceTree = "<group>"; };
@@ -162,6 +171,9 @@
 		49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConfigViewController.swift; sourceTree = "<group>"; };
 		49ECF5571D9317CA003E0359 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49ECF55E1D9317CA003E0359 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49FEC27A1E36D3DE00328467 /* AKHeatMapClosures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapClosures.swift; sourceTree = "<group>"; };
+		49FEC27C1E37026200328467 /* AKHeatMapUtilityFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapUtilityFunctions.swift; sourceTree = "<group>"; };
+		49FEC27E1E37029500328467 /* AKAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlert.swift; sourceTree = "<group>"; };
 		7E1E5206C4883F3670F3EC77 /* Pods-Ama.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ama.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ama/Pods-Ama.debug.xcconfig"; sourceTree = "<group>"; };
 		877718A541E64678B753DA50 /* Pods_Ama.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ama.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA3841395D8278F8472F2F04 /* Pods-Ama.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ama.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ama/Pods-Ama.release.xcconfig"; sourceTree = "<group>"; };
@@ -316,6 +328,7 @@
 		49ECF5551D9317CA003E0359 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				497DCA5E1E36417F00EBF3C4 /* AKAlertAnnotationView.xib */,
 				49223BF71DFF2E7200C8CB61 /* AKHeatMapActionsOverlayView.xib */,
 				49223BFF1DFF41FE00C8CB61 /* AKHeatMapAlertsOverlayView.xib */,
 				49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */,
@@ -391,11 +404,16 @@
 		49ECF55C1D9317CA003E0359 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				49FEC27E1E37029500328467 /* AKAlert.swift */,
+				497DCA5A1E3640CE00EBF3C4 /* AKAlertAnnotation.swift */,
+				497DCA5C1E36413700EBF3C4 /* AKAlertAnnotationView.swift */,
 				49D0BEEE1DB121D700149DEE /* AKConstants.swift */,
 				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
 				49223BFD1DFF3D2100C8CB61 /* AKDIMOverlay.swift */,
 				49223BFB1DFF3CEE00C8CB61 /* AKDIMOverlayRenderer.swift */,
 				49D621B91E12E65D004388AF /* AKFileUtils.swift */,
+				49FEC27A1E36D3DE00328467 /* AKHeatMapClosures.swift */,
+				49FEC27C1E37026200328467 /* AKHeatMapUtilityFunctions.swift */,
 				49D0BEF21DB121D700149DEE /* AKInputData.swift */,
 				49D621BA1E12E65D004388AF /* AKMasterFile.swift */,
 				498422131E31341400DCF99B /* AKRadarAnnotation.swift */,
@@ -560,6 +578,7 @@
 				49B96A111E1DA56C00F33829 /* AppIcon-29@2x.png in Resources */,
 				49B96A191E1DA56C00F33829 /* AppIcon-76@1x.png in Resources */,
 				491A09A91E305E5A008953AE /* 0011-024px.png in Resources */,
+				497DCA5F1E36417F00EBF3C4 /* AKAlertAnnotationView.xib in Resources */,
 				49B96A221E1DA9B900F33829 /* AppIcon-20@2x.png in Resources */,
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
 				49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */,
@@ -650,20 +669,25 @@
 				49223BFC1DFF3CEE00C8CB61 /* AKDIMOverlayRenderer.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
 				490048191E1ADB4800EA8132 /* AKWSUtils.swift in Sources */,
+				497DCA5D1E36413700EBF3C4 /* AKAlertAnnotationView.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
 				49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */,
 				4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */,
 				49C423221E1AC60900728DF0 /* AKUser.swift in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
 				49D621C01E12E65D004388AF /* AKMasterFile.swift in Sources */,
+				497DCA5B1E3640CE00EBF3C4 /* AKAlertAnnotation.swift in Sources */,
 				4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */,
 				494609F61E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift in Sources */,
+				49FEC27B1E36D3DE00328467 /* AKHeatMapClosures.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
 				498422141E31341400DCF99B /* AKRadarAnnotation.swift in Sources */,
 				4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */,
 				49223BFE1DFF3D2100C8CB61 /* AKDIMOverlay.swift in Sources */,
 				49223BFA1DFF2F3A00C8CB61 /* AKHeatMapActionsOverlayView.swift in Sources */,
 				49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */,
+				49FEC27D1E37026200328467 /* AKHeatMapUtilityFunctions.swift in Sources */,
+				49FEC27F1E37029500328467 /* AKAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

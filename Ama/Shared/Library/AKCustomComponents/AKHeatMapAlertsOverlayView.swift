@@ -16,13 +16,13 @@ class AKHeatMapAlertsOverlayView: AKCustomView
     @IBAction func pauseRefresh(_ sender: Any)
     {
         if let controller = controller as? AKHeatMapViewController {
-            if controller.stateRefreshTimer() {
-                controller.stopRefreshTimer()
+            if AKHeatMapUtilityFunctions.stateRefreshTimer(controller) {
+                AKHeatMapUtilityFunctions.stopRefreshTimer(controller)
                 self.pauseRefresh.setImage(UIImage(named: "0011-024px.png"), for: UIControlState.normal)
                 NSLog("=> PAUSED!")
             }
             else {
-                controller.startRefreshTimer()
+                AKHeatMapUtilityFunctions.startRefreshTimer(controller)
                 self.pauseRefresh.setImage(UIImage(named: "0010-024px.png"), for: UIControlState.normal)
                 NSLog("=> RESUMED!")
             }

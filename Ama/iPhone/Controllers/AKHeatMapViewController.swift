@@ -5,207 +5,42 @@ import MapKit
 import TSMessages
 import UIKit
 
+/// ViewController for the rainmap/heatmap.
+///
+/// - Author: Andreas P. Koenzen <akc@apkc.net>
+/// - Copyright: 2017 APKC.net
+/// - Date: Jan 24, 2017
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
-    private let addRadarOverlay = true
-    private let addRadarPin = false
-    private let addUserOverlay = false
-    private let addUserPin = true
-    private let addDIMOverlay = true
-    private let hmInfoOverlayViewContainer = AKHeatMapInfoOverlayView()
-    private let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
-    private let hmAlertsOverlayViewContainer = AKHeatMapAlertsOverlayView()
-    private let hmLayersOverlayViewContainer = AKHeatMapLayersOverlayView()
-    private let hmLegendOverlayViewContainer = AKHeatMapLegendOverlayView()
-    private var radarAnnotation: AKRadarAnnotation?
-    private var userAnnotation: AKUserAnnotation?
-    private var userAnnotationView: AKUserAnnotationView?
-    private var radarOverlay: AKRadarSpanOverlay?
-    private var userOverlay: AKUserAreaOverlay?
-    private var dimOverlay: AKDIMOverlay?
-    private var hmInfoOverlayViewSubView: UIView!
-    private var hmActionsOverlayViewSubView: UIView!
-    private var hmAlertsOverlayViewSubView: UIView!
-    private var hmLayersOverlayViewSubView: UIView!
-    private var hmLegendOverlayViewSubView: UIView!
-    private var totalRainfallIntensity: Int = 0
-    private var refreshTimer: Timer?
-    
-    // MARK: Closures
-    private let loadRainMap: (AKHeatMapViewController, UIProgressView?, UIButton) -> Void = { (controller, progress, caller) -> Void in
-        GlobalFunctions.instance(false).AKPrintTimeElapsedWhenRunningCode(title: "Load_HeatMap", operation: { Void -> Void in
-            if !controller.hmLayersOverlayViewContainer.layersState {
-                return
-            }
-            
-            // AudioServicesPlaySystemSound(1057)
-            
-            caller.isEnabled = false
-            UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKDisabledButtonBg })
-            progress?.setProgress(0.25, animated: false)
-            
-            controller.clearMap()
-            controller.addDefaultMapOverlays()
-            controller.totalRainfallIntensity = 0
-            
-            GlobalFunctions.instance(false).AKCenterMapOnLocation(mapView: controller.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
-            
-            let rainfallPoints = NSMutableArray()
-            var counter: Int = 0
-            let requestBody = ""
-            let url = String(format: "%@/app/ultimodato", "http://devel.apkc.net:9001")
-            let completionTask: (Any) -> Void = { (json) -> Void in
-                GlobalFunctions.instance(false).AKExecuteInMainThread {
-                    progress?.setProgress(0.50, animated: true)
-                }
-                
-                // Always check that its a valid JSON document.
-                if let dictionary = json as? [String : Any] {
-                    if let array = dictionary["arrayDatos"] as? [Any] {
-                        for element in array {
-                            if let e = element as? [String : Any] {
-                                let intensity = e["intensidad"] as? Int ?? GlobalConstants.AKInvalidIntensity
-                                let coordinates = e["coordenadas"] as? [String] ?? []
-                                for coordinate in coordinates {
-                                    let lat = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[0])!)
-                                    let lon = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[1])!)
-                                    let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                                    
-                                    controller.totalRainfallIntensity += intensity
-                                    counter += 1
-                                    
-                                    rainfallPoints.add(AKRainfallPoint(center: location, intensity: intensity))
-                                }
-                                
-                                GlobalFunctions.instance(false).AKExecuteInMainThread {
-                                    progress?.setProgress(0.75, animated: true)
-                                }
-                            }
-                        }
-                        
-                        GlobalFunctions.instance(false).AKExecuteInMainThread {
-                            controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
-                            controller.hmInfoOverlayViewContainer.avgRIValue.text = String(format: "%.2fmm/h", (Double(controller.totalRainfallIntensity) / Double(counter)))
-                            controller.hmInfoOverlayViewContainer.reflectivityPointsValue.text = String(format: "%d", counter)
-                            
-                            progress?.setProgress(1.0, animated: true)
-                        }
-                    }
-                }
-                
-                GlobalFunctions.instance(false).AKExecuteInMainThread {
-                    controller.locationUpdated()
-                }
-                
-                GlobalFunctions.instance(false).AKDelay(2.0, task: { Void -> Void in
-                    progress?.setProgress(0.0, animated: false)
-                    caller.isEnabled = true
-                    UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
-                })
-            }
-            let failureTask: (Int, String) -> Void = { (code, message) -> Void in
-                switch code {
-                case ErrorCodes.ConnectionToBackEndError.rawValue:
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        controller,
-                        type: TSMessageNotificationType.error,
-                        message: message
-                    )
-                    break
-                case ErrorCodes.InvalidMIMEType.rawValue:
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        controller,
-                        type: TSMessageNotificationType.error,
-                        message: "El servicio devolvió una respuesta inválida. Reportando..."
-                    )
-                    break
-                case ErrorCodes.JSONProcessingError.rawValue:
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        controller,
-                        type: TSMessageNotificationType.error,
-                        message: "Error procesando respuesta. Reportando..."
-                    )
-                    break
-                default:
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        controller,
-                        type: TSMessageNotificationType.error,
-                        message: String(format: "%d: Error genérico.", code)
-                    )
-                    break
-                }
-                
-                GlobalFunctions.instance(false).AKDelay(2.0, task: { Void -> Void in
-                    progress?.setProgress(0.0, animated: false)
-                    caller.isEnabled = true
-                    UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
-                })
-            }
-            
-            GlobalFunctions.instance(false).AKDelay(0.0, isMain: false, task: { Void -> Void in
-                AKWSUtils.makeRESTRequest(
-                    controller: controller,
-                    endpoint: url,
-                    httpMethod: "GET",
-                    headerValues: [ "Content-Type" : "application/json" ],
-                    bodyValue: requestBody,
-                    completionTask: { (jsonDocument) -> Void in completionTask(jsonDocument) },
-                    failureTask: { (code, message) -> Void in failureTask(code, message!) }
-                )
-            })
-        })
-    }
-    private let updateWeatherStatus: (AKHeatMapViewController) -> Void = { (controller) -> Void in
-        if GlobalFunctions.instance(false).AKDelegate().applicationActive {
-            UIView.transition(
-                with: controller.hmAlertsOverlayViewContainer.alertValue,
-                duration: 1.00,
-                options: [.transitionCrossDissolve],
-                animations: {
-                    controller.hmAlertsOverlayViewContainer.alertValue.text = "Lluvioso" },
-                completion: nil
-            )
-        }
-        else {
-            UIView.transition(
-                with: controller.hmAlertsOverlayViewContainer.alertValue,
-                duration: 1.00,
-                options: [.transitionCrossDissolve],
-                animations: {
-                    controller.hmAlertsOverlayViewContainer.alertValue.text = "Deshabilitado" },
-                completion: nil
-            )
-        }
-        
-        if GlobalConstants.AKDebug {
-            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
-        }
-        
-        GlobalFunctions.instance(false).AKDelay(2.0, task: {
-            CLGeocoder().reverseGeocodeLocation(
-                CLLocation(
-                    latitude: GlobalFunctions.instance(false).AKDelegate().currentPosition.latitude,
-                    longitude: GlobalFunctions.instance(false).AKDelegate().currentPosition.longitude
-                ),
-                completionHandler: { (placemarks, error) in
-                    if error == nil {
-                        if let p = placemarks {
-                            if p.count > 0 {
-                                UIView.transition(
-                                    with: controller.hmAlertsOverlayViewContainer.location,
-                                    duration: 1.00,
-                                    options: [UIViewAnimationOptions.transitionFlipFromTop],
-                                    animations: {
-                                        controller.hmAlertsOverlayViewContainer.location.text = String(format: "➤  %@, %@", p[0].locality ?? "---", p[0].country ?? "---") },
-                                    completion: nil
-                                )
-                            }
-                        }
-                    }}
-            )
-        })
-    }
+    // Flags
+    let addRadarOverlay = true
+    let addRadarPin = false
+    let addUserOverlay = false
+    let addUserPin = true
+    let addDIMOverlay = true
+    // View Overlay Controllers
+    let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
+    let hmAlertsOverlayViewContainer = AKHeatMapAlertsOverlayView()
+    let hmLayersOverlayViewContainer = AKHeatMapLayersOverlayView()
+    let hmLegendOverlayViewContainer = AKHeatMapLegendOverlayView()
+    // Custom Annotations
+    var radarAnnotation: AKRadarAnnotation?
+    var userAnnotation: AKUserAnnotation?
+    // Custom Annotation Views
+    var userAnnotationView: AKUserAnnotationView?
+    // Custom Overlays
+    var radarOverlay: AKRadarSpanOverlay?
+    var userOverlay: AKUserAreaOverlay?
+    var dimOverlay: AKDIMOverlay?
+    // Custom View Overlays
+    var hmInfoOverlayViewSubView: UIView!
+    var hmActionsOverlayViewSubView: UIView!
+    var hmAlertsOverlayViewSubView: UIView!
+    var hmLayersOverlayViewSubView: UIView!
+    var hmLegendOverlayViewSubView: UIView!
+    // Timers
+    var refreshTimer: Timer?
     
     // MARK: Outlets
     @IBOutlet weak var legendView: UIView!
@@ -221,9 +56,13 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
-        self.addDefaultViewOverlays()
-        GlobalFunctions.instance(false).AKCenterMapOnLocation(mapView: self.mapView, location: GlobalConstants.AKRadarOrigin, zoomLevel: ZoomLevel.L03)
-        self.updateWeatherStatus(self)
+        AKHeatMapUtilityFunctions.addDefaultViewOverlays(self)
+        GlobalFunctions.instance(false).AKCenterMapOnLocation(
+            mapView: self.mapView,
+            location: GlobalConstants.AKRadarOrigin,
+            zoomLevel: ZoomLevel.L03
+        )
+        AKHeatMapClosures.updateWeatherStatus(self)
     }
     
     // MARK: MKMapViewDelegate Implementation
@@ -270,6 +109,35 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                         strokeColor: UIColor.white,
                         strokeAlpha: 1.0,
                         fillColor: GlobalConstants.AKUserAnnotationBg,
+                        fillAlpha: 1.0,
+                        lineWidth: CGFloat(1.4)
+                    )
+                    customView.clipsToBounds = false
+                    
+                    return customView
+                }
+            }
+            else {
+                return nil
+            }
+        }
+        else if annotation.isKind(of: AKAlertAnnotation.self) {
+            if let custom = annotation as? AKAlertAnnotation {
+                if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: custom.titleLabel) {
+                    return annotationView
+                }
+                else {
+                    let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: custom.titleLabel)
+                    customView.canShowCallout = false
+                    customView.layer.backgroundColor = UIColor.clear.cgColor
+                    customView.layer.cornerRadius = 6.0
+                    customView.layer.borderWidth = 0.0
+                    customView.layer.masksToBounds = true
+                    customView.image = GlobalFunctions.instance(false).AKCircleImageWithRadius(
+                        8,
+                        strokeColor: UIColor.white,
+                        strokeAlpha: 1.0,
+                        fillColor: GlobalConstants.AKAlertAnnotationBg,
                         fillAlpha: 1.0,
                         lineWidth: CGFloat(1.4)
                     )
@@ -335,6 +203,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         if annotation.isKind(of: AKUserAnnotation.self) {
             return true
         }
+        else if annotation.isKind(of: AKAlertAnnotation.self) {
+            return true
+        }
         else if annotation.isKind(of: AKRadarAnnotation.self) {
             return true
         }
@@ -345,20 +216,41 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
     {
-        if let annotation = view.annotation as? AKUserAnnotation {
-            if let v = (Bundle.main.loadNibNamed("AKUserAnnotationView", owner: self, options: nil))?[0] as? AKUserAnnotationView {
-                var newFrame = v.frame
-                newFrame.origin = CGPoint(x: -newFrame.size.width/2 + 10, y: -newFrame.size.height - 4)
-                v.frame = newFrame
-                
-                v.titleLabel.text = annotation.titleLabel
-                v.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-                v.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
-                v.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
-                
-                self.userAnnotationView = v
-                
-                view.addSubview(self.userAnnotationView!)
+        if (view.annotation?.isKind(of: AKUserAnnotation.self))! {
+            if let annotation = view.annotation as? AKUserAnnotation {
+                if let v = (Bundle.main.loadNibNamed("AKUserAnnotationView", owner: self, options: nil))?[0] as? AKUserAnnotationView {
+                    var newFrame = v.frame
+                    newFrame.origin = CGPoint(x: -newFrame.size.width/2 + 10, y: -newFrame.size.height - 4)
+                    v.frame = newFrame
+                    
+                    v.titleLabel.text = annotation.titleLabel
+                    v.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                    v.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
+                    v.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
+                    
+                    self.userAnnotationView = v
+                    
+                    UIView.transition(
+                        with: view,
+                        duration: 1.0,
+                        options: [UIViewAnimationOptions.transitionCrossDissolve],
+                        animations: { view.addSubview(self.userAnnotationView!) },
+                        completion: nil
+                    )
+                }
+            }
+        }
+        else if (view.annotation?.isKind(of: AKAlertAnnotation.self))! {
+            if let annotation = view.annotation as? AKAlertAnnotation {
+                if let alert = GlobalFunctions.instance(false).AKObtainMasterFile().user.findAlert(id: annotation.id) {
+                    UIView.transition(
+                        with: view,
+                        duration: 1.0,
+                        options: [UIViewAnimationOptions.transitionCrossDissolve],
+                        animations: { view.addSubview(alert.alertView) },
+                        completion: nil
+                    )
+                }
             }
         }
     }
@@ -367,6 +259,13 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     {
         if (view.annotation?.isKind(of: AKUserAnnotation.self))! {
             self.userAnnotationView?.removeFromSuperview()
+        }
+        else if (view.annotation?.isKind(of: AKAlertAnnotation.self))! {
+            if let annotation = view.annotation as? AKAlertAnnotation {
+                if let alert = GlobalFunctions.instance(false).AKObtainMasterFile().user.findAlert(id: annotation.id) {
+                    alert.alertView.removeFromSuperview()
+                }
+            }
         }
     }
     
@@ -386,7 +285,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     self.userAnnotation = AKUserAnnotation(titleLabel: "Mi ubicación ahora...")
                     self.userAnnotation?.coordinate = coordinate
                     self.mapView.addAnnotation(self.userAnnotation!)
-                    self.mapView.selectAnnotation(self.userAnnotation!, animated: true)
+                    // self.mapView.selectAnnotation(self.userAnnotation!, animated: true)
                 }
                 
                 if self.addUserOverlay {
@@ -399,7 +298,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
                 }
                 
-                self.updateWeatherStatus(self)
+                AKHeatMapClosures.updateWeatherStatus(self)
             }
         }
     }
@@ -409,7 +308,66 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     {
         super.shouldCheckLoggedUser = false
         super.inhibitLocationServiceMessage = false
+        super.inhibitTapGesture = true
+        super.inhibitLongPressGesture = false
         super.setup()
+        
+        // Overwrite closures.
+        self.additionalOperationsWhenLongPressed = { (gesture) -> Void in
+            if let g = gesture as? UILongPressGestureRecognizer {
+                if g.state == UIGestureRecognizerState.ended {
+                    if GlobalFunctions.instance(false).AKObtainMasterFile().user.countAlerts() >= GlobalConstants.AKMaxUserDefinedAlerts {
+                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                            self,
+                            type: TSMessageNotificationType.error,
+                            message: "Has alcanzado el límite de alertas!"
+                        )
+                        return
+                    }
+                    
+                    let touchPoint = g.location(in: self.mapView)
+                    let geoCoordinate = self.mapView.convert(touchPoint, toCoordinateFrom: self.mapView)
+                    
+                    let id = UUID().uuidString
+                    let name = "Punto de Alerta"
+                    let radius = "5.0"
+                    let title = name
+                    let subtitle = radius
+                    
+                    let annotation = AKAlertAnnotation(id: id, titleLabel: title, subtitleLabel: subtitle, location: geoCoordinate)
+                    
+                    let alert = AKAlert(alertID: id, alertName: name, alertRadius: Double(radius)!, alertAnnotation: annotation)
+                    
+                    GlobalFunctions.instance(false).AKObtainMasterFile().user.addAlert(alert: alert)
+                    
+                    self.mapView.addAnnotation(alert.alertAnnotation)
+                    self.mapView.selectAnnotation(annotation, animated: true)
+                    
+                    self.showMenu()
+                }
+            }
+        }
+        
+        // Set the menu.
+        self.setupMenu("Agregar PIN de Alerta", message: "Guardar el PIN ... ?", type: UIAlertControllerStyle.actionSheet)
+        self.addMenuAction(
+            "Guardar PIN",
+            style: UIAlertActionStyle.default,
+            handler: { (action) -> Void in
+                NSLog("=> INFO: PIN GUARDADO!") }
+        )
+        self.addMenuAction(
+            "Descartar PIN",
+            style: UIAlertActionStyle.destructive,
+            handler: { (action) -> Void in
+                if GlobalFunctions.instance(false).AKObtainMasterFile().user.removeAlert(mapView: self.mapView, id: "", shouldRemoveAll: false, shouldRemoveLast: true) {
+                    GlobalFunctions.instance(false).AKPresentTopMessage(
+                        self,
+                        type: TSMessageNotificationType.success,
+                        message: "La última alerta fue eliminada...!"
+                    )
+                } }
+        )
         
         // Delegates
         self.mapView.delegate = self
@@ -426,7 +384,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.mapView.userTrackingMode = MKUserTrackingMode.none
         
-        self.addDefaultMapOverlays()
+        AKHeatMapUtilityFunctions.addDefaultMapOverlays(self)
         
         if addRadarPin {
             self.radarAnnotation = AKRadarAnnotation()
@@ -435,186 +393,15 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             self.mapView.addAnnotation(self.radarAnnotation!)
         }
         
+        // Load all user defined alerts.
+        GlobalFunctions.instance(false).AKDelay(2.0, task: {
+            for alert in GlobalFunctions.instance(false).AKObtainMasterFile().user.userDefinedAlerts {
+                self.mapView.addAnnotation(alert.alertAnnotation)
+                self.mapView.selectAnnotation(alert.alertAnnotation, animated: true)
+            }
+        })
+        
         // Add RainMap
-        self.startRefreshTimer()
-    }
-    
-    func clearMap()
-    {
-        if self.mapView.overlays.count > 0 {
-            let overlaysToRemove = self.mapView.overlays.filter({ (overlay) -> Bool in
-                return true
-            })
-            self.mapView.removeOverlays(overlaysToRemove)
-        }
-        
-        if GlobalConstants.AKDebug {
-            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
-        }
-    }
-    
-    func hideLayers()
-    {
-        if self.mapView.overlays.count > 0 {
-            let overlaysToRemove = self.mapView.overlays.filter({ (overlay) -> Bool in
-                if overlay.isKind(of: AKRainOverlay.self) {
-                    return true
-                }
-                else if overlay.isKind(of: AKDIMOverlay.self) {
-                    return true
-                }
-                else {
-                    return false
-                }
-            })
-            self.mapView.removeOverlays(overlaysToRemove)
-        }
-        
-        if GlobalConstants.AKDebug {
-            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
-        }
-    }
-    
-    func addDefaultMapOverlays()
-    {
-        if addDIMOverlay {
-            self.dimOverlay = AKDIMOverlay(mapView: self.mapView)
-            self.mapView.add(self.dimOverlay!, level: MKOverlayLevel.aboveRoads)
-        }
-        if addRadarOverlay {
-            for k in 1...10 {
-                self.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(5000 * k))
-                self.radarOverlay?.title = "Cobertura Radar"
-                self.mapView.add(self.radarOverlay!, level: MKOverlayLevel.aboveRoads)
-            }
-            
-            for k in 1...12 {
-                self.mapView.add(
-                    AKRadarSpanLinesOverlay(
-                        coordinates: [
-                            GlobalConstants.AKRadarOrigin,
-                            GlobalFunctions.instance(false).AKLocationWithBearing(
-                                bearing: Double(k * 30) * (M_PI / 180),
-                                distanceMeters: 50000,
-                                origin: GlobalConstants.AKRadarOrigin
-                            )
-                        ],
-                        count: 2
-                    )
-                )
-            }
-        }
-    }
-    
-    func addDefaultViewOverlays()
-    {
-        // Add map overlay for heatmap information.
-        // self.hmInfoOverlayViewSubView = self.hmInfoOverlayViewContainer.customView
-        // self.hmInfoOverlayViewContainer.controller = self
-        // self.hmInfoOverlayViewSubView.frame = CGRect(x: 0, y: self.mapView.bounds.height - 60, width: self.mapView.bounds.width, height: 60)
-        // self.hmInfoOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        // self.hmInfoOverlayViewSubView.clipsToBounds = true
-        // self.hmInfoOverlayViewSubView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        // self.mapView.addSubview(self.hmInfoOverlayViewSubView)
-        
-        // Add map overlay for heatmap alerts.
-        self.hmAlertsOverlayViewSubView = self.hmAlertsOverlayViewContainer.customView
-        self.hmAlertsOverlayViewContainer.controller = self
-        self.hmAlertsOverlayViewSubView.frame = CGRect(
-            x: 0,
-            y: 0,
-            width: self.view.bounds.width,
-            height: self.hmAlertsOverlayViewSubView.bounds.height
-        )
-        self.hmAlertsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmAlertsOverlayViewSubView.clipsToBounds = true
-        self.view.addSubview(self.hmAlertsOverlayViewSubView)
-        
-        // Add map overlay for heatmap actions.
-        self.hmActionsOverlayViewSubView = self.hmActionsOverlayViewContainer.customView
-        self.hmActionsOverlayViewContainer.controller = self
-        self.hmActionsOverlayViewSubView.frame = CGRect(
-            x: 0,
-            y: self.hmAlertsOverlayViewSubView.bounds.height + 1,
-            width: self.view.bounds.width,
-            height: self.hmActionsOverlayViewSubView.bounds.height
-        )
-        self.hmActionsOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmActionsOverlayViewSubView.clipsToBounds = true
-        self.view.addSubview(self.hmActionsOverlayViewSubView)
-        
-        // Add map overlay for heatmap layers.
-        self.hmLayersOverlayViewSubView = self.hmLayersOverlayViewContainer.customView
-        self.hmLayersOverlayViewContainer.controller = self
-        self.hmLayersOverlayViewSubView.frame = CGRect(
-            x: self.mapView.bounds.width - self.hmLayersOverlayViewSubView.bounds.width,
-            y: (self.mapView.bounds.height / 2.0) - (self.hmLayersOverlayViewSubView.bounds.height / 2.0),
-            width: self.hmLayersOverlayViewSubView.bounds.width,
-            height: self.hmLayersOverlayViewSubView.bounds.height
-        )
-        self.hmLayersOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmLayersOverlayViewSubView.clipsToBounds = true
-        self.mapView.addSubview(self.hmLayersOverlayViewSubView)
-        
-        // Add map overlay for heatmap legend.
-        self.hmLegendOverlayViewSubView = self.hmLegendOverlayViewContainer.customView
-        self.hmLegendOverlayViewContainer.controller = self
-        self.hmLegendOverlayViewSubView.frame = CGRect(
-            x: 0,
-            y: (self.mapView.bounds.height / 2.0) - (self.hmLegendOverlayViewSubView.bounds.height / 2.0),
-            width: self.hmLegendOverlayViewSubView.bounds.width,
-            height: self.hmLegendOverlayViewSubView.bounds.height
-        )
-        self.hmLegendOverlayViewSubView.translatesAutoresizingMaskIntoConstraints = true
-        self.hmLegendOverlayViewSubView.clipsToBounds = true
-        self.mapView.addSubview(self.hmLegendOverlayViewSubView)
-        
-        // Custom L&F
-        // self.hmInfoOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
-        self.hmAlertsOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
-        self.hmLegendOverlayViewSubView.backgroundColor = GlobalConstants.AKOverlaysBg
-        
-        GlobalFunctions.instance(false).AKAddBorderDeco(
-            self.hmAlertsOverlayViewSubView,
-            color: GlobalConstants.AKDefaultViewBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
-    }
-    
-    func loadRainMapFunction() { self.loadRainMap(self, self.hmActionsOverlayViewContainer.progress, self.hmLayersOverlayViewContainer.layers) }
-    
-    func hideLegend() { self.hmLegendOverlayViewSubView.isHidden = true }
-    
-    func showLegend() { self.hmLegendOverlayViewSubView.isHidden = false }
-    
-    func startRefreshTimer()
-    {
-        self.loadRainMapFunction()
-        self.refreshTimer = Timer.scheduledTimer(
-            timeInterval: 30.0,
-            target: self,
-            selector: #selector(AKHeatMapViewController.loadRainMapFunction),
-            userInfo: nil,
-            repeats: true
-        )
-    }
-    
-    func stopRefreshTimer()
-    {
-        if let timer = self.refreshTimer {
-            if timer.isValid {
-                timer.invalidate()
-            }
-        }
-    }
-    
-    func stateRefreshTimer() -> Bool
-    {
-        if let timer = self.refreshTimer {
-            return timer.isValid
-        }
-        
-        return false
+        AKHeatMapUtilityFunctions.startRefreshTimer(self)
     }
 }

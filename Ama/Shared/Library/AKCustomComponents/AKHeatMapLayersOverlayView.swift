@@ -1,3 +1,4 @@
+import TSMessages
 import UIKit
 
 class AKHeatMapLayersOverlayView: AKCustomView
@@ -18,21 +19,29 @@ class AKHeatMapLayersOverlayView: AKCustomView
             if self.layersState {
                 self.layersState = false
                 self.layers.layer.backgroundColor = GlobalConstants.AKDisabledButtonBg.cgColor
-                controller.hideLayers()
-                controller.hideLegend()
+                AKHeatMapUtilityFunctions.hideLayers(controller)
+                AKHeatMapUtilityFunctions.hideLegend(controller)
             }
             else {
                 self.layersState = true
                 self.layers.layer.backgroundColor = GlobalConstants.AKEnabledButtonBg.cgColor
-                controller.loadRainMapFunction()
-                controller.showLegend()
+                AKHeatMapUtilityFunctions.loadRainMapFunction(controller)
+                AKHeatMapUtilityFunctions.showLegend(controller)
             }
         }
     }
     
     @IBAction func dropPIN(_ sender: Any)
     {
-        NSLog("=> PIN DROP.")
+        if let controller = self.controller as? AKHeatMapViewController {
+            if GlobalFunctions.instance(false).AKObtainMasterFile().user.removeAlert(mapView: controller.mapView, id: "", shouldRemoveAll: true) {
+                GlobalFunctions.instance(false).AKPresentTopMessage(
+                    controller,
+                    type: TSMessageNotificationType.success,
+                    message: "Todas las alertas fueron eliminadas...!"
+                )
+            }
+        }
     }
     
     // MARK: UIView Overriding
