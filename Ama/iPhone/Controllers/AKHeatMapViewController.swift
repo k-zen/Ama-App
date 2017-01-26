@@ -270,7 +270,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     }
     
     // MARK: Observers
-    func locationUpdated()
+    func locationObserver()
     {
         GlobalFunctions.instance(false).AKExecuteInMainThread {
             if GlobalFunctions.instance(false).AKDelegate().applicationActive {
@@ -303,6 +303,15 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
     }
     
+    func rainmapObserver()
+    {
+        AKHeatMapClosures.loadRainMap(
+            self,
+            self.hmActionsOverlayViewContainer.progress,
+            self.hmLayersOverlayViewContainer.layers
+        )
+    }
+    
     // MARK: Miscellaneous
     func customSetup()
     {
@@ -327,47 +336,29 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     
                     let touchPoint = g.location(in: self.mapView)
                     let geoCoordinate = self.mapView.convert(touchPoint, toCoordinateFrom: self.mapView)
-                    
-                    let id = UUID().uuidString
-                    let name = "Punto de Alerta"
-                    let radius = "5.0"
-                    let title = name
-                    let subtitle = radius
-                    
-                    let annotation = AKAlertAnnotation(id: id, titleLabel: title, subtitleLabel: subtitle, location: geoCoordinate)
-                    
-                    let alert = AKAlert(alertID: id, alertName: name, alertRadius: Double(radius)!, alertAnnotation: annotation)
-                    
-                    GlobalFunctions.instance(false).AKObtainMasterFile().user.addAlert(alert: alert)
-                    
-                    self.mapView.addAnnotation(alert.alertAnnotation)
-                    self.mapView.selectAnnotation(annotation, animated: true)
-                    
-                    self.showMenu()
+                    self.presentAlerPINInputView(coordinates: geoCoordinate, dismissViewCompletionTask: { (controller, presentedController, coordinates) -> Void in
+                        if let controller = controller as? AKHeatMapViewController {
+                            if let presentedController = presentedController as? AKAlertPINInputViewController {
+                                let id = UUID().uuidString
+                                let name = presentedController.nameValue.text ?? "Sin Nombre"
+                                let radius = presentedController.radioSlider.value * 10.0
+                                let title = name
+                                let subtitle = String(format: "Radio de : %.1fkm", radius)
+                                
+                                let annotation = AKAlertAnnotation(id: id, titleLabel: title, subtitleLabel: subtitle, location: coordinates)
+                                
+                                let alert = AKAlert(alertID: id, alertName: name, alertRadius: Double(radius), alertAnnotation: annotation)
+                                
+                                GlobalFunctions.instance(false).AKObtainMasterFile().user.addAlert(alert: alert)
+                                
+                                controller.mapView.addAnnotation(alert.alertAnnotation)
+                                controller.mapView.selectAnnotation(annotation, animated: true)
+                            }
+                        }
+                    })
                 }
             }
         }
-        
-        // Set the menu.
-        self.setupMenu("Agregar PIN de Alerta", message: "Guardar el PIN ... ?", type: UIAlertControllerStyle.actionSheet)
-        self.addMenuAction(
-            "Guardar PIN",
-            style: UIAlertActionStyle.default,
-            handler: { (action) -> Void in
-                NSLog("=> INFO: PIN GUARDADO!") }
-        )
-        self.addMenuAction(
-            "Descartar PIN",
-            style: UIAlertActionStyle.destructive,
-            handler: { (action) -> Void in
-                if GlobalFunctions.instance(false).AKObtainMasterFile().user.removeAlert(mapView: self.mapView, id: "", shouldRemoveAll: false, shouldRemoveLast: true) {
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        self,
-                        type: TSMessageNotificationType.success,
-                        message: "La última alerta fue eliminada...!"
-                    )
-                } }
-        )
         
         // Delegates
         self.mapView.delegate = self
@@ -375,7 +366,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         // Custom notifications.
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(AKHeatMapViewController.locationUpdated),
+            selector: #selector(AKHeatMapViewController.locationObserver),
             name: NSNotification.Name(GlobalConstants.AKLocationUpdateNotificationName),
             object: nil
         )

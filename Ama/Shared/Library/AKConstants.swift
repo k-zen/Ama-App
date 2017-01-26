@@ -68,19 +68,20 @@ struct GlobalConstants {
     static let AKNotificationBarDismissDelay = 2.0
     static let AKNotificationBarSound = 1057
     static let AKDefaultFont = "HelveticaNeue-CondensedBold"
-    // Colors: https://github.com/morhetz/gruvbox
+    static let AKRedColor_1 = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
     static let AKDefaultBg = GlobalFunctions.instance(false).AKHexColor(0x29282D)
     static let AKDefaultFg = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
     static let AKTabBarBg = GlobalConstants.AKDefaultBg
     static let AKTabBarTint = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
+    static let AKDefaultTextfieldBorderBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
     static let AKDefaultViewBorderBg = GlobalFunctions.instance(false).AKHexColor(0x000000)
-    static let AKUserAnnotationBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
-    static let AKAlertAnnotationBg = GlobalFunctions.instance(false).AKHexColor(0x555555)
-    static let AKUserOverlayBg = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
+    static let AKUserAnnotationBg = GlobalConstants.AKRedColor_1
+    static let AKAlertAnnotationBg = UIColor.orange
+    static let AKUserOverlayBg = GlobalConstants.AKRedColor_1
     static let AKRadarAnnotationBg = UIColor.green
     static let AKDisabledButtonBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
-    static let AKEnabledButtonBg = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
+    static let AKEnabledButtonBg = GlobalConstants.AKRedColor_1
     // static let AKTableHeaderCellBg = GlobalFunctions.AKHexColor(0x333333)
     // static let AKTableHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x72BF44)
     // static let AKHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x555555)

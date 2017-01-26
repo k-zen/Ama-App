@@ -141,15 +141,6 @@ class AKHeatMapUtilityFunctions: NSObject
         )
     }
     
-    static func loadRainMapFunction(_ controller: AKHeatMapViewController)
-    {
-        AKHeatMapClosures.loadRainMap(
-            controller,
-            controller.hmActionsOverlayViewContainer.progress,
-            controller.hmLayersOverlayViewContainer.layers
-        )
-    }
-    
     static func hideLegend(_ controller: AKHeatMapViewController)
     {
         controller.hmLegendOverlayViewSubView.isHidden = true
@@ -162,11 +153,11 @@ class AKHeatMapUtilityFunctions: NSObject
     
     static func startRefreshTimer(_ controller: AKHeatMapViewController)
     {
-        AKHeatMapUtilityFunctions.loadRainMapFunction(controller)
+        controller.rainmapObserver()
         controller.refreshTimer = Timer.scheduledTimer(
             timeInterval: 30.0,
             target: controller,
-            selector: #selector(AKHeatMapUtilityFunctions.loadRainMapFunction),
+            selector: #selector(AKHeatMapViewController.rainmapObserver),
             userInfo: nil,
             repeats: true
         )

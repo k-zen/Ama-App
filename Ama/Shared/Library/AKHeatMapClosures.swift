@@ -85,7 +85,7 @@ class AKHeatMapClosures: NSObject
                 
                 // Call locationUpdated to set the user's pin and update the user's status.
                 GlobalFunctions.instance(false).AKExecuteInMainThread {
-                    controller.locationUpdated()
+                    controller.locationObserver()
                 }
                 
                 // Reset everything with a 2 second delay.
@@ -199,7 +199,7 @@ class AKHeatMapClosures: NSObject
                                     duration: 1.00,
                                     options: [UIViewAnimationOptions.transitionFlipFromBottom],
                                     animations: {
-                                        controller.hmAlertsOverlayViewContainer.location.text = String(format: "➤  %@, %@", p[0].locality ?? "---", p[0].country ?? "---") },
+                                        controller.hmAlertsOverlayViewContainer.location.text = String(format: "%@, %@", p[0].locality ?? "---", p[0].country ?? "---") },
                                     completion: nil
                                 )
                             }

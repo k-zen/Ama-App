@@ -26,55 +26,56 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     
     // MARK: Flags
     /// Flag to check if a user is logged in/out of the App.
-    internal var shouldCheckLoggedUser: Bool = false
+    var shouldCheckLoggedUser: Bool = false
     /// Flag to make location services check on each ViewController.
     /// Default value is **true**, each ViewController must explicitly enable the check.
-    internal var inhibitLocationServiceMessage: Bool = true
+    var inhibitLocationServiceMessage: Bool = true
     /// Flag to inhibit only the **Tap** gesture.
-    internal var inhibitTapGesture: Bool = false
+    var inhibitTapGesture: Bool = false
     /// Flag to inhibit only the **Pinch** gesture.
-    internal var inhibitPinchGesture: Bool = true
+    var inhibitPinchGesture: Bool = true
     /// Flag to inhibit only the **Rotation** gesture.
-    internal var inhibitRotationGesture: Bool = true
+    var inhibitRotationGesture: Bool = true
     /// Flag to inhibit only the **Swipe** gesture.
-    internal var inhibitSwipeGesture: Bool = true
+    var inhibitSwipeGesture: Bool = true
     /// Flag to inhibit only the **Pan** gesture.
-    internal var inhibitPanGesture: Bool = true
+    var inhibitPanGesture: Bool = true
     /// Flag to inhibit only the **Screen Edge Pan** gesture.
     /// MUST BE ENABLED WITH **inhibitPanGesture** and an edge
     /// must be set.
-    internal var inhibitScreenEdgePanGesture: Bool = true
+    var inhibitScreenEdgePanGesture: Bool = true
     /// Flag to inhibit only the **Long Press** gesture.
-    internal var inhibitLongPressGesture: Bool = true
+    var inhibitLongPressGesture: Bool = true
     // MARK: Operations (Closures)
     /// Defaults actions when a gesture event is produced. Not modifiable by child classes.
-    private let defaultOperationsWhenGesture: (AKCustomViewController, UIGestureRecognizer?) -> Void = { (controller, gesture) -> Void in
+    let defaultOperationsWhenGesture: (AKCustomViewController, UIGestureRecognizer?) -> Void = { (controller, gesture) -> Void in
         // Always close the keyboard if open.
         controller.view.endEditing(true)
     }
     /// Operations to perform when a **Tap** gesture is detected.
-    internal var additionalOperationsWhenTaped: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
+    var additionalOperationsWhenTaped: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
     /// Operations to perform when a **Pinch** gesture is detected.
-    internal var additionalOperationsWhenPinched: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
+    var additionalOperationsWhenPinched: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
     /// Operations to perform when a **Rotation** gesture is detected.
-    internal var additionalOperationsWhenRotated: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
+    var additionalOperationsWhenRotated: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
     /// Operations to perform when a **Swiped** gesture is detected.
-    internal var additionalOperationsWhenSwiped: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
+    var additionalOperationsWhenSwiped: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
     /// Operations to perform when a **Pan** gesture is detected.
-    internal var additionalOperationsWhenPaned: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
+    var additionalOperationsWhenPaned: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
     /// Operations to perform when a **Screen Edge Pan** gesture is detected.
-    internal var additionalOperationsWhenScreenEdgePaned: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
+    var additionalOperationsWhenScreenEdgePaned: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
     /// Operations to perform when a **Long Press** gesture is detected.
-    internal var additionalOperationsWhenLongPressed: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
+    var additionalOperationsWhenLongPressed: (UIGestureRecognizer?) -> Void = { (gesture) -> Void in }
     // MARK: Properties
-    private var bottomMenu: UIAlertController?
-    internal var tapGesture: UITapGestureRecognizer?
-    internal var pinchGesture: UIPinchGestureRecognizer?
-    internal var rotationGesture: UIRotationGestureRecognizer?
-    internal var swipeGesture: UISwipeGestureRecognizer?
-    internal var panGesture: UIPanGestureRecognizer?
-    internal var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer?
-    internal var longPressGesture: UILongPressGestureRecognizer?
+    var bottomMenu: UIAlertController?
+    var tapGesture: UITapGestureRecognizer?
+    var pinchGesture: UIPinchGestureRecognizer?
+    var rotationGesture: UIRotationGestureRecognizer?
+    var swipeGesture: UISwipeGestureRecognizer?
+    var panGesture: UIPanGestureRecognizer?
+    var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer?
+    var longPressGesture: UILongPressGestureRecognizer?
+    var dismissViewCompletionTask: (Void) -> Void = {}
     
     // MARK: UIViewController Overriding
     override func viewDidLoad()
@@ -127,7 +128,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     // MARK: Initialization
-    internal func setup()
+    func setup()
     {
         // Manage gestures.
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(AKCustomViewController.tap(_:)))
@@ -156,23 +157,36 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         self.definesPresentationContext = true
     }
     
-    internal func setupMenu(_ title: String!, message: String!, type: UIAlertControllerStyle!)
+    func setupMenu(_ title: String!, message: String!, type: UIAlertControllerStyle!)
     {
         self.bottomMenu = UIAlertController(title: title, message: message, preferredStyle: type)
     }
     
-    internal func addMenuAction(_ title: String!, style: UIAlertActionStyle, handler: ((UIAlertAction) -> Void)?)
+    func addMenuAction(_ title: String!, style: UIAlertActionStyle, handler: ((UIAlertAction) -> Void)?)
     {
         if let menu = self.bottomMenu {
             menu.addAction(UIAlertAction(title: title, style: style, handler: handler))
         }
     }
     
-    internal func showMenu()
+    // MARK: Presenters
+    func showMenu()
     {
         if let menu = self.bottomMenu {
             self.present(menu, animated: true, completion: nil)
         }
+    }
+    
+    func presentAlerPINInputView(
+        coordinates: CLLocationCoordinate2D,
+        dismissViewCompletionTask: @escaping (AKCustomViewController, AKCustomViewController, CLLocationCoordinate2D) -> Void)
+    {
+        let controller = AKAlertPINInputViewController(nibName: "AKAlertPINInputView", bundle: nil)
+        controller.dismissViewCompletionTask = { dismissViewCompletionTask(self, controller, coordinates) }
+        controller.view.backgroundColor = UIColor.clear
+        controller.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        
+        self.present(controller, animated: true, completion: nil)
     }
     
     // MARK: Gesture Handling
@@ -226,7 +240,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     // MARK: Utility functions
-    private func manageAccessToLocationServices()
+    func manageAccessToLocationServices()
     {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
@@ -255,6 +269,18 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
             break
         default:
             break
+        }
+    }
+    
+    func dismissView(executeDismissTask: Bool)
+    {
+        OperationQueue.main.addOperation {
+            if executeDismissTask {
+                self.dismiss(animated: true, completion: self.dismissViewCompletionTask)
+            }
+            else {
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
 }

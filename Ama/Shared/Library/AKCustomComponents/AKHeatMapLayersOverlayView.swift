@@ -25,7 +25,7 @@ class AKHeatMapLayersOverlayView: AKCustomView
             else {
                 self.layersState = true
                 self.layers.layer.backgroundColor = GlobalConstants.AKEnabledButtonBg.cgColor
-                AKHeatMapUtilityFunctions.loadRainMapFunction(controller)
+                controller.rainmapObserver()
                 AKHeatMapUtilityFunctions.showLegend(controller)
             }
         }
