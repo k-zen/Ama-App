@@ -8,6 +8,8 @@ class AKHeatMapAlertsOverlayView: AKCustomView
     
     // MARK: Outlets
     @IBOutlet var container: UIView!
+    @IBOutlet weak var dummy1: UIView!
+    @IBOutlet weak var tempValue: UILabel!
     @IBOutlet weak var alertValue: UILabel!
     @IBOutlet weak var pauseRefresh: UIButton!
     @IBOutlet weak var location: UILabel!
@@ -63,6 +65,8 @@ class AKHeatMapAlertsOverlayView: AKCustomView
         
         // Custom L&F.
         self.pauseRefresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+        self.tempValue.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+        self.tempValue.layer.masksToBounds = true
     }
     
     func startAnimation()

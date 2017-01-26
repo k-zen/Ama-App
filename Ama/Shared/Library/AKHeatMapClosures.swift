@@ -160,10 +160,10 @@ class AKHeatMapClosures: NSObject
             UIView.transition(
                 with: controller.hmAlertsOverlayViewContainer.alertValue,
                 duration: 1.0,
-                options: [UIViewAnimationOptions.transitionFlipFromBottom],
+                options: [UIViewAnimationOptions.transitionCrossDissolve],
                 animations: {
                     // TODO: Add function here to detect the state of weather and issue a label in 3 possible categories.
-                    controller.hmAlertsOverlayViewContainer.alertValue.text = "Lluvioso" },
+                    controller.hmAlertsOverlayViewContainer.alertValue.text = "Lluvioso ☂".uppercased() },
                 completion: nil
             )
         }
@@ -171,9 +171,9 @@ class AKHeatMapClosures: NSObject
             UIView.transition(
                 with: controller.hmAlertsOverlayViewContainer.alertValue,
                 duration: 1.0,
-                options: [UIViewAnimationOptions.transitionFlipFromBottom],
+                options: [UIViewAnimationOptions.transitionCrossDissolve],
                 animations: {
-                    controller.hmAlertsOverlayViewContainer.alertValue.text = "Deshabilitado" },
+                    controller.hmAlertsOverlayViewContainer.alertValue.text = "Deshabilitado".uppercased() },
                 completion: nil
             )
         }
@@ -197,9 +197,19 @@ class AKHeatMapClosures: NSObject
                                 UIView.transition(
                                     with: controller.hmAlertsOverlayViewContainer.location,
                                     duration: 1.00,
-                                    options: [UIViewAnimationOptions.transitionFlipFromBottom],
+                                    options: [UIViewAnimationOptions.transitionCrossDissolve],
                                     animations: {
-                                        controller.hmAlertsOverlayViewContainer.location.text = String(format: "%@, %@", p[0].locality ?? "---", p[0].country ?? "---") },
+                                        if let lines: Array<String> = p[0].addressDictionary?["FormattedAddressLines"] as? Array<String> {
+                                            let placeString = lines.joined(separator: ", ")
+                                            controller.hmAlertsOverlayViewContainer.location.text = String(
+                                                format: "%@", placeString
+                                            )
+                                        }
+                                        else {
+                                            controller.hmAlertsOverlayViewContainer.location.text = String(
+                                                format: "%@, %@", p[0].locality ?? "---", p[0].country ?? "---"
+                                            )
+                                        } },
                                     completion: nil
                                 )
                             }
