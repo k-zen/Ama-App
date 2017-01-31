@@ -66,6 +66,8 @@
 		49B96A211E1DA9B900F33829 /* AppIcon-20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A1E1E1DA9B900F33829 /* AppIcon-20@1x.png */; };
 		49B96A221E1DA9B900F33829 /* AppIcon-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A1F1E1DA9B900F33829 /* AppIcon-20@2x.png */; };
 		49B96A231E1DA9B900F33829 /* AppIcon-20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A201E1DA9B900F33829 /* AppIcon-20@3x.png */; };
+		49BF71101E3FB1B4005F29FC /* AKLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49BF710F1E3FB1B4005F29FC /* AKLoginView.xib */; };
+		49BF71121E3FB2EB005F29FC /* AKLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BF71111E3FB2EB005F29FC /* AKLoginViewController.swift */; };
 		49C423221E1AC60900728DF0 /* AKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C423211E1AC60900728DF0 /* AKUser.swift */; };
 		49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDD1DB121D700149DEE /* AKCustomView.m */; };
 		49D0BEF71DB121D700149DEE /* AKCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */; };
@@ -158,6 +160,8 @@
 		49B96A1E1E1DA9B900F33829 /* AppIcon-20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-20@1x.png"; sourceTree = "<group>"; };
 		49B96A1F1E1DA9B900F33829 /* AppIcon-20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-20@2x.png"; sourceTree = "<group>"; };
 		49B96A201E1DA9B900F33829 /* AppIcon-20@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-20@3x.png"; sourceTree = "<group>"; };
+		49BF710F1E3FB1B4005F29FC /* AKLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKLoginView.xib; sourceTree = "<group>"; };
+		49BF71111E3FB2EB005F29FC /* AKLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKLoginViewController.swift; sourceTree = "<group>"; };
 		49C423211E1AC60900728DF0 /* AKUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUser.swift; sourceTree = "<group>"; };
 		49D0BEDC1DB121D700149DEE /* AKCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomView.h; sourceTree = "<group>"; };
 		49D0BEDD1DB121D700149DEE /* AKCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCustomView.m; sourceTree = "<group>"; };
@@ -326,6 +330,7 @@
 				4927E4FD1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift */,
 				49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */,
 				49ECF5531D9317CA003E0359 /* AKHeatMapViewController.swift */,
+				49BF71111E3FB2EB005F29FC /* AKLoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 				49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */,
 				494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */,
 				49447D3E1E2FF17A00BE59D0 /* AKHeatMapLegendOverlayView.xib */,
+				49BF710F1E3FB1B4005F29FC /* AKLoginView.xib */,
 				498422151E3137CE00DCF99B /* AKUserAnnotationView.xib */,
 			);
 			path = Views;
@@ -596,6 +602,7 @@
 				492FF7541DBE8AFE009B4CDD /* 0002-030px.png in Resources */,
 				492FF7551DBE8AFE009B4CDD /* 0003-030px.png in Resources */,
 				49447D431E2FFD5D00BE59D0 /* 0009-030px.png in Resources */,
+				49BF71101E3FB1B4005F29FC /* AKLoginView.xib in Resources */,
 				49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,6 +693,7 @@
 				49D621C01E12E65D004388AF /* AKMasterFile.swift in Sources */,
 				497DCA5B1E3640CE00EBF3C4 /* AKAlertAnnotation.swift in Sources */,
 				4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */,
+				49BF71121E3FB2EB005F29FC /* AKLoginViewController.swift in Sources */,
 				494609F61E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift in Sources */,
 				49FEC27B1E36D3DE00328467 /* AKHeatMapClosures.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,

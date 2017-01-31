@@ -12,7 +12,6 @@ class AKConfigViewController: AKCustomViewController
     // MARK: Miscellaneous
     func customSetup()
     {
-        super.shouldCheckLoggedUser = false
         super.setup()
     }
 }

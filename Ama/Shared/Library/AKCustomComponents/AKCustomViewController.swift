@@ -96,6 +96,10 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         if !self.inhibitLocationServiceMessage {
             self.manageAccessToLocationServices()
         }
+        if self.shouldCheckLoggedUser {
+            self.presentLoginView(dismissViewCompletionTask: { (controller, presentedController) -> Void in controller.shouldCheckLoggedUser = false })
+            return
+        }
     }
     
     // MARK: UIGestureRecognizerDelegate Implementation
@@ -183,6 +187,16 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     {
         let controller = AKAlertPINInputViewController(nibName: "AKAlertPINInputView", bundle: nil)
         controller.dismissViewCompletionTask = { dismissViewCompletionTask(self, controller, coordinates) }
+        controller.view.backgroundColor = UIColor.clear
+        controller.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    func presentLoginView(dismissViewCompletionTask: @escaping (AKCustomViewController, AKCustomViewController) -> Void)
+    {
+        let controller = AKLoginViewController(nibName: "AKLoginView", bundle: nil)
+        controller.dismissViewCompletionTask = { dismissViewCompletionTask(self, controller) }
         controller.view.backgroundColor = UIColor.clear
         controller.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         
