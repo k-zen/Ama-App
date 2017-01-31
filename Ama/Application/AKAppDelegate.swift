@@ -56,7 +56,7 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
             ], for: UIControlState.normal
         )
         UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: UIFont(name: GlobalConstants.AKDefaultFont, size: 18.0) ?? UIFont.systemFont(ofSize: 18),
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 22.0) ?? UIFont.systemFont(ofSize: 18),
             NSForegroundColorAttributeName: GlobalConstants.AKDefaultFg
         ]
         
