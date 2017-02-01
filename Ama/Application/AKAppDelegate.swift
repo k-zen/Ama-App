@@ -7,7 +7,7 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
 {
     // MARK: Properties
     let locationManager = CLLocationManager()
-    var masterFile: AKMasterFile = AKMasterFile()
+    var masterFile = AKMasterFile()
     var window: UIWindow?
     // ### USER POSITION ### //
     var currentPosition = GeoCoordinate()
