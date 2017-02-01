@@ -423,7 +423,7 @@ class GlobalFunctions {
     ///
     /// - Returns: A color object.
     ///
-    func AKGetInfoForRainfallIntensity(ri: Int) -> AKRainfallIntensityColor
+    func AKGetInfoForRainfallIntensity(ri: RainIntensity) -> AKRainfallIntensityColor
     {
         switch ri {
         case 1 ..< 25:
@@ -444,7 +444,7 @@ class GlobalFunctions {
             return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
         case 200 ..< 225:
             return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
-        case 225 ..< Int.max:
+        case 225 ..< RainIntensity.max:
             return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
         default:
             return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
