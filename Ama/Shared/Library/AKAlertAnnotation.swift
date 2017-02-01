@@ -16,10 +16,10 @@ class AKAlertAnnotation: MKPointAnnotation, NSCoding
     var id: String
     var titleLabel: String
     var subtitleLabel: String
-    var location: CLLocationCoordinate2D
+    var location: GeoCoordinate
     
     // MARK: Initializers
-    init(id: String, titleLabel: String, subtitleLabel: String, location: CLLocationCoordinate2D)
+    init(id: String, titleLabel: String, subtitleLabel: String, location: GeoCoordinate)
     {
         self.id = id
         self.titleLabel = titleLabel
@@ -41,7 +41,7 @@ class AKAlertAnnotation: MKPointAnnotation, NSCoding
         let locationLat = aDecoder.decodeDouble(forKey: Keys.locationLat)
         let locationLon = aDecoder.decodeDouble(forKey: Keys.locationLon)
         
-        self.init(id: id, titleLabel: title, subtitleLabel: subtitle, location: CLLocationCoordinate2D(latitude: locationLat, longitude: locationLon))
+        self.init(id: id, titleLabel: title, subtitleLabel: subtitle, location: GeoCoordinate(latitude: locationLat, longitude: locationLon))
     }
     
     func encode(with aCoder: NSCoder)

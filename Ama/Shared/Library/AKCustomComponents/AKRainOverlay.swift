@@ -4,7 +4,7 @@ import UIKit
 class AKRainOverlay: NSObject, MKOverlay
 {
     // MARK: Properties
-    let coordinate: CLLocationCoordinate2D
+    let coordinate: GeoCoordinate
     let boundingMapRect: MKMapRect
     let rainfallPoints: NSArray
     

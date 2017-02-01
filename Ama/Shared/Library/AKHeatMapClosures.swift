@@ -54,16 +54,16 @@ class AKHeatMapClosures: NSObject
                 }
                 
                 // Process the results.
-                if let dictionary = json as? [String : Any] {
-                    if let array = dictionary["arrayDatos"] as? [Any] {
+                if let dictionary = json as? JSONObject {
+                    if let array = dictionary["arrayDatos"] as? JSONObjectArray {
                         for element in array {
-                            if let e = element as? [String : Any] {
-                                let intensity = e["intensidad"] as? Int ?? GlobalConstants.AKInvalidIntensity
-                                let coordinates = e["coordenadas"] as? [String] ?? []
+                            if let e = element as? JSONObject {
+                                let intensity = e["intensidad"] as? RainIntensity ?? GlobalConstants.AKInvalidIntensity
+                                let coordinates = e["coordenadas"] as? JSONObjectStringArray ?? []
                                 for coordinate in coordinates {
-                                    let lat = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[0])!)
-                                    let lon = CLLocationDegrees(Double(coordinate.components(separatedBy: ":")[1])!)
-                                    let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                                    let lat = CLLocationDegrees(coordinate.components(separatedBy: ":")[0])!
+                                    let lon = CLLocationDegrees(coordinate.components(separatedBy: ":")[1])!
+                                    let location = GeoCoordinate(latitude: lat, longitude: lon)
                                     
                                     rainfallPoints.add(AKRainfallPoint(center: location, intensity: intensity))
                                 }
@@ -155,6 +155,11 @@ class AKHeatMapClosures: NSObject
     ///
     /// - Parameter controller: The controller, from where this closure will be called.
     static let updateWeatherStatus: (AKHeatMapViewController) -> Void = { (controller) -> Void in
+        // Update the temperature.
+        GlobalFunctions.instance(false).AKDelay(0.0, isMain: false, task: {
+            // TODO: Add support for querying temperature via Apple here.
+        })
+        
         // Set the state of the alert or if it's disabled using animation.
         if GlobalFunctions.instance(false).AKDelegate().applicationActive {
             UIView.transition(

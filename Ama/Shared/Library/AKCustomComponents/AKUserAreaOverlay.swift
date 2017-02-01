@@ -4,12 +4,12 @@ import UIKit
 class AKUserAreaOverlay: NSObject, MKOverlay
 {
     // MARK: Properties
-    var coordinate: CLLocationCoordinate2D
+    var coordinate: GeoCoordinate
     var boundingMapRect: MKMapRect
     var radius: CLLocationDistance
     var title: String?
     
-    init(center: CLLocationCoordinate2D, radius: CLLocationDistance)
+    init(center: GeoCoordinate, radius: CLLocationDistance)
     {
         self.coordinate = center
         self.radius = radius

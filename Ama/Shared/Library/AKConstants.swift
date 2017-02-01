@@ -7,6 +7,13 @@ import UIKit
 
 // MARK: Typealias
 typealias ViewBlock = (_ view : UIView) -> Bool
+typealias JSONObject = [String : Any]
+typealias JSONObjectArray = [Any]
+typealias JSONObjectStringArray = [String]
+typealias RainIntensity = Int16
+typealias GeoCoordinate = CLLocationCoordinate2D
+typealias Latitude = Double
+typealias Longitude = Double
 
 // MARK: Extensions
 extension Int
@@ -54,7 +61,7 @@ extension UIView
     func loopViewHierarchy(block : ViewBlock?)
     {
         if block?(self) ?? true {
-            for subview in subviews {
+            for subview in self.subviews {
                 subview.loopViewHierarchy(block: block)
             }
         }
@@ -95,13 +102,13 @@ struct GlobalConstants {
     static let AKDefaultLatitudeDelta = 0.45 // In degrees. 1 degree equals 111kms.
     static let AKDefaultLongitudeDelta = 0.45 // In degrees.
     static let AKLatitudeDegreeInKilometers = 111.0 // http://gis.stackexchange.com/questions/142326/calculating-longitude-length-in-miles
-    static let AKPYBoundsPointA = CLLocationCoordinate2DMake(-19.207429, -63.413086)
-    static let AKPYBoundsPointB = CLLocationCoordinate2DMake(-27.722436, -52.778320)
-    static let AKRaindropSize: Float = 50.0 // This is the square side length in meters.
+    static let AKPYBoundsPointA = GeoCoordinate(latitude: -19.207429, longitude: -63.413086)
+    static let AKPYBoundsPointB = GeoCoordinate(latitude: -27.722436, longitude: -52.778320)
+    static let AKRaindropSize: Double = 50.0 // This is the square side length in meters.
     static let AKMapTileTolerance: MKMapPoint = MKMapPointMake(5000.0, 5000.0)
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
-    static let AKRadarOrigin = CLLocationCoordinate2DMake(GlobalConstants.AKRadarLatitude, GlobalConstants.AKRadarLongitude)
-    static let AKInvalidIntensity: Int = -1
+    static let AKRadarOrigin = GeoCoordinate(latitude: GlobalConstants.AKRadarLatitude, longitude: GlobalConstants.AKRadarLongitude)
+    static let AKInvalidIntensity: RainIntensity = -1
     static let AKMaxUserDefinedAlerts: Int = 3
 }
 
@@ -298,7 +305,7 @@ class GlobalFunctions {
     /// - Parameter location:  The coordinates.
     /// - Parameter zoomLevel: The zoom level to use.
     ///
-    func AKCenterMapOnLocation(mapView: MKMapView, location: CLLocationCoordinate2D, zoomLevel: ZoomLevel)
+    func AKCenterMapOnLocation(mapView: MKMapView, location: GeoCoordinate, zoomLevel: ZoomLevel)
     {
         let span = MKCoordinateSpanMake(
             zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers,
@@ -323,7 +330,7 @@ class GlobalFunctions {
     ///
     /// - Returns: TRUE if within range, FALSE otherwise.
     ///
-    func AKComputeDistanceBetweenTwoPoints(pointA: CLLocationCoordinate2D, pointB: CLLocationCoordinate2D) -> CLLocationDistance
+    func AKComputeDistanceBetweenTwoPoints(pointA: GeoCoordinate, pointB: GeoCoordinate) -> CLLocationDistance
     {
         let pointA = CLLocation(latitude: pointA.latitude, longitude: pointA.longitude)
         let pointB = CLLocation(latitude: pointB.latitude, longitude: pointB.longitude)
@@ -340,14 +347,14 @@ class GlobalFunctions {
     ///
     /// - Returns: A polygon object in the form of a circle.
     ///
-    func AKCreateCircleForCoordinate(_ title: String, coordinate: CLLocationCoordinate2D, withMeterRadius: Double) -> MKPolygon
+    func AKCreateCircleForCoordinate(_ title: String, coordinate: GeoCoordinate, withMeterRadius: Double) -> MKPolygon
     {
         let degreesBetweenPoints = 8.0
         let numberOfPoints = floor(360.0 / degreesBetweenPoints)
         let distRadians: Double = withMeterRadius / GlobalConstants.AKEarthRadius
         let centerLatRadians: Double = coordinate.latitude * (M_PI / 180)
         let centerLonRadians: Double = coordinate.longitude * (M_PI / 180)
-        var coordinates = [CLLocationCoordinate2D]()
+        var coordinates = [GeoCoordinate]()
         
         for index in 0 ..< Int(numberOfPoints) {
             let degrees: Double = Double(index) * Double(degreesBetweenPoints)
@@ -356,7 +363,7 @@ class GlobalFunctions {
             let pointLonRadians: Double = centerLonRadians + atan2(sin(degreeRadians) * sin(distRadians) * cos(centerLatRadians), cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians))
             let pointLat: Double = pointLatRadians * (180 / M_PI)
             let pointLon: Double = pointLonRadians * (180 / M_PI)
-            let point: CLLocationCoordinate2D = CLLocationCoordinate2DMake(pointLat, pointLon)
+            let point = GeoCoordinate(latitude: pointLat, longitude: pointLon)
             
             coordinates.append(point)
         }
@@ -471,7 +478,7 @@ class GlobalFunctions {
     ///
     /// - Returns: A location object (Point Z).
     ///
-    func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: CLLocationCoordinate2D) -> CLLocationCoordinate2D
+    func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: GeoCoordinate) -> GeoCoordinate
     {
         if self.showDebugInformation {
             NSLog("=> INFO: LocationWithBearing: Origin(lat:%f,lon:%f)", origin.latitude, origin.longitude)
@@ -485,7 +492,7 @@ class GlobalFunctions {
         let lat2 = asin(sin(lat1) * cos(distRadians) + cos(lat1) * sin(distRadians) * cos(bearing))
         let lon2 = lon1 + atan2(sin(bearing) * sin(distRadians) * cos(lat1), cos(distRadians) - sin(lat1) * sin(lat2))
         
-        let pointZ = CLLocationCoordinate2D(latitude: lat2 * (180 / M_PI), longitude: lon2 * (180 / M_PI))
+        let pointZ = GeoCoordinate(latitude: lat2 * (180 / M_PI), longitude: lon2 * (180 / M_PI))
         if self.showDebugInformation {
             NSLog("=> INFO: LocationWithBearing: Point.Z(lat:%f,lon:%f)", pointZ.latitude, pointZ.longitude)
         }

@@ -4,7 +4,7 @@ import UIKit
 class AKDIMOverlay: NSObject, MKOverlay
 {
     // MARK: Properties
-    let coordinate: CLLocationCoordinate2D
+    let coordinate: GeoCoordinate
     let boundingMapRect: MKMapRect
     
     init(mapView: MKMapView)

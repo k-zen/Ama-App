@@ -6,15 +6,15 @@ import UIKit
 class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 {
     // MARK: Properties
-    let locationManager: CLLocationManager! = CLLocationManager()
+    let locationManager = CLLocationManager()
     var masterFile: AKMasterFile = AKMasterFile()
     var window: UIWindow?
     // ### USER POSITION ### //
-    var currentPosition: CLLocationCoordinate2D = CLLocationCoordinate2D()
-    var currentHeading: CLLocationDirection = CLLocationDirection(0.0)
-    private var lastSavedPosition: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    var currentPosition = GeoCoordinate()
+    var currentHeading = CLLocationDirection(0.0)
+    private var lastSavedPosition = GeoCoordinate()
     // ### USER POSITION ### //
-    private var lastSavedTime: Double = 0.0
+    private var lastSavedTime = 0.0
     /// The state of the App. False = Disabled because Location Service is disabled.
     /// If the state is disabled, the following functionalities are disabled:
     /// 1. Alerts
