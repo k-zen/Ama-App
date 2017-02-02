@@ -52,9 +52,6 @@ class AKAlertPINInputViewController: AKCustomViewController
         self.controlsContainer.insertSubview(blurView, at: 0)
         
         // Custom L&F.
-        self.controlsContainer.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius * 2.0
-        self.controlsContainer.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness * 2.0)
-        self.controlsContainer.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
         self.save.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
         self.discard.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
         self.name.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius

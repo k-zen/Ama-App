@@ -315,7 +315,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Miscellaneous
     func customSetup()
     {
-        super.shouldCheckLoggedUser = true
+        super.shouldCheckLoggedUser = false
         super.inhibitLocationServiceMessage = false
         super.inhibitTapGesture = true
         super.inhibitLongPressGesture = false

@@ -14,8 +14,6 @@
 		4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */; };
 		4905E7E81DC1C8C8007A2BB2 /* AKRainfallPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */; };
 		491A09A91E305E5A008953AE /* 0011-024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 491A09A81E305E5A008953AE /* 0011-024px.png */; };
-		49223BF21DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */; };
-		49223BF41DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */; };
 		49223BF61DFF2B1100C8CB61 /* 0005-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF51DFF2B1100C8CB61 /* 0005-030px.png */; };
 		49223BF81DFF2E7200C8CB61 /* AKHeatMapActionsOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF71DFF2E7200C8CB61 /* AKHeatMapActionsOverlayView.xib */; };
 		49223BFA1DFF2F3A00C8CB61 /* AKHeatMapActionsOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49223BF91DFF2F3A00C8CB61 /* AKHeatMapActionsOverlayView.swift */; };
@@ -108,8 +106,6 @@
 		4905E7E51DC15284007A2BB2 /* AKRainOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRainOverlayRenderer.swift; path = AKCustomComponents/AKRainOverlayRenderer.swift; sourceTree = "<group>"; };
 		4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainfallPoint.swift; sourceTree = "<group>"; };
 		491A09A81E305E5A008953AE /* 0011-024px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0011-024px.png"; sourceTree = "<group>"; };
-		49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKHeatMapInfoOverlayView.xib; sourceTree = "<group>"; };
-		49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapInfoOverlayView.swift; sourceTree = "<group>"; };
 		49223BF51DFF2B1100C8CB61 /* 0005-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0005-030px.png"; sourceTree = "<group>"; };
 		49223BF71DFF2E7200C8CB61 /* AKHeatMapActionsOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKHeatMapActionsOverlayView.xib; sourceTree = "<group>"; };
 		49223BF91DFF2F3A00C8CB61 /* AKHeatMapActionsOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapActionsOverlayView.swift; sourceTree = "<group>"; };
@@ -304,7 +300,6 @@
 				49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */,
 				49223BF91DFF2F3A00C8CB61 /* AKHeatMapActionsOverlayView.swift */,
 				49223C011DFF42C600C8CB61 /* AKHeatMapAlertsOverlayView.swift */,
-				49223BF31DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift */,
 				494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */,
 				49447D401E2FF65500BE59D0 /* AKHeatMapLegendOverlayView.swift */,
 			);
@@ -348,7 +343,6 @@
 				4927E4F91E39069700F4B8F0 /* AKAlertPINInputView.xib */,
 				49223BF71DFF2E7200C8CB61 /* AKHeatMapActionsOverlayView.xib */,
 				49223BFF1DFF41FE00C8CB61 /* AKHeatMapAlertsOverlayView.xib */,
-				49223BF11DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib */,
 				494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */,
 				49447D3E1E2FF17A00BE59D0 /* AKHeatMapLegendOverlayView.xib */,
 				49BF710F1E3FB1B4005F29FC /* AKLoginView.xib */,
@@ -584,7 +578,6 @@
 				49223C001DFF41FE00C8CB61 /* AKHeatMapAlertsOverlayView.xib in Resources */,
 				49B96A1C1E1DA56C00F33829 /* AppIcon-83.5@2x.png in Resources */,
 				49B96A161E1DA56C00F33829 /* AppIcon-60@1x.png in Resources */,
-				49223BF21DFEE6A200C8CB61 /* AKHeatMapInfoOverlayView.xib in Resources */,
 				49447D451E301A9100BE59D0 /* 0010-024px.png in Resources */,
 				498422161E3137CE00DCF99B /* AKUserAnnotationView.xib in Resources */,
 				492FF7531DBE8AFE009B4CDD /* 0001-030px.png in Resources */,
@@ -684,7 +677,6 @@
 				4905E7E01DC151E8007A2BB2 /* AKRadarSpanOverlay.swift in Sources */,
 				498422121E3133BA00DCF99B /* AKUserAnnotationView.swift in Sources */,
 				49D0BF001DB121D700149DEE /* AKConstants.swift in Sources */,
-				49223BF41DFEE86500C8CB61 /* AKHeatMapInfoOverlayView.swift in Sources */,
 				49447D411E2FF65500BE59D0 /* AKHeatMapLegendOverlayView.swift in Sources */,
 				4905E7E81DC1C8C8007A2BB2 /* AKRainfallPoint.swift in Sources */,
 				49223C021DFF42C600C8CB61 /* AKHeatMapAlertsOverlayView.swift in Sources */,

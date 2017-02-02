@@ -580,7 +580,6 @@ class GlobalFunctions {
                 at: TSMessageNotificationPosition.top,
                 canBeDismissedByUser: true
             )
-            AudioServicesPlaySystemSound(UInt32(GlobalConstants.AKNotificationBarSound))
         }
     }
     
