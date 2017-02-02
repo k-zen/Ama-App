@@ -81,7 +81,8 @@ struct GlobalConstants {
     static let AKDefaultBg = GlobalFunctions.instance(false).AKHexColor(0x29282D)
     static let AKDefaultFg = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
     static let AKTabBarBg = GlobalConstants.AKDefaultBg
-    static let AKTabBarTint = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
+    static let AKTabBarTintNormal = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
+    static let AKTabBarTintSelected = GlobalFunctions.instance(false).AKHexColor(0x0088CC)
     static let AKDefaultTextfieldBorderBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
     static let AKDefaultViewBorderBg = GlobalFunctions.instance(false).AKHexColor(0x000000)

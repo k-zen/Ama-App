@@ -48,12 +48,17 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     {
         // Configure TabBar.
         UITabBar.appearance().barTintColor = GlobalConstants.AKTabBarBg
-        UITabBar.appearance().tintColor = GlobalConstants.AKTabBarTint
         UITabBarItem.appearance().setTitleTextAttributes(
             [
-                NSFontAttributeName: UIFont(name: GlobalConstants.AKDefaultFont, size: 12.0) ?? UIFont.systemFont(ofSize: 12),
-                NSForegroundColorAttributeName: GlobalConstants.AKDefaultFg
+                NSFontAttributeName: UIFont(name: GlobalConstants.AKDefaultFont, size: 18.0) ?? UIFont.systemFont(ofSize: 18.0),
+                NSForegroundColorAttributeName: GlobalConstants.AKTabBarTintNormal
             ], for: UIControlState.normal
+        )
+        UITabBarItem.appearance().setTitleTextAttributes(
+            [
+                NSFontAttributeName: UIFont(name: GlobalConstants.AKDefaultFont, size: 18.0) ?? UIFont.systemFont(ofSize: 18.0),
+                NSForegroundColorAttributeName: GlobalConstants.AKTabBarTintSelected
+            ], for: UIControlState.selected
         )
         UINavigationBar.appearance().titleTextAttributes = [
             NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 22.0) ?? UIFont.systemFont(ofSize: 18),
