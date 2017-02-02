@@ -200,53 +200,60 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         controller.view.backgroundColor = UIColor.clear
         controller.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.translatesAutoresizingMaskIntoConstraints = true
+        blurView.frame = controller.view.bounds
+        
+        controller.view.insertSubview(blurView, at: 0)
+        
         self.present(controller, animated: true, completion: nil)
     }
     
     // MARK: Gesture Handling
-    @objc private func tap(_ gesture: UIGestureRecognizer?)
+    @objc internal func tap(_ gesture: UIGestureRecognizer?)
     {
         NSLog("=> TAP GESTURE DETECTED... DOING SOMETHING...")
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenTaped(gesture)
     }
     
-    @objc private func pinch(_ gesture: UIGestureRecognizer?)
+    @objc internal func pinch(_ gesture: UIGestureRecognizer?)
     {
         NSLog("=> PINCH GESTURE DETECTED... DOING SOMETHING...")
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenPinched(gesture)
     }
     
-    @objc private func rotate(_ gesture: UIGestureRecognizer?)
+    @objc internal func rotate(_ gesture: UIGestureRecognizer?)
     {
         NSLog("=> ROTATION GESTURE DETECTED... DOING SOMETHING...")
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenRotated(gesture)
     }
     
-    @objc private func swipe(_ gesture: UIGestureRecognizer?)
+    @objc internal func swipe(_ gesture: UIGestureRecognizer?)
     {
         NSLog("=> SWIPE GESTURE DETECTED... DOING SOMETHING...")
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenSwiped(gesture)
     }
     
-    @objc private func pan(_ gesture: UIGestureRecognizer?)
+    @objc internal func pan(_ gesture: UIGestureRecognizer?)
     {
         NSLog("=> PAN GESTURE DETECTED... DOING SOMETHING...")
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenPaned(gesture)
     }
     
-    @objc private func screenEdgePan(_ gesture: UIGestureRecognizer?)
+    @objc internal func screenEdgePan(_ gesture: UIGestureRecognizer?)
     {
         NSLog("=> SCREEN EDGE PAN GESTURE DETECTED... DOING SOMETHING...")
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenScreenEdgePaned(gesture)
     }
     
-    @objc private func longPress(_ gesture: UIGestureRecognizer?)
+    @objc internal func longPress(_ gesture: UIGestureRecognizer?)
     {
         NSLog("=> LONG PRESS GESTURE DETECTED... DOING SOMETHING...")
         self.defaultOperationsWhenGesture(self, gesture)

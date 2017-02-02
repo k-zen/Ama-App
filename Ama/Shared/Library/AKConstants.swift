@@ -14,6 +14,8 @@ typealias RainIntensity = Int16
 typealias GeoCoordinate = CLLocationCoordinate2D
 typealias Latitude = Double
 typealias Longitude = Double
+typealias User = AKUser
+typealias Alert = AKAlert
 
 // MARK: Extensions
 extension Int
@@ -74,7 +76,7 @@ struct GlobalConstants {
     static let AKMasterFileName = "MasterFile.dat"
     static let AKNotificationBarDismissDelay = 2.0
     static let AKNotificationBarSound = 1057
-    static let AKDefaultFont = "HelveticaNeue-CondensedBold"
+    static let AKDefaultFont = "HelveticaNeue-Thin"
     static let AKRedColor_1 = GlobalFunctions.instance(false).AKHexColor(0xDF3732)
     static let AKDefaultBg = GlobalFunctions.instance(false).AKHexColor(0x29282D)
     static let AKDefaultFg = GlobalFunctions.instance(false).AKHexColor(0xFFFFFF)
@@ -83,6 +85,7 @@ struct GlobalConstants {
     static let AKDefaultTextfieldBorderBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
     static let AKOverlaysBg = GlobalConstants.AKDefaultBg
     static let AKDefaultViewBorderBg = GlobalFunctions.instance(false).AKHexColor(0x000000)
+    static let AKDefaultFloatingViewBorderBg = UIColor.black
     static let AKUserAnnotationBg = GlobalConstants.AKRedColor_1
     static let AKAlertAnnotationBg = UIColor.orange
     static let AKUserOverlayBg = GlobalConstants.AKRedColor_1
@@ -110,6 +113,12 @@ struct GlobalConstants {
     static let AKRadarOrigin = GeoCoordinate(latitude: GlobalConstants.AKRadarLatitude, longitude: GlobalConstants.AKRadarLongitude)
     static let AKInvalidIntensity: RainIntensity = -1
     static let AKMaxUserDefinedAlerts: Int = 3
+    static let AKEmptyPhoneNumberPrefix = "00"
+    static let AKEmptyPhoneNumber = "000000"
+    static let AKMaxPhoneNumberLength = 8
+    static let AKMinPhoneNumberLength = 8
+    static let AKMinPinLength = 4
+    static let AKMaxPinLength = 4
 }
 
 struct AKRainfallIntensityColor {
@@ -130,11 +139,11 @@ enum ErrorCodes: Int {
 }
 
 enum Exceptions: Error {
-    case notInitialized(msg: String)
-    case emptyData(msg: String)
-    case invalidLength(msg: String)
-    case notValid(msg: String)
-    case invalidJSON(msg: String)
+    case notInitialized(String)
+    case emptyData(String)
+    case invalidLength(String)
+    case notValid(String)
+    case invalidJSON(String)
 }
 
 enum HeatMapColor: UInt {
@@ -297,6 +306,39 @@ class GlobalFunctions {
     /// - Returns: The App's delegate object.
     ///
     func AKDelegate() -> AKAppDelegate { return UIApplication.shared.delegate as! AKAppDelegate }
+    
+    ///
+    /// Adds a toolbar to the keyboard with a single button to close it down.
+    ///
+    /// - Parameter textControl: The control where to add the keyboard.
+    /// - Parameter controller: The view controller that owns the control.
+    ///
+    func AKAddDoneButtonKeyboard(_ textControl: AnyObject, controller: AKCustomViewController) {
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.frame = CGRect(x: 0, y: 0, width: textControl.bounds.width, height: 30)
+        keyboardToolbar.barTintColor = UIColor.black
+        
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let doneBarButton = UIBarButtonItem(title: "Cerrar Teclado", style: .done, target: controller, action: #selector(AKCustomViewController.tap(_:)))
+        doneBarButton.setTitleTextAttributes(
+            [
+                NSFontAttributeName : UIFont(name: GlobalConstants.AKDefaultFont, size: 16.0)!,
+                NSForegroundColorAttributeName: UIColor.white
+            ], for: UIControlState.normal
+        )
+        
+        keyboardToolbar.items = [flexBarButton, doneBarButton]
+        
+        if textControl is UITextField {
+            let textControlTmp = textControl as! UITextField
+            textControlTmp.inputAccessoryView = keyboardToolbar
+        }
+        else if textControl is UITextView {
+            let textControlTmp = textControl as! UITextView
+            textControlTmp.inputAccessoryView = keyboardToolbar
+        }
+    }
     
     ///
     /// Centers a map on a given coordinate and sets the viewport according to a radius.

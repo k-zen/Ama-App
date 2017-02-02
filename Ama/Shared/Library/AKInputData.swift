@@ -14,7 +14,7 @@ class AKInputData: NSObject
     
     internal func isReady() throws
     {
-        guard inputData != nil && !inputData.isEmpty else { throw Exceptions.emptyData(msg: "Empty data.") }
+        guard inputData != nil && !inputData.isEmpty else { throw Exceptions.emptyData("Datos vacíos.") }
     }
     
     func validate() throws

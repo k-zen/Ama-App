@@ -39,6 +39,9 @@
 		494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F81E2B155000FC3AEA /* 0008-032px.png */; };
 		4960A4331E0C37EC0076E50C /* AmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A42C1E0C37EC0076E50C /* AmaTests.swift */; };
 		496707FD1DFB904100888E25 /* 2015-12-04--09%3A44%3A11,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */; };
+		497860581E43ABB200342EE0 /* AKPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497860561E43ABB200342EE0 /* AKPhoneNumber.swift */; };
+		497860591E43ABB200342EE0 /* AKPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497860571E43ABB200342EE0 /* AKPin.swift */; };
+		4978605B1E43AEA800342EE0 /* AKConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978605A1E43AEA800342EE0 /* AKConversions.swift */; };
 		497DCA5B1E3640CE00EBF3C4 /* AKAlertAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497DCA5A1E3640CE00EBF3C4 /* AKAlertAnnotation.swift */; };
 		497DCA5D1E36413700EBF3C4 /* AKAlertAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497DCA5C1E36413700EBF3C4 /* AKAlertAnnotationView.swift */; };
 		497DCA5F1E36417F00EBF3C4 /* AKAlertAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497DCA5E1E36417F00EBF3C4 /* AKAlertAnnotationView.xib */; };
@@ -133,6 +136,9 @@
 		4960A4321E0C37EC0076E50C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--09%3A44%3A11,00.ama"; sourceTree = "<group>"; };
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		497860561E43ABB200342EE0 /* AKPhoneNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhoneNumber.swift; sourceTree = "<group>"; };
+		497860571E43ABB200342EE0 /* AKPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPin.swift; sourceTree = "<group>"; };
+		4978605A1E43AEA800342EE0 /* AKConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConversions.swift; sourceTree = "<group>"; };
 		497DCA5A1E3640CE00EBF3C4 /* AKAlertAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertAnnotation.swift; sourceTree = "<group>"; };
 		497DCA5C1E36413700EBF3C4 /* AKAlertAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertAnnotationView.swift; sourceTree = "<group>"; };
 		497DCA5E1E36417F00EBF3C4 /* AKAlertAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertAnnotationView.xib; sourceTree = "<group>"; };
@@ -420,6 +426,7 @@
 				497DCA5A1E3640CE00EBF3C4 /* AKAlertAnnotation.swift */,
 				497DCA5C1E36413700EBF3C4 /* AKAlertAnnotationView.swift */,
 				49D0BEEE1DB121D700149DEE /* AKConstants.swift */,
+				4978605A1E43AEA800342EE0 /* AKConversions.swift */,
 				49D0BEDB1DB121D700149DEE /* AKCustomComponents */,
 				49223BFD1DFF3D2100C8CB61 /* AKDIMOverlay.swift */,
 				49223BFB1DFF3CEE00C8CB61 /* AKDIMOverlayRenderer.swift */,
@@ -428,6 +435,8 @@
 				49FEC27C1E37026200328467 /* AKHeatMapUtilityFunctions.swift */,
 				49D0BEF21DB121D700149DEE /* AKInputData.swift */,
 				49D621BA1E12E65D004388AF /* AKMasterFile.swift */,
+				497860561E43ABB200342EE0 /* AKPhoneNumber.swift */,
+				497860571E43ABB200342EE0 /* AKPin.swift */,
 				498422131E31341400DCF99B /* AKRadarAnnotation.swift */,
 				4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */,
 				4905E7E71DC1C8C8007A2BB2 /* AKRainfallPoint.swift */,
@@ -689,6 +698,7 @@
 				49D0BF041DB121D700149DEE /* AKInputData.swift in Sources */,
 				4905E7E61DC15284007A2BB2 /* AKRainOverlayRenderer.swift in Sources */,
 				49C423221E1AC60900728DF0 /* AKUser.swift in Sources */,
+				497860591E43ABB200342EE0 /* AKPin.swift in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
 				49D621C01E12E65D004388AF /* AKMasterFile.swift in Sources */,
 				497DCA5B1E3640CE00EBF3C4 /* AKAlertAnnotation.swift in Sources */,
@@ -696,6 +706,8 @@
 				49BF71121E3FB2EB005F29FC /* AKLoginViewController.swift in Sources */,
 				494609F61E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift in Sources */,
 				49FEC27B1E36D3DE00328467 /* AKHeatMapClosures.swift in Sources */,
+				497860581E43ABB200342EE0 /* AKPhoneNumber.swift in Sources */,
+				4978605B1E43AEA800342EE0 /* AKConversions.swift in Sources */,
 				49D0BEF61DB121D700149DEE /* AKCustomView.m in Sources */,
 				498422141E31341400DCF99B /* AKRadarAnnotation.swift in Sources */,
 				4905E7E41DC15265007A2BB2 /* AKRainOverlay.swift in Sources */,

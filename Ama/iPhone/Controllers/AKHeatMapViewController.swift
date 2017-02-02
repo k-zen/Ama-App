@@ -315,6 +315,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Miscellaneous
     func customSetup()
     {
+        super.shouldCheckLoggedUser = true
         super.inhibitLocationServiceMessage = false
         super.inhibitTapGesture = true
         super.inhibitLongPressGesture = false
@@ -346,7 +347,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                                 
                                 let annotation = AKAlertAnnotation(id: id, titleLabel: title, subtitleLabel: subtitle, location: coordinates)
                                 
-                                let alert = AKAlert(alertID: id, alertName: name, alertRadius: Double(radius), alertAnnotation: annotation)
+                                let alert = Alert(alertID: id, alertName: name, alertRadius: Double(radius), alertAnnotation: annotation)
                                 
                                 GlobalFunctions.instance(false).AKObtainMasterFile().user.addAlert(alert: alert)
                                 

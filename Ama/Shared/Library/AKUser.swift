@@ -10,31 +10,39 @@ class AKUser: NSObject, NSCoding
 {
     // MARK: Constants
     struct Keys {
-        static let phoneNumber = "AK.phone.number"
+        static let username = "AK.user.username"
+        static let apnsToken = "AK.user.apns.token"
+        static let isRegistered = "AK.user.is.registered"
         static let userDefinedAlerts = "AK.user.defined.alerts"
     }
     
     // MARK: Properties
-    static let AKEmptyPhoneNumber = "000000"
-    var phoneNumber: String
-    var userDefinedAlerts: [AKAlert]
+    var username: String
+    var apnsToken: String
+    var isRegistered: Bool
+    var userDefinedAlerts: [Alert]
     
     // MARK: Initializers
     override init()
     {
-        self.phoneNumber = AKUser.AKEmptyPhoneNumber
+        self.username = GlobalConstants.AKEmptyPhoneNumber
+        self.apnsToken = ""
+        self.isRegistered = false
         self.userDefinedAlerts = []
     }
     
-    init(phoneNumber: String, userDefinedAlerts: [AKAlert])
+    init(username: String, apnsToken: String, isRegistered: Bool, userDefinedAlerts: [Alert])
     {
-        self.phoneNumber = phoneNumber
+        self.username = username
+        self.apnsToken = apnsToken
+        self.isRegistered = isRegistered
         self.userDefinedAlerts = userDefinedAlerts
+        
         super.init()
     }
     
     // MARK: Alert Management
-    func addAlert(alert: AKAlert)
+    func addAlert(alert: Alert)
     {
         for a in self.userDefinedAlerts {
             if a.alertID.caseInsensitiveCompare(alert.alertID) == ComparisonResult.orderedSame {
@@ -89,7 +97,7 @@ class AKUser: NSObject, NSCoding
         return false
     }
     
-    func removeLastAlert() -> AKAlert?
+    func removeLastAlert() -> Alert?
     {
         return self.userDefinedAlerts.popLast()
     }
@@ -99,7 +107,7 @@ class AKUser: NSObject, NSCoding
         return self.userDefinedAlerts.count
     }
     
-    func findAlert(id: String) -> AKAlert?
+    func findAlert(id: String) -> Alert?
     {
         for a in self.userDefinedAlerts {
             if a.alertID.caseInsensitiveCompare(id) == ComparisonResult.orderedSame {
@@ -110,14 +118,27 @@ class AKUser: NSObject, NSCoding
         return nil
     }
     
+    // MARK: Manage registration.
+    func registerUser()
+    {
+        if !self.isRegistered {
+            self.isRegistered = true
+        }
+    }
+    
     // MARK: Utilities
     func printObject(_ padding: String = "") -> String
     {
         let string: NSMutableString = NSMutableString()
         
         string.appendFormat("%@****** USER ******\n", padding)
-        string.appendFormat("%@\t>>> Phone Number = %@\n", padding, self.phoneNumber)
-        string.appendFormat("%@\t>>> User Defined Alerts (%i) = %@\n", padding, self.userDefinedAlerts.count, self.userDefinedAlerts)
+        string.appendFormat("%@>>> Username = %@\n", padding, self.username)
+        string.appendFormat("%@>>> APNS Token = %@\n", padding, self.apnsToken)
+        string.appendFormat("%@>>> Is Registered = %@\n", padding, self.isRegistered ? "YES" : "NO")
+        string.appendFormat("%@>>> User Defined Alerts (%i) = %@\n", padding, self.userDefinedAlerts.count, self.userDefinedAlerts)
+        for alert in self.userDefinedAlerts {
+            string.appendFormat("%@", alert.printObject("\t"))
+        }
         string.appendFormat("%@****** USER ******\n", padding)
         
         return string as String
@@ -126,14 +147,19 @@ class AKUser: NSObject, NSCoding
     // MARK: NSCoding Implementation
     required convenience init(coder aDecoder: NSCoder)
     {
-        let phoneNumber = aDecoder.decodeObject(forKey: Keys.phoneNumber) as! String
-        let userDefinedAlerts = aDecoder.decodeObject(forKey: Keys.userDefinedAlerts) as! [AKAlert]
-        self.init(phoneNumber: phoneNumber, userDefinedAlerts: userDefinedAlerts)
+        let username = aDecoder.decodeObject(forKey: Keys.username) as! String
+        let apnsToken = aDecoder.decodeObject(forKey: Keys.apnsToken) as! String
+        let isRegistered = aDecoder.decodeBool(forKey: Keys.isRegistered)
+        let userDefinedAlerts = aDecoder.decodeObject(forKey: Keys.userDefinedAlerts) as! [Alert]
+        
+        self.init(username: username, apnsToken: apnsToken, isRegistered: isRegistered, userDefinedAlerts: userDefinedAlerts)
     }
     
     func encode(with aCoder: NSCoder)
     {
-        aCoder.encode(self.phoneNumber, forKey: Keys.phoneNumber)
+        aCoder.encode(self.username, forKey: Keys.username)
+        aCoder.encode(self.apnsToken, forKey: Keys.apnsToken)
+        aCoder.encode(self.isRegistered, forKey: Keys.isRegistered)
         aCoder.encode(self.userDefinedAlerts, forKey: Keys.userDefinedAlerts)
     }
 }

@@ -50,6 +50,22 @@ class AKAlert: NSObject, NSCoding
         }
     }
     
+    func printObject(_ padding: String = "") -> String
+    {
+        let string: NSMutableString = NSMutableString()
+        
+        string.append("\n")
+        string.appendFormat("%@****** ALERT ******\n", padding)
+        string.appendFormat("%@>>> ID = %@\n", padding, self.alertID)
+        string.appendFormat("%@>>> Name = %@\n", padding, self.alertName)
+        string.appendFormat("%@>>> Radius = %f\n", padding, self.alertRadius)
+        string.appendFormat("%@>>> View = %@\n", padding, self.alertView)
+        string.appendFormat("%@>>> Annotation = %@\n", padding, self.alertAnnotation)
+        string.appendFormat("%@****** ALERT ******\n", padding)
+        
+        return string as String
+    }
+    
     // MARK: NSCoding Implementation
     required convenience init(coder aDecoder: NSCoder)
     {
