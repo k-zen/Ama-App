@@ -36,11 +36,13 @@ class AKHeatMapClosures: NSObject
             AKHeatMapUtilityFunctions.addDefaultMapOverlays(controller)
             
             // Adjust zoom level and center map around the radar.
-            GlobalFunctions.instance(false).AKCenterMapOnLocation(
-                mapView: controller.mapView,
-                location: GlobalConstants.AKRadarOrigin,
-                zoomLevel: ZoomLevel.L03
-            )
+            GlobalFunctions.instance(false).AKDelay(2.0, task: { Void -> Void in
+                GlobalFunctions.instance(false).AKCenterMapOnLocation(
+                    mapView: controller.mapView,
+                    location: GlobalFunctions.instance(false).AKDelegate().currentPosition,
+                    zoomLevel: GlobalConstants.AKDefaultZoomLevel
+                )
+            })
             
             // Configure the request to the backend.
             let rainfallPoints = NSMutableArray()

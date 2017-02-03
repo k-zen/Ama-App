@@ -22,14 +22,12 @@ class AKHeatMapLayersOverlayView: AKCustomView
                 self.layers.layer.backgroundColor = GlobalConstants.AKDisabledButtonBg.cgColor
                 AKHeatMapUtilityFunctions.hideLayers(controller)
                 AKHeatMapUtilityFunctions.hideLegend(controller)
-                controller.mapView.mapType = MKMapType.standard
             }
             else {
                 self.layersState = true
                 self.layers.layer.backgroundColor = GlobalConstants.AKEnabledButtonBg.cgColor
                 controller.rainmapObserver()
                 AKHeatMapUtilityFunctions.showLegend(controller)
-                controller.mapView.mapType = MKMapType.hybrid
             }
         }
     }

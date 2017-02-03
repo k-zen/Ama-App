@@ -103,8 +103,6 @@ struct GlobalConstants {
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
     static let AKRadarLatitude = -25.333079999999999
     static let AKRadarLongitude = -57.523449999999997
-    static let AKDefaultLatitudeDelta = 0.45 // In degrees. 1 degree equals 111kms.
-    static let AKDefaultLongitudeDelta = 0.45 // In degrees.
     static let AKLatitudeDegreeInKilometers = 111.0 // http://gis.stackexchange.com/questions/142326/calculating-longitude-length-in-miles
     static let AKPYBoundsPointA = GeoCoordinate(latitude: -19.207429, longitude: -63.413086)
     static let AKPYBoundsPointB = GeoCoordinate(latitude: -27.722436, longitude: -52.778320)
@@ -120,6 +118,8 @@ struct GlobalConstants {
     static let AKMinPhoneNumberLength = 8
     static let AKMinPinLength = 4
     static let AKMaxPinLength = 4
+    static let AKDefaultZoomLevel = ZoomLevel.L08
+    static let AKDIMOverlayAlpha = 0.60
 }
 
 struct AKRainfallIntensityColor {
@@ -350,19 +350,21 @@ class GlobalFunctions {
     ///
     func AKCenterMapOnLocation(mapView: MKMapView, location: GeoCoordinate, zoomLevel: ZoomLevel)
     {
-        let span = MKCoordinateSpanMake(
-            zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers,
-            zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers
-        )
-        
-        mapView.setCenter(location, animated: true)
-        mapView.setRegion(
-            MKCoordinateRegion(
-                center: location,
-                span: span
-            ),
-            animated: true
-        )
+        GlobalFunctions.instance(false).AKExecuteInMainThread {
+            let span = MKCoordinateSpanMake(
+                zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers,
+                zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers
+            )
+            
+            mapView.setCenter(location, animated: true)
+            mapView.setRegion(
+                MKCoordinateRegion(
+                    center: location,
+                    span: span
+                ),
+                animated: true
+            )
+        }
     }
     
     ///

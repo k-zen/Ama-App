@@ -14,11 +14,11 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
     // Flags
-    let addRadarOverlay = true
+    let addRadarOverlay = false
     let addRadarPin = false
     let addUserOverlay = false
     let addUserPin = true
-    let addDIMOverlay = true
+    let addDIMOverlay = false
     // View Overlay Controllers
     let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
     let hmAlertsOverlayViewContainer = AKHeatMapAlertsOverlayView()
@@ -60,7 +60,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         GlobalFunctions.instance(false).AKCenterMapOnLocation(
             mapView: self.mapView,
             location: GlobalConstants.AKRadarOrigin,
-            zoomLevel: ZoomLevel.L03
+            zoomLevel: GlobalConstants.AKDefaultZoomLevel
         )
         AKHeatMapClosures.updateWeatherStatus(self)
     }
