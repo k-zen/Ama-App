@@ -59,7 +59,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         AKHeatMapUtilityFunctions.addDefaultViewOverlays(self)
         GlobalFunctions.instance(false).AKCenterMapOnLocation(
             mapView: self.mapView,
-            location: GlobalConstants.AKRadarOrigin,
+            location: GlobalFunctions.instance(false).AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
             zoomLevel: GlobalConstants.AKDefaultZoomLevel
         )
         AKHeatMapClosures.updateWeatherStatus(self)
@@ -225,8 +225,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     
                     v.titleLabel.text = annotation.titleLabel
                     v.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-                    v.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
-                    v.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
+                    // v.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
+                    // v.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
                     
                     self.userAnnotationView = v
                     
@@ -274,7 +274,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     {
         GlobalFunctions.instance(false).AKExecuteInMainThread {
             if GlobalFunctions.instance(false).AKDelegate().applicationActive {
-                let coordinate = GlobalFunctions.instance(false).AKDelegate().currentPosition
+                let coordinate = GlobalFunctions.instance(false).AKDelegate().currentPosition ?? kCLLocationCoordinate2DInvalid
                 
                 if self.addUserPin {
                     if self.userAnnotation != nil {

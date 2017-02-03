@@ -39,7 +39,7 @@ class AKHeatMapClosures: NSObject
             GlobalFunctions.instance(false).AKDelay(2.0, task: { Void -> Void in
                 GlobalFunctions.instance(false).AKCenterMapOnLocation(
                     mapView: controller.mapView,
-                    location: GlobalFunctions.instance(false).AKDelegate().currentPosition,
+                    location: GlobalFunctions.instance(false).AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
                     zoomLevel: GlobalConstants.AKDefaultZoomLevel
                 )
             })
@@ -194,8 +194,8 @@ class AKHeatMapClosures: NSObject
         GlobalFunctions.instance(false).AKDelay(2.0, task: {
             CLGeocoder().reverseGeocodeLocation(
                 CLLocation(
-                    latitude: GlobalFunctions.instance(false).AKDelegate().currentPosition.latitude,
-                    longitude: GlobalFunctions.instance(false).AKDelegate().currentPosition.longitude
+                    latitude: GlobalFunctions.instance(false).AKDelegate().currentPosition?.latitude ?? kCLLocationCoordinate2DInvalid.latitude,
+                    longitude: GlobalFunctions.instance(false).AKDelegate().currentPosition?.longitude ?? kCLLocationCoordinate2DInvalid.longitude
                 ),
                 completionHandler: { (placemarks, error) in
                     if error == nil {

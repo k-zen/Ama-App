@@ -40,8 +40,8 @@ class AKAlert: NSObject, NSCoding
             view.titleLabel.text = self.alertAnnotation.titleLabel
             view.subtitleLabel.text = self.alertAnnotation.subtitleLabel
             view.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-            view.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
-            view.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
+            // view.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
+            // view.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
             
             self.alertView = view
         }

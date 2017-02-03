@@ -10,9 +10,9 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     var masterFile = AKMasterFile()
     var window: UIWindow?
     // ### USER POSITION ### //
-    var currentPosition = GeoCoordinate()
+    var currentPosition: GeoCoordinate?
     var currentHeading = CLLocationDirection(0.0)
-    private var lastSavedPosition = GeoCoordinate()
+    private var lastSavedPosition: GeoCoordinate?
     // ### USER POSITION ### //
     private var lastSavedTime = 0.0
     /// The state of the App. False = Disabled because Location Service is disabled.
@@ -102,7 +102,7 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
         self.currentPosition = (currentLocation?.coordinate)! // Always save the current location.
         
         if GlobalConstants.AKDebug {
-            NSLog("=> CURRENT LAT: %f, CURRENT LON: %f", self.currentPosition.latitude, self.currentPosition.longitude)
+            NSLog("=> CURRENT LAT: %f, CURRENT LON: %f", self.currentPosition?.latitude ?? kCLLocationCoordinate2DInvalid.latitude, self.currentPosition?.longitude ?? kCLLocationCoordinate2DInvalid.longitude)
         }
         
         // Compute travel segment in regular intervals.
