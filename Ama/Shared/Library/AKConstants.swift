@@ -472,25 +472,25 @@ class GlobalFunctions {
     {
         switch ri {
         case 1 ..< 25:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.50)
         case 25 ..< 50:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C02.rawValue), alpha: 0.50)
         case 50 ..< 75:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C03.rawValue), alpha: 0.50)
         case 75 ..< 100:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C04.rawValue), alpha: 0.50)
         case 100 ..< 125:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C05.rawValue), alpha: 0.50)
         case 125 ..< 150:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C06.rawValue), alpha: 0.50)
         case 150 ..< 175:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C07.rawValue), alpha: 0.50)
         case 175 ..< 200:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C08.rawValue), alpha: 0.50)
         case 200 ..< 225:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C09.rawValue), alpha: 0.50)
         case 225 ..< RainIntensity.max:
-            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
+            return AKRainfallIntensityColor(color: GlobalFunctions.instance(false).AKHexColor(HeatMapColor.C10.rawValue), alpha: 0.50)
         default:
             return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
         }
