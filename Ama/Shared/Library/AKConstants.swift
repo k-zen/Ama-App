@@ -93,10 +93,10 @@ struct GlobalConstants {
     static let AKRadarAnnotationBg = UIColor.green
     static let AKDisabledButtonBg = GlobalFunctions.instance(false).AKHexColor(0x999999)
     static let AKEnabledButtonBg = GlobalConstants.AKRedColor_1
-    // static let AKTableHeaderCellBg = GlobalFunctions.AKHexColor(0x333333)
-    // static let AKTableHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x72BF44)
-    // static let AKHeaderLeftBorderBg = GlobalFunctions.AKHexColor(0x555555)
-    // static let AKHeaderTopBorderBg = GlobalFunctions.AKHexColor(0x72BF44)
+    static let AKTableHeaderCellBg = UIColor.black
+    static let AKTableHeaderLeftBorderBg = GlobalFunctions.instance(false).AKHexColor(0xEBDBB2)
+    static let AKTableCellBg = GlobalConstants.AKDefaultBg
+    static let AKTableCellLeftBorderBg = GlobalConstants.AKTableHeaderLeftBorderBg
     static let AKButtonCornerRadius: CGFloat = 4.0
     static let AKDefaultBorderThickness = 1.5
     static let AKLocationUpdateInterval = 30

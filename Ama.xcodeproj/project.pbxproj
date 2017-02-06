@@ -49,6 +49,8 @@
 		498422141E31341400DCF99B /* AKRadarAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498422131E31341400DCF99B /* AKRadarAnnotation.swift */; };
 		498422161E3137CE00DCF99B /* AKUserAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498422151E3137CE00DCF99B /* AKUserAnnotationView.xib */; };
 		49B46A411E0C3F280052F75E /* AKFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B46A401E0C3F280052F75E /* AKFileIO.swift */; };
+		49B899621E44F2DD00CA0506 /* AKAlertsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B899611E44F2DD00CA0506 /* AKAlertsTableViewCell.xib */; };
+		49B899641E44F31600CA0506 /* AKAlertsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B899631E44F31600CA0506 /* AKAlertsTableViewCell.swift */; };
 		49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A001E1DA56C00F33829 /* 0006-512px.png */; };
 		49B96A101E1DA56C00F33829 /* AppIcon-29@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A011E1DA56C00F33829 /* AppIcon-29@1x.png */; };
 		49B96A111E1DA56C00F33829 /* AppIcon-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A021E1DA56C00F33829 /* AppIcon-29@2x.png */; };
@@ -144,6 +146,8 @@
 		498422131E31341400DCF99B /* AKRadarAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRadarAnnotation.swift; sourceTree = "<group>"; };
 		498422151E3137CE00DCF99B /* AKUserAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKUserAnnotationView.xib; sourceTree = "<group>"; };
 		49B46A401E0C3F280052F75E /* AKFileIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileIO.swift; sourceTree = "<group>"; };
+		49B899611E44F2DD00CA0506 /* AKAlertsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertsTableViewCell.xib; sourceTree = "<group>"; };
+		49B899631E44F31600CA0506 /* AKAlertsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertsTableViewCell.swift; sourceTree = "<group>"; };
 		49B96A001E1DA56C00F33829 /* 0006-512px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0006-512px.png"; sourceTree = "<group>"; };
 		49B96A011E1DA56C00F33829 /* AppIcon-29@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-29@1x.png"; sourceTree = "<group>"; };
 		49B96A021E1DA56C00F33829 /* AppIcon-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-29@2x.png"; sourceTree = "<group>"; };
@@ -295,6 +299,7 @@
 		49D0BEDB1DB121D700149DEE /* AKCustomComponents */ = {
 			isa = PBXGroup;
 			children = (
+				49B899631E44F31600CA0506 /* AKAlertsTableViewCell.swift */,
 				49D0BEDC1DB121D700149DEE /* AKCustomView.h */,
 				49D0BEDD1DB121D700149DEE /* AKCustomView.m */,
 				49D0BEDE1DB121D700149DEE /* AKCustomViewController.swift */,
@@ -341,6 +346,7 @@
 			children = (
 				497DCA5E1E36417F00EBF3C4 /* AKAlertAnnotationView.xib */,
 				4927E4F91E39069700F4B8F0 /* AKAlertPINInputView.xib */,
+				49B899611E44F2DD00CA0506 /* AKAlertsTableViewCell.xib */,
 				49223BF71DFF2E7200C8CB61 /* AKHeatMapActionsOverlayView.xib */,
 				49223BFF1DFF41FE00C8CB61 /* AKHeatMapAlertsOverlayView.xib */,
 				494609F31E2B0F7100FC3AEA /* AKHeatMapLayersOverlayView.xib */,
@@ -565,6 +571,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49B899621E44F2DD00CA0506 /* AKAlertsTableViewCell.xib in Resources */,
 				49B96A171E1DA56C00F33829 /* AppIcon-60@2x.png in Resources */,
 				49B96A151E1DA56C00F33829 /* AppIcon-40@3x.png in Resources */,
 				494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */,
@@ -693,6 +700,7 @@
 				497860591E43ABB200342EE0 /* AKPin.swift in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
 				49D621C01E12E65D004388AF /* AKMasterFile.swift in Sources */,
+				49B899641E44F31600CA0506 /* AKAlertsTableViewCell.swift in Sources */,
 				497DCA5B1E3640CE00EBF3C4 /* AKAlertAnnotation.swift in Sources */,
 				4905E7E21DC15231007A2BB2 /* AKUserAreaOverlay.swift in Sources */,
 				49BF71121E3FB2EB005F29FC /* AKLoginViewController.swift in Sources */,
