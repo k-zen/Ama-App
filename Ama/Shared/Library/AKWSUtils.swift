@@ -38,6 +38,9 @@ class AKWSUtils
         }
         // Body:
         request.httpBody = bodyValue.data(using: String.Encoding.utf8)
+        if showDebugInfo {
+            NSLog("=> BODY ==> %@", bodyValue)
+        }
         // Completion Block:
         let completionBlock: (Data?, URLResponse?, Error?) -> Void = { (data, response, error) -> Void in
             if error != nil {
@@ -79,7 +82,7 @@ class AKWSUtils
                         let str = String(data: data!, encoding: String.Encoding.utf8)
                         switch httpResponse.statusCode {
                         case 200 ... 299:  // If it's any of 2XX is valid, let it through.
-                            completionTask(str ?? "nouser") // Execute the completion task block!
+                            completionTask(str ?? "") // Execute the completion task block!
                             break
                         default:
                             failureTask(httpResponse.statusCode, nil)

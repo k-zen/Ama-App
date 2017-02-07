@@ -23,7 +23,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     // MARK: UITableViewDataSource Implementation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let e = GlobalFunctions.instance(false).AKObtainMasterFile().user.userDefinedAlerts[(indexPath as NSIndexPath).row]
+        let e = GlobalFunctions.instance(false).AKGetUser().userDefinedAlerts[(indexPath as NSIndexPath).row]
         
         let cell = self.alertsTable.dequeueReusableCell(withIdentifier: "Alerts_Table_Cell") as! AKAlertsTableViewCell
         cell.mainContainer.backgroundColor = GlobalConstants.AKTableCellBg
@@ -67,7 +67,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return GlobalFunctions.instance(false).AKObtainMasterFile().user.userDefinedAlerts.count
+        return GlobalFunctions.instance(false).AKGetUser().userDefinedAlerts.count
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { return true }
@@ -81,7 +81,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            GlobalFunctions.instance(false).AKObtainMasterFile().user.userDefinedAlerts.remove(at: (indexPath as NSIndexPath).row)
+            GlobalFunctions.instance(false).AKGetUser().userDefinedAlerts.remove(at: (indexPath as NSIndexPath).row)
             self.alertsTable.reloadData()
         }
     }
@@ -102,6 +102,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     // MARK: Miscellaneous
     func customSetup()
     {
+        super.shouldCheckLoggedUser = true
         super.setup()
         
         // Custom Components

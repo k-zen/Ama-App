@@ -12,7 +12,7 @@ class AKPhoneNumber: AKInputData
         }
         
         guard inputData.characters.count >= GlobalConstants.AKMinPhoneNumberLength else {
-            throw Exceptions.invalidLength("El número de teléfono debe tener por lo menos 8 dígitos.")
+            throw Exceptions.invalidLength(String(format: "El número de teléfono debe tener por lo menos %i dígitos.", GlobalConstants.AKMinPhoneNumberLength))
         }
     }
     

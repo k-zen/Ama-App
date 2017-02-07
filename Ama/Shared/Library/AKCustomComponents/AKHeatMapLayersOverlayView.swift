@@ -35,7 +35,7 @@ class AKHeatMapLayersOverlayView: AKCustomView
     @IBAction func dropPIN(_ sender: Any)
     {
         if let controller = self.controller as? AKHeatMapViewController {
-            if GlobalFunctions.instance(false).AKObtainMasterFile().user.removeAlert(mapView: controller.mapView, id: "", shouldRemoveAll: true) {
+            if GlobalFunctions.instance(false).AKGetUser().removeAlert(mapView: controller.mapView, id: "", shouldRemoveAll: true) {
                 GlobalFunctions.instance(false).AKPresentTopMessage(
                     controller,
                     type: TSMessageNotificationType.success,

@@ -96,8 +96,9 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         if !self.inhibitLocationServiceMessage {
             self.manageAccessToLocationServices()
         }
-        if self.shouldCheckLoggedUser {
-            self.presentLoginView(dismissViewCompletionTask: { (controller, presentedController) -> Void in controller.shouldCheckLoggedUser = false })
+        if self.shouldCheckLoggedUser && !GlobalFunctions.instance(false).AKGetUser().isRegistered {
+            NSLog("=> INFO: CHECKING IF USER IS LOGGED IN!")
+            self.presentLoginView(dismissViewCompletionTask: { (controller, presentedController) -> Void in })
             return
         }
     }

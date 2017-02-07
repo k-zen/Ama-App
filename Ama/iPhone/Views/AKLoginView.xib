@@ -13,8 +13,7 @@
             <connections>
                 <outlet property="controlsContainer" destination="HA3-12-pJH" id="c0R-9u-NSK"/>
                 <outlet property="mainTitle" destination="FL2-9H-eDa" id="86W-Oe-V7F"/>
-                <outlet property="phonePrefix" destination="Vwh-V6-KUx" id="6z3-OK-dGW"/>
-                <outlet property="phoneValue" destination="JTi-6f-GB3" id="uDi-BF-55F"/>
+                <outlet property="usernameValue" destination="JTi-6f-GB3" id="wBg-Vl-cG1"/>
                 <outlet property="verify" destination="19L-A3-QKB" id="dEd-SJ-W2z"/>
                 <outlet property="view" destination="iN0-l3-epB" id="4c9-wP-bwc"/>
             </connections>
@@ -40,27 +39,19 @@
                                 </label>
                             </subviews>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Necesitamos que ingreses tu número de teléfono para crear tu cuenta..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FsY-vX-fbb" userLabel="Message">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Necesitamos que ingreses un nombre de usuario para crear tu cuenta..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FsY-vX-fbb" userLabel="Message">
                             <rect key="frame" x="8" y="76" width="284" height="90"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="09" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vwh-V6-KUx" userLabel="Phone_Prefix">
-                            <rect key="frame" x="38" y="174" width="40" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JTi-6f-GB3" userLabel="Phone_Value">
-                            <rect key="frame" x="86" y="174" width="175" height="40"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JTi-6f-GB3" userLabel="Username_Value">
+                            <rect key="frame" x="38" y="174" width="223" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19L-A3-QKB" userLabel="Verify">
                             <rect key="frame" x="38" y="222" width="223" height="40"/>

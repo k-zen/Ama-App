@@ -114,10 +114,10 @@ struct GlobalConstants {
     static let AKMaxUserDefinedAlerts: Int = 3
     static let AKEmptyPhoneNumberPrefix = "00"
     static let AKEmptyPhoneNumber = "000000"
+    static let AKMaxUsernameLength = 12
+    static let AKMinUsernameLength = 3
     static let AKMaxPhoneNumberLength = 8
     static let AKMinPhoneNumberLength = 8
-    static let AKMinPinLength = 4
-    static let AKMaxPinLength = 4
     static let AKDefaultZoomLevel = ZoomLevel.L08
     static let AKDIMOverlayAlpha = 0.60
 }
@@ -552,7 +552,37 @@ class GlobalFunctions {
     ///
     func AKObtainMasterFile() -> AKMasterFile
     {
-        return GlobalFunctions.instance(false).AKDelegate().masterFile
+        return GlobalFunctions.instance(self.showDebugInformation).AKDelegate().masterFile
+    }
+    
+    ///
+    /// Returns the user data structure.
+    ///
+    /// - Returns: The user data structure.
+    ///
+    func AKGetUser() -> User
+    {
+        return GlobalFunctions.instance(self.showDebugInformation).AKObtainMasterFile().user
+    }
+    
+    func AKPresentMessageFromError(_ errorMessage: String = "", controller: UIViewController!)
+    {
+        do {
+            let input = errorMessage
+            let regex = try NSRegularExpression(pattern: ".*\"(.*)\"", options: NSRegularExpression.Options.caseInsensitive)
+            let matches = regex.matches(in: input, options: [], range: NSMakeRange(0, input.characters.count))
+            
+            if let match = matches.first {
+                let range = match.rangeAt(1)
+                if let swiftRange = AKRangeFromNSRange(range, forString: input) {
+                    let msg = input.substring(with: swiftRange)
+                    AKPresentTopMessage(controller, type: TSMessageNotificationType.error, message: msg)
+                }
+            }
+        }
+        catch {
+            NSLog("=> Generic Error ==> %@", "\(error)")
+        }
     }
     
     func AKPresentTopMessage(_ presenter: UIViewController!, type: TSMessageNotificationType, message: String!)

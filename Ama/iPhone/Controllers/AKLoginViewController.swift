@@ -5,149 +5,176 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
 {
     // MARK: Local Enums
     enum LocalTextField: Int {
-        case phone = 1
+        case username = 1
     }
     
     // MARK: Outlets
     @IBOutlet weak var controlsContainer: UIView!
     @IBOutlet weak var mainTitle: UILabel!
-    @IBOutlet weak var phonePrefix: UILabel!
-    @IBOutlet weak var phoneValue: UITextField!
+    @IBOutlet weak var usernameValue: UITextField!
     @IBOutlet weak var verify: UIButton!
     
     // MARK: Actions
     @IBAction func login(_ sender: Any)
     {
         GlobalFunctions.instance(false).AKDelay(0.0, isMain: false, task: { Void -> Void in
-            let phoneNumber = AKPhoneNumber(inputData: self.phoneValue.text!)
+            let username = AKUsername(inputData: self.usernameValue.text!)
             do {
-                try phoneNumber.validate()
-                try phoneNumber.process()
+                try username.validate()
+                try username.process()
             }
             catch {
-                GlobalFunctions.instance(false).AKPresentTopMessage(
-                    self,
-                    type: TSMessageNotificationType.error,
-                    message: "\(error)"
-                )
+                GlobalFunctions.instance(false).AKPresentMessageFromError("\(error)", controller: self)
                 return
             }
             
-            let requestBody = self.phoneValue.text ?? "nouser"
-            let url = String(format: "%@/ama/user/existe", "http://devel.apkc.net:9001")
-            // This closure will be executed if success.
-            let completionTask: (Any) -> Void = { (json) -> Void in
-                // Process the results.
-                if let str = json as? String {
-                    if str.caseInsensitiveCompare("true") == ComparisonResult.orderedSame {
-                        let requestBody = self.phoneValue.text ?? "nouser"
-                        let url = String(format: "%@/ama/persona/suscripcion", "http://devel.apkc.net:9001")
-                        // This closure will be executed if success.
-                        let completionTask: (Any) -> Void = { (json) -> Void in
-                            // Process the results.
-                            if let str = json as? String {
-                                if str.caseInsensitiveCompare("true") == ComparisonResult.orderedSame {
-                                    self.dismissView(executeDismissTask: true)
-                                    NSLog("=> LOGGED & SUBSCRIBED IN!")
-                                }
-                                else {
-                                    NSLog("=> LOGGED & NOT SUBSCRIBED IN!")
-                                }
-                            }
-                        }
-                        // This closure will be executed if failure.
-                        let failureTask: (Int, String?) -> Void = { (code, message) -> Void in
-                            switch code {
-                            case ErrorCodes.ConnectionToBackEndError.rawValue:
-                                GlobalFunctions.instance(false).AKPresentTopMessage(
-                                    self,
-                                    type: TSMessageNotificationType.error,
-                                    message: message ?? "Error genérico."
-                                )
-                                break
-                            case ErrorCodes.InvalidMIMEType.rawValue:
-                                GlobalFunctions.instance(false).AKPresentTopMessage(
-                                    self,
-                                    type: TSMessageNotificationType.error,
-                                    message: "El servicio devolvió una respuesta inválida. Reportando..."
-                                )
-                                break
-                            case ErrorCodes.JSONProcessingError.rawValue:
-                                GlobalFunctions.instance(false).AKPresentTopMessage(
-                                    self,
-                                    type: TSMessageNotificationType.error,
-                                    message: "Error procesando respuesta. Reportando..."
-                                )
-                                break
-                            default:
-                                GlobalFunctions.instance(false).AKPresentTopMessage(
-                                    self,
-                                    type: TSMessageNotificationType.error,
-                                    message: String(format: "%d: Error genérico.", code)
-                                )
-                                break
-                            }
-                        }
-                        AKWSUtils.makeRESTRequest(
-                            controller: self,
-                            endpoint: url,
-                            httpMethod: "POST",
-                            headerValues: [ "Content-Type" : "application/json" ],
-                            bodyValue: requestBody,
-                            showDebugInfo: true,
-                            isJSONResponse: false,
-                            completionTask: { (jsonDocument) -> Void in completionTask(jsonDocument) },
-                            failureTask: { (code, message) -> Void in failureTask(code, message) }
-                        )
-                    }
-                    else {
-                        NSLog("=> NOT LOGGED IN!")
-                    }
-                }
-            }
-            // This closure will be executed if failure.
-            let failureTask: (Int, String?) -> Void = { (code, message) -> Void in
-                switch code {
-                case ErrorCodes.ConnectionToBackEndError.rawValue:
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        self,
-                        type: TSMessageNotificationType.error,
-                        message: message ?? "Error genérico."
-                    )
-                    break
-                case ErrorCodes.InvalidMIMEType.rawValue:
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        self,
-                        type: TSMessageNotificationType.error,
-                        message: "El servicio devolvió una respuesta inválida. Reportando..."
-                    )
-                    break
-                case ErrorCodes.JSONProcessingError.rawValue:
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        self,
-                        type: TSMessageNotificationType.error,
-                        message: "Error procesando respuesta. Reportando..."
-                    )
-                    break
-                default:
-                    GlobalFunctions.instance(false).AKPresentTopMessage(
-                        self,
-                        type: TSMessageNotificationType.error,
-                        message: String(format: "%d: Error genérico.", code)
-                    )
-                    break
-                }
-            }
             AKWSUtils.makeRESTRequest(
                 controller: self,
-                endpoint: url,
+                endpoint: String(format: "%@/ama/user/existe", "http://devel.apkc.net:9001"),
                 httpMethod: "POST",
                 headerValues: [ "Content-Type" : "application/json" ],
-                bodyValue: requestBody,
+                bodyValue: username.outputData,
                 showDebugInfo: true,
                 isJSONResponse: false,
-                completionTask: { (jsonDocument) -> Void in completionTask(jsonDocument) },
-                failureTask: { (code, message) -> Void in failureTask(code, message) }
+                completionTask: { (json) -> Void in
+                    // Process the results.
+                    if let str = json as? String {
+                        if str.caseInsensitiveCompare("false") == ComparisonResult.orderedSame {
+                            GlobalFunctions.instance(false).AKGetUser().username = username.outputData
+                            GlobalFunctions.instance(false).AKGetUser().password = String(format: "%i", arc4random_uniform(100000) + (100000 * (arc4random_uniform(9) + 1)))
+                            
+                            AKWSUtils.makeRESTRequest(
+                                controller: self,
+                                endpoint: String(format: "%@/ama/user/insertar", "http://devel.apkc.net:9001"),
+                                httpMethod: "POST",
+                                headerValues: [ "Content-Type" : "application/json" ],
+                                bodyValue: String(
+                                    format: "{\"username\":\"%@\",\"password\":\"%@\"}",
+                                    GlobalFunctions.instance(false).AKGetUser().username,
+                                    GlobalFunctions.instance(false).AKGetUser().password
+                                ),
+                                showDebugInfo: true,
+                                isJSONResponse: false,
+                                completionTask: { (json) -> Void in
+                                    AKWSUtils.makeRESTRequest(
+                                        controller: self,
+                                        endpoint: String(format: "%@/ama/persona/insertar", "http://devel.apkc.net:9001"),
+                                        httpMethod: "POST",
+                                        headerValues: [ "Content-Type" : "application/json" ],
+                                        bodyValue: String(
+                                            format: "{\"username\":\"%@\",\"token\":\"%@\"}",
+                                            GlobalFunctions.instance(false).AKGetUser().username,
+                                            GlobalFunctions.instance(false).AKGetUser().apnsToken
+                                        ),
+                                        showDebugInfo: true,
+                                        isJSONResponse: false,
+                                        completionTask: { (json) -> Void in
+                                            GlobalFunctions.instance(false).AKGetUser().registerUser()
+                                            self.dismissView(executeDismissTask: true) },
+                                        failureTask: { (code, message) -> Void in
+                                            switch code {
+                                            case ErrorCodes.ConnectionToBackEndError.rawValue:
+                                                GlobalFunctions.instance(false).AKPresentTopMessage(
+                                                    self,
+                                                    type: TSMessageNotificationType.error,
+                                                    message: message ?? "Error genérico."
+                                                )
+                                                break
+                                            case ErrorCodes.InvalidMIMEType.rawValue:
+                                                GlobalFunctions.instance(false).AKPresentTopMessage(
+                                                    self,
+                                                    type: TSMessageNotificationType.error,
+                                                    message: "El servicio devolvió una respuesta inválida. Reportando..."
+                                                )
+                                                break
+                                            case ErrorCodes.JSONProcessingError.rawValue:
+                                                GlobalFunctions.instance(false).AKPresentTopMessage(
+                                                    self,
+                                                    type: TSMessageNotificationType.error,
+                                                    message: "Error procesando respuesta. Reportando..."
+                                                )
+                                                break
+                                            default:
+                                                GlobalFunctions.instance(false).AKPresentTopMessage(
+                                                    self,
+                                                    type: TSMessageNotificationType.error,
+                                                    message: String(format: "%d: Error genérico.", code)
+                                                )
+                                                break
+                                            } }
+                                    ) },
+                                failureTask: { (code, message) -> Void in
+                                    switch code {
+                                    case ErrorCodes.ConnectionToBackEndError.rawValue:
+                                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                                            self,
+                                            type: TSMessageNotificationType.error,
+                                            message: message ?? "Error genérico."
+                                        )
+                                        break
+                                    case ErrorCodes.InvalidMIMEType.rawValue:
+                                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                                            self,
+                                            type: TSMessageNotificationType.error,
+                                            message: "El servicio devolvió una respuesta inválida. Reportando..."
+                                        )
+                                        break
+                                    case ErrorCodes.JSONProcessingError.rawValue:
+                                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                                            self,
+                                            type: TSMessageNotificationType.error,
+                                            message: "Error procesando respuesta. Reportando..."
+                                        )
+                                        break
+                                    default:
+                                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                                            self,
+                                            type: TSMessageNotificationType.error,
+                                            message: String(format: "%d: Error genérico.", code)
+                                        )
+                                        break
+                                    } }
+                            )
+                        }
+                        else {
+                            GlobalFunctions.instance(false).AKPresentTopMessage(
+                                self,
+                                type: TSMessageNotificationType.error,
+                                message: "Ese nombre de usuario ya esta registrado. Ingrese otro..."
+                            )
+                        }
+                    } },
+                failureTask: { (code, message) -> Void in
+                    switch code {
+                    case ErrorCodes.ConnectionToBackEndError.rawValue:
+                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                            self,
+                            type: TSMessageNotificationType.error,
+                            message: message ?? "Error genérico."
+                        )
+                        break
+                    case ErrorCodes.InvalidMIMEType.rawValue:
+                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                            self,
+                            type: TSMessageNotificationType.error,
+                            message: "El servicio devolvió una respuesta inválida. Reportando..."
+                        )
+                        break
+                    case ErrorCodes.JSONProcessingError.rawValue:
+                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                            self,
+                            type: TSMessageNotificationType.error,
+                            message: "Error procesando respuesta. Reportando..."
+                        )
+                        break
+                    default:
+                        GlobalFunctions.instance(false).AKPresentTopMessage(
+                            self,
+                            type: TSMessageNotificationType.error,
+                            message: String(format: "%d: Error genérico.", code)
+                        )
+                        break
+                    } }
             )
         })
     }
@@ -174,10 +201,10 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
         let newLen = (textField.text?.characters.count)! + string.characters.count - range.length
         
         switch textField.tag {
-        case LocalTextField.phone.rawValue:
-            return newLen > GlobalConstants.AKMaxPhoneNumberLength ? false : true
+        case LocalTextField.username.rawValue:
+            return newLen > GlobalConstants.AKMaxUsernameLength ? false : true
         default:
-            return newLen > GlobalConstants.AKMaxPhoneNumberLength ? false : true
+            return newLen > GlobalConstants.AKMaxUsernameLength ? false : true
         }
     }
     
@@ -197,17 +224,15 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
         super.setup()
         
         // Set Delegator.
-        self.phoneValue.delegate = self
-        self.phoneValue.tag = LocalTextField.phone.rawValue
+        self.usernameValue.delegate = self
+        self.usernameValue.tag = LocalTextField.username.rawValue
         
         // Custom L&F.
         self.controlsContainer.backgroundColor = UIColor.clear
         self.verify.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.phonePrefix.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.phonePrefix.layer.masksToBounds = true
         
         GlobalFunctions.instance(false).AKAddBorderDeco(
-            self.phoneValue,
+            self.usernameValue,
             color: GlobalConstants.AKDefaultTextfieldBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.bottom

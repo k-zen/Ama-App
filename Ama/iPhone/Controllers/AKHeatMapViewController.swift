@@ -242,7 +242,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
         else if (view.annotation?.isKind(of: AKAlertAnnotation.self))! {
             if let annotation = view.annotation as? AKAlertAnnotation {
-                if let alert = GlobalFunctions.instance(false).AKObtainMasterFile().user.findAlert(id: annotation.id) {
+                if let alert = GlobalFunctions.instance(false).AKGetUser().findAlert(id: annotation.id) {
                     UIView.transition(
                         with: view,
                         duration: 1.0,
@@ -262,7 +262,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
         else if (view.annotation?.isKind(of: AKAlertAnnotation.self))! {
             if let annotation = view.annotation as? AKAlertAnnotation {
-                if let alert = GlobalFunctions.instance(false).AKObtainMasterFile().user.findAlert(id: annotation.id) {
+                if let alert = GlobalFunctions.instance(false).AKGetUser().findAlert(id: annotation.id) {
                     alert.alertView.removeFromSuperview()
                 }
             }
@@ -315,7 +315,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Miscellaneous
     func customSetup()
     {
-        super.shouldCheckLoggedUser = false
+        super.shouldCheckLoggedUser = true
         super.inhibitLocationServiceMessage = false
         super.inhibitTapGesture = true
         super.inhibitLongPressGesture = false
@@ -325,7 +325,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         self.additionalOperationsWhenLongPressed = { (gesture) -> Void in
             if let g = gesture as? UILongPressGestureRecognizer {
                 if g.state == UIGestureRecognizerState.ended {
-                    if GlobalFunctions.instance(false).AKObtainMasterFile().user.countAlerts() >= GlobalConstants.AKMaxUserDefinedAlerts {
+                    if GlobalFunctions.instance(false).AKGetUser().countAlerts() >= GlobalConstants.AKMaxUserDefinedAlerts {
                         GlobalFunctions.instance(false).AKPresentTopMessage(
                             self,
                             type: TSMessageNotificationType.error,
@@ -349,7 +349,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                                 
                                 let alert = Alert(alertID: id, alertName: name, alertRadius: Double(radius), alertAnnotation: annotation)
                                 
-                                GlobalFunctions.instance(false).AKObtainMasterFile().user.addAlert(alert: alert)
+                                GlobalFunctions.instance(false).AKGetUser().addAlert(alert: alert)
                                 
                                 controller.mapView.addAnnotation(alert.alertAnnotation)
                                 controller.mapView.selectAnnotation(annotation, animated: true)
@@ -386,7 +386,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         
         // Load all user defined alerts.
         GlobalFunctions.instance(false).AKDelay(2.0, task: {
-            for alert in GlobalFunctions.instance(false).AKObtainMasterFile().user.userDefinedAlerts {
+            for alert in GlobalFunctions.instance(false).AKGetUser().userDefinedAlerts {
                 self.mapView.addAnnotation(alert.alertAnnotation)
                 self.mapView.selectAnnotation(alert.alertAnnotation, animated: true)
             }
