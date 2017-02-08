@@ -36,7 +36,6 @@
 		494609F61E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */; };
 		494609F91E2B155000FC3AEA /* 0007-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F71E2B155000FC3AEA /* 0007-032px.png */; };
 		494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F81E2B155000FC3AEA /* 0008-032px.png */; };
-		4960A4331E0C37EC0076E50C /* AmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A42C1E0C37EC0076E50C /* AmaTests.swift */; };
 		496707FD1DFB904100888E25 /* 2015-12-04--09%3A44%3A11,00.ama in Resources */ = {isa = PBXBuildFile; fileRef = 496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */; };
 		497860581E43ABB200342EE0 /* AKPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497860561E43ABB200342EE0 /* AKPhoneNumber.swift */; };
 		4978605B1E43AEA800342EE0 /* AKConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978605A1E43AEA800342EE0 /* AKConversions.swift */; };
@@ -48,7 +47,6 @@
 		498422121E3133BA00DCF99B /* AKUserAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498422111E3133BA00DCF99B /* AKUserAnnotationView.swift */; };
 		498422141E31341400DCF99B /* AKRadarAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498422131E31341400DCF99B /* AKRadarAnnotation.swift */; };
 		498422161E3137CE00DCF99B /* AKUserAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 498422151E3137CE00DCF99B /* AKUserAnnotationView.xib */; };
-		49B46A411E0C3F280052F75E /* AKFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B46A401E0C3F280052F75E /* AKFileIO.swift */; };
 		49B899621E44F2DD00CA0506 /* AKAlertsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B899611E44F2DD00CA0506 /* AKAlertsTableViewCell.xib */; };
 		49B899641E44F31600CA0506 /* AKAlertsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B899631E44F31600CA0506 /* AKAlertsTableViewCell.swift */; };
 		49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A001E1DA56C00F33829 /* 0006-512px.png */; };
@@ -90,16 +88,6 @@
 		D949E3C4129F5FC2DB52A98D /* Pods_Ama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877718A541E64678B753DA50 /* Pods_Ama.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		4960A4261E0C28140076E50C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 496C1A1E1D930FDD00E41190 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 496C1A251D930FDD00E41190;
-			remoteInfo = Ama;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		490048181E1ADB4800EA8132 /* AKWSUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWSUtils.swift; sourceTree = "<group>"; };
 		4905E7DF1DC151E8007A2BB2 /* AKRadarSpanOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKRadarSpanOverlay.swift; path = AKCustomComponents/AKRadarSpanOverlay.swift; sourceTree = "<group>"; };
@@ -130,7 +118,6 @@
 		494609F51E2B0FEF00FC3AEA /* AKHeatMapLayersOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapLayersOverlayView.swift; sourceTree = "<group>"; };
 		494609F71E2B155000FC3AEA /* 0007-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0007-032px.png"; sourceTree = "<group>"; };
 		494609F81E2B155000FC3AEA /* 0008-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0008-032px.png"; sourceTree = "<group>"; };
-		4960A4211E0C28140076E50C /* AmaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4960A42C1E0C37EC0076E50C /* AmaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmaTests.swift; sourceTree = "<group>"; };
 		4960A4321E0C37EC0076E50C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496707FC1DFB904000888E25 /* 2015-12-04--09%3A44%3A11,00.ama */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2015-12-04--09%3A44%3A11,00.ama"; sourceTree = "<group>"; };
@@ -194,13 +181,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4960A41E1E0C28140076E50C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		496C1A231D930FDD00E41190 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -279,7 +259,6 @@
 			isa = PBXGroup;
 			children = (
 				496C1A261D930FDD00E41190 /* Ama.app */,
-				4960A4211E0C28140076E50C /* AmaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -471,24 +450,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4960A4201E0C28140076E50C /* AmaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4960A42A1E0C28140076E50C /* Build configuration list for PBXNativeTarget "AmaTests" */;
-			buildPhases = (
-				4960A41D1E0C28140076E50C /* Sources */,
-				4960A41E1E0C28140076E50C /* Frameworks */,
-				4960A41F1E0C28140076E50C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4960A4271E0C28140076E50C /* PBXTargetDependency */,
-			);
-			name = AmaTests;
-			productName = AmaTests;
-			productReference = 4960A4211E0C28140076E50C /* AmaTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		496C1A251D930FDD00E41190 /* Ama */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 496C1A3A1D930FDD00E41190 /* Build configuration list for PBXNativeTarget "Ama" */;
@@ -519,16 +480,10 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = APKC.net;
 				TargetAttributes = {
-					4960A4201E0C28140076E50C = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 8JQ7MFA6Q2;
-						ProvisioningStyle = Manual;
-						TestTargetID = 496C1A251D930FDD00E41190;
-					};
 					496C1A251D930FDD00E41190 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 8JQ7MFA6Q2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -554,19 +509,11 @@
 			projectRoot = "";
 			targets = (
 				496C1A251D930FDD00E41190 /* Ama */,
-				4960A4201E0C28140076E50C /* AmaTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4960A41F1E0C28140076E50C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		496C1A241D930FDD00E41190 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -667,15 +614,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4960A41D1E0C28140076E50C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4960A4331E0C37EC0076E50C /* AmaTests.swift in Sources */,
-				49B46A411E0C3F280052F75E /* AKFileIO.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		496C1A221D930FDD00E41190 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -721,47 +659,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		4960A4271E0C28140076E50C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 496C1A251D930FDD00E41190 /* Ama */;
-			targetProxy = 4960A4261E0C28140076E50C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		4960A4281E0C28140076E50C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8JQ7MFA6Q2;
-				INFOPLIST_FILE = "AmaTests/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.apkc.projects.ios.AmaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ama.app/Ama";
-			};
-			name = Debug;
-		};
-		4960A4291E0C28140076E50C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 8JQ7MFA6Q2;
-				INFOPLIST_FILE = "AmaTests/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.apkc.projects.ios.AmaTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ama.app/Ama";
-			};
-			name = Release;
-		};
 		496C1A381D930FDD00E41190 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -859,14 +757,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Andreas P. Koenzen (5GQB46H9ER)";
-				DEVELOPMENT_TEAM = 8JQ7MFA6Q2;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Ama/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.apkc.projects.ios.Ama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6268ef1-ce8f-4021-bae0-09a535ccde54";
-				PROVISIONING_PROFILE_SPECIFIER = "Ama (iOS Development)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Ama/Application/AKBridgingHeader.h;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -879,13 +778,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Andreas P. Koenzen (8JQ7MFA6Q2)";
-				DEVELOPMENT_TEAM = 8JQ7MFA6Q2;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Ama/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.apkc.projects.ios.Ama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "34b75e28-3a57-4529-8458-3a674b54d17b";
-				PROVISIONING_PROFILE_SPECIFIER = "Ama (iOS Distribution)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = Ama/Application/AKBridgingHeader.h;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -895,15 +795,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4960A42A1E0C28140076E50C /* Build configuration list for PBXNativeTarget "AmaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4960A4281E0C28140076E50C /* Debug */,
-				4960A4291E0C28140076E50C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		496C1A211D930FDD00E41190 /* Build configuration list for PBXProject "Ama" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
