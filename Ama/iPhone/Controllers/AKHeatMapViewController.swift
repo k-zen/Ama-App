@@ -34,7 +34,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     var userOverlay: AKUserAreaOverlay?
     var dimOverlay: AKDIMOverlay?
     // Custom View Overlays
-    var hmInfoOverlayViewSubView: UIView!
     var hmActionsOverlayViewSubView: UIView!
     var hmAlertsOverlayViewSubView: UIView!
     var hmLayersOverlayViewSubView: UIView!
@@ -336,7 +335,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     
                     let touchPoint = g.location(in: self.mapView)
                     let geoCoordinate = self.mapView.convert(touchPoint, toCoordinateFrom: self.mapView)
-                    self.presentAlerPINInputView(coordinates: geoCoordinate, dismissViewCompletionTask: { (controller, presentedController, coordinates) -> Void in
+                    self.presentAlertPINInputView(coordinates: geoCoordinate, dismissViewCompletionTask: { (controller, presentedController, coordinates) -> Void in
                         if let controller = controller as? AKHeatMapViewController {
                             if let presentedController = presentedController as? AKAlertPINInputViewController {
                                 let id = UUID().uuidString

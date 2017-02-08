@@ -182,7 +182,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         }
     }
     
-    func presentAlerPINInputView(
+    func presentAlertPINInputView(
         coordinates: GeoCoordinate,
         dismissViewCompletionTask: @escaping (AKCustomViewController, AKCustomViewController, GeoCoordinate) -> Void)
     {
