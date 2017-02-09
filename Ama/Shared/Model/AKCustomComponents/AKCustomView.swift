@@ -11,15 +11,15 @@ class AKCustomView: UIView
         super.init(frame: frame)
         
         // Load NIB file.
-        if let nib = Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.first as? UIView {
+        if let nib = Bundle.main.loadNibNamed("\(type(of: self))", owner: self, options: nil)?.first as? UIView {
             self.customView = nib
             self.customView.isUserInteractionEnabled = true
             self.addSubview(self.customView)
             
-            NSLog("=> INFO: INITIALIZING CUSTOM CLASS *\(self)* VIA init(frame:)...")
+            NSLog("=> INFO: INITIALIZING CUSTOM CLASS *\(type(of: self))* VIA init(frame:)...")
         }
         else {
-            NSLog("=> ERROR: FAILED TO INITIALIZE CUSTOM CLASS *\(self)* VIA init(frame:)...")
+            NSLog("=> ERROR: FAILED TO INITIALIZE CUSTOM CLASS *\(type(of: self))* VIA init(frame:)...")
         }
     }
     
@@ -28,15 +28,15 @@ class AKCustomView: UIView
         super.init(coder: aDecoder)
         
         // Load NIB file.
-        if let nib = Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.first as? UIView {
+        if let nib = Bundle.main.loadNibNamed("\(type(of: self))", owner: self, options: nil)?.first as? UIView {
             self.customView = nib
             self.customView.isUserInteractionEnabled = true
             self.addSubview(self.customView)
             
-            NSLog("=> INFO: INITIALIZING CUSTOM CLASS *\(self)* VIA init(coder:)...")
+            NSLog("=> INFO: INITIALIZING CUSTOM CLASS *\(type(of: self))* VIA init(coder:)...")
         }
         else {
-            NSLog("=> ERROR: FAILED TO INITIALIZE CUSTOM CLASS *\(self)* VIA init(coder:)...")
+            NSLog("=> ERROR: FAILED TO INITIALIZE CUSTOM CLASS *\(type(of: self))* VIA init(coder:)...")
         }
     }
 }
