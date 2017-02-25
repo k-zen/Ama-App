@@ -12,7 +12,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TSMessages:
-    :commit: 949e7559c60a8863f33c5fd2cbc55e8efbb4b53f
+    :commit: dd843df9a04a756210b2ed51caf1f2b9aafee508
     :git: https://github.com/KrauseFx/TSMessages.git
 
 SPEC CHECKSUMS:
@@ -21,4 +21,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 1ce0d66722f39d6d44ada404332903ece4cbb43e
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.0
