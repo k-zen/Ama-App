@@ -235,6 +235,7 @@
 				49A7058C1E4B958C00FB3A12 /* AKAlertAnnotation.swift */,
 				49A7058D1E4B958C00FB3A12 /* AKConstants.swift */,
 				49A7058E1E4B958C00FB3A12 /* AKConversions.swift */,
+				49A7058F1E4B958C00FB3A12 /* AKCustomComponents */,
 				49A7059D1E4B958C00FB3A12 /* AKDIMOverlay.swift */,
 				49A7059E1E4B958C00FB3A12 /* AKDIMOverlayRenderer.swift */,
 				49A7059F1E4B958C00FB3A12 /* AKFileUtils.swift */,
@@ -253,7 +254,6 @@
 				49A705AC1E4B958C00FB3A12 /* AKUserAreaOverlay.swift */,
 				49A705AD1E4B958C00FB3A12 /* AKUsername.swift */,
 				49A705AE1E4B958C00FB3A12 /* AKWSUtils.swift */,
-				49A7058F1E4B958C00FB3A12 /* AKCustomComponents */,
 			);
 			path = Model;
 			sourceTree = "<group>";
