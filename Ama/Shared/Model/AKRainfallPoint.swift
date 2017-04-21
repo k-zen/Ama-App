@@ -50,12 +50,12 @@ class AKRainfallPoint: NSObject
         // for the map, that is why the radius is the product of the default size by the log2 of the intensity.
         let bubbleRadius = GlobalConstants.AKRaindropSize * log2(Double(intensity))
         
-        let pointA = MKMapPointForCoordinate(GlobalFunctions.instance(false).AKLocationWithBearing(bearing: (3 * M_PI) / 4, distanceMeters: bubbleRadius, origin: center))
+        let pointA = MKMapPointForCoordinate(GlobalFunctions.instance(false).AKLocationWithBearing(bearing: (3 * Double.pi) / 4, distanceMeters: bubbleRadius, origin: center))
         if self.debug {
             NSLog("=> INFO: POINT.A(x:%f,y:%f)", pointA.x, pointA.y)
         }
         
-        let pointB = MKMapPointForCoordinate(GlobalFunctions.instance(false).AKLocationWithBearing(bearing: (7 * M_PI) / 4, distanceMeters: bubbleRadius, origin: center))
+        let pointB = MKMapPointForCoordinate(GlobalFunctions.instance(false).AKLocationWithBearing(bearing: (7 * Double.pi) / 4, distanceMeters: bubbleRadius, origin: center))
         if self.debug {
             NSLog("=> INFO: POINT.B(x:%f,y:%f)", pointB.x, pointB.y)
         }

@@ -23,10 +23,9 @@ class AKWSUtils
         showDebugInfo: Bool = false,
         isJSONResponse: Bool = true,
         completionTask: @escaping (Any) -> Void,
-        failureTask: @escaping (Int, String?) -> Void)
-    {
+        failureTask: @escaping (Int, String?) -> Void) {
         // Make the call synchronously, but with a small timeout.
-        var request = URLRequest(url: NSURL(string: endpoint) as! URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10.0)
+        var request = URLRequest(url: NSURL(string: endpoint)! as URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10.0)
         // HTTP Method:
         request.httpMethod = httpMethod
         // Header:

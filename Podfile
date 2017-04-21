@@ -1,5 +1,6 @@
-platform :ios, '9.3'
+platform :ios, '9.0'
 use_frameworks!
+inhibit_all_warnings!
 
 workspace 'Ama'
 

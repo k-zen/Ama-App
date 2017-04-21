@@ -63,7 +63,7 @@ class AKHeatMapUtilityFunctions: NSObject
                         coordinates: [
                             GlobalConstants.AKRadarOrigin,
                             GlobalFunctions.instance(false).AKLocationWithBearing(
-                                bearing: Double(k * 30) * (M_PI / 180),
+                                bearing: Double(k * 30) * (Double.pi / 180),
                                 distanceMeters: 50000,
                                 origin: GlobalConstants.AKRadarOrigin
                             )

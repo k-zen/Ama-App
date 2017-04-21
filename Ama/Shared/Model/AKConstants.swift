@@ -397,17 +397,17 @@ class GlobalFunctions {
         let degreesBetweenPoints = 8.0
         let numberOfPoints = floor(360.0 / degreesBetweenPoints)
         let distRadians: Double = withMeterRadius / GlobalConstants.AKEarthRadius
-        let centerLatRadians: Double = coordinate.latitude * (M_PI / 180)
-        let centerLonRadians: Double = coordinate.longitude * (M_PI / 180)
+        let centerLatRadians: Double = coordinate.latitude * (Double.pi / 180)
+        let centerLonRadians: Double = coordinate.longitude * (Double.pi / 180)
         var coordinates = [GeoCoordinate]()
         
         for index in 0 ..< Int(numberOfPoints) {
             let degrees: Double = Double(index) * Double(degreesBetweenPoints)
-            let degreeRadians: Double = degrees * (M_PI / 180)
+            let degreeRadians: Double = degrees * (Double.pi / 180)
             let pointLatRadians: Double = asin(sin(centerLatRadians) * cos(distRadians) + cos(centerLatRadians) * sin(distRadians) * cos(degreeRadians))
             let pointLonRadians: Double = centerLonRadians + atan2(sin(degreeRadians) * sin(distRadians) * cos(centerLatRadians), cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians))
-            let pointLat: Double = pointLatRadians * (180 / M_PI)
-            let pointLon: Double = pointLonRadians * (180 / M_PI)
+            let pointLat: Double = pointLatRadians * (180 / Double.pi)
+            let pointLon: Double = pointLonRadians * (180 / Double.pi)
             let point = GeoCoordinate(latitude: pointLat, longitude: pointLon)
             
             coordinates.append(point)
@@ -531,13 +531,13 @@ class GlobalFunctions {
         
         let distRadians: Double = distanceMeters / GlobalConstants.AKEarthRadius
         
-        let lat1: Double = origin.latitude * (M_PI / 180)
-        let lon1: Double = origin.longitude * (M_PI / 180)
+        let lat1: Double = origin.latitude * (Double.pi / 180)
+        let lon1: Double = origin.longitude * (Double.pi / 180)
         
         let lat2 = asin(sin(lat1) * cos(distRadians) + cos(lat1) * sin(distRadians) * cos(bearing))
         let lon2 = lon1 + atan2(sin(bearing) * sin(distRadians) * cos(lat1), cos(distRadians) - sin(lat1) * sin(lat2))
         
-        let pointZ = GeoCoordinate(latitude: lat2 * (180 / M_PI), longitude: lon2 * (180 / M_PI))
+        let pointZ = GeoCoordinate(latitude: lat2 * (180 / Double.pi), longitude: lon2 * (180 / Double.pi))
         if self.showDebugInformation {
             NSLog("=> INFO: LocationWithBearing: Point.Z(lat:%f,lon:%f)", pointZ.latitude, pointZ.longitude)
         }
