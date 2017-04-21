@@ -47,7 +47,7 @@ class AKHeatMapClosures: NSObject
             // Configure the request to the backend.
             let rainfallPoints = NSMutableArray()
             let requestBody = ""
-            let url = String(format: "%@/ama/ultimodato", "http://190.128.205.74:8102")
+            let url = String(format: "%@/ama/ultimodato", GlobalConstants.AKAmaServerAddress)
             // This closure will be executed if success.
             let completionTask: (Any) -> Void = { (json) -> Void in
                 // Set the progress at 50%.

@@ -120,6 +120,7 @@ struct GlobalConstants {
     static let AKMinPhoneNumberLength = 8
     static let AKDefaultZoomLevel = ZoomLevel.L08
     static let AKDIMOverlayAlpha = 0.60
+    static let AKAmaServerAddress = "http://190.128.205.74:8102"
 }
 
 struct AKRainfallIntensityColor {

@@ -30,7 +30,7 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
             
             AKWSUtils.makeRESTRequest(
                 controller: self,
-                endpoint: String(format: "%@/ama/user/existe", "http://190.128.205.74:8102"),
+                endpoint: String(format: "%@/ama/user/existe", GlobalConstants.AKAmaServerAddress),
                 httpMethod: "POST",
                 headerValues: [ "Content-Type" : "application/json" ],
                 bodyValue: username.outputData,
@@ -45,7 +45,7 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                             
                             AKWSUtils.makeRESTRequest(
                                 controller: self,
-                                endpoint: String(format: "%@/ama/user/insertar", "http://190.128.205.74:8102"),
+                                endpoint: String(format: "%@/ama/user/insertar", GlobalConstants.AKAmaServerAddress),
                                 httpMethod: "POST",
                                 headerValues: [ "Content-Type" : "application/json" ],
                                 bodyValue: String(
@@ -58,7 +58,7 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                                 completionTask: { (json) -> Void in
                                     AKWSUtils.makeRESTRequest(
                                         controller: self,
-                                        endpoint: String(format: "%@/ama/persona/insertar", "http://190.128.205.74:8102"),
+                                        endpoint: String(format: "%@/ama/persona/insertar", GlobalConstants.AKAmaServerAddress),
                                         httpMethod: "POST",
                                         headerValues: [ "Content-Type" : "application/json" ],
                                         bodyValue: String(
