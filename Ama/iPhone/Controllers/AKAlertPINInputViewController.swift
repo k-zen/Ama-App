@@ -17,13 +17,11 @@ class AKAlertPINInputViewController: AKCustomViewController
     @IBAction func save(_ sender: Any)
     {
         self.dismissView(executeDismissTask: true)
-        NSLog("=> PIN SAVED!")
     }
     
     @IBAction func discard(_ sender: Any)
     {
         self.dismissView(executeDismissTask: false)
-        NSLog("=> PIN DISCARDED!")
     }
     
     // MARK: AKCustomViewController Overriding
@@ -33,37 +31,19 @@ class AKAlertPINInputViewController: AKCustomViewController
         self.customSetup()
     }
     
-    override func viewDidAppear(_ animated: Bool)
-    {
-        super.viewDidAppear(animated)
-    }
-    
     // MARK: Miscellaneous
     func customSetup()
     {
-        super.setup()
-        
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurView.translatesAutoresizingMaskIntoConstraints = true
-        blurView.frame = self.controlsContainer.bounds
-        
-        self.controlsContainer.backgroundColor = UIColor.clear
-        self.controlsContainer.insertSubview(blurView, at: 0)
-        
-        // Custom L&F.
-        self.save.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.discard.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.name.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.name.layer.masksToBounds = true
-        self.radio.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.radio.layer.masksToBounds = true
-        
-        GlobalFunctions.instance(false).AKAddBorderDeco(
-            self.nameValue,
-            color: GlobalConstants.AKDefaultTextfieldBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
+        self.configureLookAndFeel = { (controller) -> Void in
+            if let controller = controller as? AKAlertPINInputViewController {
+                controller.save.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                controller.discard.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                controller.name.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                controller.name.layer.masksToBounds = true
+                controller.radio.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                controller.radio.layer.masksToBounds = true
+            }
+        }
+        self.setup()
     }
 }
