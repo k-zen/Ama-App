@@ -59,6 +59,10 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(AKCustomView.tap(_:)))
         self.tapGesture?.delegate = self
         self.getView().addGestureRecognizer(self.tapGesture!)
+        
+        // Drawing.
+        self.getView().translatesAutoresizingMaskIntoConstraints = true
+        self.getView().clipsToBounds = true
     }
     
     // MARK: UIGestureRecognizerDelegate Implementation
