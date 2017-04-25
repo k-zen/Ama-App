@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,18 +23,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCB-aN-Tyx" userLabel="Map_View">
-                                <rect key="frame" x="0.0" y="106" width="375" height="512"/>
+                                <rect key="frame" x="0.0" y="98" width="375" height="520"/>
                             </mapView>
                         </subviews>
-                        <color key="backgroundColor" red="0.16078431372549018" green="0.15686274509803921" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="fCB-aN-Tyx" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="86" id="HXa-uj-Jpy"/>
-                            <constraint firstItem="fCB-aN-Tyx" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="HYa-8X-Zsm"/>
-                            <constraint firstItem="fCB-aN-Tyx" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="NF7-u2-fDR"/>
-                            <constraint firstAttribute="trailing" secondItem="fCB-aN-Tyx" secondAttribute="trailing" id="pAB-oU-j2S"/>
+                            <constraint firstItem="fCB-aN-Tyx" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="78" id="MlI-lF-EP0"/>
+                            <constraint firstAttribute="trailing" secondItem="fCB-aN-Tyx" secondAttribute="trailing" id="c0w-hy-J0r"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="fCB-aN-Tyx" secondAttribute="bottom" id="dPw-Xx-Itk"/>
+                            <constraint firstItem="fCB-aN-Tyx" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="pyS-s9-HkC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Mapa de Lluvia" id="92w-iv-FYu"/>
+                    <navigationItem key="navigationItem" title="Mapa de Lluvia" id="92w-iv-FYu">
+                        <barButtonItem key="backBarButtonItem" title="Volver" id="xba-hb-dhK"/>
+                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="mapView" destination="fCB-aN-Tyx" id="l4E-mZ-Por"/>
@@ -42,7 +44,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1020" y="-742"/>
+            <point key="canvasLocation" x="1020" y="-662"/>
         </scene>
         <!--Configuraciones-->
         <scene sceneID="wg7-f3-ORb">
@@ -61,7 +63,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="E5W-lS-nXX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -71,7 +73,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recibir alertas...?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSX-E1-uQv">
                                         <rect key="frame" x="8" y="8" width="270" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -80,7 +82,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </switch>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="72L-kS-I0Z"/>
                                 </constraints>
@@ -90,7 +91,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="83X-eQ-xZE" firstAttribute="top" secondItem="tE0-th-yhp" secondAttribute="bottom" constant="8" id="12W-rC-h7r"/>
                             <constraint firstItem="tE0-th-yhp" firstAttribute="top" secondItem="u1r-Cf-SY9" secondAttribute="bottom" constant="8" id="8ka-Eh-vSY"/>
@@ -104,7 +105,9 @@
                             <constraint firstItem="83X-eQ-xZE" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="uXL-1G-8cC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="CONFIGURACIONES" id="wvw-so-rs3"/>
+                    <navigationItem key="navigationItem" title="Configuraciones" id="wvw-so-rs3">
+                        <barButtonItem key="backBarButtonItem" title="Volver" id="q8W-eG-F9n"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="alertNotificationSwitch" destination="6w7-FF-W4a" id="3YQ-nX-sim"/>
                         <outlet property="alertsTable" destination="83X-eQ-xZE" id="TM4-UW-Wky"/>
@@ -123,28 +126,31 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="barTintColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="qc5-V9-nq0" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="F7e-91-uiN" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="LyA-nm-sRV" kind="relationship" relationship="viewControllers" id="TFd-AQ-eQ9"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-658" y="0.0"/>
         </scene>
-        <!--Configuraciones-->
+        <!--Config-->
         <scene sceneID="eXV-M6-pCQ">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8eo-pU-ZUk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F7e-91-uiN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="2" title="Configuraciones" id="cPa-gy-q4n">
+                    <tabBarItem key="tabBarItem" tag="2" title="Config" id="cPa-gy-q4n">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-12"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="tQs-kX-Eoq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -154,24 +160,43 @@
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="pgW-jR-diu"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8eo-pU-ZUk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="192.80000000000001" y="-0.44977511244377816"/>
         </scene>
-        <!--Mapa de Lluvia-->
+        <!--Sobre-->
+        <scene sceneID="EIq-OJ-jys">
+            <objects>
+                <viewController title="Sobre" id="LyA-nm-sRV" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dil-xg-Y3Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="Enr-8C-W1z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ivW-8m-Tvg" userLabel="Main_Container">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" tag="3" title="Sobre" id="q8Z-1t-XmT">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-12"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q6h-ac-bgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="193" y="667"/>
+        </scene>
+        <!--Mapa-->
         <scene sceneID="0v8-HX-F3w">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NIq-LO-xjk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="qc5-V9-nq0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="Mapa de Lluvia" id="acW-dT-cKf">
+                    <tabBarItem key="tabBarItem" tag="1" title="Mapa" id="acW-dT-cKf">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-12"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="q6p-2w-SAN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.16078431369999999" green="0.15686274510000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -181,9 +206,8 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="cD8-Cl-NY6"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NIq-LO-xjk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="192.80000000000001" y="-741.67916041979015"/>
+            <point key="canvasLocation" x="193" y="-661"/>
         </scene>
     </scenes>
 </document>
