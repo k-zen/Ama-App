@@ -4,8 +4,8 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
 {
     // MARK: Constants
     struct LocalConstants {
-        static let AKHeaderHeight: CGFloat = 40
-        static let AKRowHeight: CGFloat = 52
+        static let AKHeaderHeight: CGFloat = 40.0
+        static let AKRowHeight: CGFloat = 52.0
     }
     
     // MARK: Outlets
@@ -34,7 +34,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         GlobalFunctions.instance(false).AKAddBorderDeco(
             cell,
-            color: GlobalConstants.AKTableCellLeftBorderBg.cgColor,
+            color: GlobalConstants.AKTableCellBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.left
         )
@@ -55,7 +55,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         // Custom L&F.
         GlobalFunctions.instance(false).AKAddBorderDeco(
             headerCell,
-            color: GlobalConstants.AKTableHeaderLeftBorderBg.cgColor,
+            color: GlobalConstants.AKTableHeaderCellBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
             position: CustomBorderDecorationPosition.left
         )
@@ -102,8 +102,8 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     // MARK: Miscellaneous
     func customSetup()
     {
-        super.shouldCheckLoggedUser = true
-        super.setup()
+        self.shouldCheckLoggedUser = true
+        self.setup()
         
         // Custom Components
         self.alertsTable.register(UINib(nibName: "AKAlertsTableViewCell", bundle: nil), forCellReuseIdentifier: "Alerts_Table_Cell")
@@ -111,13 +111,5 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         // Add UITableView's DataSource & Delegate.
         self.alertsTable?.dataSource = self
         self.alertsTable?.delegate = self
-        
-        // Custom L&F.
-        GlobalFunctions.instance(false).AKAddBorderDeco(
-            self.infoContainer,
-            color: GlobalConstants.AKTableHeaderLeftBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.left
-        )
     }
 }
