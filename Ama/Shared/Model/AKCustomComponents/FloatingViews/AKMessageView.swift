@@ -22,9 +22,6 @@ class AKMessageView: AKCustomView, AKCustomViewProtocol
         super.inhibitTapGesture = false
         super.setup()
         
-        self.getView().translatesAutoresizingMaskIntoConstraints = true
-        self.getView().clipsToBounds = true
-        
         self.loadComponents()
         self.applyLookAndFeel()
         self.addAnimations(expandCollapseHeight: LocalConstants.AKViewHeight)
