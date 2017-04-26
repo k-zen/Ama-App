@@ -23,7 +23,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     // MARK: UITableViewDataSource Implementation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let e = GlobalFunctions.instance(false).AKGetUser().userDefinedAlerts[(indexPath as NSIndexPath).row]
+        let e = Func.AKGetUser().userDefinedAlerts[(indexPath as NSIndexPath).row]
         
         let cell = self.alertsTable.dequeueReusableCell(withIdentifier: "Alerts_Table_Cell") as! AKAlertsTableViewCell
         cell.mainContainer.backgroundColor = GlobalConstants.AKTableCellBg
@@ -32,7 +32,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         
         // Custom L&F.
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        GlobalFunctions.instance(false).AKAddBorderDeco(
+        Func.AKAddBorderDeco(
             cell,
             color: GlobalConstants.AKTableCellBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
@@ -44,7 +44,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        let headerCell = UIView(frame: CGRect(x: 8, y: 0, width: 276, height: LocalConstants.AKHeaderHeight))
+        let headerCell = UIView(frame: CGRect(x: 8.0, y: 0.0, width: 276.0, height: LocalConstants.AKHeaderHeight))
         headerCell.backgroundColor = GlobalConstants.AKTableHeaderCellBg
         
         let title = UILabel(frame: headerCell.frame)
@@ -53,7 +53,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         title.text = "Alertas"
         
         // Custom L&F.
-        GlobalFunctions.instance(false).AKAddBorderDeco(
+        Func.AKAddBorderDeco(
             headerCell,
             color: GlobalConstants.AKTableHeaderCellBorderBg.cgColor,
             thickness: GlobalConstants.AKDefaultBorderThickness,
@@ -67,7 +67,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return GlobalFunctions.instance(false).AKGetUser().userDefinedAlerts.count
+        return Func.AKGetUser().userDefinedAlerts.count
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { return true }
@@ -81,7 +81,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            GlobalFunctions.instance(false).AKGetUser().userDefinedAlerts.remove(at: (indexPath as NSIndexPath).row)
+            Func.AKGetUser().userDefinedAlerts.remove(at: (indexPath as NSIndexPath).row)
             self.alertsTable.reloadData()
         }
     }
