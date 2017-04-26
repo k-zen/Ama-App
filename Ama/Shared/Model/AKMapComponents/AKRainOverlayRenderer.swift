@@ -20,11 +20,11 @@ class AKRainOverlayRenderer: MKOverlayRenderer
     override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext)
     {
         let tileRect = self.rect(for: mapRect)
-        let zoomLevel = GlobalFunctions.instance(false).AKZoomScaleConvert(zoomScale: zoomScale, debug: false)
+        let zoomLevel = Func.AKZoomScaleConvert(zoomScale: zoomScale, debug: false)
         
         // Mark map rectangle tiles.
         if self.debug {
-            context.setStrokeColor(GlobalFunctions.instance(false).AKHexColor(0x222222).cgColor);
+            context.setStrokeColor(Func.AKHexColor(0x222222).cgColor);
             context.stroke(tileRect, width: CGFloat(5000 / zoomLevel))
             
             let reducedTile = MKMapRectInset(mapRect, GlobalConstants.AKMapTileTolerance.x, GlobalConstants.AKMapTileTolerance.y)
@@ -43,7 +43,7 @@ class AKRainOverlayRenderer: MKOverlayRenderer
             let tileTolerance = MKMapRectInset(mapRect, -GlobalConstants.AKMapTileTolerance.x, -GlobalConstants.AKMapTileTolerance.y)
             if MKMapRectContainsRect(tileTolerance, point.mapRect) {
                 // Get raindrop characteristics.
-                let chars = GlobalFunctions.instance(false).AKGetInfoForRainfallIntensity(ri: point.intensity)
+                let chars = Func.AKGetInfoForRainfallIntensity(ri: point.intensity)
                 let raindropPointRect = self.rect(for: point.mapRect)
                 
                 context.setFillColor(chars.color.cgColor)
