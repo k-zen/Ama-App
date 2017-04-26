@@ -16,16 +16,15 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol
     @IBOutlet weak var location: UILabel!
     
     // MARK: Actions
-    @IBAction func pauseRefresh(_ sender: Any)
-    {
+    @IBAction func pauseRefresh(_ sender: Any) {
         if let controller = controller as? AKHeatMapViewController {
-            if AKHeatMapUtilityFunctions.stateRefreshTimer(controller) {
-                AKHeatMapUtilityFunctions.stopRefreshTimer(controller)
+            if controller.stateRefreshTimer() {
+                controller.stopRefreshTimer()
                 self.pauseRefresh.setImage(UIImage(named: "0011-024px.png"), for: UIControlState.normal)
                 NSLog("=> PAUSED!")
             }
             else {
-                AKHeatMapUtilityFunctions.startRefreshTimer(controller)
+                controller.startRefreshTimer()
                 self.pauseRefresh.setImage(UIImage(named: "0010-024px.png"), for: UIControlState.normal)
                 NSLog("=> RESUMED!")
             }
@@ -36,8 +35,7 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol
     convenience init() { self.init(frame: CGRect.zero) }
     
     // MARK: Miscellaneous
-    override func setup()
-    {
+    override func setup() {
         super.setup()
         
         self.loadComponents()
@@ -46,15 +44,13 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol
     
     func loadComponents() {}
     
-    func applyLookAndFeel()
-    {
+    func applyLookAndFeel() {
         self.pauseRefresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
         self.tempValue.layer.cornerRadius = self.tempValue.frame.width / 2.0
         self.tempValue.layer.masksToBounds = true
     }
     
-    func draw(container: UIView, coordinates: CGPoint, size: CGSize)
-    {
+    func draw(container: UIView, coordinates: CGPoint, size: CGSize) {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         self.getView().frame = CGRect(

@@ -24,34 +24,35 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eH4-py-H4z" userLabel="Scroll_Container">
-                    <rect key="frame" x="38" y="216.5" width="300" height="234"/>
+                    <rect key="frame" x="38" y="218.5" width="300" height="230"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HA3-12-pJH" userLabel="Controls_Container">
-                            <rect key="frame" x="0.0" y="0.0" width="300" height="234"/>
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="230"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hola...!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FL2-9H-eDa" userLabel="Main_Title">
-                                    <rect key="frame" x="8" y="8" width="284" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="48"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.59607843140000005" green="0.59215686270000001" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="32"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Necesitamos que ingreses un nombre de usuario para crear tu cuenta..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FsY-vX-fbb" userLabel="Message">
-                                    <rect key="frame" x="8" y="60" width="284" height="70"/>
+                                    <rect key="frame" x="8" y="56" width="284" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="20"/>
                                     <color key="textColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tu nombre de usuario aquí..." textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JTi-6f-GB3" userLabel="Username_Value">
-                                    <rect key="frame" x="8" y="138" width="284" height="40"/>
+                                    <rect key="frame" x="8" y="134" width="284" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="18"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19L-A3-QKB" userLabel="Verify">
-                                    <rect key="frame" x="8" y="186" width="284" height="40"/>
+                                    <rect key="frame" x="8" y="182" width="284" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.80000000000000004" green="0.14117647059999999" blue="0.1137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="22"/>
@@ -65,13 +66,13 @@
                             </subviews>
                             <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="234" id="cL3-Oh-Nwv"/>
+                                <constraint firstAttribute="height" constant="230" id="cL3-Oh-Nwv"/>
                                 <constraint firstAttribute="width" constant="300" id="sfT-Gj-020"/>
                             </constraints>
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="234" id="1dD-yJ-Mq8"/>
+                        <constraint firstAttribute="height" constant="230" id="1dD-yJ-Mq8"/>
                         <constraint firstItem="HA3-12-pJH" firstAttribute="top" secondItem="eH4-py-H4z" secondAttribute="top" id="7e3-tk-Tz6"/>
                         <constraint firstItem="HA3-12-pJH" firstAttribute="leading" secondItem="eH4-py-H4z" secondAttribute="leading" id="b8A-yq-BeA"/>
                         <constraint firstAttribute="bottom" secondItem="HA3-12-pJH" secondAttribute="bottom" id="ipW-VU-7b5"/>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49074A581EB142F8002FBB64 /* AKAlertAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A561EB142F8002FBB64 /* AKAlertAnnotationView.xib */; };
+		49074A591EB142F8002FBB64 /* AKUserAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A571EB142F8002FBB64 /* AKUserAnnotationView.xib */; };
 		491A09A91E305E5A008953AE /* 0011-024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 491A09A81E305E5A008953AE /* 0011-024px.png */; };
 		49223BF61DFF2B1100C8CB61 /* 0005-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF51DFF2B1100C8CB61 /* 0005-030px.png */; };
 		4927E4FE1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4927E4FD1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift */; };
@@ -21,10 +23,8 @@
 		494609F91E2B155000FC3AEA /* 0007-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F71E2B155000FC3AEA /* 0007-032px.png */; };
 		494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F81E2B155000FC3AEA /* 0008-032px.png */; };
 		4984220E1E310DF900DCF99B /* 0012-020px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4984220D1E310DF900DCF99B /* 0012-020px.png */; };
-		49921F0D1EAE781100899816 /* AKAlertAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49921F021EAE781100899816 /* AKAlertAnnotationView.xib */; };
 		49921F0E1EAE781100899816 /* AKAlertPINInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49921F031EAE781100899816 /* AKAlertPINInputView.xib */; };
 		49921F0F1EAE781100899816 /* AKLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49921F041EAE781100899816 /* AKLoginView.xib */; };
-		49921F101EAE781100899816 /* AKUserAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49921F051EAE781100899816 /* AKUserAnnotationView.xib */; };
 		49921F111EAE781100899816 /* AKProgressOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49921F071EAE781100899816 /* AKProgressOverlayView.xib */; };
 		49921F121EAE781100899816 /* AKTopOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49921F081EAE781100899816 /* AKTopOverlayView.xib */; };
 		49921F131EAE781100899816 /* AKLayersOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49921F091EAE781100899816 /* AKLayersOverlayView.xib */; };
@@ -59,8 +59,6 @@
 		49921F5A1EAE924A00899816 /* AKUserAreaOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F391EAE924A00899816 /* AKUserAreaOverlay.swift */; };
 		49921F5B1EAE924A00899816 /* AKConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3B1EAE924A00899816 /* AKConversions.swift */; };
 		49921F5C1EAE924A00899816 /* AKFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3C1EAE924A00899816 /* AKFileUtils.swift */; };
-		49921F5D1EAE924A00899816 /* AKHeatMapClosures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3D1EAE924A00899816 /* AKHeatMapClosures.swift */; };
-		49921F5E1EAE924A00899816 /* AKHeatMapUtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3E1EAE924A00899816 /* AKHeatMapUtilityFunctions.swift */; };
 		49921F5F1EAE924A00899816 /* AKWSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3F1EAE924A00899816 /* AKWSUtils.swift */; };
 		49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A001E1DA56C00F33829 /* 0006-512px.png */; };
 		49B96A101E1DA56C00F33829 /* AppIcon-29@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A011E1DA56C00F33829 /* AppIcon-29@1x.png */; };
@@ -91,6 +89,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49074A561EB142F8002FBB64 /* AKAlertAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertAnnotationView.xib; sourceTree = "<group>"; };
+		49074A571EB142F8002FBB64 /* AKUserAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKUserAnnotationView.xib; sourceTree = "<group>"; };
 		491A09A81E305E5A008953AE /* 0011-024px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0011-024px.png"; sourceTree = "<group>"; };
 		49223BF51DFF2B1100C8CB61 /* 0005-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0005-030px.png"; sourceTree = "<group>"; };
 		4927E4FD1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertPINInputViewController.swift; sourceTree = "<group>"; };
@@ -106,10 +106,8 @@
 		494609F81E2B155000FC3AEA /* 0008-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0008-032px.png"; sourceTree = "<group>"; };
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4984220D1E310DF900DCF99B /* 0012-020px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0012-020px.png"; sourceTree = "<group>"; };
-		49921F021EAE781100899816 /* AKAlertAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertAnnotationView.xib; sourceTree = "<group>"; };
 		49921F031EAE781100899816 /* AKAlertPINInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertPINInputView.xib; sourceTree = "<group>"; };
 		49921F041EAE781100899816 /* AKLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKLoginView.xib; sourceTree = "<group>"; };
-		49921F051EAE781100899816 /* AKUserAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKUserAnnotationView.xib; sourceTree = "<group>"; };
 		49921F071EAE781100899816 /* AKProgressOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKProgressOverlayView.xib; sourceTree = "<group>"; };
 		49921F081EAE781100899816 /* AKTopOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKTopOverlayView.xib; sourceTree = "<group>"; };
 		49921F091EAE781100899816 /* AKLayersOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKLayersOverlayView.xib; sourceTree = "<group>"; };
@@ -144,8 +142,6 @@
 		49921F391EAE924A00899816 /* AKUserAreaOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAreaOverlay.swift; sourceTree = "<group>"; };
 		49921F3B1EAE924A00899816 /* AKConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConversions.swift; sourceTree = "<group>"; };
 		49921F3C1EAE924A00899816 /* AKFileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileUtils.swift; sourceTree = "<group>"; };
-		49921F3D1EAE924A00899816 /* AKHeatMapClosures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapClosures.swift; sourceTree = "<group>"; };
-		49921F3E1EAE924A00899816 /* AKHeatMapUtilityFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapUtilityFunctions.swift; sourceTree = "<group>"; };
 		49921F3F1EAE924A00899816 /* AKWSUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWSUtils.swift; sourceTree = "<group>"; };
 		49B96A001E1DA56C00F33829 /* 0006-512px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0006-512px.png"; sourceTree = "<group>"; };
 		49B96A011E1DA56C00F33829 /* AppIcon-29@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-29@1x.png"; sourceTree = "<group>"; };
@@ -200,6 +196,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		49074A551EB142F8002FBB64 /* MapComponents */ = {
+			isa = PBXGroup;
+			children = (
+				49074A561EB142F8002FBB64 /* AKAlertAnnotationView.xib */,
+				49074A571EB142F8002FBB64 /* AKUserAnnotationView.xib */,
+			);
+			path = MapComponents;
+			sourceTree = "<group>";
+		};
 		493CA8DE1EAEBAA7001F96D7 /* FloatingViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,11 +255,10 @@
 		49921F011EAE781100899816 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				49921F021EAE781100899816 /* AKAlertAnnotationView.xib */,
 				49921F031EAE781100899816 /* AKAlertPINInputView.xib */,
 				49921F041EAE781100899816 /* AKLoginView.xib */,
-				49921F051EAE781100899816 /* AKUserAnnotationView.xib */,
 				493CA8DE1EAEBAA7001F96D7 /* FloatingViews */,
+				49074A551EB142F8002FBB64 /* MapComponents */,
 				49921F061EAE781100899816 /* Overlays */,
 				49921F0B1EAE781100899816 /* TableCells */,
 			);
@@ -385,8 +389,6 @@
 			children = (
 				49921F3B1EAE924A00899816 /* AKConversions.swift */,
 				49921F3C1EAE924A00899816 /* AKFileUtils.swift */,
-				49921F3D1EAE924A00899816 /* AKHeatMapClosures.swift */,
-				49921F3E1EAE924A00899816 /* AKHeatMapUtilityFunctions.swift */,
 				49921F3F1EAE924A00899816 /* AKWSUtils.swift */,
 			);
 			path = AKUtilities;
@@ -572,13 +574,13 @@
 				49223BF61DFF2B1100C8CB61 /* 0005-030px.png in Resources */,
 				49B96A231E1DA9B900F33829 /* AppIcon-20@3x.png in Resources */,
 				49B96A1C1E1DA56C00F33829 /* AppIcon-83.5@2x.png in Resources */,
-				49921F101EAE781100899816 /* AKUserAnnotationView.xib in Resources */,
 				49921F0E1EAE781100899816 /* AKAlertPINInputView.xib in Resources */,
 				49B96A161E1DA56C00F33829 /* AppIcon-60@1x.png in Resources */,
 				49447D451E301A9100BE59D0 /* 0010-024px.png in Resources */,
 				492FF7531DBE8AFE009B4CDD /* 0001-030px.png in Resources */,
 				49921F141EAE781100899816 /* AKLegendOverlayView.xib in Resources */,
 				49B96A1B1E1DA56C00F33829 /* AppIcon-76@3x.png in Resources */,
+				49074A581EB142F8002FBB64 /* AKAlertAnnotationView.xib in Resources */,
 				49B96A1A1E1DA56C00F33829 /* AppIcon-76@2x.png in Resources */,
 				49921F131EAE781100899816 /* AKLayersOverlayView.xib in Resources */,
 				49B96A211E1DA9B900F33829 /* AppIcon-20@1x.png in Resources */,
@@ -588,11 +590,11 @@
 				49B96A101E1DA56C00F33829 /* AppIcon-29@1x.png in Resources */,
 				49B96A181E1DA56C00F33829 /* AppIcon-60@3x.png in Resources */,
 				49B96A141E1DA56C00F33829 /* AppIcon-40@2x.png in Resources */,
+				49074A591EB142F8002FBB64 /* AKUserAnnotationView.xib in Resources */,
 				49B96A111E1DA56C00F33829 /* AppIcon-29@2x.png in Resources */,
 				49B96A191E1DA56C00F33829 /* AppIcon-76@1x.png in Resources */,
 				491A09A91E305E5A008953AE /* 0011-024px.png in Resources */,
 				49B96A221E1DA9B900F33829 /* AppIcon-20@2x.png in Resources */,
-				49921F0D1EAE781100899816 /* AKAlertAnnotationView.xib in Resources */,
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
 				49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */,
 				49921F121EAE781100899816 /* AKTopOverlayView.xib in Resources */,
@@ -673,7 +675,6 @@
 				49921F491EAE924A00899816 /* AKTopOverlayView.swift in Sources */,
 				49921F461EAE924A00899816 /* AKLayersOverlayView.swift in Sources */,
 				4927E4FE1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift in Sources */,
-				49921F5E1EAE924A00899816 /* AKHeatMapUtilityFunctions.swift in Sources */,
 				493CA8E31EAEBAB3001F96D7 /* AKMessageView.swift in Sources */,
 				49921F521EAE924A00899816 /* AKAlertAnnotation.swift in Sources */,
 				49921F581EAE924A00899816 /* AKRainOverlayRenderer.swift in Sources */,
@@ -689,7 +690,6 @@
 				49921F531EAE924A00899816 /* AKDIMOverlay.swift in Sources */,
 				49921F441EAE924A00899816 /* AKAlertAnnotationView.swift in Sources */,
 				49921F511EAE924A00899816 /* AKUsername.swift in Sources */,
-				49921F5D1EAE924A00899816 /* AKHeatMapClosures.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
 				49921F411EAE924A00899816 /* AKCustomView.swift in Sources */,
 				49921F5A1EAE924A00899816 /* AKUserAreaOverlay.swift in Sources */,

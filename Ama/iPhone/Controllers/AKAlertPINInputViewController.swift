@@ -5,7 +5,6 @@ class AKAlertPINInputViewController: AKCustomViewController
     // MARK: Outlets
     @IBOutlet weak var controlsContainer: UIView!
     @IBOutlet weak var mainTitle: UILabel!
-    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var nameValue: UITextField!
     @IBOutlet weak var radio: UILabel!
     @IBOutlet weak var radioValue: UILabel!
@@ -36,12 +35,12 @@ class AKAlertPINInputViewController: AKCustomViewController
     {
         self.configureLookAndFeel = { (controller) -> Void in
             if let controller = controller as? AKAlertPINInputViewController {
-                controller.save.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-                controller.discard.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-                controller.name.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-                controller.name.layer.masksToBounds = true
+                controller.controlsContainer.layer.cornerRadius = GlobalConstants.AKViewCornerRadius
+                controller.controlsContainer.layer.masksToBounds = true
                 controller.radio.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
                 controller.radio.layer.masksToBounds = true
+                controller.save.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                controller.discard.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
             }
         }
         self.setup()

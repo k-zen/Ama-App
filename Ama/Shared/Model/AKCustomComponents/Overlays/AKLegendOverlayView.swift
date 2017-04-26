@@ -24,16 +24,14 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol
     convenience init() { self.init(frame: CGRect.zero) }
     
     // MARK: Miscellaneous
-    override func setup()
-    {
+    override func setup() {
         super.setup()
         
         self.loadComponents()
         self.applyLookAndFeel()
     }
     
-    func loadComponents()
-    {
+    func loadComponents() {
         let frame = CGRect(x: 0.0, y: 0.0, width: 24.0, height: 24.0)
         self.img01.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
         self.img02.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
@@ -49,8 +47,7 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol
     
     func applyLookAndFeel() {}
     
-    func draw(container: UIView, coordinates: CGPoint, size: CGSize)
-    {
+    func draw(container: UIView, coordinates: CGPoint, size: CGSize) {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         self.getView().frame = CGRect(

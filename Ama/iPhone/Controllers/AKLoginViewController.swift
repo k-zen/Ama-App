@@ -221,7 +221,6 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
     {
         self.configureLookAndFeel = { (controller) -> Void in
             if let controller = controller as? AKLoginViewController {
-                controller.controlsContainer.backgroundColor = UIColor.clear
                 controller.usernameValue.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
                 controller.verify.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
             }
