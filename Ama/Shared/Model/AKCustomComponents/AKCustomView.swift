@@ -108,7 +108,7 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
         controller: AKCustomViewController?,
         expandHeight: CGFloat,
         animate: Bool,
-        completionTask: ((_ presenterController: AKCustomViewController?) -> Void)?) {
+        completionTask: ((_ controller: AKCustomViewController?) -> Void)?) {
         if animate {
             UIView.beginAnimations(LocalConstants.AKExpandHeightAnimation, context: nil)
             Func.AKChangeComponentHeight(component: self.getView(), newHeight: expandHeight)
@@ -133,7 +133,7 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
     internal func collapse(
         controller: AKCustomViewController?,
         animate: Bool,
-        completionTask: ((_ presenterController: AKCustomViewController?) -> Void)?) {
+        completionTask: ((_ controller: AKCustomViewController?) -> Void)?) {
         if animate {
             UIView.beginAnimations(LocalConstants.AKCollapseHeightAnimation, context: nil)
             Func.AKChangeComponentHeight(component: self.getView(), newHeight: 0.0)

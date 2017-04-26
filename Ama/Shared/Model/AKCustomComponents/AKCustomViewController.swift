@@ -151,7 +151,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         type: MessageType,
         message: String,
         animate: Bool,
-        completionTask: ((_ presenterController: AKCustomViewController?) -> Void)?) {
+        completionTask: ((_ controller: AKCustomViewController?) -> Void)?) {
         var origin = Func.AKCenterScreenCoordinate(
             container: self.view,
             width: AKMessageView.LocalConstants.AKViewWidth,
@@ -188,7 +188,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         )
     }
     
-    func hideMessage(animate: Bool, completionTask: ((_ presenterController: AKCustomViewController?) -> Void)?)
+    func hideMessage(animate: Bool, completionTask: ((_ controller: AKCustomViewController?) -> Void)?)
     {
         self.messageOverlay.collapse(
             controller: self,
@@ -215,16 +215,16 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
-            GlobalFunctions.instance(false).AKDelegate().locationManager.requestWhenInUseAuthorization()
+            Func.AKDelegate().locationManager.requestWhenInUseAuthorization()
             break
         case .authorizedWhenInUse:
             NSLog("=> LOCATION SERVICES ==> AUTHORIZED WHEN IN USE")
-            GlobalFunctions.instance(false).AKDelegate().locationManager.startUpdatingLocation()
-            GlobalFunctions.instance(false).AKDelegate().locationManager.startUpdatingHeading()
+            Func.AKDelegate().locationManager.startUpdatingLocation()
+            Func.AKDelegate().locationManager.startUpdatingHeading()
             break
         case .restricted, .denied:
             // Mark the App as inactive!
-            GlobalFunctions.instance(false).AKDelegate().applicationActive = false
+            Func.AKDelegate().applicationActive = false
             
             let alertController = UIAlertController(
                 title: "Acceso a Ubicación Deshabilitado",
@@ -234,7 +234,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
             alertController.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in }))
             alertController.addAction(UIAlertAction(title: "Abrir Configuraciones", style: .default) { (action) in
                 if let url = URL(string:UIApplicationOpenSettingsURLString) {
-                    GlobalFunctions.instance(false).AKDelay(0.0, task: { () in UIApplication.shared.openURL(url) })
+                    Func.AKDelay(0.0, task: { () in UIApplication.shared.openURL(url) })
                 }})
             self.present(alertController, animated: true, completion: nil)
             break
