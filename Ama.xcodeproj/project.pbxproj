@@ -49,14 +49,9 @@
 		49921F501EAE924A00899816 /* AKPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F2E1EAE924A00899816 /* AKPhoneNumber.swift */; };
 		49921F511EAE924A00899816 /* AKUsername.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F2F1EAE924A00899816 /* AKUsername.swift */; };
 		49921F521EAE924A00899816 /* AKAlertAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F311EAE924A00899816 /* AKAlertAnnotation.swift */; };
-		49921F531EAE924A00899816 /* AKDIMOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F321EAE924A00899816 /* AKDIMOverlay.swift */; };
-		49921F541EAE924A00899816 /* AKDIMOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F331EAE924A00899816 /* AKDIMOverlayRenderer.swift */; };
-		49921F551EAE924A00899816 /* AKRadarAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F341EAE924A00899816 /* AKRadarAnnotation.swift */; };
-		49921F561EAE924A00899816 /* AKRadarSpanOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F351EAE924A00899816 /* AKRadarSpanOverlay.swift */; };
 		49921F571EAE924A00899816 /* AKRainOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F361EAE924A00899816 /* AKRainOverlay.swift */; };
 		49921F581EAE924A00899816 /* AKRainOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F371EAE924A00899816 /* AKRainOverlayRenderer.swift */; };
 		49921F591EAE924A00899816 /* AKUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F381EAE924A00899816 /* AKUserAnnotation.swift */; };
-		49921F5A1EAE924A00899816 /* AKUserAreaOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F391EAE924A00899816 /* AKUserAreaOverlay.swift */; };
 		49921F5B1EAE924A00899816 /* AKConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3B1EAE924A00899816 /* AKConversions.swift */; };
 		49921F5C1EAE924A00899816 /* AKFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3C1EAE924A00899816 /* AKFileUtils.swift */; };
 		49921F5F1EAE924A00899816 /* AKWSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3F1EAE924A00899816 /* AKWSUtils.swift */; };
@@ -132,14 +127,9 @@
 		49921F2E1EAE924A00899816 /* AKPhoneNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhoneNumber.swift; sourceTree = "<group>"; };
 		49921F2F1EAE924A00899816 /* AKUsername.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUsername.swift; sourceTree = "<group>"; };
 		49921F311EAE924A00899816 /* AKAlertAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertAnnotation.swift; sourceTree = "<group>"; };
-		49921F321EAE924A00899816 /* AKDIMOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDIMOverlay.swift; sourceTree = "<group>"; };
-		49921F331EAE924A00899816 /* AKDIMOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDIMOverlayRenderer.swift; sourceTree = "<group>"; };
-		49921F341EAE924A00899816 /* AKRadarAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRadarAnnotation.swift; sourceTree = "<group>"; };
-		49921F351EAE924A00899816 /* AKRadarSpanOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRadarSpanOverlay.swift; sourceTree = "<group>"; };
 		49921F361EAE924A00899816 /* AKRainOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainOverlay.swift; sourceTree = "<group>"; };
 		49921F371EAE924A00899816 /* AKRainOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainOverlayRenderer.swift; sourceTree = "<group>"; };
 		49921F381EAE924A00899816 /* AKUserAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAnnotation.swift; sourceTree = "<group>"; };
-		49921F391EAE924A00899816 /* AKUserAreaOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAreaOverlay.swift; sourceTree = "<group>"; };
 		49921F3B1EAE924A00899816 /* AKConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConversions.swift; sourceTree = "<group>"; };
 		49921F3C1EAE924A00899816 /* AKFileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileUtils.swift; sourceTree = "<group>"; };
 		49921F3F1EAE924A00899816 /* AKWSUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWSUtils.swift; sourceTree = "<group>"; };
@@ -372,14 +362,9 @@
 			isa = PBXGroup;
 			children = (
 				49921F311EAE924A00899816 /* AKAlertAnnotation.swift */,
-				49921F321EAE924A00899816 /* AKDIMOverlay.swift */,
-				49921F331EAE924A00899816 /* AKDIMOverlayRenderer.swift */,
-				49921F341EAE924A00899816 /* AKRadarAnnotation.swift */,
-				49921F351EAE924A00899816 /* AKRadarSpanOverlay.swift */,
 				49921F361EAE924A00899816 /* AKRainOverlay.swift */,
 				49921F371EAE924A00899816 /* AKRainOverlayRenderer.swift */,
 				49921F381EAE924A00899816 /* AKUserAnnotation.swift */,
-				49921F391EAE924A00899816 /* AKUserAreaOverlay.swift */,
 			);
 			path = AKMapComponents;
 			sourceTree = "<group>";
@@ -668,7 +653,6 @@
 				49921F4C1EAE924A00899816 /* AKAlert.swift in Sources */,
 				49921F4B1EAE924A00899816 /* AKMasterFile.swift in Sources */,
 				49074A861EB14979002FBB64 /* AKCustomViewController.swift in Sources */,
-				49921F541EAE924A00899816 /* AKDIMOverlayRenderer.swift in Sources */,
 				49921F5B1EAE924A00899816 /* AKConversions.swift in Sources */,
 				4927E4FE1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift in Sources */,
 				49921F521EAE924A00899816 /* AKAlertAnnotation.swift in Sources */,
@@ -676,11 +660,9 @@
 				49921F5C1EAE924A00899816 /* AKFileUtils.swift in Sources */,
 				49921F401EAE924A00899816 /* AKConstants.swift in Sources */,
 				49074A8A1EB14979002FBB64 /* AKLegendOverlayView.swift in Sources */,
-				49921F551EAE924A00899816 /* AKRadarAnnotation.swift in Sources */,
 				49074A8C1EB14979002FBB64 /* AKTopOverlayView.swift in Sources */,
 				49074A851EB14979002FBB64 /* AKCustomView.swift in Sources */,
 				49074A891EB14979002FBB64 /* AKLayersOverlayView.swift in Sources */,
-				49921F561EAE924A00899816 /* AKRadarSpanOverlay.swift in Sources */,
 				49921F4E1EAE924A00899816 /* AKUser.swift in Sources */,
 				49921F5F1EAE924A00899816 /* AKWSUtils.swift in Sources */,
 				49074A841EB14979002FBB64 /* AKUserAnnotationView.swift in Sources */,
@@ -688,13 +670,11 @@
 				49921F571EAE924A00899816 /* AKRainOverlay.swift in Sources */,
 				49921F4F1EAE924A00899816 /* AKInputData.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
-				49921F531EAE924A00899816 /* AKDIMOverlay.swift in Sources */,
 				49074A871EB14979002FBB64 /* AKCustomViewProtocol.swift in Sources */,
 				49921F511EAE924A00899816 /* AKUsername.swift in Sources */,
 				49074A881EB14979002FBB64 /* AKMessageView.swift in Sources */,
 				49074A8B1EB14979002FBB64 /* AKProgressOverlayView.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
-				49921F5A1EAE924A00899816 /* AKUserAreaOverlay.swift in Sources */,
 				49921F501EAE924A00899816 /* AKPhoneNumber.swift in Sources */,
 				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
 				49921F4D1EAE924A00899816 /* AKRainfallPoint.swift in Sources */,
