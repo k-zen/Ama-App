@@ -108,7 +108,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         // Custom Components
         self.alertsTable.register(UINib(nibName: "AKAlertsTableViewCell", bundle: nil), forCellReuseIdentifier: "Alerts_Table_Cell")
         
-        // Add UITableView's DataSource & Delegate.
+        // Delegates
         self.alertsTable?.dataSource = self
         self.alertsTable?.delegate = self
     }

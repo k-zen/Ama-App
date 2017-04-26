@@ -1,4 +1,3 @@
-import TSMessages
 import UIKit
 
 class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
@@ -9,6 +8,7 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
     }
     
     // MARK: Outlets
+    @IBOutlet weak var scrollContainer: UIScrollView!
     @IBOutlet weak var controlsContainer: UIView!
     @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var usernameValue: UITextField!
@@ -17,14 +17,14 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
     // MARK: Actions
     @IBAction func login(_ sender: Any)
     {
-        GlobalFunctions.instance(false).AKDelay(0.0, isMain: false, task: { Void -> Void in
+        Func.AKExecuteInBackgroundThread(mode: .async, code: {
             let username = AKUsername(inputData: self.usernameValue.text!)
             do {
                 try username.validate()
                 try username.process()
             }
             catch {
-                GlobalFunctions.instance(false).AKPresentMessageFromError("\(error)", controller: self)
+                Func.AKPresentMessageFromError(controller: self, message: "\(error)")
                 return
             }
             
@@ -40,8 +40,8 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                     // Process the results.
                     if let str = json as? String {
                         if str.caseInsensitiveCompare("false") == ComparisonResult.orderedSame {
-                            GlobalFunctions.instance(false).AKGetUser().username = username.outputData
-                            GlobalFunctions.instance(false).AKGetUser().password = String(format: "%i", arc4random_uniform(100000) + (100000 * (arc4random_uniform(9) + 1)))
+                            Func.AKGetUser().username = username.outputData
+                            Func.AKGetUser().password = String(format: "%i", arc4random_uniform(100000) + (100000 * (arc4random_uniform(9) + 1)))
                             
                             AKWSUtils.makeRESTRequest(
                                 controller: self,
@@ -50,8 +50,8 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                                 headerValues: [ "Content-Type" : "application/json" ],
                                 bodyValue: String(
                                     format: "{\"username\":\"%@\",\"password\":\"%@\"}",
-                                    GlobalFunctions.instance(false).AKGetUser().username,
-                                    GlobalFunctions.instance(false).AKGetUser().password
+                                    Func.AKGetUser().username,
+                                    Func.AKGetUser().password
                                 ),
                                 showDebugInfo: true,
                                 isJSONResponse: false,
@@ -63,41 +63,41 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                                         headerValues: [ "Content-Type" : "application/json" ],
                                         bodyValue: String(
                                             format: "{\"username\":\"%@\",\"token\":\"%@\"}",
-                                            GlobalFunctions.instance(false).AKGetUser().username,
-                                            GlobalFunctions.instance(false).AKGetUser().apnsToken
+                                            Func.AKGetUser().username,
+                                            Func.AKGetUser().apnsToken
                                         ),
                                         showDebugInfo: true,
                                         isJSONResponse: false,
                                         completionTask: { (json) -> Void in
-                                            GlobalFunctions.instance(false).AKGetUser().registerUser()
+                                            Func.AKGetUser().registerUser()
                                             self.dismissView(executeDismissTask: true) },
                                         failureTask: { (code, message) -> Void in
                                             switch code {
                                             case ErrorCodes.ConnectionToBackEndError.rawValue:
-                                                GlobalFunctions.instance(false).AKPresentTopMessage(
-                                                    self,
-                                                    type: TSMessageNotificationType.error,
+                                                Func.AKPresentMessage(
+                                                    controller: self,
+                                                    type: .error,
                                                     message: message ?? "Error genérico."
                                                 )
                                                 break
                                             case ErrorCodes.InvalidMIMEType.rawValue:
-                                                GlobalFunctions.instance(false).AKPresentTopMessage(
-                                                    self,
-                                                    type: TSMessageNotificationType.error,
+                                                Func.AKPresentMessage(
+                                                    controller: self,
+                                                    type: .error,
                                                     message: "El servicio devolvió una respuesta inválida. Reportando..."
                                                 )
                                                 break
                                             case ErrorCodes.JSONProcessingError.rawValue:
-                                                GlobalFunctions.instance(false).AKPresentTopMessage(
-                                                    self,
-                                                    type: TSMessageNotificationType.error,
+                                                Func.AKPresentMessage(
+                                                    controller: self,
+                                                    type: .error,
                                                     message: "Error procesando respuesta. Reportando..."
                                                 )
                                                 break
                                             default:
-                                                GlobalFunctions.instance(false).AKPresentTopMessage(
-                                                    self,
-                                                    type: TSMessageNotificationType.error,
+                                                Func.AKPresentMessage(
+                                                    controller: self,
+                                                    type: .error,
                                                     message: String(format: "%d: Error genérico.", code)
                                                 )
                                                 break
@@ -106,30 +106,30 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                                 failureTask: { (code, message) -> Void in
                                     switch code {
                                     case ErrorCodes.ConnectionToBackEndError.rawValue:
-                                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                                            self,
-                                            type: TSMessageNotificationType.error,
+                                        Func.AKPresentMessage(
+                                            controller: self,
+                                            type: .error,
                                             message: message ?? "Error genérico."
                                         )
                                         break
                                     case ErrorCodes.InvalidMIMEType.rawValue:
-                                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                                            self,
-                                            type: TSMessageNotificationType.error,
+                                        Func.AKPresentMessage(
+                                            controller: self,
+                                            type: .error,
                                             message: "El servicio devolvió una respuesta inválida. Reportando..."
                                         )
                                         break
                                     case ErrorCodes.JSONProcessingError.rawValue:
-                                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                                            self,
-                                            type: TSMessageNotificationType.error,
+                                        Func.AKPresentMessage(
+                                            controller: self,
+                                            type: .error,
                                             message: "Error procesando respuesta. Reportando..."
                                         )
                                         break
                                     default:
-                                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                                            self,
-                                            type: TSMessageNotificationType.error,
+                                        Func.AKPresentMessage(
+                                            controller: self,
+                                            type: .error,
                                             message: String(format: "%d: Error genérico.", code)
                                         )
                                         break
@@ -137,9 +137,9 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                             )
                         }
                         else {
-                            GlobalFunctions.instance(false).AKPresentTopMessage(
-                                self,
-                                type: TSMessageNotificationType.error,
+                            Func.AKPresentMessage(
+                                controller: self,
+                                type: .error,
                                 message: "Ese nombre de usuario ya esta registrado. Ingrese otro..."
                             )
                         }
@@ -147,30 +147,30 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                 failureTask: { (code, message) -> Void in
                     switch code {
                     case ErrorCodes.ConnectionToBackEndError.rawValue:
-                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                            self,
-                            type: TSMessageNotificationType.error,
+                        Func.AKPresentMessage(
+                            controller: self,
+                            type: .error,
                             message: message ?? "Error genérico."
                         )
                         break
                     case ErrorCodes.InvalidMIMEType.rawValue:
-                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                            self,
-                            type: TSMessageNotificationType.error,
+                        Func.AKPresentMessage(
+                            controller: self,
+                            type: .error,
                             message: "El servicio devolvió una respuesta inválida. Reportando..."
                         )
                         break
                     case ErrorCodes.JSONProcessingError.rawValue:
-                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                            self,
-                            type: TSMessageNotificationType.error,
+                        Func.AKPresentMessage(
+                            controller: self,
+                            type: .error,
                             message: "Error procesando respuesta. Reportando..."
                         )
                         break
                     default:
-                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                            self,
-                            type: TSMessageNotificationType.error,
+                        Func.AKPresentMessage(
+                            controller: self,
+                            type: .error,
                             message: String(format: "%d: Error genérico.", code)
                         )
                         break
@@ -184,11 +184,6 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
     {
         super.viewDidLoad()
         self.customSetup()
-    }
-    
-    override func viewDidAppear(_ animated: Bool)
-    {
-        super.viewDidAppear(animated)
     }
     
     // MARK: UITextFieldDelegate Implementation
@@ -210,32 +205,32 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
-        GlobalFunctions.instance(false).AKAddDoneButtonKeyboard(textField, controller: self)
-        
-        switch textField.tag {
-        default:
-            return true
-        }
+        Func.AKAddDoneButtonKeyboard(textField, controller: self)
+        self.currentEditableComponent = textField
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool
+    {
+        self.currentEditableComponent = nil
+        return true
     }
     
     // MARK: Miscellaneous
     func customSetup()
     {
-        super.setup()
+        self.configureLookAndFeel = { (controller) -> Void in
+            if let controller = controller as? AKLoginViewController {
+                controller.controlsContainer.backgroundColor = UIColor.clear
+                controller.usernameValue.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                controller.verify.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+            }
+        }
+        self.currentScrollContainer = self.scrollContainer
+        self.setup()
         
-        // Set Delegator.
+        // Delegates
         self.usernameValue.delegate = self
         self.usernameValue.tag = LocalTextField.username.rawValue
-        
-        // Custom L&F.
-        self.controlsContainer.backgroundColor = UIColor.clear
-        self.verify.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        
-        GlobalFunctions.instance(false).AKAddBorderDeco(
-            self.usernameValue,
-            color: GlobalConstants.AKDefaultTextfieldBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.bottom
-        )
     }
 }

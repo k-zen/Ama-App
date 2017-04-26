@@ -1,15 +1,8 @@
-import AudioToolbox
 import CoreLocation
 import Foundation
 import MapKit
-import TSMessages
 import UIKit
 
-/// ViewController for the rainmap/heatmap.
-///
-/// - Author: Andreas P. Koenzen <akc@apkc.net>
-/// - Copyright: 2017 APKC.net
-/// - Date: Jan 24, 2017
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
 {
     // MARK: Properties
@@ -19,11 +12,11 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     let addUserOverlay = false
     let addUserPin = true
     let addDIMOverlay = false
-    // View Overlay Controllers
-    let hmActionsOverlayViewContainer = AKHeatMapActionsOverlayView()
-    let hmAlertsOverlayViewContainer = AKHeatMapAlertsOverlayView()
-    let hmLayersOverlayViewContainer = AKHeatMapLayersOverlayView()
-    let hmLegendOverlayViewContainer = AKHeatMapLegendOverlayView()
+    // Overlay Controllers
+    let layersOverlay = AKLayersOverlayView()
+    let legendOverlay = AKLegendOverlayView()
+    let progressOverlay = AKProgressOverlayView()
+    let topOverlay = AKTopOverlayView()
     // Custom Annotations
     var radarAnnotation: AKRadarAnnotation?
     var userAnnotation: AKUserAnnotation?
@@ -33,16 +26,12 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     var radarOverlay: AKRadarSpanOverlay?
     var userOverlay: AKUserAreaOverlay?
     var dimOverlay: AKDIMOverlay?
-    // Custom View Overlays
-    var hmActionsOverlayViewSubView: UIView!
-    var hmAlertsOverlayViewSubView: UIView!
-    var hmLayersOverlayViewSubView: UIView!
-    var hmLegendOverlayViewSubView: UIView!
     // Timers
     var refreshTimer: Timer?
+    // Misc
+    var geoCoordinate: GeoCoordinate?
     
     // MARK: Outlets
-    @IBOutlet weak var legendView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: AKCustomViewController Overriding
@@ -50,18 +39,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     {
         super.viewDidLoad()
         self.customSetup()
-    }
-    
-    override func viewDidAppear(_ animated: Bool)
-    {
-        super.viewDidAppear(animated)
-        AKHeatMapUtilityFunctions.addDefaultViewOverlays(self)
-        GlobalFunctions.instance(false).AKCenterMapOnLocation(
-            mapView: self.mapView,
-            location: GlobalFunctions.instance(false).AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
-            zoomLevel: GlobalConstants.AKDefaultZoomLevel
-        )
-        AKHeatMapClosures.updateWeatherStatus(self)
     }
     
     // MARK: MKMapViewDelegate Implementation
@@ -78,7 +55,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                 customView.layer.cornerRadius = 6.0
                 customView.layer.borderWidth = 0.0
                 customView.layer.masksToBounds = true
-                customView.image = GlobalFunctions.instance(false).AKCircleImageWithRadius(
+                customView.image = Func.AKCircleImageWithRadius(
                     8,
                     strokeColor: UIColor.green,
                     strokeAlpha: 1.0,
@@ -103,7 +80,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     customView.layer.cornerRadius = 6.0
                     customView.layer.borderWidth = 0.0
                     customView.layer.masksToBounds = true
-                    customView.image = GlobalFunctions.instance(false).AKCircleImageWithRadius(
+                    customView.image = Func.AKCircleImageWithRadius(
                         8,
                         strokeColor: UIColor.white,
                         strokeAlpha: 1.0,
@@ -132,7 +109,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     customView.layer.cornerRadius = 6.0
                     customView.layer.borderWidth = 0.0
                     customView.layer.masksToBounds = true
-                    customView.image = GlobalFunctions.instance(false).AKCircleImageWithRadius(
+                    customView.image = Func.AKCircleImageWithRadius(
                         8,
                         strokeColor: UIColor.white,
                         strokeAlpha: 1.0,
@@ -219,7 +196,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
             if let annotation = view.annotation as? AKUserAnnotation {
                 if let v = (Bundle.main.loadNibNamed("AKUserAnnotationView", owner: self, options: nil))?[0] as? AKUserAnnotationView {
                     var newFrame = v.frame
-                    newFrame.origin = CGPoint(x: -newFrame.size.width/2 + 10, y: -newFrame.size.height - 4)
+                    newFrame.origin = CGPoint(x: -newFrame.size.width/2 + 10.0, y: -newFrame.size.height - 4.0)
                     v.frame = newFrame
                     
                     v.titleLabel.text = annotation.titleLabel
@@ -241,7 +218,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
         else if (view.annotation?.isKind(of: AKAlertAnnotation.self))! {
             if let annotation = view.annotation as? AKAlertAnnotation {
-                if let alert = GlobalFunctions.instance(false).AKGetUser().findAlert(id: annotation.id) {
+                if let alert = Func.AKGetUser().findAlert(id: annotation.id) {
                     UIView.transition(
                         with: view,
                         duration: 1.0,
@@ -261,7 +238,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
         }
         else if (view.annotation?.isKind(of: AKAlertAnnotation.self))! {
             if let annotation = view.annotation as? AKAlertAnnotation {
-                if let alert = GlobalFunctions.instance(false).AKGetUser().findAlert(id: annotation.id) {
+                if let alert = Func.AKGetUser().findAlert(id: annotation.id) {
                     alert.alertView.removeFromSuperview()
                 }
             }
@@ -271,9 +248,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     // MARK: Observers
     func locationObserver()
     {
-        GlobalFunctions.instance(false).AKExecuteInMainThread {
-            if GlobalFunctions.instance(false).AKDelegate().applicationActive {
-                let coordinate = GlobalFunctions.instance(false).AKDelegate().currentPosition ?? kCLLocationCoordinate2DInvalid
+        Func.AKExecuteInMainThread(mode: .async) { (Void) -> Void in
+            if Func.AKDelegate().applicationActive {
+                let coordinate = Func.AKDelegate().currentPosition ?? kCLLocationCoordinate2DInvalid
                 
                 if self.addUserPin {
                     if self.userAnnotation != nil {
@@ -292,7 +269,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
                     if let overlay = self.userOverlay {
                         self.mapView.remove(overlay)
                     }
-                    self.userOverlay = AKUserAreaOverlay(center: coordinate, radius: 5000)
+                    self.userOverlay = AKUserAreaOverlay(center: coordinate, radius: 5000.0)
                     self.userOverlay?.title = "Cobertura Usuario"
                     self.mapView.add(self.userOverlay!, level: MKOverlayLevel.aboveRoads)
                 }
@@ -306,92 +283,100 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate
     {
         AKHeatMapClosures.loadRainMap(
             self,
-            self.hmActionsOverlayViewContainer.progress,
-            self.hmLayersOverlayViewContainer.layers
+            self.progressOverlay.progress,
+            self.layersOverlay.layers
         )
     }
     
     // MARK: Miscellaneous
     func customSetup()
     {
-        super.shouldCheckLoggedUser = true
-        super.inhibitLocationServiceMessage = false
-        super.inhibitTapGesture = true
-        super.inhibitLongPressGesture = false
-        super.setup()
-        
-        // Overwrite closures.
-        self.additionalOperationsWhenLongPressed = { (gesture) -> Void in
-            if let g = gesture as? UILongPressGestureRecognizer {
+        self.shouldCheckLoggedUser = true
+        self.inhibitLocationServiceMessage = false
+        self.inhibitTapGesture = true
+        self.inhibitLongPressGesture = false
+        self.additionalOperationsWhenLongPressed = { (controller, gesture) -> Void in
+            if let controller = controller as? AKHeatMapViewController, let g = gesture as? UILongPressGestureRecognizer {
                 if g.state == UIGestureRecognizerState.ended {
-                    if GlobalFunctions.instance(false).AKGetUser().countAlerts() >= GlobalConstants.AKMaxUserDefinedAlerts {
-                        GlobalFunctions.instance(false).AKPresentTopMessage(
-                            self,
-                            type: TSMessageNotificationType.error,
+                    if Func.AKGetUser().countAlerts() >= GlobalConstants.AKMaxUserDefinedAlerts {
+                        Func.AKPresentMessage(
+                            controller: controller,
+                            type: .error,
                             message: "Has alcanzado el límite de alertas!"
                         )
                         return
                     }
                     
-                    let touchPoint = g.location(in: self.mapView)
-                    let geoCoordinate = self.mapView.convert(touchPoint, toCoordinateFrom: self.mapView)
-                    self.presentAlertPINInputView(coordinates: geoCoordinate, dismissViewCompletionTask: { (controller, presentedController, coordinates) -> Void in
-                        if let controller = controller as? AKHeatMapViewController {
-                            if let presentedController = presentedController as? AKAlertPINInputViewController {
-                                let id = UUID().uuidString
-                                let name = presentedController.nameValue.text ?? "Sin Nombre"
-                                let radius = presentedController.radioSlider.value * 10.0
-                                let title = name
-                                let subtitle = String(format: "Radio de : %.1fkm", radius)
-                                
-                                let annotation = AKAlertAnnotation(id: id, titleLabel: title, subtitleLabel: subtitle, location: coordinates)
-                                
-                                let alert = Alert(alertID: id, alertName: name, alertRadius: Double(radius), alertAnnotation: annotation)
-                                
-                                GlobalFunctions.instance(false).AKGetUser().addAlert(alert: alert)
-                                
-                                controller.mapView.addAnnotation(alert.alertAnnotation)
-                                controller.mapView.selectAnnotation(annotation, animated: true)
-                            }
-                        }
+                    controller.geoCoordinate = controller.mapView.convert(g.location(in: controller.mapView), toCoordinateFrom: controller.mapView)
+                    controller.presentView(controller: AKAlertPINInputViewController(nibName: "AKAlertPINInputView", bundle: nil),
+                                           taskBeforePresenting: nil,
+                                           dismissViewCompletionTask: { (presenterController, presentedController) -> Void in
+                                            if let presenterController = presenterController as? AKHeatMapViewController, let presentedController = presentedController as? AKAlertPINInputViewController {
+                                                let id = UUID().uuidString
+                                                let name = presentedController.nameValue.text ?? "Sin Nombre"
+                                                let radius = presentedController.radioSlider.value * 10.0
+                                                let title = name
+                                                let subtitle = String(format: "Radio de : %.1fkm", radius)
+                                                
+                                                let annotation = AKAlertAnnotation(id: id, titleLabel: title, subtitleLabel: subtitle, location: presenterController.geoCoordinate ?? kCLLocationCoordinate2DInvalid)
+                                                
+                                                let alert = Alert(alertID: id, alertName: name, alertRadius: Double(radius), alertAnnotation: annotation)
+                                                
+                                                Func.AKGetUser().addAlert(alert: alert)
+                                                
+                                                presenterController.mapView.addAnnotation(alert.alertAnnotation)
+                                                presenterController.mapView.selectAnnotation(annotation, animated: true)
+                                            }
                     })
                 }
             }
         }
+        self.loadData = { (controller) -> Void in
+            if let controller = controller as? AKHeatMapViewController {
+                // Custom notifications.
+                NotificationCenter.default.addObserver(
+                    controller,
+                    selector: #selector(AKHeatMapViewController.locationObserver),
+                    name: NSNotification.Name(GlobalConstants.AKLocationUpdateNotificationName),
+                    object: nil
+                )
+                
+                // Configure map.
+                controller.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                controller.mapView.userTrackingMode = MKUserTrackingMode.none
+                
+                AKHeatMapUtilityFunctions.addDefaultMapOverlays(controller)
+                
+                if controller.addRadarPin {
+                    controller.radarAnnotation = AKRadarAnnotation()
+                    controller.radarAnnotation?.coordinate = GlobalConstants.AKRadarOrigin
+                    controller.radarAnnotation?.title = "Radar"
+                    controller.mapView.addAnnotation(controller.radarAnnotation!)
+                }
+                
+                // Load all user defined alerts.
+                Func.AKDelay(2.0, task: {
+                    for alert in Func.AKGetUser().userDefinedAlerts {
+                        controller.mapView.addAnnotation(alert.alertAnnotation)
+                        controller.mapView.selectAnnotation(alert.alertAnnotation, animated: true)
+                    }
+                })
+                
+                // Add RainMap
+                AKHeatMapUtilityFunctions.startRefreshTimer(controller)
+                
+                AKHeatMapUtilityFunctions.addDefaultViewOverlays(controller)
+                Func.AKCenterMapOnLocation(
+                    mapView: controller.mapView,
+                    location: Func.AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
+                    zoomLevel: GlobalConstants.AKDefaultZoomLevel
+                )
+                AKHeatMapClosures.updateWeatherStatus(controller)
+            }
+        }
+        self.setup()
         
         // Delegates
         self.mapView.delegate = self
-        
-        // Custom notifications.
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(AKHeatMapViewController.locationObserver),
-            name: NSNotification.Name(GlobalConstants.AKLocationUpdateNotificationName),
-            object: nil
-        )
-        
-        // Configure map.
-        self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.mapView.userTrackingMode = MKUserTrackingMode.none
-        
-        AKHeatMapUtilityFunctions.addDefaultMapOverlays(self)
-        
-        if addRadarPin {
-            self.radarAnnotation = AKRadarAnnotation()
-            self.radarAnnotation?.coordinate = GlobalConstants.AKRadarOrigin
-            self.radarAnnotation?.title = "Radar"
-            self.mapView.addAnnotation(self.radarAnnotation!)
-        }
-        
-        // Load all user defined alerts.
-        GlobalFunctions.instance(false).AKDelay(2.0, task: {
-            for alert in GlobalFunctions.instance(false).AKGetUser().userDefinedAlerts {
-                self.mapView.addAnnotation(alert.alertAnnotation)
-                self.mapView.selectAnnotation(alert.alertAnnotation, animated: true)
-            }
-        })
-        
-        // Add RainMap
-        AKHeatMapUtilityFunctions.startRefreshTimer(self)
     }
 }
