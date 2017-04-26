@@ -52,7 +52,7 @@ class AKFileUtils {
     /// \param newData The new object to save.
     static func write(_ fileName: String, newData: AnyObject) throws
     {
-        let fileName = String(format: "%@.%@.%@", fileName, GlobalFunctions.instance(false).AKAppVersion(), GlobalFunctions.instance(false).AKAppBuild())
+        let fileName = String(format: "%@.%@.%@", fileName, Func.AKAppVersion(), Func.AKAppBuild())
         
         // 1. Check that object is serializable.
         guard newData is NSCoding else { throw FileIOError.notSerializableObject("Object not serializable.") }
@@ -77,7 +77,7 @@ class AKFileUtils {
     /// \returns The object.
     static func read(_ fileName: String) throws -> AKMasterFile
     {
-        let fileName = String(format: "%@.%@.%@", fileName, GlobalFunctions.instance(false).AKAppVersion(), GlobalFunctions.instance(false).AKAppBuild())
+        let fileName = String(format: "%@.%@.%@", fileName, Func.AKAppVersion(), Func.AKAppBuild())
         
         do {
             NSLog("=> READING DATA...")
