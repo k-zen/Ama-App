@@ -37,19 +37,19 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
             
             controller.clearMap()
             
-            Func.AKDelay(2.0, task: { (Void) -> Void in
+            Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
                 Func.AKCenterMapOnLocation(
                     mapView: controller.mapView,
                     location: Func.AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
                     zoomLevel: GlobalConstants.AKDefaultZoomLevel
                 )
-            })
+            }
             
             let rainfallPoints = NSMutableArray()
             let requestBody = ""
             let url = String(format: "%@/ama/ultimodato", GlobalConstants.AKAmaServerAddress)
             let completionTask: (Any) -> Void = { (json) -> Void in
-                Func.AKExecuteInMainThread(mode: .async) { (Void) -> Void in
+                Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
                     progress?.setProgress(0.50, animated: true)
                 }
                 
@@ -67,28 +67,28 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                                     rainfallPoints.add(AKRainfallPoint(center: location, intensity: intensity))
                                 }
                                 
-                                Func.AKExecuteInMainThread(mode: .async) { (Void) -> Void in
+                                Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
                                     progress?.setProgress(0.75, animated: true)
                                 }
                             }
                         }
                         
-                        Func.AKExecuteInMainThread(mode: .async) { (Void) -> Void in
+                        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
                             controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
                             progress?.setProgress(1.0, animated: true)
                         }
                     }
                 }
                 
-                Func.AKExecuteInMainThread(mode: .async) { (Void) -> Void in
+                Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
                     controller.locationObserver()
                 }
                 
-                Func.AKDelay(2.0, task: { (Void) -> Void in
+                Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
                     progress?.setProgress(0.0, animated: false)
                     caller.isEnabled = true
                     UIView.animate(withDuration: 1.0, animations: { (Void) -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
-                })
+                }
             }
             let failureTask: (Int, String) -> Void = { (code, message) -> Void in
                 switch code {
@@ -122,14 +122,14 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                     break
                 }
                 
-                Func.AKDelay(2.0, task: { (Void) -> Void in
+                Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
                     progress?.setProgress(0.0, animated: false)
                     caller.isEnabled = true
                     UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
-                })
+                }
             }
             
-            Func.AKDelay(0.0, isMain: false, task: { Void -> Void in
+            Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { Void -> Void in
                 AKWSUtils.makeRESTRequest(
                     controller: controller,
                     endpoint: url,
@@ -139,13 +139,13 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                     completionTask: { (jsonDocument) -> Void in completionTask(jsonDocument) },
                     failureTask: { (code, message) -> Void in failureTask(code, message!) }
                 )
-            })
+            }
         })
     }
     let updateLabels: (AKHeatMapViewController) -> Void = { (controller) -> Void in
-        Func.AKDelay(0.0, isMain: false, task: {
+        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) {
             // TODO: Add support for querying temperature via Apple here.
-        })
+        }
         
         if Func.AKDelegate().applicationActive {
             UIView.transition(
@@ -173,7 +173,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
             NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
         }
         
-        Func.AKDelay(2.0, task: {
+        Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) {
             CLGeocoder().reverseGeocodeLocation(
                 CLLocation(
                     latitude: Func.AKDelegate().currentPosition?.latitude ?? kCLLocationCoordinate2DInvalid.latitude,
@@ -205,7 +205,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                         }
                     } }
             )
-        })
+        }
     }
     
     // MARK: Outlets
@@ -314,8 +314,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                     
                     v.titleLabel.text = annotation.titleLabel
                     v.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-                    // v.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
-                    // v.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
                     
                     self.userAnnotationView = v
                     
@@ -359,7 +357,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
     
     // MARK: Observers
     func locationObserver() {
-        Func.AKExecuteInMainThread(mode: .async) { (Void) -> Void in
+        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
             if Func.AKDelegate().applicationActive {
                 let coordinate = Func.AKDelegate().currentPosition ?? kCLLocationCoordinate2DInvalid
                 
@@ -369,10 +367,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                         self.mapView.removeAnnotation(self.userAnnotation!)
                     }
                     
-                    self.userAnnotation = AKUserAnnotation(titleLabel: "Mi ubicación ahora...")
+                    self.userAnnotation = AKUserAnnotation(titleLabel: "Tu ubicación.")
                     self.userAnnotation?.coordinate = coordinate
                     self.mapView.addAnnotation(self.userAnnotation!)
-                    // self.mapView.selectAnnotation(self.userAnnotation!, animated: true)
                 }
                 
                 self.updateLabels(self)
@@ -441,12 +438,12 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 controller.mapView.userTrackingMode = MKUserTrackingMode.none
                 
                 // Load all user defined alerts.
-                Func.AKDelay(2.0, task: {
+                Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) {
                     for alert in Func.AKGetUser().userDefinedAlerts {
                         controller.mapView.addAnnotation(alert.alertAnnotation)
                         controller.mapView.selectAnnotation(alert.alertAnnotation, animated: true)
                     }
-                })
+                }
                 
                 // Add RainMap
                 controller.startRefreshTimer()

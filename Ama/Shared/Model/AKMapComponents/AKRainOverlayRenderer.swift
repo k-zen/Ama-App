@@ -1,15 +1,13 @@
 import MapKit
 import UIKit
 
-class AKRainOverlayRenderer: MKOverlayRenderer
-{
+class AKRainOverlayRenderer: MKOverlayRenderer {
     // MARK: Properties
     let debug = false
     let rainfallPoints: [AKRainfallPoint]
     var lastZoomScale: MKZoomScale
     
-    init(overlay: MKOverlay, rainfallPoints: [AKRainfallPoint])
-    {
+    init(overlay: MKOverlay, rainfallPoints: [AKRainfallPoint]) {
         self.rainfallPoints = rainfallPoints
         self.lastZoomScale = MKZoomScale(0.0)
         
@@ -17,8 +15,7 @@ class AKRainOverlayRenderer: MKOverlayRenderer
     }
     
     // MARK: MKOverlayRenderer Overriding
-    override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext)
-    {
+    override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
         let tileRect = self.rect(for: mapRect)
         let zoomLevel = Func.AKZoomScaleConvert(zoomScale: zoomScale, debug: false)
         

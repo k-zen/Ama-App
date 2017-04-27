@@ -1,8 +1,7 @@
 import MapKit
 import UIKit
 
-class AKAlertAnnotation: MKPointAnnotation, NSCoding
-{
+class AKAlertAnnotation: MKPointAnnotation, NSCoding {
     // MARK: Constants
     struct Keys {
         static let id = "AK.alert.annotation.id"
@@ -19,8 +18,7 @@ class AKAlertAnnotation: MKPointAnnotation, NSCoding
     var location: GeoCoordinate
     
     // MARK: Initializers
-    init(id: String, titleLabel: String, subtitleLabel: String, location: GeoCoordinate)
-    {
+    init(id: String, titleLabel: String, subtitleLabel: String, location: GeoCoordinate) {
         self.id = id
         self.titleLabel = titleLabel
         self.subtitleLabel = subtitleLabel
@@ -33,8 +31,7 @@ class AKAlertAnnotation: MKPointAnnotation, NSCoding
     }
     
     // MARK: NSCoding Implementation
-    required convenience init(coder aDecoder: NSCoder)
-    {
+    required convenience init(coder aDecoder: NSCoder) {
         let id = aDecoder.decodeObject(forKey: Keys.id) as! String
         let title = aDecoder.decodeObject(forKey: Keys.title) as! String
         let subtitle = aDecoder.decodeObject(forKey: Keys.subtitle) as! String
@@ -44,8 +41,7 @@ class AKAlertAnnotation: MKPointAnnotation, NSCoding
         self.init(id: id, titleLabel: title, subtitleLabel: subtitle, location: GeoCoordinate(latitude: locationLat, longitude: locationLon))
     }
     
-    func encode(with aCoder: NSCoder)
-    {
+    func encode(with aCoder: NSCoder) {
         aCoder.encode(self.id, forKey: Keys.id)
         aCoder.encode(self.titleLabel, forKey: Keys.title)
         aCoder.encode(self.subtitleLabel, forKey: Keys.subtitle)

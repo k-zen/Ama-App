@@ -1,13 +1,7 @@
 import MapKit
 import UIKit
 
-/// Wrapper class for user defined alerts.
-///
-/// - Author: Andreas P. Koenzen <akc@apkc.net>
-/// - Copyright: 2017 APKC.net
-/// - Date: Jan 24, 2017
-class AKAlert: NSObject, NSCoding
-{
+class AKAlert: NSObject, NSCoding {
     // MARK: Constants
     struct Keys {
         static let id = "AK.alert.id"
@@ -24,8 +18,7 @@ class AKAlert: NSObject, NSCoding
     let alertAnnotation: AKAlertAnnotation
     
     // MARK: Initializers
-    init(alertID: String, alertName: String, alertRadius: Double, alertAnnotation: AKAlertAnnotation)
-    {
+    init(alertID: String, alertName: String, alertRadius: Double, alertAnnotation: AKAlertAnnotation) {
         self.alertID = alertID
         self.alertName = alertName
         self.alertRadius = alertRadius
@@ -40,8 +33,6 @@ class AKAlert: NSObject, NSCoding
             view.titleLabel.text = self.alertAnnotation.titleLabel
             view.subtitleLabel.text = self.alertAnnotation.subtitleLabel
             view.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-            // view.layer.borderWidth = CGFloat(GlobalConstants.AKDefaultBorderThickness)
-            // view.layer.borderColor = GlobalConstants.AKDefaultViewBorderBg.cgColor
             
             self.alertView = view
         }
@@ -50,8 +41,7 @@ class AKAlert: NSObject, NSCoding
         }
     }
     
-    func printObject(_ padding: String = "") -> String
-    {
+    func printObject(_ padding: String = "") -> String {
         let string: NSMutableString = NSMutableString()
         
         string.append("\n")
@@ -67,8 +57,7 @@ class AKAlert: NSObject, NSCoding
     }
     
     // MARK: NSCoding Implementation
-    required convenience init(coder aDecoder: NSCoder)
-    {
+    required convenience init(coder aDecoder: NSCoder) {
         let id = aDecoder.decodeObject(forKey: Keys.id) as! String
         let name = aDecoder.decodeObject(forKey: Keys.name) as! String
         let radius = aDecoder.decodeDouble(forKey: Keys.radius)
@@ -77,8 +66,7 @@ class AKAlert: NSObject, NSCoding
         self.init(alertID: id, alertName: name, alertRadius: radius, alertAnnotation: annotation)
     }
     
-    func encode(with aCoder: NSCoder)
-    {
+    func encode(with aCoder: NSCoder) {
         aCoder.encode(self.alertID, forKey: Keys.id)
         aCoder.encode(self.alertName, forKey: Keys.name)
         aCoder.encode(self.alertRadius, forKey: Keys.radius)

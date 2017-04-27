@@ -1,7 +1,6 @@
 import UIKit
 
-class AKProgressOverlayView: AKCustomView, AKCustomViewProtocol
-{
+class AKProgressOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
         static let AKViewHeight: CGFloat = 20.0

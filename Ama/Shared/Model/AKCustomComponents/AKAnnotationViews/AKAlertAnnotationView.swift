@@ -1,8 +1,7 @@
 import MapKit
 import UIKit
 
-class AKAlertAnnotationView: MKAnnotationView
-{
+class AKAlertAnnotationView: MKAnnotationView {
     // MARK: Properties
     var id: String?
     

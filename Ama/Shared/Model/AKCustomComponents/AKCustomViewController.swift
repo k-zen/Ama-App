@@ -2,8 +2,7 @@ import CoreLocation
 import Foundation
 import UIKit
 
-class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
-{
+class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Flags
     var shouldCheckLoggedUser: Bool = false
     var inhibitLocationServiceMessage: Bool = true
@@ -32,13 +31,11 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     let messageOverlay = AKMessageView()
     
     // MARK: UIViewController Overriding
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func viewDidAppear(_ animated: Bool)
-    {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Checks
@@ -72,16 +69,14 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         self.saveData(self)
     }
     
-    override func viewDidLayoutSubviews()
-    {
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         self.configureLookAndFeel(self)
     }
     
     // MARK: UIGestureRecognizerDelegate Implementation
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool
-    {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if gestureRecognizer.isKind(of: UITapGestureRecognizer.self) {
             return !self.inhibitTapGesture
         }
@@ -94,8 +89,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     // MARK: Initialization
-    func setup()
-    {
+    func setup() {
         // Manage gestures.
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(AKCustomViewController.tap(_:)))
         self.tapGesture?.delegate = self
@@ -188,8 +182,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         )
     }
     
-    func hideMessage(animate: Bool, completionTask: ((_ controller: AKCustomViewController?) -> Void)?)
-    {
+    func hideMessage(animate: Bool, completionTask: ((_ controller: AKCustomViewController?) -> Void)?) {
         self.messageOverlay.collapse(
             controller: self,
             animate: animate,
@@ -198,21 +191,18 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     // MARK: Gesture Handling
-    @objc internal func tap(_ gesture: UIGestureRecognizer?)
-    {
+    @objc internal func tap(_ gesture: UIGestureRecognizer?) {
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenTaped(self, gesture)
     }
     
-    @objc internal func longPress(_ gesture: UIGestureRecognizer?)
-    {
+    @objc internal func longPress(_ gesture: UIGestureRecognizer?) {
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenLongPressed(self, gesture)
     }
     
     // MARK: Utility functions
-    func manageAccessToLocationServices()
-    {
+    func manageAccessToLocationServices() {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             Func.AKDelegate().locationManager.requestWhenInUseAuthorization()
@@ -234,7 +224,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
             alertController.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in }))
             alertController.addAction(UIAlertAction(title: "Abrir Configuraciones", style: .default) { (action) in
                 if let url = URL(string:UIApplicationOpenSettingsURLString) {
-                    Func.AKDelay(0.0, task: { () in UIApplication.shared.openURL(url) })
+                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () in UIApplication.shared.openURL(url) }
                 }})
             self.present(alertController, animated: true, completion: nil)
             break
@@ -243,21 +233,17 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate
         }
     }
     
-    func dismissView(executeDismissTask: Bool)
-    {
-        OperationQueue.main.addOperation {
-            if executeDismissTask {
-                self.dismiss(animated: true, completion: self.dismissViewCompletionTask)
-            }
-            else {
-                self.dismiss(animated: true, completion: nil)
-            }
+    func dismissView(executeDismissTask: Bool) {
+        if executeDismissTask {
+            self.dismiss(animated: true, completion: self.dismissViewCompletionTask)
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
     // MARK: Observers
-    func keyboardWasShow(notification: NSNotification)
-    {
+    func keyboardWasShow(notification: NSNotification) {
         if let info = notification.userInfo, let editableComponent = self.currentEditableComponent {
             if let kbSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
                 var viewRect = self.view.frame

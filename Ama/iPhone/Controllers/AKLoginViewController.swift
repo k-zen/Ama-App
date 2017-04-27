@@ -1,7 +1,6 @@
 import UIKit
 
-class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
-{
+class AKLoginViewController: AKCustomViewController, UITextFieldDelegate {
     // MARK: Local Enums
     enum LocalTextField: Int {
         case username = 1
@@ -15,9 +14,8 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
     @IBOutlet weak var verify: UIButton!
     
     // MARK: Actions
-    @IBAction func login(_ sender: Any)
-    {
-        Func.AKExecuteInBackgroundThread(mode: .async, code: {
+    @IBAction func login(_ sender: Any) {
+        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) {
             let username = AKUsername(inputData: self.usernameValue.text!)
             do {
                 try username.validate()
@@ -176,19 +174,17 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
                         break
                     } }
             )
-        })
+        }
     }
     
     // MARK: AKCustomViewController Overriding
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.customSetup()
     }
     
     // MARK: UITextFieldDelegate Implementation
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-    {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if range.length + range.location > (textField.text?.characters.count)! {
             return false
         }
@@ -203,22 +199,19 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate
         }
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
-    {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         Func.AKAddDoneButtonKeyboard(textField, controller: self)
         self.currentEditableComponent = textField
         return true
     }
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool
-    {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         self.currentEditableComponent = nil
         return true
     }
     
     // MARK: Miscellaneous
-    func customSetup()
-    {
+    func customSetup() {
         self.configureLookAndFeel = { (controller) -> Void in
             if let controller = controller as? AKLoginViewController {
                 controller.usernameValue.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius

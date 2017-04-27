@@ -18,10 +18,8 @@ typealias Alert = AKAlert
 let Func = GlobalFunctions.instance(GlobalConstants.AKDebug)
 
 // MARK: Extensions
-extension UIImage
-{
-    static func fromColor(color: UIColor, frame: CGRect) -> UIImage
-    {
+extension UIImage {
+    static func fromColor(color: UIColor, frame: CGRect) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
         
         let context = UIGraphicsGetCurrentContext()
@@ -86,8 +84,8 @@ struct GlobalConstants {
     static let AKTableHeaderCellBorderBg = GlobalConstants.AKGray4
     static let AKTableCellBg = GlobalConstants.AKDefaultBg
     static let AKTableCellBorderBg = GlobalConstants.AKGray2
-    static let AKNavBarFontSize: CGFloat = 18.0
-    static let AKTabBarFontSize: CGFloat = GlobalConstants.AKNavBarFontSize
+    static let AKNavBarFontSize: CGFloat = 20.0
+    static let AKTabBarFontSize: CGFloat = 20.0
     static let AKViewCornerRadius: CGFloat = 4.0
     static let AKButtonCornerRadius: CGFloat = 2.0
     static let AKDefaultBorderThickness = 2.0
@@ -159,7 +157,6 @@ enum HeatMapColor: UInt {
     case C10 = 0xCA0005
 }
 
-/// Zoom level in kilometers of span/viewport.
 enum ZoomLevel: Double {
     /// 90Km
     case L01 = 90.0
@@ -214,24 +211,24 @@ enum MessageType: String {
 }
 
 enum ExecutionMode {
-    case sync
-    case async
+    case syncMain
+    case asyncMain
+    case syncBackground
+    case asyncBackground
 }
 
 // MARK: Global Functions
 class GlobalFunctions {
     private var showDebugInformation = false
     
-    static func instance(_ showDebugInformation: Bool) -> GlobalFunctions
-    {
+    static func instance(_ showDebugInformation: Bool) -> GlobalFunctions {
         let instance = GlobalFunctions()
         instance.showDebugInformation = showDebugInformation
         
         return instance
     }
     
-    func AKAddBlurView(view: UIView, effect: UIBlurEffectStyle, addClearColorBgToView: Bool = false)
-    {
+    func AKAddBlurView(view: UIView, effect: UIBlurEffectStyle, addClearColorBgToView: Bool = false) {
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: effect))
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurView.translatesAutoresizingMaskIntoConstraints = true
@@ -244,8 +241,7 @@ class GlobalFunctions {
         view.insertSubview(blurView, at: 0)
     }
     
-    func AKAddBorderDeco(_ component: UIView, color: CGColor, thickness: Double, position: CustomBorderDecorationPosition)
-    {
+    func AKAddBorderDeco(_ component: UIView, color: CGColor, thickness: Double, position: CustomBorderDecorationPosition) {
         let border = CALayer()
         border.backgroundColor = color
         switch position {
@@ -267,8 +263,7 @@ class GlobalFunctions {
         component.layoutIfNeeded()
     }
     
-    func AKAddDoneButtonKeyboard(_ textControl: AnyObject, controller: AKCustomViewController)
-    {
+    func AKAddDoneButtonKeyboard(_ textControl: AnyObject, controller: AKCustomViewController) {
         let keyboardToolbar = UIToolbar()
         keyboardToolbar.frame = CGRect(x: 0.0, y: 0.0, width: textControl.frame.width, height: GlobalConstants.AKCloseKeyboardToolbarHeight)
         keyboardToolbar.barStyle = .blackTranslucent
@@ -302,8 +297,7 @@ class GlobalFunctions {
         }
     }
     
-    func AKAppBuild() -> String
-    {
+    func AKAppBuild() -> String {
         if let b = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             return b
         }
@@ -312,8 +306,7 @@ class GlobalFunctions {
         }
     }
     
-    func AKAppVersion() -> String
-    {
+    func AKAppVersion() -> String {
         if let v = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return v
         }
@@ -322,9 +315,8 @@ class GlobalFunctions {
         }
     }
     
-    func AKCenterMapOnLocation(mapView: MKMapView, location: GeoCoordinate, zoomLevel: ZoomLevel, setRegion: Bool = true)
-    {
-        Func.AKExecuteInMainThread(mode: .async) { (Void) -> Void in
+    func AKCenterMapOnLocation(mapView: MKMapView, location: GeoCoordinate, zoomLevel: ZoomLevel, setRegion: Bool = true) {
+        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
             let span = MKCoordinateSpanMake(
                 zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers,
                 zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers
@@ -343,22 +335,19 @@ class GlobalFunctions {
         }
     }
     
-    func AKCenterScreenCoordinate(container: UIView, width: CGFloat, height: CGFloat) -> CGPoint
-    {
+    func AKCenterScreenCoordinate(container: UIView, width: CGFloat, height: CGFloat) -> CGPoint {
         let offsetX: CGFloat = (container.frame.width / 2.0) - (width / 2.0)
         let offsetY: CGFloat = (container.frame.height / 2.0) - (height / 2.0)
         
         return container.convert(CGPoint(x: offsetX, y: offsetY), to: container)
     }
     
-    func AKChangeComponentHeight(component: UIView, newHeight: CGFloat)
-    {
+    func AKChangeComponentHeight(component: UIView, newHeight: CGFloat) {
         component.frame = CGRect(origin: component.frame.origin, size: CGSize(width: component.frame.width, height: newHeight))
         component.layoutIfNeeded()
     }
     
-    func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float, lineWidth: CGFloat = 1) -> UIImage
-    {
+    func AKCircleImageWithRadius(_ radius: Int, strokeColor: UIColor, strokeAlpha: Float, fillColor: UIColor, fillAlpha: Float, lineWidth: CGFloat = 1) -> UIImage {
         let buffer = 2
         let rect = CGRect(x: 0, y: 0, width: radius * 2 + buffer, height: radius * 2 + buffer)
         
@@ -378,44 +367,34 @@ class GlobalFunctions {
         return image!
     }
     
-    func AKDelay(_ delay: Double, isMain: Bool = true, task: @escaping (Void) -> Void)
-    {
-        if isMain {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: task)
-        }
-        else {
-            DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: task)
-        }
-    }
-    
     func AKDelegate() -> AKAppDelegate { return UIApplication.shared.delegate as! AKAppDelegate }
     
-    func AKExecuteInBackgroundThread(mode: ExecutionMode, code: @escaping (Void) -> Void)
-    {
+    func AKExecute(mode: ExecutionMode, timeDelay: Double, code: @escaping (Void) -> Void) {
         switch mode {
-        case .sync:
-            DispatchQueue.global(qos: .background).sync(execute: code)
+        case .syncBackground:
+            DispatchQueue
+                .global(qos: .background)
+                .sync(execute: code)
             break
-        case .async:
-            DispatchQueue.global(qos: .background).async(execute: code)
+        case .asyncBackground:
+            DispatchQueue
+                .global(qos: .background)
+                .asyncAfter(deadline: DispatchTime.now() + Double(Int64(timeDelay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: code)
+            break
+        case .syncMain:
+            DispatchQueue
+                .main
+                .sync(execute: code)
+            break
+        case .asyncMain:
+            DispatchQueue
+                .main
+                .asyncAfter(deadline: DispatchTime.now() + Double(Int64(timeDelay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: code)
             break
         }
     }
     
-    func AKExecuteInMainThread(mode: ExecutionMode, code: @escaping (Void) -> Void)
-    {
-        switch mode {
-        case .sync:
-            DispatchQueue.main.sync(execute: code)
-            break
-        case .async:
-            DispatchQueue.main.async(execute: code)
-            break
-        }
-    }
-    
-    func AKGetInfoForRainfallIntensity(ri: RainIntensity) -> AKRainfallIntensityColor
-    {
+    func AKGetInfoForRainfallIntensity(ri: RainIntensity) -> AKRainfallIntensityColor {
         switch ri {
         case 0 ..< 25:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.50)
@@ -444,8 +423,7 @@ class GlobalFunctions {
     
     func AKGetUser() -> User { return Func.AKObtainMasterFile().user }
     
-    func AKHexColor(_ hex: UInt) -> UIColor
-    {
+    func AKHexColor(_ hex: UInt) -> UIColor {
         let red = CGFloat((hex >> 16) & 0xFF) / 255.0
         let green = CGFloat((hex >> 8) & 0xFF) / 255.0
         let blue = CGFloat((hex) & 0xFF) / 255.0
@@ -453,8 +431,7 @@ class GlobalFunctions {
         return UIColor.init(red: red, green: green, blue: blue, alpha: 1)
     }
     
-    func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: GeoCoordinate) -> GeoCoordinate
-    {
+    func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: GeoCoordinate) -> GeoCoordinate {
         let distRadians: Double = distanceMeters / GlobalConstants.AKEarthRadius
         
         let lat1: Double = origin.latitude * (Double.pi / 180)
@@ -470,8 +447,7 @@ class GlobalFunctions {
     
     func AKObtainMasterFile() -> AKMasterFile { return Func.AKDelegate().masterFile }
     
-    func AKPresentMessageFromError(controller: AKCustomViewController, message: String!)
-    {
+    func AKPresentMessageFromError(controller: AKCustomViewController, message: String!) {
         do {
             if let input = message {
                 let regex = try NSRegularExpression(pattern: ".*\"(.*)\"", options: NSRegularExpression.Options.caseInsensitive)
@@ -491,9 +467,8 @@ class GlobalFunctions {
         }
     }
     
-    func AKPresentMessage(controller: AKCustomViewController, type: MessageType, message: String!)
-    {
-        Func.AKExecuteInMainThread(mode: .async, code: { (Void) -> Void in
+    func AKPresentMessage(controller: AKCustomViewController, type: MessageType, message: String!) {
+        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
             controller.showMessage(
                 origin: CGPoint.zero,
                 type: type,
@@ -501,19 +476,17 @@ class GlobalFunctions {
                 animate: true,
                 completionTask: nil
             )
-        })
+        }
     }
     
-    func AKPrintTimeElapsedWhenRunningCode(title: String, operation: (Void) -> (Void))
-    {
+    func AKPrintTimeElapsedWhenRunningCode(title: String, operation: (Void) -> (Void)) {
         let startTime = CFAbsoluteTimeGetCurrent()
         operation()
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         NSLog("=> INFO: TIME ELAPSED FOR \(title): %.4f seconds.", timeElapsed)
     }
     
-    func AKRangeFromNSRange(_ nsRange: NSRange, forString str: String) -> Range<String.Index>?
-    {
+    func AKRangeFromNSRange(_ nsRange: NSRange, forString str: String) -> Range<String.Index>? {
         let fromUTF16 = str.utf16.startIndex.advanced(by: nsRange.location)
         let toUTF16 = fromUTF16.advanced(by: nsRange.length)
         
@@ -524,8 +497,7 @@ class GlobalFunctions {
         return nil
     }
     
-    func AKZoomScaleConvert(zoomScale: MKZoomScale, debug: Bool) -> Int
-    {
+    func AKZoomScaleConvert(zoomScale: MKZoomScale, debug: Bool) -> Int {
         let maxZoom: Int = Int(log2(MKMapSizeWorld.width / 256.0))
         if debug { NSLog("=> INFO: MAX ZOOM: %i", maxZoom) }
         let currZoom: Int = Int(log2f(Float(zoomScale)))

@@ -1,8 +1,7 @@
 import Foundation
 import UIKit
 
-protocol AKCustomViewProtocol
-{
+protocol AKCustomViewProtocol {
     func loadComponents() -> Void
     
     func applyLookAndFeel() -> Void

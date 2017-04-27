@@ -1,8 +1,7 @@
 import MapKit
 import UIKit
 
-class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol
-{
+class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
         static let AKViewWidth: CGFloat = 40.0

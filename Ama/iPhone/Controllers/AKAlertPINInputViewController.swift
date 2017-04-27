@@ -13,26 +13,22 @@ class AKAlertPINInputViewController: AKCustomViewController
     @IBOutlet weak var discard: UIButton!
     
     // MARK: Actions
-    @IBAction func save(_ sender: Any)
-    {
+    @IBAction func save(_ sender: Any) {
         self.dismissView(executeDismissTask: true)
     }
     
-    @IBAction func discard(_ sender: Any)
-    {
+    @IBAction func discard(_ sender: Any) {
         self.dismissView(executeDismissTask: false)
     }
     
     // MARK: AKCustomViewController Overriding
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.customSetup()
     }
     
     // MARK: Miscellaneous
-    func customSetup()
-    {
+    func customSetup() {
         self.configureLookAndFeel = { (controller) -> Void in
             if let controller = controller as? AKAlertPINInputViewController {
                 controller.controlsContainer.layer.cornerRadius = GlobalConstants.AKViewCornerRadius

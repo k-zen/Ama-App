@@ -1,7 +1,6 @@
 import UIKit
 
-class AKTopOverlayView: AKCustomView, AKCustomViewProtocol
-{
+class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
         static let AKViewHeight: CGFloat = 98.0

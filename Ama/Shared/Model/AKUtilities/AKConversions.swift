@@ -1,9 +1,7 @@
 import Foundation
 
-class AKConversions
-{
-    static func formatPhoneNumber(phoneNumber: String, addPrefix: Bool) throws -> String
-    {
+class AKConversions {
+    static func formatPhoneNumber(phoneNumber: String, addPrefix: Bool) throws -> String {
         // Numbers allowed:
         // 1. 0981918689 (With prefix)
         // 2. 81918689 (Without prefix)

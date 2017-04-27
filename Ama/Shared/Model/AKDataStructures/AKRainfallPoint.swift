@@ -1,16 +1,14 @@
 import MapKit
 import UIKit
 
-class AKRainfallPoint: NSObject
-{
+class AKRainfallPoint: NSObject {
     // MARK: Properties
     let debug = false
     let center: GeoCoordinate
     let intensity: RainIntensity
     let mapRect: MKMapRect
     
-    init(center: GeoCoordinate, intensity: RainIntensity)
-    {
+    init(center: GeoCoordinate, intensity: RainIntensity) {
         self.center = center
         self.intensity = intensity
         
@@ -48,7 +46,7 @@ class AKRainfallPoint: NSObject
         
         // The general idea here is that the higher the intensity, the bigger the square generated
         // for the map, that is why the radius is the product of the default size by the log2 of the intensity.
-        let bubbleRadius = GlobalConstants.AKRaindropSize
+        let bubbleRadius = GlobalConstants.AKRaindropSize * log2(Double(intensity))
         
         let pointA = MKMapPointForCoordinate(Func.AKLocationWithBearing(bearing: (3 * Double.pi) / 4, distanceMeters: bubbleRadius, origin: center))
         if self.debug {

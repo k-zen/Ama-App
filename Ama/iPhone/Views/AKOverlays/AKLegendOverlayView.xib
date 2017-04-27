@@ -23,7 +23,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view alpha="0.90000000000000002" contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Main_Container">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Main_Container">
             <rect key="frame" x="0.0" y="0.0" width="49" height="274"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>

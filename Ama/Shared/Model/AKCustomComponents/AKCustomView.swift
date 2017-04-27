@@ -1,7 +1,6 @@
 import UIKit
 
-class AKCustomView: UIView, UIGestureRecognizerDelegate
-{
+class AKCustomView: UIView, UIGestureRecognizerDelegate {
     // MARK: Constants
     private struct LocalConstants {
         static let AKExpandHeightAnimation = "expandHeight"
@@ -30,8 +29,7 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
     var controller: AKCustomViewController?
     
     // MARK: UIView Overriding
-    override init(frame: CGRect)
-    {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         if let nib = Bundle.main.loadNibNamed("\(type(of: self))", owner: self, options: nil)?.first as? UIView {
@@ -41,8 +39,7 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
         }
     }
     
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         if let nib = Bundle.main.loadNibNamed("\(type(of: self))", owner: self, options: nil)?.first as? UIView {
@@ -53,8 +50,7 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
     }
     
     // MARK: Miscellaneous
-    func setup()
-    {
+    func setup() {
         // Manage gestures.
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(AKCustomView.tap(_:)))
         self.tapGesture?.delegate = self
@@ -66,8 +62,7 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
     }
     
     // MARK: UIGestureRecognizerDelegate Implementation
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool
-    {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if gestureRecognizer.isKind(of: UITapGestureRecognizer.self) {
             return !self.inhibitTapGesture
         }
@@ -77,8 +72,7 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
     }
     
     // MARK: Gesture Handling
-    @objc internal func tap(_ gesture: UIGestureRecognizer?)
-    {
+    @objc internal func tap(_ gesture: UIGestureRecognizer?) {
         self.defaultOperationsWhenGesture(self, self.controller, gesture)
         self.additionalOperationsWhenTaped(self, self.controller, gesture)
     }
@@ -87,8 +81,7 @@ class AKCustomView: UIView, UIGestureRecognizerDelegate
     internal func getView() -> UIView { return self.customView }
     
     // MARK: Animations
-    internal func addAnimations(expandCollapseHeight: CGFloat)
-    {
+    internal func addAnimations(expandCollapseHeight: CGFloat) {
         self.expandHeight.fromValue = 0.0
         self.expandHeight.toValue = expandCollapseHeight
         self.expandHeight.duration = 0.5

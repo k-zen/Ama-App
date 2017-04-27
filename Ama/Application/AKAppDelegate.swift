@@ -3,8 +3,7 @@ import Foundation
 import UIKit
 
 @UIApplicationMain
-class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
-{
+class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     // MARK: Properties
     let locationManager = CLLocationManager()
     var masterFile = AKMasterFile()
@@ -15,11 +14,6 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     private var lastSavedPosition: GeoCoordinate?
     // ### USER POSITION ### //
     private var lastSavedTime = 0.0
-    /// The state of the App. False = Disabled because Location Service is disabled.
-    /// If the state is disabled, the following functionalities are disabled:
-    /// 1. Alerts
-    /// 2. User PIN and Overlay.
-    /// 3. Weather State (Small overlay on top on RainMap)
     var applicationActive: Bool = true {
         didSet {
             if !applicationActive {
@@ -31,8 +25,7 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     }
     
     // MARK: UIApplicationDelegate Implementation
-    func applicationWillResignActive(_ application: UIApplication)
-    {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Persist data.
         do {
             NSLog("=> SAVING *MASTER FILE* TO FILE.")
@@ -44,23 +37,20 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
         }
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool
-    {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // ### Customize the App.
-        UITabBarItem.appearance().setTitleTextAttributes(
-            [
-                NSFontAttributeName: UIFont(
-                    name: GlobalConstants.AKDefaultFont,
-                    size: GlobalConstants.AKTabBarFontSize) ?? UIFont.systemFont(ofSize: GlobalConstants.AKTabBarFontSize),
-                NSForegroundColorAttributeName: GlobalConstants.AKTabBarTintNormal
+        UITabBarItem.appearance().setTitleTextAttributes([
+            NSFontAttributeName: UIFont(
+                name: GlobalConstants.AKSecondaryFont,
+                size: GlobalConstants.AKTabBarFontSize) ?? UIFont.systemFont(ofSize: GlobalConstants.AKTabBarFontSize),
+            NSForegroundColorAttributeName: GlobalConstants.AKTabBarTintNormal
             ], for: .normal
         )
-        UITabBarItem.appearance().setTitleTextAttributes(
-            [
-                NSFontAttributeName: UIFont(
-                    name: GlobalConstants.AKDefaultFont,
-                    size: GlobalConstants.AKTabBarFontSize) ?? UIFont.systemFont(ofSize: GlobalConstants.AKTabBarFontSize),
-                NSForegroundColorAttributeName: GlobalConstants.AKTabBarTintSelected
+        UITabBarItem.appearance().setTitleTextAttributes([
+            NSFontAttributeName: UIFont(
+                name: GlobalConstants.AKSecondaryFont,
+                size: GlobalConstants.AKTabBarFontSize) ?? UIFont.systemFont(ofSize: GlobalConstants.AKTabBarFontSize),
+            NSForegroundColorAttributeName: GlobalConstants.AKTabBarTintSelected
             ], for: .selected
         )
         UITabBar.appearance().barTintColor = GlobalConstants.AKTabBarBg
@@ -83,7 +73,6 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
         
         // Manage Location Services
         if CLLocationManager.locationServicesEnabled() {
-            // Configure Location Services
             self.locationManager.delegate = self
             self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         }
@@ -103,16 +92,14 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     }
     
     // MARK: CLLocationManagerDelegate
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentLocation = locations.last
-        self.currentPosition = (currentLocation?.coordinate)! // Always save the current location.
+        self.currentPosition = (currentLocation?.coordinate)!
         
         if GlobalConstants.AKDebug {
             NSLog("=> CURRENT LAT: %f, CURRENT LON: %f", self.currentPosition?.latitude ?? kCLLocationCoordinate2DInvalid.latitude, self.currentPosition?.longitude ?? kCLLocationCoordinate2DInvalid.longitude)
         }
         
-        // Compute travel segment in regular intervals.
         if Int(Date().timeIntervalSince1970 - self.lastSavedTime) < GlobalConstants.AKLocationUpdateInterval {
             return
         }
@@ -123,8 +110,7 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading)
-    {
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         if newHeading.headingAccuracy < 0 {
             return
         }
@@ -132,18 +118,15 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
         NSLog("=> CURRENT HEADING: %f", self.currentHeading)
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         NSLog("=> LOCATION SERVICES ERROR ==> \(error)")
     }
     
-    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager)
-    {
+    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
         NSLog("=> LOCATION SERVICES HAS PAUSED.")
     }
     
-    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager)
-    {
+    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
         NSLog("=> LOCATION SERVICES HAS RESUMED.")
     }
 }

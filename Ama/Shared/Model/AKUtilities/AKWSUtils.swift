@@ -1,19 +1,7 @@
 import Foundation
 import UIKit
 
-class AKWSUtils
-{
-    /// This method makes an asynchronous request to a REST web service and
-    /// executes a given success closure if success or a failed closure if failed.
-    ///
-    /// - Parameter endpoint:       The endpoint to connect to.
-    /// - Parameter httpMethod:     The HTTP method to execute.
-    /// - Parameter headerValues:   A dictionary containing all header options.
-    /// - Parameter bodyValue:      The HTTP payload.
-    /// - Parameter showDebugInfo:  Show extra information.
-    /// - Parameter isJSONResponse: If the response from the server is JSON or just a string.
-    /// - Parameter completionTask: A Block with the task to perform after the request.
-    /// - Parameter failureTask:    A Block with the task to perform if failure.
+class AKWSUtils {
     static func makeRESTRequest(
         controller: UIViewController,
         endpoint: String,

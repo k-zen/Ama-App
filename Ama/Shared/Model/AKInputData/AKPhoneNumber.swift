@@ -1,9 +1,7 @@
 import Foundation
 
-class AKPhoneNumber: AKInputData
-{
-    override func validate() throws
-    {
+class AKPhoneNumber: AKInputData {
+    override func validate() throws {
         do {
             try isReady()
         }
@@ -16,8 +14,7 @@ class AKPhoneNumber: AKInputData
         }
     }
     
-    override func process() throws
-    {
+    override func process() throws {
         do {
             try isReady()
         }

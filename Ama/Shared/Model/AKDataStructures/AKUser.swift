@@ -1,13 +1,7 @@
 import Foundation
 import MapKit
 
-/// Wrapper class to describe a user and it's properties.
-///
-/// - Author: Andreas P. Koenzen <akc@apkc.net>
-/// - Copyright: 2017 APKC.net
-/// - Date: Jan 24, 2017
-class AKUser: NSObject, NSCoding
-{
+class AKUser: NSObject, NSCoding {
     // MARK: Constants
     struct Keys {
         static let username = "AK.user.username"
@@ -25,8 +19,7 @@ class AKUser: NSObject, NSCoding
     var userDefinedAlerts: [Alert]
     
     // MARK: Initializers
-    override init()
-    {
+    override init() {
         self.username = GlobalConstants.AKEmptyPhoneNumber
         self.password = ""
         self.apnsToken = ""
@@ -34,8 +27,7 @@ class AKUser: NSObject, NSCoding
         self.userDefinedAlerts = []
     }
     
-    init(username: String, password: String, apnsToken: String, isRegistered: Bool, userDefinedAlerts: [Alert])
-    {
+    init(username: String, password: String, apnsToken: String, isRegistered: Bool, userDefinedAlerts: [Alert]) {
         self.username = username
         self.password = password
         self.apnsToken = apnsToken
@@ -46,8 +38,7 @@ class AKUser: NSObject, NSCoding
     }
     
     // MARK: Alert Management
-    func addAlert(alert: Alert)
-    {
+    func addAlert(alert: Alert) {
         for a in self.userDefinedAlerts {
             if a.alertID.caseInsensitiveCompare(alert.alertID) == ComparisonResult.orderedSame {
                 return
@@ -57,8 +48,7 @@ class AKUser: NSObject, NSCoding
         self.userDefinedAlerts.append(alert)
     }
     
-    func removeAlert(mapView: MKMapView, id: String, shouldRemoveAll: Bool = false, shouldRemoveLast: Bool = false) -> Bool
-    {
+    func removeAlert(mapView: MKMapView, id: String, shouldRemoveAll: Bool = false, shouldRemoveLast: Bool = false) -> Bool {
         if shouldRemoveAll {
             mapView.removeAnnotations(mapView.annotations.filter({ (annotation) -> Bool in
                 if annotation.isKind(of: AKAlertAnnotation.self) {
@@ -101,18 +91,15 @@ class AKUser: NSObject, NSCoding
         return false
     }
     
-    func removeLastAlert() -> Alert?
-    {
+    func removeLastAlert() -> Alert? {
         return self.userDefinedAlerts.popLast()
     }
     
-    func countAlerts() -> Int
-    {
+    func countAlerts() -> Int {
         return self.userDefinedAlerts.count
     }
     
-    func findAlert(id: String) -> Alert?
-    {
+    func findAlert(id: String) -> Alert? {
         for a in self.userDefinedAlerts {
             if a.alertID.caseInsensitiveCompare(id) == ComparisonResult.orderedSame {
                 return a
@@ -123,16 +110,14 @@ class AKUser: NSObject, NSCoding
     }
     
     // MARK: Manage registration.
-    func registerUser()
-    {
+    func registerUser() {
         if !self.isRegistered {
             self.isRegistered = true
         }
     }
     
     // MARK: Utilities
-    func printObject(_ padding: String = "") -> String
-    {
+    func printObject(_ padding: String = "") -> String {
         let string: NSMutableString = NSMutableString()
         
         string.appendFormat("%@****** USER ******\n", padding)
@@ -150,8 +135,7 @@ class AKUser: NSObject, NSCoding
     }
     
     // MARK: NSCoding Implementation
-    required convenience init(coder aDecoder: NSCoder)
-    {
+    required convenience init(coder aDecoder: NSCoder) {
         let username = aDecoder.decodeObject(forKey: Keys.username) as! String
         let password = aDecoder.decodeObject(forKey: Keys.password) as! String
         let apnsToken = aDecoder.decodeObject(forKey: Keys.apnsToken) as! String
@@ -161,8 +145,7 @@ class AKUser: NSObject, NSCoding
         self.init(username: username, password: password, apnsToken: apnsToken, isRegistered: isRegistered, userDefinedAlerts: userDefinedAlerts)
     }
     
-    func encode(with aCoder: NSCoder)
-    {
+    func encode(with aCoder: NSCoder) {
         aCoder.encode(self.username, forKey: Keys.username)
         aCoder.encode(self.password, forKey: Keys.password)
         aCoder.encode(self.apnsToken, forKey: Keys.apnsToken)

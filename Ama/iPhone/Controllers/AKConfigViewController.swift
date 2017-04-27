@@ -1,7 +1,6 @@
 import UIKit
 
-class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UITableViewDelegate
-{
+class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: Constants
     struct LocalConstants {
         static let AKHeaderHeight: CGFloat = 40.0
@@ -14,15 +13,13 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     @IBOutlet weak var alertsTable: UITableView!
     
     // MARK: AKCustomViewController Overriding
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.customSetup()
     }
     
     // MARK: UITableViewDataSource Implementation
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let e = Func.AKGetUser().userDefinedAlerts[(indexPath as NSIndexPath).row]
         
         let cell = self.alertsTable.dequeueReusableCell(withIdentifier: "Alerts_Table_Cell") as! AKAlertsTableViewCell
@@ -42,8 +39,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-    {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = UIView(frame: CGRect(x: 8.0, y: 0.0, width: 276.0, height: LocalConstants.AKHeaderHeight))
         headerCell.backgroundColor = GlobalConstants.AKTableHeaderCellBg
         
@@ -65,29 +61,25 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         return headerCell
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Func.AKGetUser().userDefinedAlerts.count
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { return true }
     
     // MARK: UITableViewDelegate Implementation
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?
-    {
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Borrar"
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
-    {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
             Func.AKGetUser().userDefinedAlerts.remove(at: (indexPath as NSIndexPath).row)
             self.alertsTable.reloadData()
         }
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle
-    {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return UITableViewCellEditingStyle.delete
     }
     
@@ -100,8 +92,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat { return CGFloat.leastNormalMagnitude }
     
     // MARK: Miscellaneous
-    func customSetup()
-    {
+    func customSetup() {
         self.shouldCheckLoggedUser = true
         self.setup()
         

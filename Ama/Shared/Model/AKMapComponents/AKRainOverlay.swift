@@ -1,15 +1,13 @@
 import MapKit
 import UIKit
 
-class AKRainOverlay: NSObject, MKOverlay
-{
+class AKRainOverlay: NSObject, MKOverlay {
     // MARK: Properties
     let coordinate: GeoCoordinate
     let boundingMapRect: MKMapRect
     let rainfallPoints: NSArray
     
-    init(rainfallPoints: NSArray)
-    {
+    init(rainfallPoints: NSArray) {
         let pointA = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointA)
         let pointB = MKMapPointForCoordinate(GlobalConstants.AKPYBoundsPointB)
         self.boundingMapRect = MKMapRectMake(

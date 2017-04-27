@@ -1,7 +1,6 @@
 import UIKit
 
-class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol
-{
+class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
         static let AKViewWidth: CGFloat = 49.0
