@@ -7,7 +7,7 @@ import UIKit
 typealias JSONObject = [String : Any]
 typealias JSONObjectArray = [Any]
 typealias JSONObjectStringArray = [String]
-typealias RainIntensity = Int16
+typealias RainIntensity = Double
 typealias GeoCoordinate = CLLocationCoordinate2D
 typealias Latitude = Double
 typealias Longitude = Double
@@ -40,31 +40,10 @@ struct GlobalConstants {
     static let AKDebug = true
     
     // L&F
-    // ### Gruvbox Colors:
-    // For white foreground:
-    static let AKRedForWhiteFg = Func.AKHexColor(0xCC241D)
-    static let AKGreenForWhiteFg = Func.AKHexColor(0x98971A)
-    static let AKYellowForWhiteFg = Func.AKHexColor(0xD79921)
-    static let AKBlueForWhiteFg = Func.AKHexColor(0x458588)
-    static let AKPurpleForWhiteFg = Func.AKHexColor(0xB16286)
-    static let AKAquaForWhiteFg = Func.AKHexColor(0x689D6A)
-    static let AKOrangeForWhiteFg = Func.AKHexColor(0xD65D0E)
-    // For black foreground:
-    static let AKRedForBlackFg = Func.AKHexColor(0xFB4934)
-    static let AKGreenForBlackFg = Func.AKHexColor(0xB8BB26)
-    static let AKYellowForBlackFg = Func.AKHexColor(0xFABD2F)
-    static let AKBlueForBlackFg = Func.AKHexColor(0x83A598)
-    static let AKPurpleForBlackFg = Func.AKHexColor(0xD3869B)
-    static let AKAquaForBlackFg = Func.AKHexColor(0x8EC07C)
-    static let AKOrangeForBlackFg = Func.AKHexColor(0xFE8019)
-    // ### Gruvbox Colors:
     // ### Custom Color Palette:
     static let AKBlue = Func.AKHexColor(0x007AFF)
     static let AKGray1 = Func.AKHexColor(0x1B1E1F)
-    static let AKGray2 = Func.AKHexColor(0x292D2F)
-    static let AKGray3 = Func.AKHexColor(0x353A3C)
-    static let AKGray4 = Func.AKHexColor(0x41474A)
-    static let AKWhite = Func.AKHexColor(0xD9D9D6)
+    static let AKWhite = UIColor.white
     // ### Custom Color Palette:
     
     static let AKMasterFileName = "MasterFile.dat"
@@ -74,26 +53,25 @@ struct GlobalConstants {
     static let AKDefaultFg = GlobalConstants.AKWhite
     static let AKTabBarBg = GlobalConstants.AKDefaultBg
     static let AKTabBarTintNormal = GlobalConstants.AKDefaultFg
-    static let AKTabBarTintSelected = GlobalConstants.AKRedForBlackFg
-    static let AKDefaultViewBorderBg = GlobalConstants.AKGray4
-    static let AKEnabledButtonBg = GlobalConstants.AKRedForWhiteFg
-    static let AKEnabledButtonFg = UIColor.white // Exception!!!
+    static let AKTabBarTintSelected = GlobalConstants.AKBlue
+    static let AKDefaultViewBorderBg = GlobalConstants.AKBlue
+    static let AKEnabledButtonBg = GlobalConstants.AKBlue
+    static let AKEnabledButtonFg = GlobalConstants.AKWhite
     static let AKDisabledButtonBg = Func.AKHexColor(0xA9A9A6) // Exception!!!
-    static let AKDisabledButtonFg = UIColor.white // Exception!!!
-    static let AKTableHeaderCellBg = GlobalConstants.AKGray2
-    static let AKTableHeaderCellBorderBg = GlobalConstants.AKGray4
+    static let AKDisabledButtonFg = GlobalConstants.AKWhite
+    static let AKTableHeaderCellBg = GlobalConstants.AKDefaultBg
+    static let AKTableHeaderCellBorderBg = GlobalConstants.AKBlue
     static let AKTableCellBg = GlobalConstants.AKDefaultBg
-    static let AKTableCellBorderBg = GlobalConstants.AKGray2
+    static let AKTableCellBorderBg = GlobalConstants.AKBlue
     static let AKNavBarFontSize: CGFloat = 20.0
     static let AKTabBarFontSize: CGFloat = 20.0
     static let AKViewCornerRadius: CGFloat = 4.0
     static let AKButtonCornerRadius: CGFloat = 2.0
     static let AKDefaultBorderThickness = 2.0
     static let AKDefaultTransitionStyle = UIModalTransitionStyle.crossDissolve
-    static let AKUserAnnotationBg = GlobalConstants.AKRedForBlackFg
-    static let AKAlertAnnotationBg = GlobalConstants.AKOrangeForBlackFg
-    static let AKUserOverlayBg = GlobalConstants.AKRedForBlackFg
-    static let AKRadarAnnotationBg = GlobalConstants.AKGreenForBlackFg
+    static let AKUserAnnotationBg = GlobalConstants.AKBlue
+    static let AKAlertAnnotationBg = GlobalConstants.AKBlue
+    static let AKUserOverlayBg = GlobalConstants.AKGray1
     static let AKLocationUpdateInterval = 30
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
     static let AKRadarLatitude = -25.333079999999999
@@ -101,7 +79,7 @@ struct GlobalConstants {
     static let AKLatitudeDegreeInKilometers = 111.0 // http://gis.stackexchange.com/questions/142326/calculating-longitude-length-in-miles
     static let AKPYBoundsPointA = GeoCoordinate(latitude: -19.207429, longitude: -63.413086)
     static let AKPYBoundsPointB = GeoCoordinate(latitude: -27.722436, longitude: -52.778320)
-    static let AKRaindropSize: Double = 400.0 // This is the square side length in meters.
+    static let AKRaindropSize: Double = 50.0 // This is the square side length in meters.
     static let AKMapTileTolerance: MKMapPoint = MKMapPointMake(5000.0, 5000.0)
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
     static let AKRadarOrigin = GeoCoordinate(latitude: GlobalConstants.AKRadarLatitude, longitude: GlobalConstants.AKRadarLongitude)
@@ -396,25 +374,25 @@ class GlobalFunctions {
     
     func AKGetInfoForRainfallIntensity(ri: RainIntensity) -> AKRainfallIntensityColor {
         switch ri {
-        case 0 ..< 25:
+        case 0.0 ..< 25.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.50)
-        case 25 ..< 50:
+        case 25.0 ..< 50.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), alpha: 0.50)
-        case 50 ..< 75:
+        case 50.0 ..< 75.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), alpha: 0.50)
-        case 75 ..< 100:
+        case 75.0 ..< 100.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C04.rawValue), alpha: 0.50)
-        case 100 ..< 125:
+        case 100.0 ..< 125.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C05.rawValue), alpha: 0.50)
-        case 125 ..< 150:
+        case 125.0 ..< 150.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C06.rawValue), alpha: 0.50)
-        case 150 ..< 175:
+        case 150.0 ..< 175.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C07.rawValue), alpha: 0.50)
-        case 175 ..< 200:
+        case 175.0 ..< 200.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), alpha: 0.50)
-        case 200 ..< 225:
+        case 200.0 ..< 225.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), alpha: 0.50)
-        case 225 ..< RainIntensity.max:
+        case 225.0 ..< RainIntensity.greatestFiniteMagnitude:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), alpha: 0.50)
         default:
             return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
@@ -432,10 +410,10 @@ class GlobalFunctions {
     }
     
     func AKLocationWithBearing(bearing: Double, distanceMeters: Double, origin: GeoCoordinate) -> GeoCoordinate {
-        let distRadians: Double = distanceMeters / GlobalConstants.AKEarthRadius
+        let distRadians = distanceMeters / GlobalConstants.AKEarthRadius
         
-        let lat1: Double = origin.latitude * (Double.pi / 180)
-        let lon1: Double = origin.longitude * (Double.pi / 180)
+        let lat1 = origin.latitude * (Double.pi / 180)
+        let lon1 = origin.longitude * (Double.pi / 180)
         
         let lat2 = asin(sin(lat1) * cos(distRadians) + cos(lat1) * sin(distRadians) * cos(bearing))
         let lon2 = lon1 + atan2(sin(bearing) * sin(distRadians) * cos(lat1), cos(distRadians) - sin(lat1) * sin(lat2))

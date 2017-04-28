@@ -160,15 +160,12 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
         switch type {
         case .info:
             self.messageOverlay.title.text = MessageType.info.rawValue
-            self.messageOverlay.title.backgroundColor = GlobalConstants.AKGreenForWhiteFg
             break
         case .warning:
             self.messageOverlay.title.text = MessageType.warning.rawValue
-            self.messageOverlay.title.backgroundColor = GlobalConstants.AKYellowForWhiteFg
             break
         case .error:
             self.messageOverlay.title.text = MessageType.error.rawValue
-            self.messageOverlay.title.backgroundColor = GlobalConstants.AKRedForWhiteFg
             break
         }
         self.messageOverlay.message.text = message

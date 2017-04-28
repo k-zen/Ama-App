@@ -46,7 +46,7 @@ class AKRainfallPoint: NSObject {
         
         // The general idea here is that the higher the intensity, the bigger the square generated
         // for the map, that is why the radius is the product of the default size by the log2 of the intensity.
-        let bubbleRadius = GlobalConstants.AKRaindropSize * log2(Double(intensity))
+        let bubbleRadius = GlobalConstants.AKRaindropSize * log2(intensity)
         
         let pointA = MKMapPointForCoordinate(Func.AKLocationWithBearing(bearing: (3 * Double.pi) / 4, distanceMeters: bubbleRadius, origin: center))
         if self.debug {
