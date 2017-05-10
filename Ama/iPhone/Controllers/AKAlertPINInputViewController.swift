@@ -1,7 +1,6 @@
 import UIKit
 
-class AKAlertPINInputViewController: AKCustomViewController
-{
+class AKAlertPINInputViewController: AKCustomViewController {
     // MARK: Outlets
     @IBOutlet weak var controlsContainer: UIView!
     @IBOutlet weak var mainTitle: UILabel!
