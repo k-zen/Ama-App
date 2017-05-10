@@ -70,7 +70,7 @@ struct GlobalConstants {
     static let AKDefaultBorderThickness = 2.0
     static let AKDefaultTransitionStyle = UIModalTransitionStyle.crossDissolve
     static let AKUserAnnotationBg = GlobalConstants.AKBlue
-    static let AKAlertAnnotationBg = GlobalConstants.AKBlue
+    static let AKAlertAnnotationBg = Func.AKHexColor(0xFF364D) // Exception!!!
     static let AKUserOverlayBg = GlobalConstants.AKGray1
     static let AKLocationUpdateInterval = 30
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
@@ -79,7 +79,7 @@ struct GlobalConstants {
     static let AKLatitudeDegreeInKilometers = 111.0 // http://gis.stackexchange.com/questions/142326/calculating-longitude-length-in-miles
     static let AKPYBoundsPointA = GeoCoordinate(latitude: -19.207429, longitude: -63.413086)
     static let AKPYBoundsPointB = GeoCoordinate(latitude: -27.722436, longitude: -52.778320)
-    static let AKRaindropSize: Double = 50.0 // This is the square side length in meters.
+    static let AKRaindropSize: Double = 150.0 // This is the square side length in meters.
     static let AKMapTileTolerance: MKMapPoint = MKMapPointMake(5000.0, 5000.0)
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
     static let AKRadarOrigin = GeoCoordinate(latitude: GlobalConstants.AKRadarLatitude, longitude: GlobalConstants.AKRadarLongitude)
@@ -94,6 +94,7 @@ struct GlobalConstants {
     static let AKDefaultZoomLevel = ZoomLevel.L06
     static let AKDIMOverlayAlpha = 0.60
     static let AKAmaServerAddress = "http://190.128.205.74:8102"
+    static let AKDMHServerAddress = "http://190.128.205.78:8080/api/get_all/183"
     static let AKCloseKeyboardToolbarHeight: CGFloat = 30
 }
 
@@ -183,8 +184,8 @@ enum CustomBorderDecorationPosition: Int {
 }
 
 enum MessageType: String {
-    case info = "Information"
-    case warning = "Warning"
+    case info = "Información"
+    case warning = "Advertencia"
     case error = "Error"
 }
 

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AKBottomOverlayView" customModule="Ama" customModuleProvider="target">
+            <connections>
+                <outlet property="container" destination="ZXW-KS-RO6" id="ZzM-NM-Uhl"/>
+                <outlet property="dummy1" destination="FJH-af-BlO" id="gTB-wd-pe0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.75" contentMode="scaleToFill" id="ZXW-KS-RO6" userLabel="Main_Container">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cálido, luego fresco por la noche, cielo escasamente nublado, vientos del sureste." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6M-Tq-aLQ" userLabel="Location_Value">
+                    <rect key="frame" x="8" y="8" width="304" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="8ie-rZ-rqt"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJH-af-BlO" userLabel="Dummy_1">
+                    <rect key="frame" x="0.0" y="56" width="320" height="36"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yDW-J0-svk" userLabel="Temperature_Container">
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="36"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="0015-032px.png" translatesAutoresizingMaskIntoConstraints="NO" id="7y9-5g-Osy" userLabel="Temperature_Icon">
+                                    <rect key="frame" x="0.0" y="0.0" width="32" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="21º" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paP-ib-Dew" userLabel="Temperature_Value">
+                                    <rect key="frame" x="32" y="0.0" width="48" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="20"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="80" id="ry1-TW-5NJ"/>
+                                <constraint firstAttribute="height" constant="36" id="zlP-mS-ygG"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPT-Qm-03W" userLabel="Humidity_Container">
+                            <rect key="frame" x="80" y="0.0" width="80" height="36"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="0014-032px.png" translatesAutoresizingMaskIntoConstraints="NO" id="fZR-7s-41r" userLabel="Humidity_Icon">
+                                    <rect key="frame" x="0.0" y="0.0" width="32" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="39" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTs-4A-D6D" userLabel="Humidity_Value">
+                                    <rect key="frame" x="32" y="0.0" width="48" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="20"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="EOd-Kn-z2U"/>
+                                <constraint firstAttribute="width" constant="80" id="cNW-3j-uID"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZG-yM-8GQ" userLabel="Wind_Container">
+                            <rect key="frame" x="160" y="0.0" width="160" height="36"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="0013-032px.png" translatesAutoresizingMaskIntoConstraints="NO" id="0ov-Zg-muZ" userLabel="Wind_Icon">
+                                    <rect key="frame" x="0.0" y="0.0" width="32" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SSW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9rK-Bj-gLr" userLabel="Wind_Direction_Value">
+                                    <rect key="frame" x="32" y="0.0" width="48" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="21km/h" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBA-j4-8Nb" userLabel="Wind_Velocity_Value">
+                                    <rect key="frame" x="80" y="0.0" width="81" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="b5N-5F-fvN"/>
+                                <constraint firstAttribute="width" constant="160" id="uuq-wz-IdN"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="VPT-Qm-03W" firstAttribute="leading" secondItem="yDW-J0-svk" secondAttribute="trailing" id="0Zt-Vv-Ufn"/>
+                        <constraint firstItem="yDW-J0-svk" firstAttribute="centerX" secondItem="FJH-af-BlO" secondAttribute="centerX" constant="-120" id="2C7-jq-pfC"/>
+                        <constraint firstItem="dZG-yM-8GQ" firstAttribute="top" secondItem="FJH-af-BlO" secondAttribute="top" id="Hfg-dR-oel"/>
+                        <constraint firstAttribute="height" constant="36" id="Zeu-I5-HBB"/>
+                        <constraint firstItem="dZG-yM-8GQ" firstAttribute="leading" secondItem="VPT-Qm-03W" secondAttribute="trailing" id="ccY-ho-F8e"/>
+                        <constraint firstItem="VPT-Qm-03W" firstAttribute="top" secondItem="FJH-af-BlO" secondAttribute="top" id="tFe-P3-UsL"/>
+                        <constraint firstItem="yDW-J0-svk" firstAttribute="top" secondItem="FJH-af-BlO" secondAttribute="top" id="wJG-rE-6de"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="FJH-af-BlO" firstAttribute="top" secondItem="K6M-Tq-aLQ" secondAttribute="bottom" constant="8" id="29V-rC-vgJ"/>
+                <constraint firstAttribute="trailing" secondItem="FJH-af-BlO" secondAttribute="trailing" id="54r-G0-u7n"/>
+                <constraint firstItem="K6M-Tq-aLQ" firstAttribute="leading" secondItem="ZXW-KS-RO6" secondAttribute="leading" constant="8" id="5zd-qa-E7s"/>
+                <constraint firstItem="FJH-af-BlO" firstAttribute="leading" secondItem="ZXW-KS-RO6" secondAttribute="leading" id="P8r-1n-fvi"/>
+                <constraint firstAttribute="trailing" secondItem="K6M-Tq-aLQ" secondAttribute="trailing" constant="8" id="fd2-pZ-te5"/>
+                <constraint firstItem="K6M-Tq-aLQ" firstAttribute="top" secondItem="ZXW-KS-RO6" secondAttribute="top" constant="8" id="iiz-rV-2Kk"/>
+                <constraint firstAttribute="bottom" secondItem="FJH-af-BlO" secondAttribute="bottom" constant="8" id="oQb-8X-cCR"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="5" y="388"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="0013-032px.png" width="32" height="32"/>
+        <image name="0014-032px.png" width="32" height="32"/>
+        <image name="0015-032px.png" width="32" height="32"/>
+    </resources>
+</document>

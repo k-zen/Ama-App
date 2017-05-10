@@ -15,19 +15,20 @@
                 <outlet property="dummy1" destination="PSi-NJ-j5e" id="RIf-mO-ru9"/>
                 <outlet property="location" destination="xv0-lg-c5C" id="VaC-XI-sS0"/>
                 <outlet property="pauseRefresh" destination="ucu-8E-DRN" id="dyh-4V-Nvh"/>
-                <outlet property="tempValue" destination="GQs-6U-zIY" id="ECV-lx-egb"/>
+                <outlet property="userAvatar" destination="GQs-6U-zIY" id="057-UT-hz0"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Main_Container">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+        <view alpha="0.75" contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Main_Container">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PSi-NJ-j5e" userLabel="Dummy_1">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQs-6U-zIY" userLabel="Temp_Value">
-                            <rect key="frame" x="8" y="26" width="40" height="40"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQs-6U-zIY" userLabel="User_Avatar">
+                            <rect key="frame" x="8" y="8" width="40" height="40"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="SSD-kA-aRF"/>
                                 <constraint firstAttribute="height" constant="40" id="tit-RE-hYf"/>
@@ -37,13 +38,13 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Despejado" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXe-VE-fZK" userLabel="Alert_Value">
-                            <rect key="frame" x="56" y="26" width="208" height="50"/>
-                            <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="30"/>
+                            <rect key="frame" x="56" y="8" width="208" height="38.5"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="28"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucu-8E-DRN" userLabel="Pause_Refresh">
-                            <rect key="frame" x="272" y="26" width="40" height="40"/>
+                            <rect key="frame" x="272" y="8" width="40" height="40"/>
                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="MEd-3e-KnC"/>
@@ -58,21 +59,17 @@
                     <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="gXe-VE-fZK" firstAttribute="leading" secondItem="GQs-6U-zIY" secondAttribute="trailing" constant="8" id="5sa-Hc-YHV"/>
-                        <constraint firstItem="GQs-6U-zIY" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="26" id="6jL-HG-eZh"/>
-                        <constraint firstAttribute="height" constant="68" id="DP0-bD-QC3"/>
+                        <constraint firstItem="GQs-6U-zIY" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="8" id="6jL-HG-eZh"/>
+                        <constraint firstAttribute="height" constant="48" id="DP0-bD-QC3"/>
                         <constraint firstItem="ucu-8E-DRN" firstAttribute="leading" secondItem="gXe-VE-fZK" secondAttribute="trailing" constant="8" id="E1u-6G-N5L"/>
                         <constraint firstItem="GQs-6U-zIY" firstAttribute="leading" secondItem="PSi-NJ-j5e" secondAttribute="leading" constant="8" id="EJO-RT-oM5"/>
-                        <constraint firstAttribute="bottom" secondItem="GQs-6U-zIY" secondAttribute="bottom" constant="2" id="drf-W7-TZM"/>
                         <constraint firstAttribute="trailing" secondItem="ucu-8E-DRN" secondAttribute="trailing" constant="8" id="jPS-pF-VKO"/>
-                        <constraint firstAttribute="bottom" secondItem="ucu-8E-DRN" secondAttribute="bottom" constant="2" id="m1n-B6-RgN"/>
-                        <constraint firstAttribute="bottom" secondItem="gXe-VE-fZK" secondAttribute="bottom" constant="-8" id="oE3-Ia-vWJ"/>
-                        <constraint firstItem="gXe-VE-fZK" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="26" id="pX9-ju-94G"/>
-                        <constraint firstItem="ucu-8E-DRN" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="26" id="ral-Fl-gDh"/>
-                        <constraint firstItem="ucu-8E-DRN" firstAttribute="leading" secondItem="gXe-VE-fZK" secondAttribute="trailing" constant="8" id="zy3-Zt-utY"/>
+                        <constraint firstItem="gXe-VE-fZK" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="8" id="pX9-ju-94G"/>
+                        <constraint firstItem="ucu-8E-DRN" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="8" id="ral-Fl-gDh"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---, ---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xv0-lg-c5C" userLabel="Location_Value">
-                    <rect key="frame" x="0.0" y="68" width="320" height="30"/>
+                    <rect key="frame" x="0.0" y="48" width="320" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="gBh-r3-ItS"/>
                     </constraints>
@@ -95,7 +92,7 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="6" y="388"/>
+            <point key="canvasLocation" x="6" y="382"/>
         </view>
     </objects>
     <resources>

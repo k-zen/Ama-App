@@ -32,7 +32,8 @@ class AKAlert: NSObject, NSCoding {
             view.id = self.alertID
             view.titleLabel.text = self.alertAnnotation.titleLabel
             view.subtitleLabel.text = self.alertAnnotation.subtitleLabel
-            view.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+            view.layer.cornerRadius = GlobalConstants.AKViewCornerRadius
+            view.layer.masksToBounds = true
             
             self.alertView = view
         }

@@ -3,13 +3,13 @@ import UIKit
 class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
-        static let AKViewHeight: CGFloat = 98.0
+        static let AKViewHeight: CGFloat = 78.0
     }
     
     // MARK: Outlets
     @IBOutlet var container: UIView!
     @IBOutlet weak var dummy1: UIView!
-    @IBOutlet weak var tempValue: UILabel!
+    @IBOutlet weak var userAvatar: UILabel!
     @IBOutlet weak var alertValue: UILabel!
     @IBOutlet weak var pauseRefresh: UIButton!
     @IBOutlet weak var location: UILabel!
@@ -45,8 +45,8 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     
     func applyLookAndFeel() {
         self.pauseRefresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.tempValue.layer.cornerRadius = self.tempValue.frame.width / 2.0
-        self.tempValue.layer.masksToBounds = true
+        self.userAvatar.layer.cornerRadius = self.userAvatar.frame.width / 2.0
+        self.userAvatar.layer.masksToBounds = true
     }
     
     func draw(container: UIView, coordinates: CGPoint, size: CGSize) {

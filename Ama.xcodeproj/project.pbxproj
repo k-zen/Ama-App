@@ -39,6 +39,11 @@
 		49447D451E301A9100BE59D0 /* 0010-024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49447D441E301A9100BE59D0 /* 0010-024px.png */; };
 		494609F91E2B155000FC3AEA /* 0007-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F71E2B155000FC3AEA /* 0007-032px.png */; };
 		494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 494609F81E2B155000FC3AEA /* 0008-032px.png */; };
+		4973DB5C1EB3EA6F0088217B /* 0013-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4973DB561EB3EA6F0088217B /* 0013-032px.png */; };
+		4973DB5D1EB3EA6F0088217B /* 0014-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4973DB571EB3EA6F0088217B /* 0014-032px.png */; };
+		4973DB5E1EB3EA6F0088217B /* 0015-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4973DB581EB3EA6F0088217B /* 0015-032px.png */; };
+		4973DB631EB3EB5F0088217B /* AKBottomOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4973DB621EB3EB5F0088217B /* AKBottomOverlayView.xib */; };
+		4973DB651EB3EF280088217B /* AKBottomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973DB641EB3EF280088217B /* AKBottomOverlayView.swift */; };
 		4984220E1E310DF900DCF99B /* 0012-020px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4984220D1E310DF900DCF99B /* 0012-020px.png */; };
 		49921F401EAE924A00899816 /* AKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F171EAE924A00899816 /* AKConstants.swift */; };
 		49921F4B1EAE924A00899816 /* AKMasterFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F271EAE924A00899816 /* AKMasterFile.swift */; };
@@ -117,6 +122,11 @@
 		494609F71E2B155000FC3AEA /* 0007-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0007-032px.png"; sourceTree = "<group>"; };
 		494609F81E2B155000FC3AEA /* 0008-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0008-032px.png"; sourceTree = "<group>"; };
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4973DB561EB3EA6F0088217B /* 0013-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0013-032px.png"; sourceTree = "<group>"; };
+		4973DB571EB3EA6F0088217B /* 0014-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0014-032px.png"; sourceTree = "<group>"; };
+		4973DB581EB3EA6F0088217B /* 0015-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0015-032px.png"; sourceTree = "<group>"; };
+		4973DB621EB3EB5F0088217B /* AKBottomOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKBottomOverlayView.xib; sourceTree = "<group>"; };
+		4973DB641EB3EF280088217B /* AKBottomOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBottomOverlayView.swift; sourceTree = "<group>"; };
 		4984220D1E310DF900DCF99B /* 0012-020px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0012-020px.png"; sourceTree = "<group>"; };
 		49921F171EAE924A00899816 /* AKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConstants.swift; sourceTree = "<group>"; };
 		49921F271EAE924A00899816 /* AKMasterFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMasterFile.swift; sourceTree = "<group>"; };
@@ -219,6 +229,7 @@
 		49074A621EB14950002FBB64 /* AKOverlays */ = {
 			isa = PBXGroup;
 			children = (
+				4973DB621EB3EB5F0088217B /* AKBottomOverlayView.xib */,
 				49074A631EB14950002FBB64 /* AKLayersOverlayView.xib */,
 				49074A641EB14950002FBB64 /* AKLegendOverlayView.xib */,
 				49074A651EB14950002FBB64 /* AKProgressOverlayView.xib */,
@@ -269,6 +280,7 @@
 		49074A7C1EB14979002FBB64 /* AKOverlays */ = {
 			isa = PBXGroup;
 			children = (
+				4973DB641EB3EF280088217B /* AKBottomOverlayView.swift */,
 				49074A7D1EB14979002FBB64 /* AKLayersOverlayView.swift */,
 				49074A7E1EB14979002FBB64 /* AKLegendOverlayView.swift */,
 				49074A7F1EB14979002FBB64 /* AKProgressOverlayView.swift */,
@@ -432,6 +444,9 @@
 				49447D441E301A9100BE59D0 /* 0010-024px.png */,
 				491A09A81E305E5A008953AE /* 0011-024px.png */,
 				4984220D1E310DF900DCF99B /* 0012-020px.png */,
+				4973DB561EB3EA6F0088217B /* 0013-032px.png */,
+				4973DB571EB3EA6F0088217B /* 0014-032px.png */,
+				4973DB581EB3EA6F0088217B /* 0015-032px.png */,
 				49B96A1E1E1DA9B900F33829 /* AppIcon-20@1x.png */,
 				49B96A1F1E1DA9B900F33829 /* AppIcon-20@2x.png */,
 				49B96A201E1DA9B900F33829 /* AppIcon-20@3x.png */,
@@ -549,9 +564,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4973DB5D1EB3EA6F0088217B /* 0014-032px.png in Resources */,
 				49074A721EB14950002FBB64 /* AKAlertsTableViewCell.xib in Resources */,
 				49B96A171E1DA56C00F33829 /* AppIcon-60@2x.png in Resources */,
 				49B96A151E1DA56C00F33829 /* AppIcon-40@3x.png in Resources */,
+				4973DB631EB3EB5F0088217B /* AKBottomOverlayView.xib in Resources */,
 				494609FA1E2B155000FC3AEA /* 0008-032px.png in Resources */,
 				49B96A1D1E1DA56C00F33829 /* AppIcon-1024@1x.png in Resources */,
 				49B96A121E1DA56C00F33829 /* AppIcon-29@3x.png in Resources */,
@@ -573,6 +590,7 @@
 				49B96A181E1DA56C00F33829 /* AppIcon-60@3x.png in Resources */,
 				49B96A141E1DA56C00F33829 /* AppIcon-40@2x.png in Resources */,
 				49B96A111E1DA56C00F33829 /* AppIcon-29@2x.png in Resources */,
+				4973DB5C1EB3EA6F0088217B /* 0013-032px.png in Resources */,
 				49B96A191E1DA56C00F33829 /* AppIcon-76@1x.png in Resources */,
 				491A09A91E305E5A008953AE /* 0011-024px.png in Resources */,
 				49B96A221E1DA9B900F33829 /* AppIcon-20@2x.png in Resources */,
@@ -591,6 +609,7 @@
 				49447D431E2FFD5D00BE59D0 /* 0009-030px.png in Resources */,
 				49074A6C1EB14950002FBB64 /* AKMessageView.xib in Resources */,
 				49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */,
+				4973DB5E1EB3EA6F0088217B /* 0015-032px.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +686,7 @@
 				49921F5F1EAE924A00899816 /* AKWSUtils.swift in Sources */,
 				49074A841EB14979002FBB64 /* AKUserAnnotationView.swift in Sources */,
 				49074A8D1EB14979002FBB64 /* AKAlertsTableViewCell.swift in Sources */,
+				4973DB651EB3EF280088217B /* AKBottomOverlayView.swift in Sources */,
 				49921F571EAE924A00899816 /* AKRainOverlay.swift in Sources */,
 				49921F4F1EAE924A00899816 /* AKInputData.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,

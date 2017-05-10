@@ -50,7 +50,7 @@ class AKRainOverlayRenderer: MKOverlayRenderer {
                 // context.setStrokeColor(chars.color.cgColor)
                 // context.setAlpha(CGFloat(1.0))
                 // context.setLineWidth(100.0)
-                // context.setBlendMode(CGBlendMode.colorDodge)
+                // context.setBlendMode(CGBlendMode.clear)
                 // context.stroke(raindropPointRect)
             }
         }

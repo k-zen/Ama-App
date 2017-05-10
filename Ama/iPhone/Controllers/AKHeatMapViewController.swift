@@ -1,6 +1,7 @@
 import CoreLocation
 import Foundation
 import MapKit
+import SVPulsingAnnotationView
 import UIKit
 
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
@@ -8,6 +9,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
     // Flags
     let addUserPin = true
     // Overlay Controllers
+    let bottomOverlay = AKBottomOverlayView()
     let layersOverlay = AKLayersOverlayView()
     let legendOverlay = AKLegendOverlayView()
     let progressOverlay = AKProgressOverlayView()
@@ -143,8 +145,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
         })
     }
     let updateLabels: (AKHeatMapViewController) -> Void = { (controller) -> Void in
+        controller.topOverlay.userAvatar.text = String(format: "%@", Func.AKGetUser().username.characters.first?.description ?? "").uppercased()
+        
         Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) {
-            // TODO: Add support for querying temperature via Apple here.
+            // TODO: Add support for querying temperature at DMH.
         }
         
         if Func.AKDelegate().applicationActive {
@@ -225,21 +229,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                     return annotationView
                 }
                 else {
-                    let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: custom.titleLabel)
-                    customView.canShowCallout = false
-                    customView.layer.backgroundColor = UIColor.clear.cgColor
-                    customView.layer.cornerRadius = 6.0
-                    customView.layer.borderWidth = 0.0
-                    customView.layer.masksToBounds = true
-                    customView.image = Func.AKCircleImageWithRadius(
-                        8,
-                        strokeColor: UIColor.white,
-                        strokeAlpha: 1.0,
-                        fillColor: GlobalConstants.AKUserAnnotationBg,
-                        fillAlpha: 1.0,
-                        lineWidth: CGFloat(1.4)
-                    )
-                    customView.clipsToBounds = false
+                    let customView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: custom.titleLabel)
+                    customView.annotationColor = GlobalConstants.AKUserAnnotationBg
                     
                     return customView
                 }
@@ -254,21 +245,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                     return annotationView
                 }
                 else {
-                    let customView = MKAnnotationView(annotation: annotation, reuseIdentifier: custom.titleLabel)
-                    customView.canShowCallout = false
-                    customView.layer.backgroundColor = UIColor.clear.cgColor
-                    customView.layer.cornerRadius = 6.0
-                    customView.layer.borderWidth = 0.0
-                    customView.layer.masksToBounds = true
-                    customView.image = Func.AKCircleImageWithRadius(
-                        8,
-                        strokeColor: UIColor.white,
-                        strokeAlpha: 1.0,
-                        fillColor: GlobalConstants.AKAlertAnnotationBg,
-                        fillAlpha: 1.0,
-                        lineWidth: CGFloat(1.4)
-                    )
-                    customView.clipsToBounds = false
+                    let customView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: custom.titleLabel)
+                    customView.annotationColor = GlobalConstants.AKAlertAnnotationBg
                     
                     return customView
                 }
@@ -313,7 +291,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                     v.frame = newFrame
                     
                     v.titleLabel.text = annotation.titleLabel
-                    v.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                    v.layer.cornerRadius = GlobalConstants.AKViewCornerRadius
+                    v.layer.masksToBounds = true
                     
                     self.userAnnotationView = v
                     
@@ -496,6 +475,17 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
     }
     
     func addDefaultViewOverlays() {
+        self.bottomOverlay.controller = self
+        self.bottomOverlay.setup()
+        self.bottomOverlay.draw(
+            container: self.mapView,
+            coordinates: CGPoint(
+                x: 0.0,
+                y: (self.mapView.bounds.height) - (AKBottomOverlayView.LocalConstants.AKViewHeight)
+            ),
+            size: CGSize(width: self.view.bounds.width, height: 0.0)
+        )
+        
         self.layersOverlay.controller = self
         self.layersOverlay.setup()
         self.layersOverlay.draw(
@@ -521,7 +511,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
         self.progressOverlay.controller = self
         self.progressOverlay.setup()
         self.progressOverlay.draw(
-            container: self.view,
+            container: self.mapView,
             coordinates: CGPoint(x: 0.0, y: AKTopOverlayView.LocalConstants.AKViewHeight + 1.0),
             size: CGSize(width: self.view.bounds.width, height: 0.0)
         )
@@ -529,9 +519,9 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
         self.topOverlay.controller = self
         self.topOverlay.setup()
         self.topOverlay.draw(
-            container: self.view,
+            container: self.mapView,
             coordinates: CGPoint.zero,
-            size: CGSize(width: self.view.bounds.width, height: AKTopOverlayView.LocalConstants.AKViewHeight)
+            size: CGSize(width: self.view.bounds.width, height: 0.0)
         )
     }
     

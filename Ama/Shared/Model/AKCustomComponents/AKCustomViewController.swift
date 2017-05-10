@@ -47,7 +47,6 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
                              taskBeforePresenting: nil,
                              dismissViewCompletionTask: nil
             )
-            return
         }
         
         // Persist to disk data each time a view controller appears.
@@ -136,7 +135,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
             taskBeforePresenting!(self, controller)
         }
         
-        self.present(controller, animated: true, completion: nil)
+        self.present(controller, animated: false, completion: nil)
     }
     
     // MARK: Floating Views
@@ -146,12 +145,11 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
         message: String,
         animate: Bool,
         completionTask: ((_ controller: AKCustomViewController?) -> Void)?) {
-        var origin = Func.AKCenterScreenCoordinate(
+        let origin = Func.AKCenterScreenCoordinate(
             container: self.view,
             width: AKMessageView.LocalConstants.AKViewWidth,
             height: AKMessageView.LocalConstants.AKViewHeight
         )
-        origin.y -= 60.0
         
         // Configure the overlay.
         self.messageOverlay.controller = self

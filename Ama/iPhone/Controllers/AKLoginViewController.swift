@@ -212,8 +212,10 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate {
     
     // MARK: Miscellaneous
     func customSetup() {
+        self.shouldAddBlurView = true
         self.configureLookAndFeel = { (controller) -> Void in
             if let controller = controller as? AKLoginViewController {
+                controller.controlsContainer.layer.cornerRadius = GlobalConstants.AKViewCornerRadius
                 controller.usernameValue.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
                 controller.verify.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
             }
