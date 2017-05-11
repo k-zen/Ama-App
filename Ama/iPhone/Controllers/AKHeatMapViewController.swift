@@ -144,21 +144,21 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
             }
         })
     }
-    let updateLabels: (AKHeatMapViewController) -> Void = { (controller) -> Void in
+    let updateLabels: (AKHeatMapViewController, Any?) -> Void = { (controller, dmhData) -> Void in
+        // ###### UPDATE LABELS FOR *TopOverlay*.
         controller.topOverlay.userAvatar.text = String(format: "%@", Func.AKGetUser().username.characters.first?.description ?? "").uppercased()
         
-        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) {
-            // TODO: Add support for querying temperature at DMH.
-        }
-        
-        if Func.AKDelegate().applicationActive {
+        // Update the *Weather State*.
+        if
+            let array = dmhData as? JSONObjectArray,
+            let dictionary = array[0] as? JSONObject,
+            let currentData = dictionary["datos_actuales"] as? JSONObject,
+            let weatherState = currentData["tiempo_presente"] as? WeatherState {
             UIView.transition(
                 with: controller.topOverlay.alertValue,
                 duration: 1.0,
                 options: [UIViewAnimationOptions.transitionCrossDissolve],
-                animations: {
-                    // TODO: Add function here to detect the state of weather and issue a label in 3 possible categories.
-                    controller.topOverlay.alertValue.text = "Lluvioso" },
+                animations: { controller.topOverlay.alertValue.text = weatherState },
                 completion: nil
             )
         }
@@ -167,16 +167,12 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 with: controller.topOverlay.alertValue,
                 duration: 1.0,
                 options: [UIViewAnimationOptions.transitionCrossDissolve],
-                animations: {
-                    controller.topOverlay.alertValue.text = "Deshabilitado" },
+                animations: { controller.topOverlay.alertValue.text = "---" },
                 completion: nil
             )
         }
         
-        if GlobalConstants.AKDebug {
-            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
-        }
-        
+        // Update the user's current location's information. Street, City, etc.
         Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) {
             CLGeocoder().reverseGeocodeLocation(
                 CLLocation(
@@ -209,6 +205,74 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                         }
                     } }
             )
+        }
+        // ###### UPDATE LABELS FOR *TopOverlay*.
+        
+        // ###### UPDATE LABELS FOR *BottomOverlay*.
+        // Update the *Forecast*, *Temperature*, *Humidity* and *Wind*.
+        if
+            let array = dmhData as? JSONObjectArray,
+            let dictionary = array[0] as? JSONObject,
+            let forecast = dictionary["pronosticos"] as? JSONObjectArray,
+            let today = forecast[0] as? JSONObject,
+            let description = today["descripcion"] as? Forecast {
+            UIView.transition(
+                with: controller.bottomOverlay.temperature,
+                duration: 1.0,
+                options: [UIViewAnimationOptions.transitionCrossDissolve],
+                animations: {
+                    controller.bottomOverlay.forecast.text = String(format: "%@", description) },
+                completion: nil
+            )
+        }
+        else {
+            UIView.transition(
+                with: controller.topOverlay.alertValue,
+                duration: 1.0,
+                options: [UIViewAnimationOptions.transitionCrossDissolve],
+                animations: {
+                    controller.bottomOverlay.forecast.text = "---" },
+                completion: nil
+            )
+        }
+        
+        if
+            let array = dmhData as? JSONObjectArray,
+            let dictionary = array[0] as? JSONObject,
+            let currentData = dictionary["datos_actuales"] as? JSONObject,
+            let temperature = currentData["temp_aire"] as? Temperature,
+            let humidity = currentData["humedad_relativa"] as? Humidity,
+            let windDirection = currentData["dir_viento"] as? WindDirection,
+            let windVelocity = currentData["vel_viento"] as? WindVelocity {
+            UIView.transition(
+                with: controller.bottomOverlay.temperature,
+                duration: 1.0,
+                options: [UIViewAnimationOptions.transitionCrossDissolve],
+                animations: {
+                    controller.bottomOverlay.temperature.text = String(format: "%.0fº", temperature)
+                    controller.bottomOverlay.humidity.text = String(format: "%.0f%%", humidity)
+                    controller.bottomOverlay.windDirection.text = String(format: "%@", windDirection)
+                    controller.bottomOverlay.windVelocity.text = String(format: "%i km/h", windVelocity) },
+                completion: nil
+            )
+        }
+        else {
+            UIView.transition(
+                with: controller.topOverlay.alertValue,
+                duration: 1.0,
+                options: [UIViewAnimationOptions.transitionCrossDissolve],
+                animations: {
+                    controller.bottomOverlay.temperature.text = "---"
+                    controller.bottomOverlay.humidity.text = "---"
+                    controller.bottomOverlay.windDirection.text = "---"
+                    controller.bottomOverlay.windVelocity.text = "---" },
+                completion: nil
+            )
+        }
+        // ###### UPDATE LABELS FOR *BottomOverlay*.
+        
+        if GlobalConstants.AKDebug {
+            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
         }
     }
     
@@ -351,7 +415,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                     self.mapView.addAnnotation(self.userAnnotation!)
                 }
                 
-                self.updateLabels(self)
+                self.callDMHWebService()
             }
         }
     }
@@ -433,7 +497,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                     location: Func.AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
                     zoomLevel: GlobalConstants.AKDefaultZoomLevel
                 )
-                controller.updateLabels(self)
+                controller.callDMHWebService()
             }
         }
         self.setup()
@@ -558,5 +622,27 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
         }
         
         return false
+    }
+    
+    func callDMHWebService() {
+        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) {
+            AKWSUtils.makeRESTRequest(
+                controller: self,
+                endpoint: String(format: "%@", GlobalConstants.AKDMHServerAddress),
+                httpMethod: "GET",
+                headerValues: [ "Content-Type" : "application/json" ],
+                bodyValue: "",
+                showDebugInfo: false,
+                isJSONResponse: true,
+                completionTask: { (json) -> Void in
+                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) {
+                        self.updateLabels(self, json)
+                    } },
+                failureTask: { (code, message) -> Void in
+                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) {
+                        self.updateLabels(self, nil)
+                    } }
+            )
+        }
     }
 }

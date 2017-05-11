@@ -32,7 +32,7 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate {
                 httpMethod: "POST",
                 headerValues: [ "Content-Type" : "application/json" ],
                 bodyValue: username.outputData,
-                showDebugInfo: true,
+                showDebugInfo: false,
                 isJSONResponse: false,
                 completionTask: { (json) -> Void in
                     // Process the results.
@@ -51,7 +51,7 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate {
                                     Func.AKGetUser().username,
                                     Func.AKGetUser().password
                                 ),
-                                showDebugInfo: true,
+                                showDebugInfo: false,
                                 isJSONResponse: false,
                                 completionTask: { (json) -> Void in
                                     AKWSUtils.makeRESTRequest(
@@ -64,7 +64,7 @@ class AKLoginViewController: AKCustomViewController, UITextFieldDelegate {
                                             Func.AKGetUser().username,
                                             Func.AKGetUser().apnsToken
                                         ),
-                                        showDebugInfo: true,
+                                        showDebugInfo: false,
                                         isJSONResponse: false,
                                         completionTask: { (json) -> Void in
                                             Func.AKGetUser().registerUser()

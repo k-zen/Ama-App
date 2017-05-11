@@ -9,6 +9,11 @@ class AKBottomOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Outlets
     @IBOutlet var container: UIView!
     @IBOutlet weak var dummy1: UIView!
+    @IBOutlet weak var forecast: UILabel!
+    @IBOutlet weak var temperature: UILabel!
+    @IBOutlet weak var humidity: UILabel!
+    @IBOutlet weak var windDirection: UILabel!
+    @IBOutlet weak var windVelocity: UILabel!
     
     // MARK: UIView Overriding
     convenience init() { self.init(frame: CGRect.zero) }
