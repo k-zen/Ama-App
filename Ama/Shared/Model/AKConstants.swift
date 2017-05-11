@@ -85,7 +85,7 @@ struct GlobalConstants {
     static let AKLatitudeDegreeInKilometers = 111.0 // http://gis.stackexchange.com/questions/142326/calculating-longitude-length-in-miles
     static let AKPYBoundsPointA = GeoCoordinate(latitude: -19.207429, longitude: -63.413086)
     static let AKPYBoundsPointB = GeoCoordinate(latitude: -27.722436, longitude: -52.778320)
-    static let AKRaindropSize: Double = 150.0 // This is the square side length in meters.
+    static let AKRaindropSize: Double = 100.0 // This is the square side length in meters.
     static let AKMapTileTolerance: MKMapPoint = MKMapPointMake(5000.0, 5000.0)
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
     static let AKRadarOrigin = GeoCoordinate(latitude: GlobalConstants.AKRadarLatitude, longitude: GlobalConstants.AKRadarLongitude)
