@@ -49,6 +49,7 @@ struct GlobalConstants {
     // ### Custom Color Palette:
     static let AKBlue = Func.AKHexColor(0x007AFF)
     static let AKGray1 = Func.AKHexColor(0x1B1E1F)
+    static let AKGray2 = Func.AKHexColor(0x292D2F)
     static let AKWhite = UIColor.white
     // ### Custom Color Palette:
     
@@ -65,7 +66,7 @@ struct GlobalConstants {
     static let AKEnabledButtonFg = GlobalConstants.AKWhite
     static let AKDisabledButtonBg = Func.AKHexColor(0xA9A9A6) // Exception!!!
     static let AKDisabledButtonFg = GlobalConstants.AKWhite
-    static let AKTableHeaderCellBg = GlobalConstants.AKDefaultBg
+    static let AKTableHeaderCellBg = GlobalConstants.AKGray2
     static let AKTableHeaderCellBorderBg = GlobalConstants.AKBlue
     static let AKTableCellBg = GlobalConstants.AKDefaultBg
     static let AKTableCellBorderBg = GlobalConstants.AKBlue

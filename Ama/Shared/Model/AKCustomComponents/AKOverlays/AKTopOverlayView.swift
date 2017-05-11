@@ -41,7 +41,10 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
         self.applyLookAndFeel()
     }
     
-    func loadComponents() {}
+    func loadComponents() {
+        self.userAvatar.isUserInteractionEnabled = true
+        self.userAvatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AKTopOverlayView.viewConfigurations(_:))))
+    }
     
     func applyLookAndFeel() {
         self.pauseRefresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
@@ -63,4 +66,9 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     }
     
     func resetViewDefaults(controller: AKCustomViewController) {}
+    
+    // MARK: Actions
+    func viewConfigurations(_ gesture: UIGestureRecognizer?) {
+        self.controller?.performSegue(withIdentifier: "ViewConfigurationsSegue", sender: self.controller)
+    }
 }

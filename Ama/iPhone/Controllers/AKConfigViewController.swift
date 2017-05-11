@@ -8,9 +8,16 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     }
     
     // MARK: Outlets
+    @IBOutlet weak var back: UIButton!
+    @IBOutlet weak var username: UILabel!
     @IBOutlet weak var infoContainer: UIView!
     @IBOutlet weak var alertNotificationSwitch: UISwitch!
     @IBOutlet weak var alertsTable: UITableView!
+    
+    // MARK: Actions
+    @IBAction func back(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     // MARK: AKCustomViewController Overriding
     override func viewDidLoad() {
@@ -40,19 +47,19 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = UIView(frame: CGRect(x: 8.0, y: 0.0, width: 276.0, height: LocalConstants.AKHeaderHeight))
+        let headerCell = UIView(frame: CGRect(x: 16.0, y: 0.0, width: tableView.frame.width - 16.0, height: LocalConstants.AKHeaderHeight))
         headerCell.backgroundColor = GlobalConstants.AKTableHeaderCellBg
         
         let title = UILabel(frame: headerCell.frame)
-        title.font = UIFont(name: GlobalConstants.AKDefaultFont, size: 20.0)
+        title.font = UIFont(name: GlobalConstants.AKSecondaryFont, size: 18.0)
         title.textColor = GlobalConstants.AKDefaultFg
-        title.text = "Alertas"
+        title.text = "Tus Alertas"
         
         // Custom L&F.
         Func.AKAddBorderDeco(
             headerCell,
             color: GlobalConstants.AKTableHeaderCellBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
+            thickness: GlobalConstants.AKDefaultBorderThickness * 4.0,
             position: CustomBorderDecorationPosition.left
         )
         
@@ -94,6 +101,16 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
     // MARK: Miscellaneous
     func customSetup() {
         self.shouldCheckLoggedUser = true
+        self.loadData = { (controller) -> Void in
+            if let controller = controller as? AKConfigViewController {
+                controller.username.text = Func.AKGetUser().username
+            }
+        }
+        self.configureLookAndFeel = { (controller) -> Void in
+            if let controller = controller as? AKConfigViewController {
+                controller.back.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+            }
+        }
         self.setup()
         
         // Custom Components
