@@ -484,7 +484,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) {
                     for alert in Func.AKGetUser().userDefinedAlerts {
                         controller.mapView.addAnnotation(alert.alertAnnotation)
-                        controller.mapView.selectAnnotation(alert.alertAnnotation, animated: true)
+                        // controller.mapView.selectAnnotation(alert.alertAnnotation, animated: true)
                     }
                 }
                 

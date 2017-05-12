@@ -28,6 +28,7 @@
 		49074A8B1EB14979002FBB64 /* AKProgressOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A7F1EB14979002FBB64 /* AKProgressOverlayView.swift */; };
 		49074A8C1EB14979002FBB64 /* AKTopOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A801EB14979002FBB64 /* AKTopOverlayView.swift */; };
 		49074A8D1EB14979002FBB64 /* AKAlertsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A821EB14979002FBB64 /* AKAlertsTableViewCell.swift */; };
+		4910B8781EC60E100077A224 /* AKAlertName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4910B8771EC60E100077A224 /* AKAlertName.swift */; };
 		491A09A91E305E5A008953AE /* 0011-024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 491A09A81E305E5A008953AE /* 0011-024px.png */; };
 		49223BF61DFF2B1100C8CB61 /* 0005-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF51DFF2B1100C8CB61 /* 0005-030px.png */; };
 		4927E4FE1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4927E4FD1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift */; };
@@ -110,6 +111,7 @@
 		49074A7F1EB14979002FBB64 /* AKProgressOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKProgressOverlayView.swift; sourceTree = "<group>"; };
 		49074A801EB14979002FBB64 /* AKTopOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTopOverlayView.swift; sourceTree = "<group>"; };
 		49074A821EB14979002FBB64 /* AKAlertsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertsTableViewCell.swift; sourceTree = "<group>"; };
+		4910B8771EC60E100077A224 /* AKAlertName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertName.swift; sourceTree = "<group>"; };
 		491A09A81E305E5A008953AE /* 0011-024px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0011-024px.png"; sourceTree = "<group>"; };
 		49223BF51DFF2B1100C8CB61 /* 0005-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0005-030px.png"; sourceTree = "<group>"; };
 		4927E4FD1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertPINInputViewController.swift; sourceTree = "<group>"; };
@@ -200,9 +202,9 @@
 			isa = PBXGroup;
 			children = (
 				49074A5B1EB14950002FBB64 /* AKAlertPINInputView.xib */,
+				49074A611EB14950002FBB64 /* AKLoginView.xib */,
 				49074A5C1EB14950002FBB64 /* AKAnnotationViews */,
 				49074A5F1EB14950002FBB64 /* AKFloatingViews */,
-				49074A611EB14950002FBB64 /* AKLoginView.xib */,
 				49074A621EB14950002FBB64 /* AKOverlays */,
 				49074A671EB14950002FBB64 /* AKTableCells */,
 			);
@@ -249,10 +251,10 @@
 		49074A731EB14979002FBB64 /* AKCustomComponents */ = {
 			isa = PBXGroup;
 			children = (
-				49074A741EB14979002FBB64 /* AKAnnotationViews */,
 				49074A771EB14979002FBB64 /* AKCustomView.swift */,
 				49074A781EB14979002FBB64 /* AKCustomViewController.swift */,
 				49074A791EB14979002FBB64 /* AKCustomViewProtocol.swift */,
+				49074A741EB14979002FBB64 /* AKAnnotationViews */,
 				49074A7A1EB14979002FBB64 /* AKFloatingViews */,
 				49074A7C1EB14979002FBB64 /* AKOverlays */,
 				49074A811EB14979002FBB64 /* AKTableCells */,
@@ -363,6 +365,7 @@
 		49921F2C1EAE924A00899816 /* AKInputData */ = {
 			isa = PBXGroup;
 			children = (
+				4910B8771EC60E100077A224 /* AKAlertName.swift */,
 				49921F2D1EAE924A00899816 /* AKInputData.swift */,
 				49921F2E1EAE924A00899816 /* AKPhoneNumber.swift */,
 				49921F2F1EAE924A00899816 /* AKUsername.swift */,
@@ -693,6 +696,7 @@
 				49074A871EB14979002FBB64 /* AKCustomViewProtocol.swift in Sources */,
 				49921F511EAE924A00899816 /* AKUsername.swift in Sources */,
 				49074A881EB14979002FBB64 /* AKMessageView.swift in Sources */,
+				4910B8781EC60E100077A224 /* AKAlertName.swift in Sources */,
 				49074A8B1EB14979002FBB64 /* AKProgressOverlayView.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
 				49921F501EAE924A00899816 /* AKPhoneNumber.swift in Sources */,

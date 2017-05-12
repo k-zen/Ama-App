@@ -1,10 +1,11 @@
+import MapKit
 import UIKit
 
 class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: Constants
     struct LocalConstants {
-        static let AKHeaderHeight: CGFloat = 40.0
-        static let AKRowHeight: CGFloat = 52.0
+        static let AKHeaderHeight: CGFloat = 34.0
+        static let AKRowHeight: CGFloat = 160.0
     }
     
     // MARK: Outlets
@@ -31,17 +32,27 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         
         let cell = self.alertsTable.dequeueReusableCell(withIdentifier: "Alerts_Table_Cell") as! AKAlertsTableViewCell
         cell.mainContainer.backgroundColor = GlobalConstants.AKTableCellBg
-        cell.titleValue.text = e.alertName
-        cell.radiusValue.text = String(format: "%.1fkm", e.alertRadius)
+        cell.titleValue.text = String(format: "%@ @ %.1fkm(s) de Radio", e.alertName, e.alertRadius)
+        // Configure map.
+        cell.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        cell.mapView.userTrackingMode = MKUserTrackingMode.none
+        cell.mapView.isUserInteractionEnabled = false
+        
+        // Load all user defined alerts.
+        Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) {
+            cell.mapView.addAnnotation(e.alertAnnotation)
+        }
+        
+        Func.AKCenterMapOnLocation(
+            mapView: cell.mapView,
+            location: e.alertAnnotation.location,
+            zoomLevel: ZoomLevel.L09
+        )
         
         // Custom L&F.
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        Func.AKAddBorderDeco(
-            cell,
-            color: GlobalConstants.AKTableCellBorderBg.cgColor,
-            thickness: GlobalConstants.AKDefaultBorderThickness,
-            position: CustomBorderDecorationPosition.left
-        )
+        cell.mapView.layer.cornerRadius = GlobalConstants.AKViewCornerRadius
+        cell.mapView.layer.masksToBounds = true
         
         return cell
     }
@@ -103,7 +114,7 @@ class AKConfigViewController: AKCustomViewController, UITableViewDataSource, UIT
         self.shouldCheckLoggedUser = true
         self.loadData = { (controller) -> Void in
             if let controller = controller as? AKConfigViewController {
-                controller.username.text = Func.AKGetUser().username
+                controller.username.text = Func.AKGetUser().username.capitalized
             }
         }
         self.configureLookAndFeel = { (controller) -> Void in

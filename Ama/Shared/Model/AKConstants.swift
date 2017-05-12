@@ -98,6 +98,8 @@ struct GlobalConstants {
     static let AKMinUsernameLength = 3
     static let AKMaxPhoneNumberLength = 8
     static let AKMinPhoneNumberLength = 8
+    static let AKMaxAlertNameLength = 20
+    static let AKMinAlertNameLength = 3
     static let AKDefaultZoomLevel = ZoomLevel.L06
     static let AKDIMOverlayAlpha = 0.60
     static let AKAmaServerAddress = "http://190.128.205.74:8102"
@@ -164,6 +166,10 @@ enum ZoomLevel: Double {
     case L09 = 10.0
     /// 01Km
     case L10 = 1.0
+    /// 0.6Km
+    case L11 = 0.6
+    /// 0.4Km
+    case L12 = 0.4
 }
 
 enum UnitOfLength: Int {

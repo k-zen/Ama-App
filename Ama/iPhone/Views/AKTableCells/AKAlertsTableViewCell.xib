@@ -5,54 +5,49 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="56" id="LQ1-JN-uqn" userLabel="Alerts_Table_View_Cell" customClass="AKAlertsTableViewCell" customModule="Ama" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="160" id="LQ1-JN-uqn" userLabel="Alerts_Table_View_Cell" customClass="AKAlertsTableViewCell" customModule="Ama" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LQ1-JN-uqn" id="fPE-SM-qRh" userLabel="Main_Container">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="51.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="159.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ptn-2q-xEM" userLabel="Info_Container">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7u-Ni-Ewk" userLabel="Title_Value">
-                                <rect key="frame" x="8" y="2" width="304" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="En un radio de:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5T-DH-Qqy" userLabel="Radius">
-                                <rect key="frame" x="8" y="26" width="92" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.0km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5X0-Z5-c11" userLabel="Radius_Value">
-                                <rect key="frame" x="108" y="26" width="204" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title @ 0.0km de radio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7u-Ni-Ewk" userLabel="Title_Value">
+                        <rect key="frame" x="8" y="8" width="304" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="5eI-ye-3zl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YAq-jC-CN9">
+                        <rect key="frame" x="8" y="38" width="304" height="114"/>
+                    </mapView>
                 </subviews>
                 <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="YAq-jC-CN9" secondAttribute="bottom" constant="8" id="EfO-HR-7sz"/>
+                    <constraint firstItem="h7u-Ni-Ewk" firstAttribute="leading" secondItem="fPE-SM-qRh" secondAttribute="leadingMargin" id="TTm-9A-VI9"/>
+                    <constraint firstAttribute="trailing" secondItem="YAq-jC-CN9" secondAttribute="trailing" constant="8" id="emM-13-s3j"/>
+                    <constraint firstItem="YAq-jC-CN9" firstAttribute="leading" secondItem="fPE-SM-qRh" secondAttribute="leading" constant="8" id="f2T-PZ-igL"/>
+                    <constraint firstItem="h7u-Ni-Ewk" firstAttribute="trailing" secondItem="fPE-SM-qRh" secondAttribute="trailingMargin" id="kTs-L8-dVc"/>
+                    <constraint firstItem="YAq-jC-CN9" firstAttribute="top" secondItem="h7u-Ni-Ewk" secondAttribute="bottom" constant="8" id="vVt-13-jZf"/>
+                    <constraint firstItem="h7u-Ni-Ewk" firstAttribute="top" secondItem="fPE-SM-qRh" secondAttribute="topMargin" id="zYS-e1-ufe"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="mainContainer" destination="fPE-SM-qRh" id="ADB-A3-gBy"/>
-                <outlet property="radiusValue" destination="5X0-Z5-c11" id="ivA-9P-rpI"/>
+                <outlet property="mapView" destination="YAq-jC-CN9" id="b1P-s2-cFK"/>
                 <outlet property="titleValue" destination="h7u-Ni-Ewk" id="0ms-vm-3Jj"/>
             </connections>
-            <point key="canvasLocation" x="479" y="337"/>
+            <point key="canvasLocation" x="479" y="391"/>
         </tableViewCell>
     </objects>
 </document>

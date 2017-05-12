@@ -1,6 +1,11 @@
 import UIKit
 
-class AKAlertPINInputViewController: AKCustomViewController {
+class AKAlertPINInputViewController: AKCustomViewController, UITextFieldDelegate {
+    // MARK: Local Enums
+    enum LocalTextField: Int {
+        case alertName = 1
+    }
+    
     // MARK: Outlets
     @IBOutlet weak var controlsContainer: UIView!
     @IBOutlet weak var mainTitle: UILabel!
@@ -12,7 +17,21 @@ class AKAlertPINInputViewController: AKCustomViewController {
     @IBOutlet weak var discard: UIButton!
     
     // MARK: Actions
+    @IBAction func radioValueChanged(_ sender: Any) {
+        // TODO
+    }
+    
     @IBAction func save(_ sender: Any) {
+        let alertName = AKAlertName(inputData: self.nameValue.text!)
+        do {
+            try alertName.validate()
+            try alertName.process()
+        }
+        catch {
+            Func.AKPresentMessageFromError(controller: self, message: "\(error)")
+            return
+        }
+        
         self.dismissView(executeDismissTask: true)
     }
     
@@ -24,6 +43,33 @@ class AKAlertPINInputViewController: AKCustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customSetup()
+    }
+    
+    // MARK: UITextFieldDelegate Implementation
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if range.length + range.location > (textField.text?.characters.count)! {
+            return false
+        }
+        
+        let newLen = (textField.text?.characters.count)! + string.characters.count - range.length
+        
+        switch textField.tag {
+        case LocalTextField.alertName.rawValue:
+            return newLen > GlobalConstants.AKMaxAlertNameLength ? false : true
+        default:
+            return newLen > GlobalConstants.AKMaxAlertNameLength ? false : true
+        }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        Func.AKAddDoneButtonKeyboard(textField, controller: self)
+        self.currentEditableComponent = textField
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        self.currentEditableComponent = nil
+        return true
     }
     
     // MARK: Miscellaneous
@@ -39,5 +85,9 @@ class AKAlertPINInputViewController: AKCustomViewController {
             }
         }
         self.setup()
+        
+        // Delegates
+        self.nameValue.delegate = self
+        self.nameValue.tag = LocalTextField.alertName.rawValue
     }
 }
