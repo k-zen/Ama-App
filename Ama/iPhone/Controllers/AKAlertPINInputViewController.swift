@@ -12,13 +12,13 @@ class AKAlertPINInputViewController: AKCustomViewController, UITextFieldDelegate
     @IBOutlet weak var nameValue: UITextField!
     @IBOutlet weak var radio: UILabel!
     @IBOutlet weak var radioValue: UILabel!
-    @IBOutlet weak var radioSlider: UISlider!
+    @IBOutlet weak var radioStepper: UIStepper!
     @IBOutlet weak var save: UIButton!
     @IBOutlet weak var discard: UIButton!
     
     // MARK: Actions
-    @IBAction func radioValueChanged(_ sender: Any) {
-        // TODO
+    @IBAction func radioChanged(_ sender: UIStepper) {
+        self.radioValue.text = String(format: "%i", Int(sender.value))
     }
     
     @IBAction func save(_ sender: Any) {
@@ -78,8 +78,8 @@ class AKAlertPINInputViewController: AKCustomViewController, UITextFieldDelegate
             if let controller = controller as? AKAlertPINInputViewController {
                 controller.controlsContainer.layer.cornerRadius = GlobalConstants.AKViewCornerRadius
                 controller.controlsContainer.layer.masksToBounds = true
-                controller.radio.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-                controller.radio.layer.masksToBounds = true
+                controller.radioValue.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
+                controller.radioValue.layer.masksToBounds = true
                 controller.save.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
                 controller.discard.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
             }

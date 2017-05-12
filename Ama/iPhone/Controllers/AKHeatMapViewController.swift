@@ -449,7 +449,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                                             if let presenterController = presenterController as? AKHeatMapViewController, let presentedController = presentedController as? AKAlertPINInputViewController {
                                                 let id = UUID().uuidString
                                                 let name = presentedController.nameValue.text ?? "Sin Nombre"
-                                                let radius = presentedController.radioSlider.value * 10.0
+                                                let radius = presentedController.radioStepper.value
                                                 let title = name
                                                 let subtitle = String(format: "Radio de : %.1fkm", radius)
                                                 
@@ -480,11 +480,13 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 controller.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 controller.mapView.userTrackingMode = MKUserTrackingMode.none
                 
+                // Clear all annotations.
+                self.mapView.removeAnnotations(self.mapView.annotations)
+                
                 // Load all user defined alerts.
-                Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) {
+                Func.AKExecute(mode: .asyncMain, timeDelay: 1.0) {
                     for alert in Func.AKGetUser().userDefinedAlerts {
                         controller.mapView.addAnnotation(alert.alertAnnotation)
-                        // controller.mapView.selectAnnotation(alert.alertAnnotation, animated: true)
                     }
                 }
                 
