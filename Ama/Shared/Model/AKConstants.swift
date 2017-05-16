@@ -2,6 +2,7 @@ import CoreLocation
 import Foundation
 import MapKit
 import UIKit
+import UserNotifications
 
 // MARK: Typealias
 typealias JSONObject = [String : Any]
@@ -412,6 +413,8 @@ class GlobalFunctions {
             return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
         }
     }
+    
+    func AKGetNotificationCenter() -> UNUserNotificationCenter { return Func.AKDelegate().notificationCenter }
     
     func AKGetUser() -> User { return Func.AKObtainMasterFile().user }
     

@@ -1,10 +1,12 @@
 import CoreLocation
 import Foundation
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
-class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate {
     // MARK: Properties
+    let notificationCenter = UNUserNotificationCenter.current()
     let locationManager = CLLocationManager()
     var masterFile = AKMasterFile()
     var window: UIWindow?
@@ -80,6 +82,10 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
             NSLog("=> LOCATION NOT AVAILABLE.")
         }
         
+        // Manage Notifications.
+        self.notificationCenter.delegate = self
+        application.registerForRemoteNotifications()
+        
         // Start heading updates.
         if CLLocationManager.headingAvailable() {
             self.locationManager.headingFilter = 5
@@ -128,5 +134,21 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     
     func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
         NSLog("=> LOCATION SERVICES HAS RESUMED.")
+    }
+    
+    // MARK: UNUserNotificationCenterDelegate Implementation
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert,.sound])
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Func.AKGetUser().apnsToken = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        NSLog("=> ERROR: \(error)")
     }
 }

@@ -6,6 +6,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Flags
     var shouldCheckLoggedUser: Bool = false
     var inhibitLocationServiceMessage: Bool = true
+    var inhibitNotificationMessage: Bool = true
     var shouldAddBlurView: Bool = false
     var inhibitTapGesture: Bool = false
     var inhibitLongPressGesture: Bool = true
@@ -41,6 +42,9 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
         // Checks
         if !self.inhibitLocationServiceMessage {
             self.manageAccessToLocationServices()
+        }
+        if !self.inhibitNotificationMessage {
+            self.manageGrantToNotifications()
         }
         if self.shouldCheckLoggedUser && !Func.AKGetUser().isRegistered {
             self.presentView(controller: AKLoginViewController(nibName: "AKLoginView", bundle: nil),
@@ -213,18 +217,39 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
             
             let alertController = UIAlertController(
                 title: "Acceso a Ubicación Deshabilitado",
-                message: "La App necesita acceso a su ubicación para brindar pronósticos personalizados. Habilítelo en \"Configuraciones\".",
+                message: "La App necesita acceso a su ubicación para brindar pronósticos personalizados. Habilítelo en Configuraciones.",
                 preferredStyle: .alert
             )
             alertController.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in }))
             alertController.addAction(UIAlertAction(title: "Abrir Configuraciones", style: .default) { (action) in
                 if let url = URL(string:UIApplicationOpenSettingsURLString) {
-                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () in UIApplication.shared.openURL(url) }
+                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () in UIApplication.shared.open(url, options: [:], completionHandler: nil) }
                 }})
             self.present(alertController, animated: true, completion: nil)
             break
         default:
             break
+        }
+    }
+    
+    func manageGrantToNotifications() {
+        Func.AKGetNotificationCenter().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            if !granted {
+                let alertController = UIAlertController(
+                    title: "Acceso a Notificaciones Deshabilitado",
+                    message: "Ama necesita permiso para enviarte notificaciones. Habilítelo en Configuraciones.",
+                    preferredStyle: .alert
+                )
+                alertController.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in }))
+                alertController.addAction(UIAlertAction(title: "Abrir Configuraciones", style: .default) { (action) in
+                    if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () in UIApplication.shared.open(url, options: [:], completionHandler: nil) }
+                    }})
+                self.present(alertController, animated: true, completion: nil)
+            }
+            else {
+                NSLog("=> INFO: USER HAS AUTHORIZED NOTIFICATIONS.")
+            }
         }
     }
     

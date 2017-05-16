@@ -428,6 +428,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
     func customSetup() {
         self.shouldCheckLoggedUser = true
         self.inhibitLocationServiceMessage = false
+        self.inhibitNotificationMessage = false
         self.inhibitTapGesture = true
         self.inhibitLongPressGesture = false
         self.additionalOperationsWhenLongPressed = { (controller, gesture) -> Void in
