@@ -101,7 +101,7 @@ struct GlobalConstants {
     static let AKMinPhoneNumberLength = 8
     static let AKMaxAlertNameLength = 20
     static let AKMinAlertNameLength = 3
-    static let AKDefaultZoomLevel = ZoomLevel.L06
+    static let AKDefaultZoomLevel = ZoomLevel.L01
     static let AKDIMOverlayAlpha = 0.60
     static let AKAmaServerAddress = "http://190.128.205.74:8102"
     static let AKDMHServerAddress = "http://190.128.205.78:8080/api/get_all/183"
@@ -134,42 +134,36 @@ enum Exceptions: Error {
 }
 
 enum HeatMapColor: UInt {
-    case C01 = 0x118CF3
-    case C02 = 0x0000F3
-    case C03 = 0x22FF06
-    case C04 = 0x19C204
-    case C05 = 0x118102
-    case C06 = 0xFFFF0B
-    case C07 = 0xE0B508
-    case C08 = 0xFD7C08
-    case C09 = 0xFB0007
-    case C10 = 0xCA0005
+    case C01 = 0x00ECEC
+    case C02 = 0x01A0F6
+    case C03 = 0x0000F6
+    case C04 = 0x00FF00
+    case C05 = 0x00C800
+    case C06 = 0x009000
+    case C07 = 0xFFFF00
+    case C08 = 0xE7C000
+    case C09 = 0xFF9000
+    case C10 = 0xFF0000
+    case C11 = 0xD60000
+    case C12 = 0xC00000
+    case C13 = 0xFF00FF
+    case C14 = 0x9955C9
+    case C15 = 0xFFFFFF
 }
 
+/// Km
 enum ZoomLevel: Double {
-    /// 90Km
-    case L01 = 90.0
-    /// 80Km
+    case L01 = 180.0
     case L02 = 80.0
-    /// 70Km
     case L03 = 70.0
-    /// 60Km
     case L04 = 60.0
-    /// 50Km
     case L05 = 50.0
-    /// 40Km
     case L06 = 40.0
-    /// 30Km
     case L07 = 30.0
-    /// 20Km
     case L08 = 20.0
-    /// 10Km
     case L09 = 10.0
-    /// 01Km
     case L10 = 1.0
-    /// 0.6Km
     case L11 = 0.6
-    /// 0.4Km
     case L12 = 0.4
 }
 
@@ -389,26 +383,36 @@ class GlobalFunctions {
     
     func AKGetInfoForRainfallIntensity(ri: RainIntensity) -> AKRainfallIntensityColor {
         switch ri {
-        case 0.0 ..< 25.0:
+        case 5.00 ..< 10.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.50)
-        case 25.0 ..< 50.0:
+        case 10.0 ..< 15.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), alpha: 0.50)
-        case 50.0 ..< 75.0:
+        case 15.0 ..< 20.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), alpha: 0.50)
-        case 75.0 ..< 100.0:
+        case 20.0 ..< 25.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C04.rawValue), alpha: 0.50)
-        case 100.0 ..< 125.0:
+        case 25.0 ..< 30.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C05.rawValue), alpha: 0.50)
-        case 125.0 ..< 150.0:
+        case 30.0 ..< 35.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C06.rawValue), alpha: 0.50)
-        case 150.0 ..< 175.0:
+        case 35.0 ..< 40.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C07.rawValue), alpha: 0.50)
-        case 175.0 ..< 200.0:
+        case 40.0 ..< 45.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), alpha: 0.50)
-        case 200.0 ..< 225.0:
+        case 45.0 ..< 50.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), alpha: 0.50)
-        case 225.0 ..< RainIntensity.greatestFiniteMagnitude:
+        case 50.0 ..< 55.0:
             return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), alpha: 0.50)
+        case 55.0 ..< 60.0:
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), alpha: 0.50)
+        case 60.0 ..< 65.0:
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), alpha: 0.50)
+        case 65.0 ..< 70.0:
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C13.rawValue), alpha: 0.50)
+        case 70.0 ..< 75.0:
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C14.rawValue), alpha: 0.50)
+        case 75.0 ..< 80.0:
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C15.rawValue), alpha: 0.50)
         default:
             return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
         }

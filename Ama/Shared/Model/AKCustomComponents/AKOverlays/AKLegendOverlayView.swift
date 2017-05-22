@@ -3,8 +3,8 @@ import UIKit
 class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
-        static let AKViewWidth: CGFloat = 49.0
-        static let AKViewHeight: CGFloat = 274.0
+        static let AKViewWidth: CGFloat = 68.0
+        static let AKViewHeight: CGFloat = 312.0
     }
     
     // MARK: Outlets
@@ -18,6 +18,11 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
     @IBOutlet weak var img08: UIImageView!
     @IBOutlet weak var img09: UIImageView!
     @IBOutlet weak var img10: UIImageView!
+    @IBOutlet weak var img11: UIImageView!
+    @IBOutlet weak var img12: UIImageView!
+    @IBOutlet weak var img13: UIImageView!
+    @IBOutlet weak var img14: UIImageView!
+    @IBOutlet weak var img15: UIImageView!
     
     // MARK: UIView Overriding
     convenience init() { self.init(frame: CGRect.zero) }
@@ -42,6 +47,11 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
         self.img08.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), frame: frame)
         self.img09.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), frame: frame)
         self.img10.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
+        self.img11.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), frame: frame)
+        self.img12.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), frame: frame)
+        self.img13.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C13.rawValue), frame: frame)
+        self.img14.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C14.rawValue), frame: frame)
+        self.img15.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C15.rawValue), frame: frame)
     }
     
     func applyLookAndFeel() {}

@@ -7,6 +7,7 @@ import UIKit
 class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
     // MARK: Properties
     // Flags
+    let addRadarOverlay = true
     let addUserPin = true
     // Overlay Controllers
     let bottomOverlay = AKBottomOverlayView()
@@ -18,6 +19,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
     var userAnnotation: AKUserAnnotation?
     // Custom Annotation Views
     var userAnnotationView: AKUserAnnotationView?
+    // Custom Overlays
+    var radarOverlay: AKRadarSpanOverlay?
     // Timers
     var refreshTimer: Timer?
     // Misc
@@ -329,6 +332,16 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
             let ol = overlay as! AKRainOverlay
             return AKRainOverlayRenderer(overlay: overlay, rainfallPoints: ol.rainfallPoints as! [AKRainfallPoint])
         }
+        else if overlay.isKind(of: AKRadarSpanOverlay.self) {
+            let ol = overlay as! AKRadarSpanOverlay
+            let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
+            customView.fillColor = .black
+            customView.alpha = 0.250
+            customView.strokeColor = .black
+            customView.lineWidth = 1.0
+            
+            return customView
+        }
         else {
             return MKOverlayRenderer(overlay: overlay)
         }
@@ -482,7 +495,13 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 controller.mapView.userTrackingMode = MKUserTrackingMode.none
                 
                 // Clear all annotations.
-                self.mapView.removeAnnotations(self.mapView.annotations)
+                controller.mapView.removeAnnotations(controller.mapView.annotations)
+                
+                if controller.addRadarOverlay {
+                    controller.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(77000))
+                    controller.radarOverlay?.title = "Cobertura Radar"
+                    controller.mapView.add(controller.radarOverlay!, level: MKOverlayLevel.aboveLabels)
+                }
                 
                 // Load all user defined alerts.
                 Func.AKExecute(mode: .asyncMain, timeDelay: 1.0) {
@@ -513,7 +532,12 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
     func clearMap() {
         if self.mapView.overlays.count > 0 {
             let overlaysToRemove = self.mapView.overlays.filter({ (overlay) -> Bool in
-                return true
+                if overlay.isKind(of: AKRadarSpanOverlay.self) {
+                    return false
+                }
+                else {
+                    return true
+                }
             })
             self.mapView.removeOverlays(overlaysToRemove)
         }
@@ -570,7 +594,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
             container: self.mapView,
             coordinates: CGPoint(
                 x: 0.0,
-                y: (self.mapView.bounds.height / 2.0) - (AKLegendOverlayView.LocalConstants.AKViewHeight / 2.0)
+                y: (self.mapView.bounds.height / 2.0) - (AKLegendOverlayView.LocalConstants.AKViewHeight / 2.0) - 11.0
             ),
             size: CGSize.zero
         )
