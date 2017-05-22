@@ -497,7 +497,8 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 // Clear all annotations.
                 controller.mapView.removeAnnotations(controller.mapView.annotations)
                 
-                if controller.addRadarOverlay {
+                // Add Radar overlay.
+                if controller.addRadarOverlay && controller.radarOverlay == nil {
                     controller.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(77000))
                     controller.radarOverlay?.title = "Cobertura Radar"
                     controller.mapView.add(controller.radarOverlay!, level: MKOverlayLevel.aboveLabels)
