@@ -384,35 +384,35 @@ class GlobalFunctions {
     func AKGetInfoForRainfallIntensity(ri: RainIntensity) -> AKRainfallIntensityColor {
         switch ri {
         case 5.00 ..< 10.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
         case 10.0 ..< 15.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
         case 15.0 ..< 20.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
         case 20.0 ..< 25.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C04.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
         case 25.0 ..< 30.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C05.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
         case 30.0 ..< 35.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C06.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
         case 35.0 ..< 40.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C07.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
         case 40.0 ..< 45.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
         case 45.0 ..< 50.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
         case 50.0 ..< 55.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
         case 55.0 ..< 60.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), alpha: 1.00)
         case 60.0 ..< 65.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), alpha: 1.00)
         case 65.0 ..< 70.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C13.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C13.rawValue), alpha: 1.00)
         case 70.0 ..< 75.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C14.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C14.rawValue), alpha: 1.00)
         case 75.0 ..< 80.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C15.rawValue), alpha: 0.50)
+            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C15.rawValue), alpha: 1.00)
         default:
             return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
         }
@@ -497,6 +497,7 @@ class GlobalFunctions {
     }
     
     func AKZoomScaleConvert(zoomScale: MKZoomScale, debug: Bool) -> Int {
+        if debug { NSLog("=> INFO: WORLD MAP SIZE: %f:%f", MKMapSizeWorld.width, MKMapSizeWorld.height) }
         let maxZoom: Int = Int(log2(MKMapSizeWorld.width / 256.0))
         if debug { NSLog("=> INFO: MAX ZOOM: %i", maxZoom) }
         let currZoom: Int = Int(log2f(Float(zoomScale)))

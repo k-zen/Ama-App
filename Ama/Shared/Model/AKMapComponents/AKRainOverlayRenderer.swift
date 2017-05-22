@@ -19,11 +19,12 @@ class AKRainOverlayRenderer: MKOverlayRenderer {
         let tileRect = self.rect(for: mapRect)
         let zoomLevel = Func.AKZoomScaleConvert(zoomScale: zoomScale, debug: false)
         
-        // Mark map rectangle tiles.
+        // Paint Map's grid.
+        context.setStrokeColor(Func.AKHexColor(0x222222).cgColor)
+        context.stroke(tileRect, width: CGFloat(1.5 / zoomScale))
+        
+        // Fill map rectangle tiles.
         if self.debug {
-            context.setStrokeColor(Func.AKHexColor(0x222222).cgColor);
-            context.stroke(tileRect, width: CGFloat(5000 / zoomLevel))
-            
             let reducedTile = MKMapRectInset(mapRect, GlobalConstants.AKMapTileTolerance.x, GlobalConstants.AKMapTileTolerance.y)
             context.setFillColor(UIColor.green.cgColor)
             context.setAlpha(0.25)

@@ -336,7 +336,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
             let ol = overlay as! AKRadarSpanOverlay
             let customView = MKCircleRenderer(circle: MKCircle(center: ol.coordinate, radius: ol.radius))
             customView.fillColor = .black
-            customView.alpha = 0.250
+            customView.alpha = 0.350
             customView.strokeColor = .black
             customView.lineWidth = 1.0
             
@@ -501,7 +501,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 if controller.addRadarOverlay && controller.radarOverlay == nil {
                     controller.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(77000))
                     controller.radarOverlay?.title = "Cobertura Radar"
-                    controller.mapView.add(controller.radarOverlay!, level: MKOverlayLevel.aboveLabels)
+                    controller.mapView.add(controller.radarOverlay!, level: MKOverlayLevel.aboveRoads)
                 }
                 
                 // Load all user defined alerts.
