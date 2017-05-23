@@ -47,12 +47,12 @@ class AKRainOverlayRenderer: MKOverlayRenderer {
                 context.setFillColor(chars.color.cgColor)
                 context.setAlpha(CGFloat(chars.alpha))
                 context.setBlendMode(CGBlendMode.normal)
-                context.fill(raindropPointRect)
-                context.setStrokeColor(chars.color.cgColor)
-                context.setAlpha(CGFloat(1.0))
-                context.setLineWidth(100.0)
-                context.setBlendMode(CGBlendMode.colorBurn)
-                context.stroke(raindropPointRect)
+                context.fillEllipse(in: raindropPointRect)
+                // context.setStrokeColor(chars.color.cgColor)
+                // context.setAlpha(CGFloat(1.0))
+                // context.setLineWidth(100.0)
+                // context.setBlendMode(CGBlendMode.colorBurn)
+                // context.strokeEllipse(in: raindropPointRect)
             }
         }
         
