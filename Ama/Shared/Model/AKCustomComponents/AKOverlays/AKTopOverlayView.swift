@@ -12,7 +12,7 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     @IBOutlet weak var userAvatar: UILabel!
     @IBOutlet weak var alertValue: UILabel!
     @IBOutlet weak var pauseRefresh: UIButton!
-    @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var lastUpdate: UILabel!
     
     // MARK: Actions
     @IBAction func pauseRefresh(_ sender: Any) {

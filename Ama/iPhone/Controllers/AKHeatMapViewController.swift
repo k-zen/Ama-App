@@ -8,7 +8,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
     // MARK: Properties
     // Flags
     let addRadarOverlay = true
-    let addUserPin = true
+    let addUserPin = false
     // Overlay Controllers
     let bottomOverlay = AKBottomOverlayView()
     let layersOverlay = AKLayersOverlayView()
@@ -59,7 +59,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 }
                 
                 if let dictionary = json as? JSONObject {
-                    if let array = dictionary["arrayDatos"] as? JSONObjectArray {
+                    if let array = dictionary["arrayDatos"] as? JSONObjectArray, let date = dictionary["fecha"] as? String {
                         for element in array {
                             if let e = element as? JSONObject {
                                 let intensity = e["intensidad"] as? RainIntensity ?? GlobalConstants.AKInvalidIntensity
@@ -80,6 +80,10 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                         
                         Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
                             controller.mapView.add(AKRainOverlay(rainfallPoints: rainfallPoints), level: MKOverlayLevel.aboveRoads)
+                            controller.topOverlay.lastUpdate.text = String(
+                                format: "Última actualización del radar: %@",
+                                Func.AKGetFormattedDate(date: Func.AKGetDateFromString(dateAsString: date))
+                            )
                             progress?.setProgress(1.0, animated: true)
                         }
                     }
@@ -174,42 +178,6 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 completion: nil
             )
         }
-        
-        // Update the user's current location's information. Street, City, etc.
-        Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) {
-            CLGeocoder().reverseGeocodeLocation(
-                CLLocation(
-                    latitude: Func.AKDelegate().currentPosition?.latitude ?? kCLLocationCoordinate2DInvalid.latitude,
-                    longitude: Func.AKDelegate().currentPosition?.longitude ?? kCLLocationCoordinate2DInvalid.longitude
-                ),
-                completionHandler: { (placemarks, error) in
-                    if error == nil {
-                        if let p = placemarks {
-                            if p.count > 0 {
-                                UIView.transition(
-                                    with: controller.topOverlay.location,
-                                    duration: 1.00,
-                                    options: [UIViewAnimationOptions.transitionCrossDissolve],
-                                    animations: {
-                                        if let lines: Array<String> = p[0].addressDictionary?["FormattedAddressLines"] as? Array<String> {
-                                            let placeString = lines.joined(separator: ", ")
-                                            controller.topOverlay.location.text = String(
-                                                format: "%@", placeString
-                                            )
-                                        }
-                                        else {
-                                            controller.topOverlay.location.text = String(
-                                                format: "%@, %@", p[0].locality ?? "---", p[0].country ?? "---"
-                                            )
-                                        } },
-                                    completion: nil
-                                )
-                            }
-                        }
-                    } }
-            )
-        }
-        // ###### UPDATE LABELS FOR *TopOverlay*.
         
         // ###### UPDATE LABELS FOR *BottomOverlay*.
         // Update the *Forecast*, *Temperature*, *Humidity* and *Wind*.
@@ -499,7 +467,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
                 
                 // Add Radar overlay.
                 if controller.addRadarOverlay && controller.radarOverlay == nil {
-                    controller.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(77000))
+                    controller.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(250000))
                     controller.radarOverlay?.title = "Cobertura Radar"
                     controller.mapView.add(controller.radarOverlay!, level: MKOverlayLevel.aboveRoads)
                 }
@@ -604,7 +572,7 @@ class AKHeatMapViewController: AKCustomViewController, MKMapViewDelegate {
         self.progressOverlay.setup()
         self.progressOverlay.draw(
             container: self.mapView,
-            coordinates: CGPoint(x: 0.0, y: AKTopOverlayView.LocalConstants.AKViewHeight + 1.0),
+            coordinates: CGPoint(x: 0.0, y: AKTopOverlayView.LocalConstants.AKViewHeight),
             size: CGSize(width: self.view.bounds.width, height: 0.0)
         )
         

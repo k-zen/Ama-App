@@ -87,7 +87,7 @@ struct GlobalConstants {
     static let AKLatitudeDegreeInKilometers = 111.0 // http://gis.stackexchange.com/questions/142326/calculating-longitude-length-in-miles
     static let AKPYBoundsPointA = GeoCoordinate(latitude: -19.207429, longitude: -63.413086)
     static let AKPYBoundsPointB = GeoCoordinate(latitude: -27.722436, longitude: -52.778320)
-    static let AKRaindropSize: Double = 100.0 // This is the square side length in meters.
+    static let AKRaindropSize: Double = 1500.0 // This is the square side length in meters.
     static let AKMapTileTolerance: MKMapPoint = MKMapPointMake(5000.0, 5000.0)
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
     static let AKRadarOrigin = GeoCoordinate(latitude: GlobalConstants.AKRadarLatitude, longitude: GlobalConstants.AKRadarLongitude)
@@ -151,9 +151,8 @@ enum HeatMapColor: UInt {
     case C15 = 0xFFFFFF
 }
 
-/// Km
 enum ZoomLevel: Double {
-    case L01 = 180.0
+    case L01 = 400.0
     case L02 = 80.0
     case L03 = 70.0
     case L04 = 60.0
@@ -379,6 +378,40 @@ class GlobalFunctions {
                 .asyncAfter(deadline: DispatchTime.now() + Double(Int64(timeDelay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: code)
             break
         }
+    }
+    
+    func AKGetDateFromString(dateAsString: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:s.SSS'Z'"
+        formatter.timeZone = TimeZone(identifier: "GMT")
+        
+        return formatter.date(from: dateAsString) ?? Date()
+    }
+    
+    func AKGetFormattedDate(date: Date?) -> String {
+        if let date = date {
+            let now = Date()
+            let nowDateComponents = Calendar.current.dateComponents([.day, .month, .year], from: now)
+            let d1 = nowDateComponents.day ?? 0
+            let m1 = nowDateComponents.month ?? 0
+            let y1 = nowDateComponents.year ?? 0
+            
+            let day = Calendar.current.dateComponents([.day], from: date).day ?? 0
+            let month = Calendar.current.dateComponents([.month], from: date).month ?? 0
+            let year = Calendar.current.dateComponents([.year], from: date).year ?? 0
+            let hour = Calendar.current.dateComponents([.hour], from: date).hour ?? 0
+            let minute = Calendar.current.dateComponents([.minute], from: date).minute ?? 0
+            let second = Calendar.current.dateComponents([.second], from: date).second ?? 0
+            
+            if day == d1 && month == m1 && year == y1 {
+                return String(format: "Hoy %.2i:%.2i:%.2i", hour, minute, second)
+            }
+            else {
+                return String(format: "%.2i/%.2i/%.4i %.2i:%.2i:%.2i", day, month, year, hour, minute, second)
+            }
+        }
+        
+        return "---"
     }
     
     func AKGetInfoForRainfallIntensity(ri: RainIntensity) -> AKRainfallIntensityColor {
