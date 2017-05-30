@@ -83,6 +83,9 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
                             if notify {
                                 controller.topOverlay.stormCluster.backgroundColor = Func.AKHexColor(0xCC241D)
                             }
+                            else {
+                                controller.topOverlay.stormCluster.backgroundColor = UIColor.clear
+                            }
                             progress?.setProgress(1.0, animated: true)
                         }
                     }
@@ -404,7 +407,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
             container: self.mapView,
             coordinates: CGPoint(
                 x: 0.0,
-                y: (self.mapView.bounds.height / 2.0) - (AKLegendOverlayView.LocalConstants.AKViewHeight / 2.0) - 11.0
+                y: (self.mapView.bounds.height / 2.0) - (AKLegendOverlayView.LocalConstants.AKViewHeight / 2.0) - 10.0
             ),
             size: CGSize.zero
         )

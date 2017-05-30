@@ -37,11 +37,6 @@ class AKDBZOverlayRenderer: MKOverlayRenderer {
         }
         
         for point in self.dBZPoints {
-            // Filters.
-            if point.intensity < 20.0 {
-                continue
-            }
-            
             // Draw only the dBZ points that are inside the map rectangle with tolerance.
             let tileTolerance = MKMapRectInset(mapRect, -GlobalConstants.AKMapTileTolerance.x, -GlobalConstants.AKMapTileTolerance.y)
             if MKMapRectContainsRect(tileTolerance, point.mapRect) {

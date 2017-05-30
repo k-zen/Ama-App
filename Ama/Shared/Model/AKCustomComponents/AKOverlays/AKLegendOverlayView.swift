@@ -4,7 +4,7 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
         static let AKViewWidth: CGFloat = 68.0
-        static let AKViewHeight: CGFloat = 312.0
+        static let AKViewHeight: CGFloat = 258.0
     }
     
     // MARK: Outlets
@@ -20,9 +20,6 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
     @IBOutlet weak var img10: UIImageView!
     @IBOutlet weak var img11: UIImageView!
     @IBOutlet weak var img12: UIImageView!
-    @IBOutlet weak var img13: UIImageView!
-    @IBOutlet weak var img14: UIImageView!
-    @IBOutlet weak var img15: UIImageView!
     
     // MARK: UIView Overriding
     convenience init() { self.init(frame: CGRect.zero) }
@@ -36,7 +33,7 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
     }
     
     func loadComponents() {
-        let frame = CGRect(x: 0.0, y: 0.0, width: 24.0, height: 24.0)
+        let frame = CGRect(x: 0.0, y: 0.0, width: 24.0, height: 18.0)
         self.img01.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), frame: frame)
         self.img02.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), frame: frame)
         self.img03.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), frame: frame)
@@ -49,9 +46,6 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
         self.img10.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), frame: frame)
         self.img11.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), frame: frame)
         self.img12.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), frame: frame)
-        self.img13.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C13.rawValue), frame: frame)
-        self.img14.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C14.rawValue), frame: frame)
-        self.img15.image = UIImage.fromColor(color: Func.AKHexColor(HeatMapColor.C15.rawValue), frame: frame)
     }
     
     func applyLookAndFeel() {}

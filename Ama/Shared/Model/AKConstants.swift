@@ -120,21 +120,21 @@ enum Exceptions: Error {
 }
 
 enum HeatMapColor: UInt {
-    case C01 = 0x00ECEC
-    case C02 = 0x01A0F6
-    case C03 = 0x0000F6
-    case C04 = 0x00FF00
-    case C05 = 0x00C800
-    case C06 = 0x009000
-    case C07 = 0xFFFF00
-    case C08 = 0xE7C000
-    case C09 = 0xFF9000
-    case C10 = 0xFF0000
-    case C11 = 0xD60000
-    case C12 = 0xC00000
-    case C13 = 0xFF00FF
-    case C14 = 0x9955C9
-    case C15 = 0xFFFFFF
+    // case C01 = 0x00ECEC
+    // case C02 = 0x01A0F6
+    // case C03 = 0x0000F6
+    case C01 = 0x00FF00
+    case C02 = 0x00C800
+    case C03 = 0x009000
+    case C04 = 0xFFFF00
+    case C05 = 0xE7C000
+    case C06 = 0xFF9000
+    case C07 = 0xFF0000
+    case C08 = 0xD60000
+    case C09 = 0xC00000
+    case C10 = 0xFF00FF
+    case C11 = 0x9955C9
+    case C12 = 0xFFFFFF
 }
 
 enum ZoomLevel: Double {
@@ -402,36 +402,30 @@ class GlobalFunctions {
     
     func AKGetInfoForDBZIntensity(ri: DBZIntensity) -> AKDBZIntensityColor {
         switch ri {
-        case 5.00 ..< 10.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
-        case 10.0 ..< 15.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
-        case 15.0 ..< 20.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
         case 20.0 ..< 25.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
         case 25.0 ..< 30.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
         case 30.0 ..< 35.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
         case 35.0 ..< 40.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
         case 40.0 ..< 45.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
         case 45.0 ..< 50.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
         case 50.0 ..< 55.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
         case 55.0 ..< 60.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
         case 60.0 ..< 65.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
         case 65.0 ..< 70.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C13.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
         case 70.0 ..< 75.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C14.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), alpha: 1.00)
         case 75.0 ..< 80.0:
-            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C15.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), alpha: 1.00)
         default:
             return AKDBZIntensityColor(color: UIColor.clear, alpha: 0.0)
         }
