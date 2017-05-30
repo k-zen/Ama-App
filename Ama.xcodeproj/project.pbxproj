@@ -7,18 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		49074A691EB14950002FBB64 /* AKAlertPINInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A5B1EB14950002FBB64 /* AKAlertPINInputView.xib */; };
-		49074A6A1EB14950002FBB64 /* AKAlertAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A5D1EB14950002FBB64 /* AKAlertAnnotationView.xib */; };
-		49074A6B1EB14950002FBB64 /* AKUserAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A5E1EB14950002FBB64 /* AKUserAnnotationView.xib */; };
 		49074A6C1EB14950002FBB64 /* AKMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A601EB14950002FBB64 /* AKMessageView.xib */; };
 		49074A6D1EB14950002FBB64 /* AKLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A611EB14950002FBB64 /* AKLoginView.xib */; };
 		49074A6E1EB14950002FBB64 /* AKLayersOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A631EB14950002FBB64 /* AKLayersOverlayView.xib */; };
 		49074A6F1EB14950002FBB64 /* AKLegendOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A641EB14950002FBB64 /* AKLegendOverlayView.xib */; };
 		49074A701EB14950002FBB64 /* AKProgressOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A651EB14950002FBB64 /* AKProgressOverlayView.xib */; };
 		49074A711EB14950002FBB64 /* AKTopOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A661EB14950002FBB64 /* AKTopOverlayView.xib */; };
-		49074A721EB14950002FBB64 /* AKAlertsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49074A681EB14950002FBB64 /* AKAlertsTableViewCell.xib */; };
-		49074A831EB14979002FBB64 /* AKAlertAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A751EB14979002FBB64 /* AKAlertAnnotationView.swift */; };
-		49074A841EB14979002FBB64 /* AKUserAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A761EB14979002FBB64 /* AKUserAnnotationView.swift */; };
 		49074A851EB14979002FBB64 /* AKCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A771EB14979002FBB64 /* AKCustomView.swift */; };
 		49074A861EB14979002FBB64 /* AKCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A781EB14979002FBB64 /* AKCustomViewController.swift */; };
 		49074A871EB14979002FBB64 /* AKCustomViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A791EB14979002FBB64 /* AKCustomViewProtocol.swift */; };
@@ -27,11 +21,8 @@
 		49074A8A1EB14979002FBB64 /* AKLegendOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A7E1EB14979002FBB64 /* AKLegendOverlayView.swift */; };
 		49074A8B1EB14979002FBB64 /* AKProgressOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A7F1EB14979002FBB64 /* AKProgressOverlayView.swift */; };
 		49074A8C1EB14979002FBB64 /* AKTopOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A801EB14979002FBB64 /* AKTopOverlayView.swift */; };
-		49074A8D1EB14979002FBB64 /* AKAlertsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49074A821EB14979002FBB64 /* AKAlertsTableViewCell.swift */; };
-		4910B8781EC60E100077A224 /* AKAlertName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4910B8771EC60E100077A224 /* AKAlertName.swift */; };
 		491A09A91E305E5A008953AE /* 0011-024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 491A09A81E305E5A008953AE /* 0011-024px.png */; };
 		49223BF61DFF2B1100C8CB61 /* 0005-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49223BF51DFF2B1100C8CB61 /* 0005-030px.png */; };
-		4927E4FE1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4927E4FD1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift */; };
 		492FF7531DBE8AFE009B4CDD /* 0001-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7501DBE8AFE009B4CDD /* 0001-030px.png */; };
 		492FF7541DBE8AFE009B4CDD /* 0002-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7511DBE8AFE009B4CDD /* 0002-030px.png */; };
 		492FF7551DBE8AFE009B4CDD /* 0003-030px.png in Resources */ = {isa = PBXBuildFile; fileRef = 492FF7521DBE8AFE009B4CDD /* 0003-030px.png */; };
@@ -49,17 +40,12 @@
 		4984220E1E310DF900DCF99B /* 0012-020px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4984220D1E310DF900DCF99B /* 0012-020px.png */; };
 		49921F401EAE924A00899816 /* AKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F171EAE924A00899816 /* AKConstants.swift */; };
 		49921F4B1EAE924A00899816 /* AKMasterFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F271EAE924A00899816 /* AKMasterFile.swift */; };
-		49921F4C1EAE924A00899816 /* AKAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F291EAE924A00899816 /* AKAlert.swift */; };
-		49921F4D1EAE924A00899816 /* AKRainfallPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F2A1EAE924A00899816 /* AKRainfallPoint.swift */; };
+		49921F4D1EAE924A00899816 /* AKDBZPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F2A1EAE924A00899816 /* AKDBZPoint.swift */; };
 		49921F4E1EAE924A00899816 /* AKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F2B1EAE924A00899816 /* AKUser.swift */; };
 		49921F4F1EAE924A00899816 /* AKInputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F2D1EAE924A00899816 /* AKInputData.swift */; };
-		49921F501EAE924A00899816 /* AKPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F2E1EAE924A00899816 /* AKPhoneNumber.swift */; };
 		49921F511EAE924A00899816 /* AKUsername.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F2F1EAE924A00899816 /* AKUsername.swift */; };
-		49921F521EAE924A00899816 /* AKAlertAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F311EAE924A00899816 /* AKAlertAnnotation.swift */; };
-		49921F571EAE924A00899816 /* AKRainOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F361EAE924A00899816 /* AKRainOverlay.swift */; };
-		49921F581EAE924A00899816 /* AKRainOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F371EAE924A00899816 /* AKRainOverlayRenderer.swift */; };
-		49921F591EAE924A00899816 /* AKUserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F381EAE924A00899816 /* AKUserAnnotation.swift */; };
-		49921F5B1EAE924A00899816 /* AKConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3B1EAE924A00899816 /* AKConversions.swift */; };
+		49921F571EAE924A00899816 /* AKDBZOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F361EAE924A00899816 /* AKDBZOverlay.swift */; };
+		49921F581EAE924A00899816 /* AKDBZOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F371EAE924A00899816 /* AKDBZOverlayRenderer.swift */; };
 		49921F5C1EAE924A00899816 /* AKFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3C1EAE924A00899816 /* AKFileUtils.swift */; };
 		49921F5F1EAE924A00899816 /* AKWSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49921F3F1EAE924A00899816 /* AKWSUtils.swift */; };
 		49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B96A001E1DA56C00F33829 /* 0006-512px.png */; };
@@ -84,25 +70,19 @@
 		49E4957F1D93193F00E7822D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 49E4957D1D93193F00E7822D /* Podfile */; };
 		49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF54B1D9317CA003E0359 /* AKAppDelegate.swift */; };
 		49ECF5611D9317CA003E0359 /* AKMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF54D1D9317CA003E0359 /* AKMain.storyboard */; };
-		49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5531D9317CA003E0359 /* AKHeatMapViewController.swift */; };
+		49ECF5621D9317CA003E0359 /* AKDBZMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5531D9317CA003E0359 /* AKDBZMapViewController.swift */; };
 		49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */; };
 		49ECF5641D9317CA003E0359 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49ECF5571D9317CA003E0359 /* Assets.xcassets */; };
 		D949E3C4129F5FC2DB52A98D /* Pods_Ama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877718A541E64678B753DA50 /* Pods_Ama.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		49074A5B1EB14950002FBB64 /* AKAlertPINInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertPINInputView.xib; sourceTree = "<group>"; };
-		49074A5D1EB14950002FBB64 /* AKAlertAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertAnnotationView.xib; sourceTree = "<group>"; };
-		49074A5E1EB14950002FBB64 /* AKUserAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKUserAnnotationView.xib; sourceTree = "<group>"; };
 		49074A601EB14950002FBB64 /* AKMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKMessageView.xib; sourceTree = "<group>"; };
 		49074A611EB14950002FBB64 /* AKLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKLoginView.xib; sourceTree = "<group>"; };
 		49074A631EB14950002FBB64 /* AKLayersOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKLayersOverlayView.xib; sourceTree = "<group>"; };
 		49074A641EB14950002FBB64 /* AKLegendOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKLegendOverlayView.xib; sourceTree = "<group>"; };
 		49074A651EB14950002FBB64 /* AKProgressOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKProgressOverlayView.xib; sourceTree = "<group>"; };
 		49074A661EB14950002FBB64 /* AKTopOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKTopOverlayView.xib; sourceTree = "<group>"; };
-		49074A681EB14950002FBB64 /* AKAlertsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKAlertsTableViewCell.xib; sourceTree = "<group>"; };
-		49074A751EB14979002FBB64 /* AKAlertAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertAnnotationView.swift; sourceTree = "<group>"; };
-		49074A761EB14979002FBB64 /* AKUserAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAnnotationView.swift; sourceTree = "<group>"; };
 		49074A771EB14979002FBB64 /* AKCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomView.swift; sourceTree = "<group>"; };
 		49074A781EB14979002FBB64 /* AKCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomViewController.swift; sourceTree = "<group>"; };
 		49074A791EB14979002FBB64 /* AKCustomViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomViewProtocol.swift; sourceTree = "<group>"; };
@@ -111,11 +91,8 @@
 		49074A7E1EB14979002FBB64 /* AKLegendOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKLegendOverlayView.swift; sourceTree = "<group>"; };
 		49074A7F1EB14979002FBB64 /* AKProgressOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKProgressOverlayView.swift; sourceTree = "<group>"; };
 		49074A801EB14979002FBB64 /* AKTopOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTopOverlayView.swift; sourceTree = "<group>"; };
-		49074A821EB14979002FBB64 /* AKAlertsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertsTableViewCell.swift; sourceTree = "<group>"; };
-		4910B8771EC60E100077A224 /* AKAlertName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertName.swift; sourceTree = "<group>"; };
 		491A09A81E305E5A008953AE /* 0011-024px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0011-024px.png"; sourceTree = "<group>"; };
 		49223BF51DFF2B1100C8CB61 /* 0005-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0005-030px.png"; sourceTree = "<group>"; };
-		4927E4FD1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertPINInputViewController.swift; sourceTree = "<group>"; };
 		492FF7501DBE8AFE009B4CDD /* 0001-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0001-030px.png"; sourceTree = "<group>"; };
 		492FF7511DBE8AFE009B4CDD /* 0002-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0002-030px.png"; sourceTree = "<group>"; };
 		492FF7521DBE8AFE009B4CDD /* 0003-030px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0003-030px.png"; sourceTree = "<group>"; };
@@ -134,17 +111,12 @@
 		4984220D1E310DF900DCF99B /* 0012-020px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0012-020px.png"; sourceTree = "<group>"; };
 		49921F171EAE924A00899816 /* AKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConstants.swift; sourceTree = "<group>"; };
 		49921F271EAE924A00899816 /* AKMasterFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMasterFile.swift; sourceTree = "<group>"; };
-		49921F291EAE924A00899816 /* AKAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlert.swift; sourceTree = "<group>"; };
-		49921F2A1EAE924A00899816 /* AKRainfallPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainfallPoint.swift; sourceTree = "<group>"; };
+		49921F2A1EAE924A00899816 /* AKDBZPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDBZPoint.swift; sourceTree = "<group>"; };
 		49921F2B1EAE924A00899816 /* AKUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUser.swift; sourceTree = "<group>"; };
 		49921F2D1EAE924A00899816 /* AKInputData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKInputData.swift; sourceTree = "<group>"; };
-		49921F2E1EAE924A00899816 /* AKPhoneNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhoneNumber.swift; sourceTree = "<group>"; };
 		49921F2F1EAE924A00899816 /* AKUsername.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUsername.swift; sourceTree = "<group>"; };
-		49921F311EAE924A00899816 /* AKAlertAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAlertAnnotation.swift; sourceTree = "<group>"; };
-		49921F361EAE924A00899816 /* AKRainOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainOverlay.swift; sourceTree = "<group>"; };
-		49921F371EAE924A00899816 /* AKRainOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRainOverlayRenderer.swift; sourceTree = "<group>"; };
-		49921F381EAE924A00899816 /* AKUserAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKUserAnnotation.swift; sourceTree = "<group>"; };
-		49921F3B1EAE924A00899816 /* AKConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConversions.swift; sourceTree = "<group>"; };
+		49921F361EAE924A00899816 /* AKDBZOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDBZOverlay.swift; sourceTree = "<group>"; };
+		49921F371EAE924A00899816 /* AKDBZOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDBZOverlayRenderer.swift; sourceTree = "<group>"; };
 		49921F3C1EAE924A00899816 /* AKFileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFileUtils.swift; sourceTree = "<group>"; };
 		49921F3F1EAE924A00899816 /* AKWSUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWSUtils.swift; sourceTree = "<group>"; };
 		49B96A001E1DA56C00F33829 /* 0006-512px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0006-512px.png"; sourceTree = "<group>"; };
@@ -170,7 +142,7 @@
 		49E4957D1D93193F00E7822D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		49ECF54B1D9317CA003E0359 /* AKAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppDelegate.swift; sourceTree = "<group>"; };
 		49ECF54D1D9317CA003E0359 /* AKMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AKMain.storyboard; sourceTree = "<group>"; };
-		49ECF5531D9317CA003E0359 /* AKHeatMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHeatMapViewController.swift; sourceTree = "<group>"; };
+		49ECF5531D9317CA003E0359 /* AKDBZMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDBZMapViewController.swift; sourceTree = "<group>"; };
 		49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConfigViewController.swift; sourceTree = "<group>"; };
 		49ECF5571D9317CA003E0359 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49ECF55E1D9317CA003E0359 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -203,23 +175,11 @@
 		49074A5A1EB14950002FBB64 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				49074A5B1EB14950002FBB64 /* AKAlertPINInputView.xib */,
 				49074A611EB14950002FBB64 /* AKLoginView.xib */,
-				49074A5C1EB14950002FBB64 /* AKAnnotationViews */,
 				49074A5F1EB14950002FBB64 /* AKFloatingViews */,
 				49074A621EB14950002FBB64 /* AKOverlays */,
-				49074A671EB14950002FBB64 /* AKTableCells */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		49074A5C1EB14950002FBB64 /* AKAnnotationViews */ = {
-			isa = PBXGroup;
-			children = (
-				49074A5D1EB14950002FBB64 /* AKAlertAnnotationView.xib */,
-				49074A5E1EB14950002FBB64 /* AKUserAnnotationView.xib */,
-			);
-			path = AKAnnotationViews;
 			sourceTree = "<group>";
 		};
 		49074A5F1EB14950002FBB64 /* AKFloatingViews */ = {
@@ -242,35 +202,16 @@
 			path = AKOverlays;
 			sourceTree = "<group>";
 		};
-		49074A671EB14950002FBB64 /* AKTableCells */ = {
-			isa = PBXGroup;
-			children = (
-				49074A681EB14950002FBB64 /* AKAlertsTableViewCell.xib */,
-			);
-			path = AKTableCells;
-			sourceTree = "<group>";
-		};
 		49074A731EB14979002FBB64 /* AKCustomComponents */ = {
 			isa = PBXGroup;
 			children = (
 				49074A771EB14979002FBB64 /* AKCustomView.swift */,
 				49074A781EB14979002FBB64 /* AKCustomViewController.swift */,
 				49074A791EB14979002FBB64 /* AKCustomViewProtocol.swift */,
-				49074A741EB14979002FBB64 /* AKAnnotationViews */,
 				49074A7A1EB14979002FBB64 /* AKFloatingViews */,
 				49074A7C1EB14979002FBB64 /* AKOverlays */,
-				49074A811EB14979002FBB64 /* AKTableCells */,
 			);
 			path = AKCustomComponents;
-			sourceTree = "<group>";
-		};
-		49074A741EB14979002FBB64 /* AKAnnotationViews */ = {
-			isa = PBXGroup;
-			children = (
-				49074A751EB14979002FBB64 /* AKAlertAnnotationView.swift */,
-				49074A761EB14979002FBB64 /* AKUserAnnotationView.swift */,
-			);
-			path = AKAnnotationViews;
 			sourceTree = "<group>";
 		};
 		49074A7A1EB14979002FBB64 /* AKFloatingViews */ = {
@@ -291,14 +232,6 @@
 				49074A801EB14979002FBB64 /* AKTopOverlayView.swift */,
 			);
 			path = AKOverlays;
-			sourceTree = "<group>";
-		};
-		49074A811EB14979002FBB64 /* AKTableCells */ = {
-			isa = PBXGroup;
-			children = (
-				49074A821EB14979002FBB64 /* AKAlertsTableViewCell.swift */,
-			);
-			path = AKTableCells;
 			sourceTree = "<group>";
 		};
 		496C1A1D1D930FDD00E41190 = {
@@ -357,8 +290,7 @@
 		49921F281EAE924A00899816 /* AKDataStructures */ = {
 			isa = PBXGroup;
 			children = (
-				49921F291EAE924A00899816 /* AKAlert.swift */,
-				49921F2A1EAE924A00899816 /* AKRainfallPoint.swift */,
+				49921F2A1EAE924A00899816 /* AKDBZPoint.swift */,
 				49921F2B1EAE924A00899816 /* AKUser.swift */,
 			);
 			path = AKDataStructures;
@@ -367,9 +299,7 @@
 		49921F2C1EAE924A00899816 /* AKInputData */ = {
 			isa = PBXGroup;
 			children = (
-				4910B8771EC60E100077A224 /* AKAlertName.swift */,
 				49921F2D1EAE924A00899816 /* AKInputData.swift */,
-				49921F2E1EAE924A00899816 /* AKPhoneNumber.swift */,
 				49921F2F1EAE924A00899816 /* AKUsername.swift */,
 			);
 			path = AKInputData;
@@ -378,11 +308,9 @@
 		49921F301EAE924A00899816 /* AKMapComponents */ = {
 			isa = PBXGroup;
 			children = (
-				49921F311EAE924A00899816 /* AKAlertAnnotation.swift */,
+				49921F361EAE924A00899816 /* AKDBZOverlay.swift */,
+				49921F371EAE924A00899816 /* AKDBZOverlayRenderer.swift */,
 				496884981ED1DBC1004A206C /* AKRadarSpanOverlay.swift */,
-				49921F361EAE924A00899816 /* AKRainOverlay.swift */,
-				49921F371EAE924A00899816 /* AKRainOverlayRenderer.swift */,
-				49921F381EAE924A00899816 /* AKUserAnnotation.swift */,
 			);
 			path = AKMapComponents;
 			sourceTree = "<group>";
@@ -390,7 +318,6 @@
 		49921F3A1EAE924A00899816 /* AKUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				49921F3B1EAE924A00899816 /* AKConversions.swift */,
 				49921F3C1EAE924A00899816 /* AKFileUtils.swift */,
 				49921F3F1EAE924A00899816 /* AKWSUtils.swift */,
 			);
@@ -418,9 +345,8 @@
 		49ECF5521D9317CA003E0359 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4927E4FD1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift */,
 				49ECF5541D9317CA003E0359 /* AKConfigViewController.swift */,
-				49ECF5531D9317CA003E0359 /* AKHeatMapViewController.swift */,
+				49ECF5531D9317CA003E0359 /* AKDBZMapViewController.swift */,
 				49BF71111E3FB2EB005F29FC /* AKLoginViewController.swift */,
 			);
 			path = Controllers;
@@ -571,7 +497,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4973DB5D1EB3EA6F0088217B /* 0014-032px.png in Resources */,
-				49074A721EB14950002FBB64 /* AKAlertsTableViewCell.xib in Resources */,
 				49B96A171E1DA56C00F33829 /* AppIcon-60@2x.png in Resources */,
 				49B96A151E1DA56C00F33829 /* AppIcon-40@3x.png in Resources */,
 				4973DB631EB3EB5F0088217B /* AKBottomOverlayView.xib in Resources */,
@@ -586,9 +511,7 @@
 				49447D451E301A9100BE59D0 /* 0010-024px.png in Resources */,
 				492FF7531DBE8AFE009B4CDD /* 0001-030px.png in Resources */,
 				49B96A1B1E1DA56C00F33829 /* AppIcon-76@3x.png in Resources */,
-				49074A6B1EB14950002FBB64 /* AKUserAnnotationView.xib in Resources */,
 				49B96A1A1E1DA56C00F33829 /* AppIcon-76@2x.png in Resources */,
-				49074A691EB14950002FBB64 /* AKAlertPINInputView.xib in Resources */,
 				49B96A211E1DA9B900F33829 /* AppIcon-20@1x.png in Resources */,
 				492FF7571DBE8BE9009B4CDD /* 0004-030px.png in Resources */,
 				494609F91E2B155000FC3AEA /* 0007-032px.png in Resources */,
@@ -601,7 +524,6 @@
 				491A09A91E305E5A008953AE /* 0011-024px.png in Resources */,
 				49B96A221E1DA9B900F33829 /* AppIcon-20@2x.png in Resources */,
 				49074A711EB14950002FBB64 /* AKTopOverlayView.xib in Resources */,
-				49074A6A1EB14950002FBB64 /* AKAlertAnnotationView.xib in Resources */,
 				49E4957F1D93193F00E7822D /* Podfile in Resources */,
 				49B96A0F1E1DA56C00F33829 /* 0006-512px.png in Resources */,
 				49B96A131E1DA56C00F33829 /* AppIcon-40@1x.png in Resources */,
@@ -674,15 +596,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49074A831EB14979002FBB64 /* AKAlertAnnotationView.swift in Sources */,
-				49921F4C1EAE924A00899816 /* AKAlert.swift in Sources */,
 				49921F4B1EAE924A00899816 /* AKMasterFile.swift in Sources */,
 				496884991ED1DBC1004A206C /* AKRadarSpanOverlay.swift in Sources */,
 				49074A861EB14979002FBB64 /* AKCustomViewController.swift in Sources */,
-				49921F5B1EAE924A00899816 /* AKConversions.swift in Sources */,
-				4927E4FE1E39114E00F4B8F0 /* AKAlertPINInputViewController.swift in Sources */,
-				49921F521EAE924A00899816 /* AKAlertAnnotation.swift in Sources */,
-				49921F581EAE924A00899816 /* AKRainOverlayRenderer.swift in Sources */,
+				49921F581EAE924A00899816 /* AKDBZOverlayRenderer.swift in Sources */,
 				49921F5C1EAE924A00899816 /* AKFileUtils.swift in Sources */,
 				49921F401EAE924A00899816 /* AKConstants.swift in Sources */,
 				49074A8A1EB14979002FBB64 /* AKLegendOverlayView.swift in Sources */,
@@ -691,23 +608,18 @@
 				49074A891EB14979002FBB64 /* AKLayersOverlayView.swift in Sources */,
 				49921F4E1EAE924A00899816 /* AKUser.swift in Sources */,
 				49921F5F1EAE924A00899816 /* AKWSUtils.swift in Sources */,
-				49074A841EB14979002FBB64 /* AKUserAnnotationView.swift in Sources */,
-				49074A8D1EB14979002FBB64 /* AKAlertsTableViewCell.swift in Sources */,
 				4973DB651EB3EF280088217B /* AKBottomOverlayView.swift in Sources */,
-				49921F571EAE924A00899816 /* AKRainOverlay.swift in Sources */,
+				49921F571EAE924A00899816 /* AKDBZOverlay.swift in Sources */,
 				49921F4F1EAE924A00899816 /* AKInputData.swift in Sources */,
 				49ECF5631D9317CA003E0359 /* AKConfigViewController.swift in Sources */,
 				49074A871EB14979002FBB64 /* AKCustomViewProtocol.swift in Sources */,
 				49921F511EAE924A00899816 /* AKUsername.swift in Sources */,
 				49074A881EB14979002FBB64 /* AKMessageView.swift in Sources */,
-				4910B8781EC60E100077A224 /* AKAlertName.swift in Sources */,
 				49074A8B1EB14979002FBB64 /* AKProgressOverlayView.swift in Sources */,
 				49ECF55F1D9317CA003E0359 /* AKAppDelegate.swift in Sources */,
-				49921F501EAE924A00899816 /* AKPhoneNumber.swift in Sources */,
-				49ECF5621D9317CA003E0359 /* AKHeatMapViewController.swift in Sources */,
-				49921F4D1EAE924A00899816 /* AKRainfallPoint.swift in Sources */,
+				49ECF5621D9317CA003E0359 /* AKDBZMapViewController.swift in Sources */,
+				49921F4D1EAE924A00899816 /* AKDBZPoint.swift in Sources */,
 				49BF71121E3FB2EB005F29FC /* AKLoginViewController.swift in Sources */,
-				49921F591EAE924A00899816 /* AKUserAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

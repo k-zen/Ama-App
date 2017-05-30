@@ -3,7 +3,7 @@ import UIKit
 class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
-        static let AKViewHeight: CGFloat = 78.0
+        static let AKViewHeight: CGFloat = 100.0
     }
     
     // MARK: Outlets
@@ -13,10 +13,11 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     @IBOutlet weak var alertValue: UILabel!
     @IBOutlet weak var pauseRefresh: UIButton!
     @IBOutlet weak var lastUpdate: UILabel!
+    @IBOutlet weak var stormCluster: UILabel!
     
     // MARK: Actions
     @IBAction func pauseRefresh(_ sender: Any) {
-        if let controller = controller as? AKHeatMapViewController {
+        if let controller = controller as? AKDBZMapViewController {
             if controller.stateRefreshTimer() {
                 controller.stopRefreshTimer()
                 self.pauseRefresh.setImage(UIImage(named: "0011-024px.png"), for: UIControlState.normal)

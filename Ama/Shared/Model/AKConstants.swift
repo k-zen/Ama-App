@@ -8,7 +8,7 @@ import UserNotifications
 typealias JSONObject = [String : Any]
 typealias JSONObjectArray = [Any]
 typealias JSONObjectStringArray = [String]
-typealias RainIntensity = Double
+typealias DBZIntensity = Double
 typealias Forecast = String
 typealias Temperature = Double
 typealias Humidity = Double
@@ -19,7 +19,6 @@ typealias GeoCoordinate = CLLocationCoordinate2D
 typealias Latitude = Double
 typealias Longitude = Double
 typealias User = AKUser
-typealias Alert = AKAlert
 
 // MARK: Aliases
 let Func = GlobalFunctions.instance(GlobalConstants.AKDebug)
@@ -67,10 +66,6 @@ struct GlobalConstants {
     static let AKEnabledButtonFg = GlobalConstants.AKWhite
     static let AKDisabledButtonBg = Func.AKHexColor(0xA9A9A6) // Exception!!!
     static let AKDisabledButtonFg = GlobalConstants.AKWhite
-    static let AKTableHeaderCellBg = GlobalConstants.AKGray2
-    static let AKTableHeaderCellBorderBg = GlobalConstants.AKBlue
-    static let AKTableCellBg = GlobalConstants.AKDefaultBg
-    static let AKTableCellBorderBg = GlobalConstants.AKBlue
     static let AKNavBarFontSize: CGFloat = 20.0
     static let AKTabBarFontSize: CGFloat = 20.0
     static let AKViewCornerRadius: CGFloat = 4.0
@@ -78,7 +73,6 @@ struct GlobalConstants {
     static let AKDefaultBorderThickness = 2.0
     static let AKDefaultTransitionStyle = UIModalTransitionStyle.crossDissolve
     static let AKUserAnnotationBg = GlobalConstants.AKBlue
-    static let AKAlertAnnotationBg = Func.AKHexColor(0xFF364D) // Exception!!!
     static let AKUserOverlayBg = GlobalConstants.AKGray1
     static let AKLocationUpdateInterval = 30
     static let AKLocationUpdateNotificationName = "AKLocationUpdate"
@@ -87,28 +81,20 @@ struct GlobalConstants {
     static let AKLatitudeDegreeInKilometers = 111.0 // http://gis.stackexchange.com/questions/142326/calculating-longitude-length-in-miles
     static let AKPYBoundsPointA = GeoCoordinate(latitude: -19.207429, longitude: -63.413086)
     static let AKPYBoundsPointB = GeoCoordinate(latitude: -27.722436, longitude: -52.778320)
-    static let AKRaindropSize: Double = 1500.0 // This is the square side length in meters.
+    static let AKDBZSize: Double = 1500.0 // This is the square side length in meters.
     static let AKMapTileTolerance: MKMapPoint = MKMapPointMake(5000.0, 5000.0)
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
     static let AKRadarOrigin = GeoCoordinate(latitude: GlobalConstants.AKRadarLatitude, longitude: GlobalConstants.AKRadarLongitude)
-    static let AKInvalidIntensity: RainIntensity = -1
-    static let AKMaxUserDefinedAlerts: Int = 3
-    static let AKEmptyPhoneNumberPrefix = "00"
-    static let AKEmptyPhoneNumber = "000000"
+    static let AKInvalidIntensity: DBZIntensity = -1
     static let AKMaxUsernameLength = 12
     static let AKMinUsernameLength = 3
-    static let AKMaxPhoneNumberLength = 8
-    static let AKMinPhoneNumberLength = 8
-    static let AKMaxAlertNameLength = 20
-    static let AKMinAlertNameLength = 3
     static let AKDefaultZoomLevel = ZoomLevel.L01
-    static let AKDIMOverlayAlpha = 0.60
     static let AKAmaServerAddress = "http://190.128.205.74:8102"
     static let AKDMHServerAddress = "http://190.128.205.78:8080/api/get_all/183"
     static let AKCloseKeyboardToolbarHeight: CGFloat = 30
 }
 
-struct AKRainfallIntensityColor {
+struct AKDBZIntensityColor {
     let color: UIColor
     let alpha: Float
     
@@ -414,40 +400,40 @@ class GlobalFunctions {
         return "---"
     }
     
-    func AKGetInfoForRainfallIntensity(ri: RainIntensity) -> AKRainfallIntensityColor {
+    func AKGetInfoForDBZIntensity(ri: DBZIntensity) -> AKDBZIntensityColor {
         switch ri {
         case 5.00 ..< 10.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C01.rawValue), alpha: 1.00)
         case 10.0 ..< 15.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C02.rawValue), alpha: 1.00)
         case 15.0 ..< 20.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C03.rawValue), alpha: 1.00)
         case 20.0 ..< 25.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C04.rawValue), alpha: 1.00)
         case 25.0 ..< 30.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C05.rawValue), alpha: 1.00)
         case 30.0 ..< 35.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C06.rawValue), alpha: 1.00)
         case 35.0 ..< 40.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C07.rawValue), alpha: 1.00)
         case 40.0 ..< 45.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C08.rawValue), alpha: 1.00)
         case 45.0 ..< 50.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C09.rawValue), alpha: 1.00)
         case 50.0 ..< 55.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C10.rawValue), alpha: 1.00)
         case 55.0 ..< 60.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C11.rawValue), alpha: 1.00)
         case 60.0 ..< 65.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C12.rawValue), alpha: 1.00)
         case 65.0 ..< 70.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C13.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C13.rawValue), alpha: 1.00)
         case 70.0 ..< 75.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C14.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C14.rawValue), alpha: 1.00)
         case 75.0 ..< 80.0:
-            return AKRainfallIntensityColor(color: Func.AKHexColor(HeatMapColor.C15.rawValue), alpha: 1.00)
+            return AKDBZIntensityColor(color: Func.AKHexColor(HeatMapColor.C15.rawValue), alpha: 1.00)
         default:
-            return AKRainfallIntensityColor(color: UIColor.clear, alpha: 0.0)
+            return AKDBZIntensityColor(color: UIColor.clear, alpha: 0.0)
         }
     }
     

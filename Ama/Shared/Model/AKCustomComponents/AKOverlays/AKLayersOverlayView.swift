@@ -17,7 +17,7 @@ class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
     
     // MARK: Actions
     @IBAction func viewLayers(_ sender: Any) {
-        if let controller = self.controller as? AKHeatMapViewController {
+        if let controller = self.controller as? AKDBZMapViewController {
             if self.layersState {
                 self.layersState = false
                 self.layers.layer.backgroundColor = GlobalConstants.AKDisabledButtonBg.cgColor
@@ -27,21 +27,15 @@ class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
             else {
                 self.layersState = true
                 self.layers.layer.backgroundColor = GlobalConstants.AKEnabledButtonBg.cgColor
-                controller.rainmapObserver()
+                controller.dBZMapObserver()
                 controller.showLegend()
             }
         }
     }
     
     @IBAction func dropPIN(_ sender: Any) {
-        if let controller = self.controller as? AKHeatMapViewController {
-            if Func.AKGetUser().removeAlert(mapView: controller.mapView, id: "", shouldRemoveAll: true) {
-                Func.AKPresentMessage(
-                    controller: controller,
-                    type: .info,
-                    message: "Todas las alertas fueron eliminadas...!"
-                )
-            }
+        if let _ = self.controller as? AKDBZMapViewController {
+            // TODO
         }
     }
     
