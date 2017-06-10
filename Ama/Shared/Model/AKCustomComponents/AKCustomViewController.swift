@@ -9,22 +9,19 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
     var inhibitNotificationMessage: Bool = true
     var shouldAddBlurView: Bool = false
     var inhibitTapGesture: Bool = false
-    var inhibitLongPressGesture: Bool = true
     
     // MARK: Operations (Closures)
     let defaultOperationsWhenGesture: (AKCustomViewController, UIGestureRecognizer?) -> Void = { (controller, gesture) -> Void in
         controller.view.endEditing(true)
     }
     var additionalOperationsWhenTaped: (AKCustomViewController, UIGestureRecognizer?) -> Void = { (controller, gesture) -> Void in }
-    var additionalOperationsWhenLongPressed: (AKCustomViewController, UIGestureRecognizer?) -> Void = { (controller, gesture) -> Void in }
     var loadData: (AKCustomViewController) -> Void = { (controller) -> Void in }
     var saveData: (AKCustomViewController) -> Void = { (controller) -> Void in }
     var configureLookAndFeel: (AKCustomViewController) -> Void = { (controller) -> Void in }
+    var dismissViewCompletionTask: (Void) -> Void = {}
     
     // MARK: Properties
     var tapGesture: UITapGestureRecognizer?
-    var longPressGesture: UILongPressGestureRecognizer?
-    var dismissViewCompletionTask: (Void) -> Void = {}
     var currentEditableComponent: UIView?
     var currentScrollContainer: UIScrollView?
     
@@ -83,9 +80,6 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
         if gestureRecognizer.isKind(of: UITapGestureRecognizer.self) {
             return !self.inhibitTapGesture
         }
-        else if gestureRecognizer.isKind(of: UILongPressGestureRecognizer.self) {
-            return !self.inhibitLongPressGesture
-        }
         else {
             return false
         }
@@ -96,10 +90,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
         // Manage gestures.
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(AKCustomViewController.tap(_:)))
         self.tapGesture?.delegate = self
-        self.longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(AKCustomViewController.longPress(_:)))
-        self.longPressGesture?.delegate = self
         self.view.addGestureRecognizer(self.tapGesture!)
-        self.view.addGestureRecognizer(self.longPressGesture!)
         
         // Miscellaneous
         self.definesPresentationContext = true
@@ -193,11 +184,6 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc internal func tap(_ gesture: UIGestureRecognizer?) {
         self.defaultOperationsWhenGesture(self, gesture)
         self.additionalOperationsWhenTaped(self, gesture)
-    }
-    
-    @objc internal func longPress(_ gesture: UIGestureRecognizer?) {
-        self.defaultOperationsWhenGesture(self, gesture)
-        self.additionalOperationsWhenLongPressed(self, gesture)
     }
     
     // MARK: Utility functions
