@@ -9,13 +9,17 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Outlets
     @IBOutlet var container: UIView!
     @IBOutlet weak var dummy1: UIView!
-    @IBOutlet weak var userAvatar: UILabel!
+    @IBOutlet weak var config: UIButton!
     @IBOutlet weak var alertValue: UILabel!
     @IBOutlet weak var pauseRefresh: UIButton!
     @IBOutlet weak var lastUpdate: UILabel!
     @IBOutlet weak var stormCluster: UILabel!
     
     // MARK: Actions
+    @IBAction func config(_ sender: Any) {
+        NSLog("=> CONFIG WILL OPEN!")
+    }
+    
     @IBAction func pauseRefresh(_ sender: Any) {
         if let controller = controller as? AKDBZMapViewController {
             if controller.stateRefreshTimer() {
@@ -42,15 +46,11 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
         self.applyLookAndFeel()
     }
     
-    func loadComponents() {
-        self.userAvatar.isUserInteractionEnabled = true
-        self.userAvatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AKTopOverlayView.viewConfigurations(_:))))
-    }
+    func loadComponents() {}
     
     func applyLookAndFeel() {
         self.pauseRefresh.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.userAvatar.layer.cornerRadius = self.userAvatar.frame.width / 2.0
-        self.userAvatar.layer.masksToBounds = true
+        self.config.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
     }
     
     func draw(container: UIView, coordinates: CGPoint, size: CGSize) {
@@ -67,9 +67,4 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     }
     
     func resetViewDefaults(controller: AKCustomViewController) {}
-    
-    // MARK: Actions
-    func viewConfigurations(_ gesture: UIGestureRecognizer?) {
-        self.controller?.performSegue(withIdentifier: "ViewConfigurationsSegue", sender: self.controller)
-    }
 }

@@ -348,7 +348,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
             container: self.mapView,
             coordinates: CGPoint(
                 x: 0.0,
-                y: (self.mapView.bounds.height / 2.0) - (AKLegendOverlayView.LocalConstants.AKViewHeight / 2.0) - 10.0
+                y: (self.mapView.bounds.height / 2.0) - (AKLegendOverlayView.LocalConstants.AKViewHeight / 2.0)
             ),
             size: CGSize.zero
         )

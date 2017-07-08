@@ -4,7 +4,7 @@ class AKLegendOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
         static let AKViewWidth: CGFloat = 68.0
-        static let AKViewHeight: CGFloat = 258.0
+        static let AKViewHeight: CGFloat = 268.0
     }
     
     // MARK: Outlets

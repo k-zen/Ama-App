@@ -12,12 +12,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AKTopOverlayView" customModule="Ama" customModuleProvider="target">
             <connections>
                 <outlet property="alertValue" destination="gXe-VE-fZK" id="nQi-nF-uxX"/>
+                <outlet property="config" destination="mU1-9r-sfj" id="e2Q-X6-fYy"/>
                 <outlet property="container" destination="iN0-l3-epB" id="JJh-GX-VFH"/>
                 <outlet property="dummy1" destination="PSi-NJ-j5e" id="RIf-mO-ru9"/>
                 <outlet property="lastUpdate" destination="xv0-lg-c5C" id="baQ-Of-Wka"/>
                 <outlet property="pauseRefresh" destination="ucu-8E-DRN" id="dyh-4V-Nvh"/>
                 <outlet property="stormCluster" destination="eNT-kb-0N9" id="HyY-Tz-Oqj"/>
-                <outlet property="userAvatar" destination="GQs-6U-zIY" id="057-UT-hz0"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,17 +28,18 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PSi-NJ-j5e" userLabel="Dummy_1">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQs-6U-zIY" userLabel="User_Avatar">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mU1-9r-sfj" userLabel="Config">
                             <rect key="frame" x="8" y="8" width="40" height="40"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="40" id="SSD-kA-aRF"/>
-                                <constraint firstAttribute="height" constant="40" id="tit-RE-hYf"/>
+                                <constraint firstAttribute="width" constant="40" id="JJe-el-ytZ"/>
+                                <constraint firstAttribute="height" constant="40" id="k7O-1N-0i9"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="20"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <state key="normal" image="0016-024px.png"/>
+                            <connections>
+                                <action selector="config:" destination="-1" eventType="touchUpInside" id="C0Q-N1-QZt"/>
+                            </connections>
+                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXe-VE-fZK" userLabel="Alert_Value">
                             <rect key="frame" x="56" y="8" width="208" height="40"/>
                             <constraints>
@@ -63,12 +64,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="gXe-VE-fZK" firstAttribute="leading" secondItem="GQs-6U-zIY" secondAttribute="trailing" constant="8" id="5sa-Hc-YHV"/>
-                        <constraint firstItem="GQs-6U-zIY" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="8" id="6jL-HG-eZh"/>
                         <constraint firstAttribute="height" constant="48" id="DP0-bD-QC3"/>
                         <constraint firstItem="ucu-8E-DRN" firstAttribute="leading" secondItem="gXe-VE-fZK" secondAttribute="trailing" constant="8" id="E1u-6G-N5L"/>
-                        <constraint firstItem="GQs-6U-zIY" firstAttribute="leading" secondItem="PSi-NJ-j5e" secondAttribute="leading" constant="8" id="EJO-RT-oM5"/>
+                        <constraint firstItem="gXe-VE-fZK" firstAttribute="leading" secondItem="mU1-9r-sfj" secondAttribute="trailing" constant="8" id="Uev-6U-Svk"/>
+                        <constraint firstItem="mU1-9r-sfj" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="8" id="WU3-cu-eCp"/>
                         <constraint firstAttribute="trailing" secondItem="ucu-8E-DRN" secondAttribute="trailing" constant="8" id="jPS-pF-VKO"/>
+                        <constraint firstItem="mU1-9r-sfj" firstAttribute="leading" secondItem="PSi-NJ-j5e" secondAttribute="leading" constant="8" id="oNk-bp-r6X"/>
                         <constraint firstItem="gXe-VE-fZK" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="8" id="pX9-ju-94G"/>
                         <constraint firstItem="ucu-8E-DRN" firstAttribute="top" secondItem="PSi-NJ-j5e" secondAttribute="top" constant="8" id="ral-Fl-gDh"/>
                     </constraints>
@@ -115,5 +116,6 @@
     </objects>
     <resources>
         <image name="0010-024px.png" width="24" height="24"/>
+        <image name="0016-024px.png" width="24" height="24"/>
     </resources>
 </document>
