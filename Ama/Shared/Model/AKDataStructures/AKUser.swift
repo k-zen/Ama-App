@@ -6,7 +6,6 @@ class AKUser: NSObject, NSCoding {
     struct Keys {
         static let username = "AK.user.username"
         static let password = "AK.user.password"
-        static let apnsToken = "AK.user.apns.token"
         static let shouldReceiveAlerts = "AK.user.shouldReceiveAlerts"
         static let isRegistered = "AK.user.is.registered"
     }
@@ -14,7 +13,6 @@ class AKUser: NSObject, NSCoding {
     // MARK: Properties
     var username: String
     var password: String
-    var apnsToken: String
     var shouldReceiveAlerts: Bool
     var isRegistered: Bool
     
@@ -22,15 +20,13 @@ class AKUser: NSObject, NSCoding {
     override init() {
         self.username = ""
         self.password = ""
-        self.apnsToken = ""
         self.shouldReceiveAlerts = true
         self.isRegistered = false
     }
     
-    init(username: String, password: String, apnsToken: String, shouldReceiveAlerts: Bool, isRegistered: Bool) {
+    init(username: String, password: String, shouldReceiveAlerts: Bool, isRegistered: Bool) {
         self.username = username
         self.password = password
-        self.apnsToken = apnsToken
         self.shouldReceiveAlerts = shouldReceiveAlerts
         self.isRegistered = isRegistered
         
@@ -51,7 +47,6 @@ class AKUser: NSObject, NSCoding {
         string.appendFormat("%@****** USER ******\n", padding)
         string.appendFormat("%@>>> Username = %@\n", padding, self.username)
         string.appendFormat("%@>>> Password = %@\n", padding, self.password)
-        string.appendFormat("%@>>> APNS Token = %@\n", padding, self.apnsToken)
         string.appendFormat("%@>>> Should Receive Alerts = %@\n", padding, self.shouldReceiveAlerts ? "YES" : "NO")
         string.appendFormat("%@>>> Is Registered = %@\n", padding, self.isRegistered ? "YES" : "NO")
         string.appendFormat("%@****** USER ******\n", padding)
@@ -63,17 +58,15 @@ class AKUser: NSObject, NSCoding {
     required convenience init(coder aDecoder: NSCoder) {
         let username = aDecoder.decodeObject(forKey: Keys.username) as! String
         let password = aDecoder.decodeObject(forKey: Keys.password) as! String
-        let apnsToken = aDecoder.decodeObject(forKey: Keys.apnsToken) as! String
         let shouldReceiveAlerts = aDecoder.decodeBool(forKey: Keys.shouldReceiveAlerts)
         let isRegistered = aDecoder.decodeBool(forKey: Keys.isRegistered)
         
-        self.init(username: username, password: password, apnsToken: apnsToken, shouldReceiveAlerts: shouldReceiveAlerts, isRegistered: isRegistered)
+        self.init(username: username, password: password, shouldReceiveAlerts: shouldReceiveAlerts, isRegistered: isRegistered)
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.username, forKey: Keys.username)
         aCoder.encode(self.password, forKey: Keys.password)
-        aCoder.encode(self.apnsToken, forKey: Keys.apnsToken)
         aCoder.encode(self.shouldReceiveAlerts, forKey: Keys.shouldReceiveAlerts)
         aCoder.encode(self.isRegistered, forKey: Keys.isRegistered)
     }

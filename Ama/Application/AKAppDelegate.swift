@@ -12,19 +12,9 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     var window: UIWindow?
     // ### USER POSITION ### //
     var currentPosition: GeoCoordinate?
-    var currentHeading = CLLocationDirection(0.0)
     private var lastSavedPosition: GeoCoordinate?
     // ### USER POSITION ### //
     private var lastSavedTime = 0.0
-    var applicationActive: Bool = true {
-        didSet {
-            if !applicationActive {
-                if GlobalConstants.AKDebug {
-                    NSLog("=> THE APP HAS BEEN DISABLED!")
-                }
-            }
-        }
-    }
     
     // MARK: UIApplicationDelegate Implementation
     func applicationWillResignActive(_ application: UIApplication) {
@@ -86,14 +76,6 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
         self.notificationCenter.delegate = self
         application.registerForRemoteNotifications()
         
-        // Start heading updates.
-        if CLLocationManager.headingAvailable() {
-            self.locationManager.headingFilter = 5
-        }
-        else {
-            NSLog("=> HEADING NOT AVAILABLE.")
-        }
-        
         return true
     }
     
@@ -114,14 +96,6 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
             self.lastSavedTime = Date().timeIntervalSince1970
             self.lastSavedPosition = self.currentPosition
         }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        if newHeading.headingAccuracy < 0 {
-            return
-        }
-        self.currentHeading = ((newHeading.trueHeading > 0) ? newHeading.trueHeading : newHeading.magneticHeading)
-        NSLog("=> CURRENT HEADING: %f", self.currentHeading)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -145,7 +119,51 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Func.AKGetUser().apnsToken = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
+        let token = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
+        
+        if !Func.AKGetUser().isRegistered {
+            Func.AKGetUser().username = token
+            Func.AKGetUser().password = String(format: "%i", arc4random_uniform(1000000) + (1000000 * (arc4random_uniform(9) + 1)))
+            
+            Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) {
+                AKWSUtils.makeRESTRequest(
+                    controller: nil,
+                    endpoint: String(format: "%@/ama/user/existe", GlobalConstants.AKAmaServerAddress),
+                    httpMethod: "POST",
+                    headerValues: [ "Content-Type" : "application/json" ],
+                    bodyValue: Func.AKGetUser().username,
+                    showDebugInfo: true,
+                    isJSONResponse: false,
+                    completionTask: { (json) -> Void in
+                        // Process the results.
+                        if let str = json as? String {
+                            if str.caseInsensitiveCompare("false") == ComparisonResult.orderedSame {
+                                AKWSUtils.makeRESTRequest(
+                                    controller: nil,
+                                    endpoint: String(format: "%@/ama/user/insertar", GlobalConstants.AKAmaServerAddress),
+                                    httpMethod: "POST",
+                                    headerValues: [ "Content-Type" : "application/json" ],
+                                    bodyValue: String(
+                                        format: "{\"username\":\"%@\",\"password\":\"%@\"}",
+                                        Func.AKGetUser().username,
+                                        Func.AKGetUser().password
+                                    ),
+                                    showDebugInfo: true,
+                                    isJSONResponse: false,
+                                    completionTask: { (json) -> Void in Func.AKGetUser().registerUser() },
+                                    failureTask: { (code, message) -> Void in NSLog("=> ERROR: CODE=%i, MESSAGE=%@", code, message ?? "") }
+                                )
+                            }
+                            else {
+                                // The user already exists, which means the token has been registered,
+                                // let it pass.
+                                Func.AKGetUser().registerUser()
+                            }
+                        } },
+                    failureTask: { (code, message) -> Void in NSLog("=> ERROR: CODE=%i, MESSAGE=%@", code, message ?? "") }
+                )
+            }
+        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

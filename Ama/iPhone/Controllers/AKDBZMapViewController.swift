@@ -6,7 +6,7 @@ import UIKit
 class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
     // MARK: Properties
     // Flags
-    let addRadarOverlay = true
+    let addRadarOverlay = false
     // Overlay Controllers
     let bottomOverlay = AKBottomOverlayView()
     let layersOverlay = AKLayersOverlayView()
@@ -22,141 +22,97 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
     
     // MARK: Closures
     let loadDBZMap: (_ controller: AKDBZMapViewController, _ progress: UIProgressView?, _ caller: UIButton) -> Void = { (controller, progress, caller) -> Void in
-        Func.AKPrintTimeElapsedWhenRunningCode(title: "Load_DBZMap", operation: { (Void) -> Void in
-            if !controller.layersOverlay.layersState {
-                return
-            }
-            
-            caller.isEnabled = false
-            UIView.animate(withDuration: 1.0, animations: { (Void) -> Void in
-                caller.backgroundColor = GlobalConstants.AKDisabledButtonBg
-            })
-            
-            progress?.setProgress(0.25, animated: true)
-            
-            controller.clearMap()
-            
-            Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
-                Func.AKCenterMapOnLocation(
-                    mapView: controller.mapView,
-                    location: Func.AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
-                    zoomLevel: GlobalConstants.AKDefaultZoomLevel
-                )
-            }
-            
-            let dBZPoints = NSMutableArray()
-            let requestBody = ""
-            let url = String(format: "%@/ama/ultimodato", GlobalConstants.AKAmaServerAddress)
-            let completionTask: (Any) -> Void = { (json) -> Void in
-                Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
-                    progress?.setProgress(0.50, animated: true)
-                }
-                
-                if let dictionary = json as? JSONObject {
-                    if let array = dictionary["arrayDatos"] as? JSONObjectArray, let date = dictionary["fecha"] as? String, let notify = dictionary["notificar"] as? Bool {
-                        for element in array {
-                            if let e = element as? JSONObject {
-                                let intensity = e["dBZ"] as? DBZIntensity ?? GlobalConstants.AKInvalidIntensity
-                                let coordinates = e["coordenadas"] as? JSONObjectStringArray ?? []
-                                for coordinate in coordinates {
-                                    let lat = CLLocationDegrees(coordinate.components(separatedBy: ":")[0])!
-                                    let lon = CLLocationDegrees(coordinate.components(separatedBy: ":")[1])!
-                                    let location = GeoCoordinate(latitude: lat, longitude: lon)
+        // If the layers are not visible/active, then return here and do nothing.
+        if !controller.layersOverlay.layersActive { return }
+        
+        // Disable button/caller.
+        caller.isEnabled = false
+        UIView.animate(withDuration: 1.0, animations: { (Void) -> Void in caller.backgroundColor = GlobalConstants.AKDisabledButtonBg })
+        
+        // Set progress at 25%.
+        progress?.setProgress(0.25, animated: true)
+        
+        // Clear the map.
+        controller.clearMap()
+        
+        // Center on initial position.
+        Func.AKCenterMapOnLocation(
+            mapView: controller.mapView,
+            location: Func.AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
+            zoomLevel: GlobalConstants.AKDefaultZoomLevel
+        )
+        
+        // Call the Controller from a background thread to avoid locking the main thread.
+        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { Void -> Void in
+            AKWSUtils.makeRESTRequest(
+                controller: controller,
+                endpoint: String(format: "%@/ama/ultimodato", GlobalConstants.AKAmaServerAddress),
+                httpMethod: "GET",
+                headerValues: [ "Content-Type" : "application/json" ],
+                bodyValue: "",
+                completionTask: { (jsonDocument) -> Void in
+                    let dBZPoints = NSMutableArray()
+                    
+                    // Set progress at 50% from the main thread.
+                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in progress?.setProgress(0.50, animated: true) }
+                    
+                    if let dictionary = jsonDocument as? JSONObject {
+                        if let array = dictionary["arrayDatos"] as? JSONObjectArray, let date = dictionary["fecha"] as? String, let notify = dictionary["notificar"] as? Bool {
+                            for element in array {
+                                if let e = element as? JSONObject {
+                                    let intensity = e["dBZ"] as? DBZIntensity ?? GlobalConstants.AKInvalidIntensity
+                                    let coordinates = e["coordenadas"] as? JSONObjectStringArray ?? []
+                                    for coordinate in coordinates {
+                                        let lat = CLLocationDegrees(coordinate.components(separatedBy: ":")[0])!
+                                        let lon = CLLocationDegrees(coordinate.components(separatedBy: ":")[1])!
+                                        let location = GeoCoordinate(latitude: lat, longitude: lon)
+                                        
+                                        dBZPoints.add(AKDBZPoint(center: location, intensity: intensity))
+                                    }
                                     
-                                    dBZPoints.add(AKDBZPoint(center: location, intensity: intensity))
-                                }
-                                
-                                Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
-                                    progress?.setProgress(0.75, animated: true)
+                                    // Set progress at 75% from the main thread.
+                                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in progress?.setProgress(0.75, animated: true) }
                                 }
                             }
-                        }
-                        
-                        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
-                            controller.mapView.add(AKDBZOverlay(dBZPoints: dBZPoints), level: MKOverlayLevel.aboveRoads)
-                            controller.topOverlay.lastUpdate.text = String(
-                                format: "Última actualización del radar: %@",
-                                Func.AKGetFormattedDate(date: Func.AKGetDateFromString(dateAsString: date))
-                            )
-                            controller.topOverlay.stormCluster.text = notify ?
-                                "Detectamos nubes de lluvia sobre Asunción y alrededores." : "No hay nubes de lluvia sobre Asunción y alrededores."
-                            if notify {
-                                controller.topOverlay.stormCluster.backgroundColor = Func.AKHexColor(0xCC241D)
+                            
+                            // Update map, overlays, etc. from the main thread. Also set progress at 100%.
+                            Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
+                                controller.mapView.add(AKDBZOverlay(dBZPoints: dBZPoints), level: MKOverlayLevel.aboveRoads)
+                                controller.topOverlay.lastUpdate.text = String(
+                                    format: "Última actualización del radar: %@",
+                                    Func.AKGetFormattedDate(date: Func.AKGetDateFromString(dateAsString: date))
+                                )
+                                controller.topOverlay.stormCluster.text = notify ?
+                                    "Detectamos nubes de lluvia sobre Asunción y alrededores." : "No hay nubes de lluvia sobre Asunción y alrededores."
+                                if notify {
+                                    controller.topOverlay.stormCluster.backgroundColor = Func.AKHexColor(0xCC241D)
+                                }
+                                else {
+                                    controller.topOverlay.stormCluster.backgroundColor = UIColor.clear
+                                }
+                                progress?.setProgress(1.0, animated: true)
                             }
-                            else {
-                                controller.topOverlay.stormCluster.backgroundColor = UIColor.clear
-                            }
-                            progress?.setProgress(1.0, animated: true)
                         }
                     }
-                }
-                
-                Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
-                    controller.locationObserver()
-                }
-                
-                Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
-                    progress?.setProgress(0.0, animated: false)
-                    caller.isEnabled = true
-                    UIView.animate(withDuration: 1.0, animations: { (Void) -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
-                }
-            }
-            let failureTask: (Int, String) -> Void = { (code, message) -> Void in
-                switch code {
-                case ErrorCodes.ConnectionToBackEndError.rawValue:
-                    Func.AKPresentMessage(
-                        controller: controller,
-                        type: .error,
-                        message: message
-                    )
-                    break
-                case ErrorCodes.InvalidMIMEType.rawValue:
-                    Func.AKPresentMessage(
-                        controller: controller,
-                        type: .error,
-                        message: "El servicio devolvió una respuesta inválida. Reportando..."
-                    )
-                    break
-                case ErrorCodes.JSONProcessingError.rawValue:
-                    Func.AKPresentMessage(
-                        controller: controller,
-                        type: .error,
-                        message: "Error procesando respuesta. Reportando..."
-                    )
-                    break
-                default:
-                    Func.AKPresentMessage(
-                        controller: controller,
-                        type: .error,
-                        message: String(format: "%d: Error genérico.", code)
-                    )
-                    break
-                }
-                
-                Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
-                    progress?.setProgress(0.0, animated: false)
-                    caller.isEnabled = true
-                    UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
-                }
-            }
-            
-            Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { Void -> Void in
-                AKWSUtils.makeRESTRequest(
-                    controller: controller,
-                    endpoint: url,
-                    httpMethod: "GET",
-                    headerValues: [ "Content-Type" : "application/json" ],
-                    bodyValue: requestBody,
-                    completionTask: { (jsonDocument) -> Void in completionTask(jsonDocument) },
-                    failureTask: { (code, message) -> Void in failureTask(code, message!) }
-                )
-            }
-        })
+                    
+                    // Reset all.
+                    Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
+                        progress?.setProgress(0.0, animated: false)
+                        caller.isEnabled = true
+                        UIView.animate(withDuration: 1.0, animations: { (Void) -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
+                    } },
+                failureTask: { (code, message) -> Void in
+                    // Reset all.
+                    Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
+                        progress?.setProgress(0.0, animated: false)
+                        caller.isEnabled = true
+                        UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
+                    } }
+            )
+        }
     }
     let updateLabels: (AKDBZMapViewController, Any?) -> Void = { (controller, dmhData) -> Void in
         // ###### UPDATE LABELS FOR *TopOverlay*.
-        controller.topOverlay.userAvatar.text = String(format: "%@", Func.AKGetUser().username.characters.first?.description ?? "").uppercased()
-        
         // Update the *Weather State*.
         if
             let array = dmhData as? JSONObjectArray,
@@ -200,7 +156,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
         }
         else {
             UIView.transition(
-                with: controller.topOverlay.alertValue,
+                with: controller.bottomOverlay.temperature,
                 duration: 1.0,
                 options: [UIViewAnimationOptions.transitionCrossDissolve],
                 animations: {
@@ -231,7 +187,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
         }
         else {
             UIView.transition(
-                with: controller.topOverlay.alertValue,
+                with: controller.bottomOverlay.temperature,
                 duration: 1.0,
                 options: [UIViewAnimationOptions.transitionCrossDissolve],
                 animations: {
@@ -243,10 +199,6 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
             )
         }
         // ###### UPDATE LABELS FOR *BottomOverlay*.
-        
-        if GlobalConstants.AKDebug {
-            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", controller.mapView.overlays.count)
-        }
     }
     
     // MARK: Outlets
@@ -279,17 +231,9 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
         }
     }
     
-    func mapView(_ mapView: MKMapView, annotationCanShowCallout annotation: MKAnnotation) -> Bool {
-        return false
-    }
-    
     // MARK: Observers
     func locationObserver() {
-        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
-            if Func.AKDelegate().applicationActive {
-                self.callDMHWebService()
-            }
-        }
+        NSLog("=> INFO: UPDATED LOCATION.")
     }
     
     func dBZMapObserver() {
@@ -304,7 +248,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
         self.inhibitTapGesture = true
         self.loadData = { (controller) -> Void in
             if let controller = controller as? AKDBZMapViewController {
-                // Custom notifications.
+                // Set up observer for location updates.
                 NotificationCenter.default.addObserver(
                     controller,
                     selector: #selector(AKDBZMapViewController.locationObserver),
@@ -316,22 +260,27 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
                 controller.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 controller.mapView.userTrackingMode = MKUserTrackingMode.none
                 
-                // Add Radar overlay.
+                // Add radar overlay.
                 if controller.addRadarOverlay && controller.radarOverlay == nil {
                     controller.radarOverlay = AKRadarSpanOverlay(center: GlobalConstants.AKRadarOrigin, radius: CLLocationDistance(250000))
                     controller.radarOverlay?.title = "Cobertura Radar"
                     controller.mapView.add(controller.radarOverlay!, level: MKOverlayLevel.aboveRoads)
                 }
                 
-                // Add DBZMap
+                // Load dBZ map.
                 controller.startRefreshTimer()
                 
+                // Add overlays.
                 controller.addDefaultViewOverlays()
+                
+                // Center on initial position.
                 Func.AKCenterMapOnLocation(
                     mapView: controller.mapView,
                     location: Func.AKDelegate().currentPosition ?? GlobalConstants.AKRadarOrigin,
                     zoomLevel: GlobalConstants.AKDefaultZoomLevel
                 )
+                
+                // Call DMH and update data.
                 controller.callDMHWebService()
             }
         }
@@ -354,10 +303,6 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
             })
             self.mapView.removeOverlays(overlaysToRemove)
         }
-        
-        if GlobalConstants.AKDebug {
-            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
-        }
     }
     
     func hideLayers() {
@@ -371,10 +316,6 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
                 }
             })
             self.mapView.removeOverlays(overlaysToRemove)
-        }
-        
-        if GlobalConstants.AKDebug {
-            NSLog("=> INFO: NUMBER OF OVERLAYS => %d", self.mapView.overlays.count)
         }
     }
     

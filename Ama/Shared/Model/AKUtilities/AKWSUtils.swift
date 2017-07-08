@@ -3,7 +3,7 @@ import UIKit
 
 class AKWSUtils {
     static func makeRESTRequest(
-        controller: UIViewController,
+        controller: UIViewController?,
         endpoint: String,
         httpMethod: String,
         headerValues: Dictionary<String, String>,

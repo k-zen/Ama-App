@@ -86,8 +86,6 @@ struct GlobalConstants {
     static let AKEarthRadius: Double = 6371.228 * 1000.0 // http://nsidc.org/data/ease/ease_grid.html
     static let AKRadarOrigin = GeoCoordinate(latitude: GlobalConstants.AKRadarLatitude, longitude: GlobalConstants.AKRadarLongitude)
     static let AKInvalidIntensity: DBZIntensity = -1
-    static let AKMaxUsernameLength = 12
-    static let AKMinUsernameLength = 3
     static let AKDefaultZoomLevel = ZoomLevel.L01
     static let AKAmaServerAddress = "http://190.128.205.74:8102"
     static let AKDMHServerAddress = "http://190.128.205.78:8080/api/get_all/183"

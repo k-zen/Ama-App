@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,113 +39,11 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="mapView" destination="fCB-aN-Tyx" id="l4E-mZ-Por"/>
-                        <segue destination="8rJ-Kc-sve" kind="show" identifier="ViewConfigurationsSegue" id="cL0-sB-NTi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1020" y="-662"/>
-        </scene>
-        <!--Configuraciones-->
-        <scene sceneID="wg7-f3-ORb">
-            <objects>
-                <viewController title="Configuraciones" id="8rJ-Kc-sve" customClass="AKConfigViewController" customModule="Ama" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
-                        <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW" userLabel="Main_Container">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lnj-RR-43P" userLabel="Nav_Container">
-                                <rect key="frame" x="16" y="20" width="343" height="48"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuh-Xj-7rx">
-                                        <rect key="frame" x="8" y="8" width="60" height="32"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="mk0-6t-Uys"/>
-                                            <constraint firstAttribute="height" constant="32" id="qXo-Fl-XWD"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="20"/>
-                                        <state key="normal" title="Volver">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="AHQ-a5-FlE"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1r-Cf-SY9">
-                                        <rect key="frame" x="101" y="8" width="140" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="74D-rr-CMD"/>
-                                            <constraint firstAttribute="width" constant="140" id="DdZ-8q-200"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="20"/>
-                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="u1r-Cf-SY9" firstAttribute="centerX" secondItem="Lnj-RR-43P" secondAttribute="centerX" id="Hzy-nm-Xvb"/>
-                                    <constraint firstItem="Iuh-Xj-7rx" firstAttribute="leading" secondItem="Lnj-RR-43P" secondAttribute="leading" constant="8" id="Mhh-Zj-wyx"/>
-                                    <constraint firstAttribute="height" constant="48" id="Rln-VC-Vsj"/>
-                                    <constraint firstItem="u1r-Cf-SY9" firstAttribute="centerY" secondItem="Lnj-RR-43P" secondAttribute="centerY" id="TTn-zg-7co"/>
-                                    <constraint firstItem="Iuh-Xj-7rx" firstAttribute="centerY" secondItem="Lnj-RR-43P" secondAttribute="centerY" id="iOI-bv-Hep"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tE0-th-yhp" userLabel="Info_Container">
-                                <rect key="frame" x="16" y="76" width="343" height="56"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Desea recibir alertas de lluvia...?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSX-E1-uQv">
-                                        <rect key="frame" x="8" y="8" width="270" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="18"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6w7-FF-W4a">
-                                        <rect key="frame" x="286" y="13" width="51" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </switch>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="72L-kS-I0Z"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jt5-mQ-HVt" userLabel="Table_Container">
-                                <rect key="frame" x="16" y="140" width="343" height="470"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.1058823529" green="0.1176470588" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="tE0-th-yhp" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="GZM-lV-Abg"/>
-                            <constraint firstItem="tE0-th-yhp" firstAttribute="top" secondItem="Lnj-RR-43P" secondAttribute="bottom" constant="8" id="II5-OW-Kf0"/>
-                            <constraint firstItem="Lnj-RR-43P" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="RIG-AO-wCI"/>
-                            <constraint firstItem="jt5-mQ-HVt" firstAttribute="top" secondItem="tE0-th-yhp" secondAttribute="bottom" constant="8" id="SSh-RH-Edj"/>
-                            <constraint firstItem="Lnj-RR-43P" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="Shh-rP-c11"/>
-                            <constraint firstItem="Lnj-RR-43P" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="YAf-O1-T7D"/>
-                            <constraint firstItem="jt5-mQ-HVt" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="eLK-yY-N5k"/>
-                            <constraint firstItem="jt5-mQ-HVt" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="iNL-Cx-p3m"/>
-                            <constraint firstItem="tE0-th-yhp" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="nKD-1G-axc"/>
-                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="jt5-mQ-HVt" secondAttribute="bottom" constant="8" id="uu3-5G-la9"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Configuraciones" id="wvw-so-rs3">
-                        <barButtonItem key="backBarButtonItem" title="Volver" id="q8W-eG-F9n"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="alertNotificationSwitch" destination="6w7-FF-W4a" id="3YQ-nX-sim"/>
-                        <outlet property="back" destination="Iuh-Xj-7rx" id="7rd-zG-n2r"/>
-                        <outlet property="infoContainer" destination="tE0-th-yhp" id="p4c-YH-LYZ"/>
-                        <outlet property="username" destination="u1r-Cf-SY9" id="rYn-qZ-et2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1824.8" y="-662.51874062968523"/>
         </scene>
         <!--Ama-->
         <scene sceneID="yl2-sM-qoP">

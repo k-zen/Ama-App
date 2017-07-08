@@ -43,12 +43,6 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
         if !self.inhibitNotificationMessage {
             self.manageGrantToNotifications()
         }
-        if self.shouldCheckLoggedUser && !Func.AKGetUser().isRegistered {
-            self.presentView(controller: AKLoginViewController(nibName: "AKLoginView", bundle: nil),
-                             taskBeforePresenting: nil,
-                             dismissViewCompletionTask: nil
-            )
-        }
         
         // Persist to disk data each time a view controller appears.
         do {
@@ -113,24 +107,6 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
             name: NSNotification.Name.UIKeyboardWillHide,
             object: nil
         )
-    }
-    
-    func presentView(controller: AKCustomViewController,
-                     taskBeforePresenting: ((_ presenterController: AKCustomViewController, _ presentedController: AKCustomViewController) -> Void)?,
-                     dismissViewCompletionTask: ((_ presenterController: AKCustomViewController, _ presentedController: AKCustomViewController) -> Void)?) {
-        controller.dismissViewCompletionTask = {
-            if dismissViewCompletionTask != nil {
-                dismissViewCompletionTask!(self, controller)
-            }
-        }
-        controller.modalTransitionStyle = GlobalConstants.AKDefaultTransitionStyle
-        controller.modalPresentationStyle = .overFullScreen
-        
-        if taskBeforePresenting != nil {
-            taskBeforePresenting!(self, controller)
-        }
-        
-        self.present(controller, animated: false, completion: nil)
     }
     
     // MARK: Floating Views
@@ -198,9 +174,6 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
             Func.AKDelegate().locationManager.startUpdatingHeading()
             break
         case .restricted, .denied:
-            // Mark the App as inactive!
-            Func.AKDelegate().applicationActive = false
-            
             let alertController = UIAlertController(
                 title: "Acceso a Ubicación Deshabilitado",
                 message: "La App necesita acceso a su ubicación para brindar pronósticos personalizados. Habilítelo en Configuraciones.",

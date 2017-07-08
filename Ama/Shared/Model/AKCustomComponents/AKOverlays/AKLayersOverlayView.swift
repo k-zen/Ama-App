@@ -9,7 +9,7 @@ class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
     }
     
     // MARK: Properties
-    var layersState: Bool = true
+    var layersActive: Bool = true
     
     // MARK: Outlets
     @IBOutlet weak var layers: UIButton!
@@ -18,14 +18,14 @@ class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Actions
     @IBAction func viewLayers(_ sender: Any) {
         if let controller = self.controller as? AKDBZMapViewController {
-            if self.layersState {
-                self.layersState = false
+            if self.layersActive {
+                self.layersActive = false
                 self.layers.layer.backgroundColor = GlobalConstants.AKDisabledButtonBg.cgColor
                 controller.hideLayers()
                 controller.hideLegend()
             }
             else {
-                self.layersState = true
+                self.layersActive = true
                 self.layers.layer.backgroundColor = GlobalConstants.AKEnabledButtonBg.cgColor
                 controller.dBZMapObserver()
                 controller.showLegend()
