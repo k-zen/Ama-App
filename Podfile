@@ -5,5 +5,5 @@ inhibit_all_warnings!
 workspace 'Ama'
 
 target "Ama" do
-    # pod 'SVPulsingAnnotationView'
+    pod 'SVPulsingAnnotationView'
 end
