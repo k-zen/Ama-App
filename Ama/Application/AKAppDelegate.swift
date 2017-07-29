@@ -130,9 +130,12 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
                     controller: nil,
                     endpoint: String(format: "%@/ama/user/existe", GlobalConstants.AKAmaServerAddress),
                     httpMethod: "POST",
-                    headerValues: [ "Content-Type" : "application/json" ],
+                    headerValues: [
+                        "Content-Type"  : "application/json",
+                        "Authorization" : "Ama@admin:amaPass2017".toBase64()
+                    ],
                     bodyValue: Func.AKGetUser().username,
-                    showDebugInfo: true,
+                    showDebugInfo: false,
                     isJSONResponse: false,
                     completionTask: { (json) -> Void in
                         // Process the results.
@@ -142,13 +145,16 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
                                     controller: nil,
                                     endpoint: String(format: "%@/ama/user/insertar", GlobalConstants.AKAmaServerAddress),
                                     httpMethod: "POST",
-                                    headerValues: [ "Content-Type" : "application/json" ],
+                                    headerValues: [
+                                        "Content-Type"  : "application/json",
+                                        "Authorization" : "Ama@admin:amaPass2017".toBase64()
+                                    ],
                                     bodyValue: String(
                                         format: "{\"username\":\"%@\",\"password\":\"%@\"}",
                                         Func.AKGetUser().username,
                                         Func.AKGetUser().password
                                     ),
-                                    showDebugInfo: true,
+                                    showDebugInfo: false,
                                     isJSONResponse: false,
                                     completionTask: { (json) -> Void in Func.AKGetUser().registerUser() },
                                     failureTask: { (code, message) -> Void in NSLog("=> ERROR: CODE=%i, MESSAGE=%@", code, message ?? "") }

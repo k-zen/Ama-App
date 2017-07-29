@@ -24,6 +24,41 @@ typealias User = AKUser
 let Func = GlobalFunctions.instance(GlobalConstants.AKDebug)
 
 // MARK: Extensions
+extension String {
+    ///
+    /// This function converts the string from Base64.
+    ///
+    /// - Returns: The original string.
+    ///
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self) else {
+            return nil
+        }
+        
+        return String(data: data, encoding: .utf8)
+    }
+    
+    ///
+    /// This function converts the string to Base64 encoding.
+    ///
+    /// - Returns: A Base64 encoded string.
+    ///
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+    
+    func toBool() -> Bool? {
+        switch self {
+        case "TRUE", "true", "YES", "yes", "1":
+            return true
+        case "FALSE", "false", "NO", "no", "0":
+            return false
+        default:
+            return nil
+        }
+    }
+}
+
 extension UIImage {
     static func fromColor(color: UIColor, frame: CGRect) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)

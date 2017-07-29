@@ -31,6 +31,7 @@
 		4973DB5E1EB3EA6F0088217B /* 0015-032px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4973DB581EB3EA6F0088217B /* 0015-032px.png */; };
 		4973DB631EB3EB5F0088217B /* AKBottomOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4973DB621EB3EB5F0088217B /* AKBottomOverlayView.xib */; };
 		4973DB651EB3EF280088217B /* AKBottomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973DB641EB3EF280088217B /* AKBottomOverlayView.swift */; };
+		49740BD21F2D2392005AA4F9 /* AKBackEndConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49740BD11F2D2392005AA4F9 /* AKBackEndConnector.swift */; };
 		4976AB4D1F0FDA69006CA8B0 /* AKConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4976AB4C1F0FDA69006CA8B0 /* AKConfigView.xib */; };
 		4976AB4F1F0FDA85006CA8B0 /* AKConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4976AB4E1F0FDA85006CA8B0 /* AKConfigView.swift */; };
 		4976AB531F11253C006CA8B0 /* 0016-024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4976AB521F11253C006CA8B0 /* 0016-024px.png */; };
@@ -95,6 +96,7 @@
 		4973DB581EB3EA6F0088217B /* 0015-032px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0015-032px.png"; sourceTree = "<group>"; };
 		4973DB621EB3EB5F0088217B /* AKBottomOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKBottomOverlayView.xib; sourceTree = "<group>"; };
 		4973DB641EB3EF280088217B /* AKBottomOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBottomOverlayView.swift; sourceTree = "<group>"; };
+		49740BD11F2D2392005AA4F9 /* AKBackEndConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBackEndConnector.swift; sourceTree = "<group>"; };
 		4976AB4C1F0FDA69006CA8B0 /* AKConfigView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AKConfigView.xib; sourceTree = "<group>"; };
 		4976AB4E1F0FDA85006CA8B0 /* AKConfigView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConfigView.swift; sourceTree = "<group>"; };
 		4976AB521F11253C006CA8B0 /* 0016-024px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0016-024px.png"; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 		49921F261EAE924A00899816 /* AKDataInterface */ = {
 			isa = PBXGroup;
 			children = (
+				49740BD11F2D2392005AA4F9 /* AKBackEndConnector.swift */,
 				49921F271EAE924A00899816 /* AKMasterFile.swift */,
 			);
 			path = AKDataInterface;
@@ -563,6 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49740BD21F2D2392005AA4F9 /* AKBackEndConnector.swift in Sources */,
 				49921F4B1EAE924A00899816 /* AKMasterFile.swift in Sources */,
 				496884991ED1DBC1004A206C /* AKRadarSpanOverlay.swift in Sources */,
 				49074A861EB14979002FBB64 /* AKCustomViewController.swift in Sources */,

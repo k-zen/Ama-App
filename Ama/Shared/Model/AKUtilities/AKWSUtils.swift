@@ -8,8 +8,8 @@ class AKWSUtils {
         httpMethod: String,
         headerValues: Dictionary<String, String>,
         bodyValue: String,
-        showDebugInfo: Bool = false,
-        isJSONResponse: Bool = true,
+        showDebugInfo: Bool,
+        isJSONResponse: Bool,
         completionTask: @escaping (Any) -> Void,
         failureTask: @escaping (Int, String?) -> Void) {
         // Make the call synchronously, but with a small timeout.
@@ -60,9 +60,9 @@ class AKWSUtils {
                         }
                         
                         if showDebugInfo {
-                            NSLog("=> RESPONSE HTTP *Status Code* ==> %ld\n", Int64(httpResponse.statusCode))
-                            NSLog("=> RESPONSE HTTP *Headers* ==>\n%@\n", httpResponse.allHeaderFields)
-                            NSLog("=> RESPONSE *Body* ==>\n%@\n", String(data: data!, encoding: String.Encoding.utf8)!)
+                            NSLog("=> RESPONSE HTTP *Status Code* ==> %ld", Int64(httpResponse.statusCode))
+                            NSLog("=> RESPONSE HTTP *Headers* ==>\n%@", httpResponse.allHeaderFields)
+                            NSLog("=> RESPONSE *Body* ==>\n%@", String(data: data!, encoding: String.Encoding.utf8)!)
                         }
                     }
                     else {
