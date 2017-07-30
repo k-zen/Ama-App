@@ -26,6 +26,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
     var currentScrollContainer: UIScrollView?
     
     // MARK: Overlays
+    let configOverlay = AKConfigView()
     let messageOverlay = AKMessageView()
     
     // MARK: UIViewController Overriding
@@ -110,6 +111,30 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     // MARK: Floating Views
+    func showConfig(
+        origin: CGPoint,
+        animate: Bool,
+        completionTask: ((_ controller: AKCustomViewController?) -> Void)?) {
+        let origin = Func.AKCenterScreenCoordinate(
+            container: self.view,
+            width: AKConfigView.LocalConstants.AKViewWidth,
+            height: AKConfigView.LocalConstants.AKViewHeight
+        )
+        
+        // Configure the overlay.
+        self.configOverlay.controller = self
+        self.configOverlay.setup()
+        self.configOverlay.draw(container: self.view, coordinates: origin, size: CGSize.zero)
+        
+        // Expand/Show the overlay.
+        self.configOverlay.expand(
+            controller: self,
+            expandHeight: AKConfigView.LocalConstants.AKViewHeight,
+            animate: animate,
+            completionTask: completionTask
+        )
+    }
+    
     func showMessage(
         origin: CGPoint,
         type: MessageType,
@@ -143,6 +168,14 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
         self.messageOverlay.expand(
             controller: self,
             expandHeight: AKMessageView.LocalConstants.AKViewHeight,
+            animate: animate,
+            completionTask: completionTask
+        )
+    }
+    
+    func hideConfig(animate: Bool, completionTask: ((_ controller: AKCustomViewController?) -> Void)?) {
+        self.configOverlay.collapse(
+            controller: self,
             animate: animate,
             completionTask: completionTask
         )

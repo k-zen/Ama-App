@@ -17,11 +17,17 @@ class AKTopOverlayView: AKCustomView, AKCustomViewProtocol {
     
     // MARK: Actions
     @IBAction func config(_ sender: Any) {
-        NSLog("=> CONFIG WILL OPEN!")
+        if let controller = self.controller as? AKDBZMapViewController {
+            controller.showConfig(
+                origin: CGPoint.zero,
+                animate: true,
+                completionTask: nil
+            )
+        }
     }
     
     @IBAction func pauseRefresh(_ sender: Any) {
-        if let controller = controller as? AKDBZMapViewController {
+        if let controller = self.controller as? AKDBZMapViewController {
             if controller.stateRefreshTimer() {
                 controller.stopRefreshTimer()
                 self.pauseRefresh.setImage(UIImage(named: "0011-024px.png"), for: UIControlState.normal)
