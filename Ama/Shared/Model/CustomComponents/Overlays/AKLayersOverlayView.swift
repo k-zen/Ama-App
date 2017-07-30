@@ -5,7 +5,7 @@ class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
     // MARK: Constants
     struct LocalConstants {
         static let AKViewWidth: CGFloat = 40.0
-        static let AKViewHeight: CGFloat = 80.0
+        static let AKViewHeight: CGFloat = 40.0
     }
     
     // MARK: Properties
@@ -13,7 +13,6 @@ class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
     
     // MARK: Outlets
     @IBOutlet weak var layers: UIButton!
-    @IBOutlet weak var dropPIN: UIButton!
     
     // MARK: Actions
     @IBAction func viewLayers(_ sender: Any) {
@@ -23,19 +22,17 @@ class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
                 self.layers.layer.backgroundColor = GlobalConstants.AKDisabledButtonBg.cgColor
                 controller.hideLayers()
                 controller.hideLegend()
+                controller.toggleMapZoom(enable: true)
+                controller.toggleUserAnnotation(enable: true)
             }
             else {
                 self.layersActive = true
                 self.layers.layer.backgroundColor = GlobalConstants.AKEnabledButtonBg.cgColor
                 controller.dBZMapObserver()
                 controller.showLegend()
+                controller.toggleMapZoom(enable: false)
+                controller.toggleUserAnnotation(enable: false)
             }
-        }
-    }
-    
-    @IBAction func dropPIN(_ sender: Any) {
-        if let _ = self.controller as? AKDBZMapViewController {
-            // TODO
         }
     }
     
@@ -55,8 +52,6 @@ class AKLayersOverlayView: AKCustomView, AKCustomViewProtocol {
     func applyLookAndFeel() {
         self.layers.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
         self.layers.layer.masksToBounds = true
-        self.dropPIN.layer.cornerRadius = GlobalConstants.AKButtonCornerRadius
-        self.dropPIN.layer.masksToBounds = true
     }
     
     func draw(container: UIView, coordinates: CGPoint, size: CGSize) {

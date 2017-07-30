@@ -1,18 +1,22 @@
 import CoreLocation
 import Foundation
 import MapKit
+import SVPulsingAnnotationView
 import UIKit
 
 class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
     // MARK: Properties
     // Flags
     let addRadarOverlay = false
+    let addUserPin = true
     // Overlay Controllers
     let bottomOverlay = AKBottomOverlayView()
     let layersOverlay = AKLayersOverlayView()
     let legendOverlay = AKLegendOverlayView()
     let progressOverlay = AKProgressOverlayView()
     let topOverlay = AKTopOverlayView()
+    // Custom Annotations
+    var userAnnotation: MKPointAnnotation?
     // Custom Overlays
     var radarOverlay: AKRadarSpanOverlay?
     // Timers
@@ -227,6 +231,21 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
     }
     
     // MARK: MKMapViewDelegate Implementation
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let identifier = "UserAnnotation"
+        
+        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+            return annotationView
+        }
+        else {
+            let customView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            customView.annotationColor = GlobalConstants.AKBlue
+            customView.isHidden = true
+            
+            return customView
+        }
+    }
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKind(of: AKDBZOverlay.self) {
             let ol = overlay as! AKDBZOverlay
@@ -250,6 +269,21 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
     // MARK: Observers
     func locationObserver() {
         NSLog("=> INFO: UPDATED LOCATION.")
+        
+        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
+            let coordinate = Func.AKDelegate().currentPosition ?? kCLLocationCoordinate2DInvalid
+            
+            if self.addUserPin {
+                if self.userAnnotation != nil {
+                    self.mapView.deselectAnnotation(self.userAnnotation!, animated: true)
+                    self.mapView.removeAnnotation(self.userAnnotation!)
+                }
+                
+                self.userAnnotation = MKPointAnnotation()
+                self.userAnnotation?.coordinate = coordinate
+                self.mapView.addAnnotation(self.userAnnotation!)
+            }
+        }
     }
     
     func dBZMapObserver() {
@@ -392,6 +426,19 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
     
     func showLegend() {
         self.legendOverlay.getView().isHidden = false
+    }
+    
+    func toggleMapZoom(enable: Bool) { self.mapView.isZoomEnabled = enable }
+    
+    func toggleUserAnnotation(enable: Bool) {
+        if let annotation = self.userAnnotation {
+            if enable {
+                self.mapView.view(for: annotation)?.isHidden = false
+            }
+            else {
+                self.mapView.view(for: annotation)?.isHidden = true
+            }
+        }
     }
     
     func startRefreshTimer() {
