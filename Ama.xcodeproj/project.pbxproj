@@ -66,7 +66,6 @@
 		49914ED91F2E3D16003058DA /* AKRadarSpanOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49914E9A1F2E3D16003058DA /* AKRadarSpanOverlay.swift */; };
 		49914EDA1F2E3D16003058DA /* AKFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49914E9C1F2E3D16003058DA /* AKFileUtils.swift */; };
 		49914EDB1F2E3D16003058DA /* AKWSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49914E9D1F2E3D16003058DA /* AKWSUtils.swift */; };
-		49914EDC1F2E3D16003058DA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49914EA01F2E3D16003058DA /* Info.plist */; };
 		49E4957F1D93193F00E7822D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 49E4957D1D93193F00E7822D /* Podfile */; };
 		D949E3C4129F5FC2DB52A98D /* Pods_Ama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877718A541E64678B753DA50 /* Pods_Ama.framework */; };
 /* End PBXBuildFile section */
@@ -509,7 +508,6 @@
 				49914EB41F2E3D16003058DA /* 0014-032px.png in Resources */,
 				49914EC51F2E3D16003058DA /* AppIcon-76@2x.png in Resources */,
 				49914EA71F2E3D16003058DA /* AKLayersOverlayView.xib in Resources */,
-				49914EDC1F2E3D16003058DA /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
