@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		493D25411F2F708C0052DA65 /* AKAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D25401F2F708C0052DA65 /* AKAboutViewController.swift */; };
 		49914EA11F2E3D16003058DA /* AKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49914E531F2E3D16003058DA /* AKAppDelegate.swift */; };
 		49914EA21F2E3D16003058DA /* AKMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49914E541F2E3D16003058DA /* AKMain.storyboard */; };
 		49914EA31F2E3D16003058DA /* AKDBZMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49914E571F2E3D16003058DA /* AKDBZMapViewController.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		493D25401F2F708C0052DA65 /* AKAboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAboutViewController.swift; sourceTree = "<group>"; };
 		496C1A261D930FDD00E41190 /* Ama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49914E531F2E3D16003058DA /* AKAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppDelegate.swift; sourceTree = "<group>"; };
 		49914E541F2E3D16003058DA /* AKMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AKMain.storyboard; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		49914E561F2E3D16003058DA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				493D25401F2F708C0052DA65 /* AKAboutViewController.swift */,
 				49914E571F2E3D16003058DA /* AKDBZMapViewController.swift */,
 			);
 			path = Controllers;
@@ -586,6 +589,7 @@
 				49914EDB1F2E3D16003058DA /* AKWSUtils.swift in Sources */,
 				49914ED31F2E3D16003058DA /* AKBackEndConnector.swift in Sources */,
 				49914ECA1F2E3D16003058DA /* AKCustomViewController.swift in Sources */,
+				493D25411F2F708C0052DA65 /* AKAboutViewController.swift in Sources */,
 				49914ED71F2E3D16003058DA /* AKDBZOverlay.swift in Sources */,
 				49914ED81F2E3D16003058DA /* AKDBZOverlayRenderer.swift in Sources */,
 			);
