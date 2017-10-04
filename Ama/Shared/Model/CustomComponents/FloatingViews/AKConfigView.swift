@@ -13,7 +13,7 @@ class AKConfigView: AKCustomView, AKCustomViewProtocol {
     
     // MARK: Actions
     @IBAction func notify(_ sender: UISwitch, forEvent event: UIEvent) {
-        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { Void -> Void in
+        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { () -> Void in
             AKBackEndConnector.obtainSessionToken(
                 controller: self.controller,
                 completionTask: { (sessionToken) -> Void in

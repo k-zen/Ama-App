@@ -321,7 +321,7 @@ class GlobalFunctions {
     }
     
     func AKCenterMapOnLocation(mapView: MKMapView, location: GeoCoordinate, zoomLevel: ZoomLevel, setRegion: Bool = true) {
-        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
+        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () -> Void in
             let span = MKCoordinateSpanMake(
                 zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers,
                 zoomLevel.rawValue / GlobalConstants.AKLatitudeDegreeInKilometers
@@ -374,7 +374,7 @@ class GlobalFunctions {
     
     func AKDelegate() -> AKAppDelegate { return UIApplication.shared.delegate as! AKAppDelegate }
     
-    func AKExecute(mode: ExecutionMode, timeDelay: Double, code: @escaping (Void) -> Void) {
+    func AKExecute(mode: ExecutionMode, timeDelay: Double, code: @escaping () -> Void) {
         switch mode {
         case .syncBackground:
             DispatchQueue
@@ -492,54 +492,11 @@ class GlobalFunctions {
     
     func AKObtainMasterFile() -> AKMasterFile { return Func.AKDelegate().masterFile }
     
-    func AKPresentMessageFromError(controller: AKCustomViewController, message: String!) {
-        do {
-            if let input = message {
-                let regex = try NSRegularExpression(pattern: ".*\"(.*)\"", options: NSRegularExpression.Options.caseInsensitive)
-                let matches = regex.matches(in: input, options: [], range: NSMakeRange(0, input.characters.count))
-                
-                if let match = matches.first {
-                    let range = match.rangeAt(1)
-                    if let swiftRange = AKRangeFromNSRange(range, forString: input) {
-                        let msg = input.substring(with: swiftRange)
-                        AKPresentMessage(controller: controller, type: .error, message: msg)
-                    }
-                }
-            }
-        }
-        catch {
-            NSLog("=> ERROR: \(error)")
-        }
-    }
-    
-    func AKPresentMessage(controller: AKCustomViewController, type: MessageType, message: String!) {
-        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
-            controller.showMessage(
-                origin: CGPoint.zero,
-                type: type,
-                message: message,
-                animate: true,
-                completionTask: nil
-            )
-        }
-    }
-    
-    func AKPrintTimeElapsedWhenRunningCode(title: String, operation: (Void) -> (Void)) {
+    func AKPrintTimeElapsedWhenRunningCode(title: String, operation: () -> (Void)) {
         let startTime = CFAbsoluteTimeGetCurrent()
         operation()
         let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         NSLog("=> INFO: TIME ELAPSED FOR \(title): %.4f seconds.", timeElapsed)
-    }
-    
-    func AKRangeFromNSRange(_ nsRange: NSRange, forString str: String) -> Range<String.Index>? {
-        let fromUTF16 = str.utf16.startIndex.advanced(by: nsRange.location)
-        let toUTF16 = fromUTF16.advanced(by: nsRange.length)
-        
-        if let from = String.Index(fromUTF16, within: str), let to = String.Index(toUTF16, within: str) {
-            return from ..< to
-        }
-        
-        return nil
     }
     
     func AKZoomScaleConvert(zoomScale: MKZoomScale, debug: Bool) -> Int {

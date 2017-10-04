@@ -32,25 +32,25 @@ class AKAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelega
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // ### Customize the App.
         UITabBarItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName: UIFont(
+            NSAttributedStringKey.font: UIFont(
                 name: GlobalConstants.AKSecondaryFont,
                 size: GlobalConstants.AKTabBarFontSize) ?? UIFont.systemFont(ofSize: GlobalConstants.AKTabBarFontSize),
-            NSForegroundColorAttributeName: GlobalConstants.AKTabBarTintNormal
+            NSAttributedStringKey.foregroundColor: GlobalConstants.AKTabBarTintNormal
             ], for: .normal
         )
         UITabBarItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName: UIFont(
+            NSAttributedStringKey.font: UIFont(
                 name: GlobalConstants.AKSecondaryFont,
                 size: GlobalConstants.AKTabBarFontSize) ?? UIFont.systemFont(ofSize: GlobalConstants.AKTabBarFontSize),
-            NSForegroundColorAttributeName: GlobalConstants.AKTabBarTintSelected
+            NSAttributedStringKey.foregroundColor: GlobalConstants.AKTabBarTintSelected
             ], for: .selected
         )
         UITabBar.appearance().barTintColor = GlobalConstants.AKTabBarBg
         UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: UIFont(
+            NSAttributedStringKey.font: UIFont(
                 name: GlobalConstants.AKSecondaryFont,
                 size: GlobalConstants.AKNavBarFontSize) ?? UIFont.systemFont(ofSize: GlobalConstants.AKNavBarFontSize),
-            NSForegroundColorAttributeName: GlobalConstants.AKDefaultFg
+            NSAttributedStringKey.foregroundColor: GlobalConstants.AKDefaultFg
         ]
         UINavigationBar.appearance().tintColor = GlobalConstants.AKTabBarTintSelected
         

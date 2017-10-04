@@ -31,7 +31,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
         
         // Disable button/caller.
         caller.isEnabled = false
-        UIView.animate(withDuration: 1.0, animations: { (Void) -> Void in caller.backgroundColor = GlobalConstants.AKDisabledButtonBg })
+        UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKDisabledButtonBg })
         
         // Set progress at 25%.
         progress?.setProgress(0.25, animated: true)
@@ -47,7 +47,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
         )
         
         // Call the Controller from a background thread to avoid locking the main thread.
-        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { Void -> Void in
+        Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { () -> Void in
             AKBackEndConnector.obtainSessionToken(
                 controller: controller,
                 completionTask: { (sessionToken) -> Void in
@@ -66,7 +66,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
                             let dBZPoints = NSMutableArray()
                             
                             // Set progress at 50% from the main thread.
-                            Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in progress?.setProgress(0.50, animated: true) }
+                            Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () -> Void in progress?.setProgress(0.50, animated: true) }
                             
                             if let dictionary = jsonDocument as? JSONObject {
                                 if let array = dictionary["arrayDatos"] as? JSONObjectArray, let date = dictionary["fecha"] as? String, let notify = dictionary["notificar"] as? Bool {
@@ -83,12 +83,12 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
                                             }
                                             
                                             // Set progress at 75% from the main thread.
-                                            Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in progress?.setProgress(0.75, animated: true) }
+                                            Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () -> Void in progress?.setProgress(0.75, animated: true) }
                                         }
                                     }
                                     
                                     // Update map, overlays, etc. from the main thread. Also set progress at 100%.
-                                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
+                                    Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () -> Void in
                                         controller.mapView.add(AKDBZOverlay(dBZPoints: dBZPoints), level: MKOverlayLevel.aboveRoads)
                                         controller.topOverlay.lastUpdate.text = String(
                                             format: "Última actualización del radar: %@",
@@ -108,14 +108,14 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
                             }
                             
                             // Reset all.
-                            Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
+                            Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { () -> Void in
                                 progress?.setProgress(0.0, animated: false)
                                 caller.isEnabled = true
-                                UIView.animate(withDuration: 1.0, animations: { (Void) -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
+                                UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
                             } },
                         failureTask: { (code, message) -> Void in
                             // Reset all.
-                            Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
+                            Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { () -> Void in
                                 progress?.setProgress(0.0, animated: false)
                                 caller.isEnabled = true
                                 UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
@@ -123,7 +123,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
                     ) },
                 failureTask: { (code, message) -> Void in
                     // Reset all.
-                    Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { (Void) -> Void in
+                    Func.AKExecute(mode: .asyncMain, timeDelay: 2.0) { () -> Void in
                         progress?.setProgress(0.0, animated: false)
                         caller.isEnabled = true
                         UIView.animate(withDuration: 1.0, animations: { () -> Void in caller.backgroundColor = GlobalConstants.AKEnabledButtonBg })
@@ -267,10 +267,10 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
     }
     
     // MARK: Observers
-    func locationObserver() {
+    @objc func locationObserver() {
         NSLog("=> INFO: UPDATED LOCATION.")
         
-        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { (Void) -> Void in
+        Func.AKExecute(mode: .asyncMain, timeDelay: 0.0) { () -> Void in
             let coordinate = Func.AKDelegate().currentPosition ?? kCLLocationCoordinate2DInvalid
             
             if self.addUserPin {
@@ -286,7 +286,7 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
         }
     }
     
-    func dBZMapObserver() {
+    @objc func dBZMapObserver() {
         self.loadDBZMap(self, self.progressOverlay.progress, self.layersOverlay.layers)
     }
     

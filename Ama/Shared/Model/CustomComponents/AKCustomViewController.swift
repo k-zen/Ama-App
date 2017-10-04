@@ -18,7 +18,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
     var loadData: (AKCustomViewController) -> Void = { (controller) -> Void in }
     var saveData: (AKCustomViewController) -> Void = { (controller) -> Void in }
     var configureLookAndFeel: (AKCustomViewController) -> Void = { (controller) -> Void in }
-    var dismissViewCompletionTask: (Void) -> Void = {}
+    var dismissViewCompletionTask: () -> Void = {}
     
     // MARK: Properties
     var tapGesture: UITapGestureRecognizer?
@@ -255,7 +255,7 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     // MARK: Observers
-    func keyboardWasShow(notification: NSNotification) {
+    @objc func keyboardWasShow(notification: NSNotification) {
         if let info = notification.userInfo, let editableComponent = self.currentEditableComponent {
             if let kbSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
                 var viewRect = self.view.frame
@@ -277,5 +277,5 @@ class AKCustomViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func keyboardWillBeHidden(notification: NSNotification) { self.currentScrollContainer?.setContentOffset(CGPoint.zero, animated: true) }
+    @objc func keyboardWillBeHidden(notification: NSNotification) { self.currentScrollContainer?.setContentOffset(CGPoint.zero, animated: true) }
 }
