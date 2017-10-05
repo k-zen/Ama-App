@@ -273,7 +273,6 @@
 				49914E6D1F2E3D16003058DA /* 0014-032px.png */,
 				49914E6E1F2E3D16003058DA /* 0015-032px.png */,
 				49914E6F1F2E3D16003058DA /* 0016-024px.png */,
-				49914E701F2E3D16003058DA /* AppIcon-1024@1x.png */,
 				49914E711F2E3D16003058DA /* AppIcon-20@1x.png */,
 				49914E721F2E3D16003058DA /* AppIcon-20@2x.png */,
 				49914E731F2E3D16003058DA /* AppIcon-20@3x.png */,
@@ -290,6 +289,7 @@
 				49914E7E1F2E3D16003058DA /* AppIcon-76@2x.png */,
 				49914E7F1F2E3D16003058DA /* AppIcon-76@3x.png */,
 				49914E801F2E3D16003058DA /* AppIcon-83.5@2x.png */,
+				49914E701F2E3D16003058DA /* AppIcon-1024@1x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
