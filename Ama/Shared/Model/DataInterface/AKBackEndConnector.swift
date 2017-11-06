@@ -3,6 +3,8 @@ import UIKit
 
 class AKBackEndConnector {
     static func obtainSessionToken(controller: UIViewController?,
+                                   user: String,
+                                   pass: String,
                                    showDebugInfo: Bool = false,
                                    completionTask: @escaping (String) -> Void,
                                    failureTask: @escaping (Int, String?) -> Void) {
@@ -16,8 +18,8 @@ class AKBackEndConnector {
                 string: String(
                     format: "%@/oauth/token?grant_type=password&username=%@&password=%@",
                     GlobalConstants.AKAmaServerAddress,
-                    Func.AKGetUser().username,
-                    Func.AKGetUser().password
+                    user,
+                    pass
             ))! as URL,
             cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy,
             timeoutInterval: 10.0

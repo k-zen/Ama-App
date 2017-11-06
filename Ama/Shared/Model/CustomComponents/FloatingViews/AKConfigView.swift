@@ -13,9 +13,14 @@ class AKConfigView: AKCustomView, AKCustomViewProtocol {
     
     // MARK: Actions
     @IBAction func notify(_ sender: UISwitch, forEvent event: UIEvent) {
+        let user = Func.AKGetUser().username
+        let pass = Func.AKGetUser().password
+        
         Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { () -> Void in
             AKBackEndConnector.obtainSessionToken(
                 controller: self.controller,
+                user: user,
+                pass: pass,
                 completionTask: { (sessionToken) -> Void in
                     AKWSUtils.makeRESTRequest(
                         controller: nil,

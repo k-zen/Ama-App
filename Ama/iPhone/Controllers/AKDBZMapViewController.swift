@@ -47,9 +47,14 @@ class AKDBZMapViewController: AKCustomViewController, MKMapViewDelegate {
         )
         
         // Call the Controller from a background thread to avoid locking the main thread.
+        let user = Func.AKGetUser().username
+        let pass = Func.AKGetUser().password
+        
         Func.AKExecute(mode: .asyncBackground, timeDelay: 0.0) { () -> Void in
             AKBackEndConnector.obtainSessionToken(
                 controller: controller,
+                user: user,
+                pass: pass,
                 completionTask: { (sessionToken) -> Void in
                     AKWSUtils.makeRESTRequest(
                         controller: controller,
