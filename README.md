@@ -1,5 +1,5 @@
 # Ama-App
-Aplicación iOS para visualizar las reflectividades de radar generadas por la aplicación [Ama](https://github.com/k-zen/Ama). Ésta aplicación también forma parte de mi Tesis de Grado para la Universidad Católica de Asuncíon.
+Aplicación iOS para visualizar las reflectividades de radar generadas por la aplicación [Ama](https://github.com/k-zen/Ama). Ésta aplicación también forma parte de mi Tesis de Grado para la Universidad Católica de Asunción.
 
 ## Funciones
 1. Visualiza las agrupaciones de nubes de tormenta detectadas con el algoritmo DBSCAN utilizando un mapa de calor. Las variaciones en intensidad en el mapa de calor poseen colores diferentes en intervalos fijos.
